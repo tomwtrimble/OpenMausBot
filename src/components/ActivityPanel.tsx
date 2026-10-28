@@ -13,6 +13,7 @@ import {
 import { listenLiveFrames } from "@/lib/live-events";
 import { useActivityFocus } from "@/lib/activity-focus";
 import { t } from "@/lib/i18n";
+import { IconButton } from "./ui/IconButton";
 
 const LIMIT = 300;
 
@@ -105,22 +106,20 @@ export function ActivityPanel({ bot }: { bot: Bot }) {
           <ListChecks size={16} className="text-ink-secondary" /> {t("activity.panel.title")}
         </span>
         <span className="flex items-center gap-1">
-          <button
+          <IconButton label={t("activity.panel.reload")}
             onClick={() => void load()}
             className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink"
-            title={t("activity.panel.reload")}
-            aria-label={t("activity.panel.reload")}
+
           >
             <RefreshCw size={14} />
-          </button>
-          <button
+          </IconButton>
+          <IconButton label={t("activity.panel.close")}
             onClick={() => dispatch({ type: "toggleActivity", open: false })}
-            aria-label={t("activity.panel.close")}
-            title={t("activity.panel.close")}
+
             className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink"
           >
             <X size={18} />
-          </button>
+          </IconButton>
         </span>
       </div>
 

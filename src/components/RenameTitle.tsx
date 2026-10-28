@@ -5,6 +5,7 @@ import { Pencil } from "lucide-react";
 import { nextRename } from "@/lib/rename";
 import { cn } from "@/lib/cn";
 import { BOT_PROFILE_LIMITS } from "../../shared/bot-profile";
+import { IconButton } from "./ui/IconButton";
 
 export function RenameTitle({
   value,
@@ -107,15 +108,13 @@ export function RenameTitle({
         ) : (
           <span className={cn("min-w-0 truncate", className)}>{value}</span>
         )}
-        <button
-          type="button"
+        <IconButton label={t("rename.named", { name: value })} tooltip={t("rename.agent")}
           onClick={startRename}
-          aria-label={t("rename.named", { name: value })}
-          title={t("rename.agent")}
+
           className={cn("flex size-10 shrink-0 items-center justify-center rounded text-ink-secondary opacity-70 hover:bg-raised hover:text-ink hover:opacity-100", editButtonClassName)}
         >
           <Pencil size={12} />
-        </button>
+        </IconButton>
       </span>
     );
   }

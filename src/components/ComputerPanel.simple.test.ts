@@ -4,7 +4,7 @@ import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { Bot, InstanceInfo, Message, Task } from "@/state/store";
 import type { FeatureFlagConfig } from "@/lib/feature-flags";
-import { isButton } from "@/testing/ui-elements";
+import { buttonName, buttonProps, isButton } from "@/testing/ui-elements";
 
 // Hook-by-call-order harness: state survives between renders, effects never run, handlers are read off the element
 // tree. `seed` presets what the resolve effect would have reached.
@@ -202,7 +202,7 @@ describe("Computer panel tabs", () => {
       const row = rendered.nodes.find((node) => Children.toArray(node.props.children)
         .some((child) => isValidElement(child) && (child as Node).props["data-testid"] === "computer-tabs"))!;
       expect(String(row.props.className).split(" ")).toEqual(expect.arrayContaining(["relative", "flex", "justify-center"]));
-      const close = rendered.nodes.find((node) => node.props["aria-label"] === "Close the Screen panel")!;
+      const close = rendered.nodes.find((node) => buttonName(node) === "Close the Screen panel")!;
       expect(String(close.props.className).split(" ")).toEqual(expect.arrayContaining(["absolute", "right-0"]));
     }
   });
@@ -554,7 +554,7 @@ describe("Technical controls", () => {
     fixture.advanced = true;
     fixture.values = [];
     const advanced = render(cloud());
-    expect(advanced.nodes.some((node) => node.props.title === "Bot settings")).toBe(true);
+    expect(advanced.nodes.some((node) => buttonProps(node).title === "Bot settings")).toBe(true);
     expect(advanced.nodes.some((node) => node.type === CloudBackendPicker)).toBe(true);
     expect(advanced.html).toContain("Works on");
     expect(advanced.buttons.some((node) => text(node.props.children).startsWith("Routines"))).toBe(true);

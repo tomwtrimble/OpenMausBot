@@ -37,6 +37,7 @@ import { api, ApiError, useStore, type Bot, type ConfigStatus } from "@/state/st
 import { Switch } from "../SettingsPrimitives";
 import { useDesktopCapabilities } from "../DesktopCapabilities";
 import { inputCls } from "./field";
+import { IconButton } from "../ui/IconButton";
 
 const buttonCls = "rounded-lg bg-control px-3 py-1.5 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50";
 const quietButtonCls = "rounded-md px-2 py-1 text-[13px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50";
@@ -640,15 +641,13 @@ export function MemoryFileRows({
                   {formatBytes(file.bytes)} · {localizedRelativeTime(file.modifiedAt, activeLocale())}
                 </span>
               </button>
-              <button
-                type="button"
+              <IconButton label={t("memory.deleteFile", { name: file.name })} tooltip={t("memory.delete")}
                 onClick={() => onDelete(file)}
-                aria-label={t("memory.deleteFile", { name: file.name })}
-                title={t("memory.delete")}
+
                 className="shrink-0 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-danger-text"
               >
                 <Trash2 size={14} />
-              </button>
+              </IconButton>
             </div>
           ))}
         </div>

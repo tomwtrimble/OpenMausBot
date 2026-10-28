@@ -7,6 +7,7 @@ import { t } from "@/lib/i18n";
 import { isArchived, orderedSidebarThreads, orderedThreadList, threadRecency, threadUpdatedLabel } from "./SidebarThreadRow";
 import type { SidebarDensity } from "@/lib/sidebar-preferences";
 import { localizedTaskTitle } from "@/lib/task-title";
+import { IconButton } from "./ui/IconButton";
 
 export function sidebarBotActivityTasks(bot: Bot, queued: Record<string, unknown[]>, archivedApprovals = false): Array<Task & { queued: boolean }> {
   const tasks = bot.tasks ?? [{
@@ -180,10 +181,10 @@ export function PinnedThreadRows({ entries, now, onJump, onUnpin }: { entries: A
             <span className="block truncate text-[11px] text-ink-secondary">{byline}</span>
           </span>
         </button>
-        <button type="button" aria-label={unpinLabel} title={unpinLabel} onClick={() => onUnpin(entry)}
+        <IconButton label={unpinLabel} onClick={() => onUnpin(entry)}
           className="mr-2 flex size-6 shrink-0 items-center justify-center rounded text-ink-secondary opacity-0 hover:bg-raised hover:text-ink focus-visible:opacity-100 group-hover/pinned:opacity-100 max-md:opacity-70 touch:opacity-70">
           <PinOff size={13} aria-hidden="true" />
-        </button>
+        </IconButton>
       </div>;
     })}
   </>;

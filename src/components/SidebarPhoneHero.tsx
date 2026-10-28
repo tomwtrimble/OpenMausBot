@@ -4,6 +4,7 @@ import { stateForBot } from "@/lib/mascot";
 import type { Bot } from "@/state/store";
 import { BotAvatar } from "./Avatar";
 import { openBotContextMenu, useVisibleMessages, type MenuState } from "./Sidebar";
+import { IconButton } from "./ui/IconButton";
 
 /** The phone's home leads with the chief of staff, large and centred, instead of a row. */
 export function PhoneHero({ bot, selected, onOpen, onMenu }: { bot: Bot; selected: boolean; onOpen: () => void; onMenu: (menu: MenuState) => void }) {
@@ -28,9 +29,9 @@ export function PhoneHero({ bot, selected, onOpen, onMenu }: { bot: Bot; selecte
         <span className="text-[17px] font-semibold leading-6 text-ink">{bot.name}</span>
         <span className="text-[13px] leading-4 text-ink-secondary">{t("sidebar.bot.chiefOfStaff")}</span>
       </button>
-      <button type="button" data-bot-actions={bot.id} aria-label={t("sidebar.bot.actions", { name: bot.name })} title={t("sidebar.bot.actions", { name: bot.name })} aria-haspopup="menu"
+      <IconButton label={t("sidebar.bot.actions", { name: bot.name })} data-bot-actions={bot.id} aria-haspopup="menu"
         onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); onMenu({ botId: bot.id, x: rect.left, y: rect.bottom }); }}
-        className="absolute right-1 top-1 flex size-8 items-center justify-center rounded-full text-ink-secondary hover:bg-raised hover:text-ink"><MoreHorizontal size={16} /></button>
+        className="absolute right-1 top-1 flex size-8 items-center justify-center rounded-full text-ink-secondary hover:bg-raised hover:text-ink"><MoreHorizontal size={16} /></IconButton>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { useCopyFeedback } from "@/lib/copy-text";
 import { t } from "@/lib/i18n";
 import { MENU_ITEM, MENU_SHEET } from "./menu-recipe";
+import { IconButton } from "./ui/IconButton";
 
 export const ACTION_ICON = { size: 17, strokeWidth: 1.5 } as const;
 
@@ -173,19 +174,17 @@ export function MessageActions({
     >
       {children}
       {menu.length > 0 && (
-        <button
+        <IconButton label={t("chat.messageActions")}
           ref={moreRef}
-          type="button"
           onClick={() => setMenuOpen((value) => !value)}
-          aria-label={t("chat.messageActions")}
-          title={t("chat.messageActions")}
+
           aria-haspopup="menu"
           aria-expanded={menuOpen}
           aria-controls={menuOpen ? menuId : undefined}
           className={cn(messageActionClass, menuOpen && "bg-ink/10 text-ink")}
         >
           <Ellipsis {...ACTION_ICON} aria-hidden="true" />
-        </button>
+        </IconButton>
       )}
       {menuOpen && (
         <div
@@ -226,9 +225,9 @@ export function MessageActions({
 
 export function ReplyAction({ onReply }: { onReply: () => void }) {
   return (
-    <button type="button" onClick={onReply} aria-label={t("chat.replyToMessage")} title={t("chat.reply")} className={messageActionClass}>
+    <IconButton label={t("chat.replyToMessage")} tooltip={t("chat.reply")} onClick={onReply} className={messageActionClass}>
       <Reply {...ACTION_ICON} aria-hidden="true" />
-    </button>
+    </IconButton>
   );
 }
 

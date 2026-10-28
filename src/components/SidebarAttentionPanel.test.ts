@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import { t } from "@/lib/i18n";
 import { AttentionThreadRows, type AttentionThread } from "./SidebarBotActivity";
 import { SidebarAttentionPanel } from "./SidebarAttentionPanel";
+import { buttonProps } from "@/testing/ui-elements";
 
 const entry: AttentionThread = {
   kind: "bot",
@@ -17,7 +18,7 @@ type ElementProps = { children?: ReactNode; onClick?: (event: MouseEvent) => voi
 function findElement(tree: ReactNode, attribute: string, value: string): ReactElement<ElementProps> | undefined {
   for (const child of Children.toArray(tree)) {
     if (!isValidElement<ElementProps>(child)) continue;
-    if (child.props[attribute] === value) return child;
+    if (buttonProps(child)[attribute] === value) return child;
     const found = findElement(child.props.children, attribute, value);
     if (found) return found;
   }

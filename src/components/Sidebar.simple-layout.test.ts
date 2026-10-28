@@ -53,6 +53,7 @@ import { GlassBar, GlassScrollFrame, GlassScroller } from "./GlassScrollFrame";
 import { SidebarSectionHeader } from "./SidebarSectionHeader";
 import { SidebarEdgeToggle, SidebarSearchPill, SidebarSearchToggle } from "./SidebarSimpleTop";
 import { SidebarRailSeparator, SimpleRailFooter } from "./SidebarSimpleRail";
+import { buttonName, isButton } from "@/testing/ui-elements";
 
 const bot = (id: string, extra: Partial<Bot> = {}): Bot => ({
   id, threadId: `${id}-thread`, name: id, title: "", description: "", notifications: true,
@@ -79,7 +80,7 @@ function render(collapseToIcons = false) {
 const sectionOrder = (tree: ReactElement<Props>[]) => tree.map((node) => node.props["data-sidebar-section-id"]).filter(Boolean);
 const headers = (tree: ReactElement<Props>[]) => tree.filter((node) => node.type === SidebarSectionHeader) as ReactElement<Parameters<typeof SidebarSectionHeader>[0]>[];
 const listedBots = (tree: ReactElement<Props>[]) => tree.map((node) => (node.props.bot as Bot | undefined)?.id).filter(Boolean);
-const labelled = (tree: ReactElement<Props>[], label: string) => tree.some((node) => node.props["aria-label"] === label);
+const labelled = (tree: ReactElement<Props>[], label: string) => tree.some((node) => buttonName(node) === label);
 
 beforeEach(() => {
   fixture.values = [];
@@ -200,7 +201,7 @@ describe("Simple-mode sidebar layout", () => {
     const { tree } = render();
     expect(work().props.menuOpen).toBe(true);
     const menu = tree.find((node) => node.props.role === "menu")!;
-    expect(menu.props["aria-label"]).toBe("Work");
+    expect(buttonName(menu)).toBe("Work");
     expect(menu.props.style).toEqual({ left: 24, top: 304 });
     const items = tree.find((node) => node.type === TeamMenuItems)!.props as Parameters<typeof TeamMenuItems>[0];
     for (const action of ["onAddBots", "onRename", "onShare", "onDelete"] as const) expect(items[action]).toBeTypeOf("function");
@@ -231,7 +232,7 @@ describe("Simple-mode sidebar layout", () => {
   it("toggles a search pill from the round search button, and closing it clears the filter", () => {
     const toggle = () => render().tree.find((node) => node.type === SidebarSearchToggle)!.props as Parameters<typeof SidebarSearchToggle>[0];
     const pill = () => render().tree.find((node) => node.type === SidebarSearchPill)?.props as Parameters<typeof SidebarSearchPill>[0] | undefined;
-    expect(render().tree.some((node) => node.props["aria-label"] === "Search bots and messages" && node.type === "input")).toBe(false);
+    expect(render().tree.some((node) => buttonName(node) === "Search bots and messages" && node.type === "input")).toBe(false);
     expect(pill()).toBeUndefined();
     expect(toggle().open).toBe(false);
     toggle().onToggle();
@@ -297,13 +298,13 @@ describe("Simple-mode sidebar layout", () => {
   it("puts round search and the same + menu at the top of the rail, and the edge bump expands it again", () => {
     setSidebarDensity("icons");
     const top = () => render().tree.find((node) => node.props["data-sidebar-rail-top"] !== undefined)!;
-    const plus = () => nodes(top().props.children).find((node) => node.type === "button" && node.props["aria-label"] === "New or share")!;
+    const plus = () => nodes(top().props.children).find((node) => isButton(node) && buttonName(node) === "New or share")!;
     expect(plus().props.className).toEqual(expect.stringContaining("size-9"));
     (plus().props.onClick as () => void)();
     const menu = nodes(top().props.children).find((node) => /\bmin-w-\[200px\]/.test(node.props.className ?? ""))!;
     expect(menu.props.className).toEqual(expect.stringContaining("left-full top-0"));
     expect(menu.props.className).toEqual(expect.stringContaining("rounded-[var(--radius-menu)]"));
-    const item = (label: string) => nodes(top().props.children).find((node) => node.type === "button" && nodes(node.props.children).concat(node).some((part) => Children.toArray(part.props.children).includes(label)));
+    const item = (label: string) => nodes(top().props.children).find((node) => isButton(node) && nodes(node.props.children).concat(node).some((part) => Children.toArray(part.props.children).includes(label)));
     expect(item("Create department"), "Simple mode never asks the person to design a department").toBeUndefined();
     expect(item("New chat"), "a new conversation starts from the bot panel").toBeUndefined();
     expect(item("New bot")).toBeDefined();
@@ -333,10 +334,10 @@ describe("Simple-mode sidebar layout", () => {
   it("New Bot makes a bot at once in both modes, Chief of Staff or not; Advanced keeps Create department and Templates", () => {
     fixture.state = { ...fixture.state, bots: [bot("atlas", { chiefOfStaff: true }), bot("bea")] };
     const openMenu = () => {
-      const plus = () => render().tree.find((node) => node.type === "button" && node.props["aria-label"] === "New or share")!;
+      const plus = () => render().tree.find((node) => isButton(node) && buttonName(node) === "New or share")!;
       (plus().props.onClick as () => void)();
       const tree = render().tree;
-      return (label: string) => tree.find((node) => node.type === "button" && nodes(node.props.children).concat(node).some((part) => Children.toArray(part.props.children).includes(label)));
+      return (label: string) => tree.find((node) => isButton(node) && nodes(node.props.children).concat(node).some((part) => Children.toArray(part.props.children).includes(label)));
     };
     (openMenu()("New bot")!.props.onClick as () => void)();
     expect(fixture.dispatch.mock.calls.map(([action]) => action)).toEqual([{ type: "newBot" }]);
@@ -350,7 +351,7 @@ describe("Simple-mode sidebar layout", () => {
     expect(fixture.dispatch.mock.calls.map(([action]) => action)).toEqual([{ type: "newBot" }]);
   });
 
-  const railSearch = (tree: ReactElement<Props>[]) => tree.find((node) => node.type === "button" && node.props["aria-label"] === "Search bots and messages")!.props.onClick as () => void;
+  const railSearch = (tree: ReactElement<Props>[]) => tree.find((node) => isButton(node) && buttonName(node) === "Search bots and messages")!.props.onClick as () => void;
 
   it("opens the search pill from the rail's search button by expanding the sidebar", () => {
     setSidebarDensity("icons");

@@ -7,6 +7,7 @@ import { usePopoverDismiss } from "@/hooks/use-popover-dismiss";
 import { t } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 import { BotAvatar } from "./Avatar";
+import { IconButton } from "./ui/IconButton";
 
 const MIN_BESIDE_WIDTH = 320;
 const PANEL_WIDTH = 360;
@@ -157,15 +158,13 @@ export function SidebarNewChatPanel({
           spellCheck={false}
           className="h-7 min-w-0 flex-1 bg-transparent text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
         />
-        <button
-          type="button"
+        <IconButton label={t("common.close")}
           onClick={onClose}
-          aria-label={t("common.close")}
-          title={t("common.close")}
+
           className="-me-2 flex size-7 shrink-0 items-center justify-center rounded-full text-ink-secondary outline-none hover:bg-raised hover:text-ink focus-visible:bg-raised"
         >
           <X size={16} />
-        </button>
+        </IconButton>
       </div>
       <div
         id="new-chat-bots"

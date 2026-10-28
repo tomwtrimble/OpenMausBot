@@ -9,6 +9,7 @@ import type { RuntimeEvent } from "../../shared/runtime-events";
 import { RunLog } from "./RunLog";
 import { timelineEvents } from "@/lib/taskTimeline";
 import { t } from "@/lib/i18n";
+import { IconButton } from "./ui/IconButton";
 
 type Lens = "run" | "events" | "raw";
 
@@ -148,14 +149,13 @@ export function InspectorPanel({ bot }: { bot: Bot }) {
         <span className="flex items-center gap-2 text-[15px] font-semibold text-ink">
           <Bug size={16} className="text-ink-secondary" /> Inspector
         </span>
-        <button
+        <IconButton label="Close the Inspector"
           onClick={() => dispatch({ type: "toggleInspector", open: false })}
-          aria-label="Close the Inspector"
-          title="Close the Inspector"
+
           className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink"
         >
           <X size={18} />
-        </button>
+        </IconButton>
       </div>
 
       <div className="flex items-center gap-2 border-b border-hairline px-4 pb-3">
@@ -192,9 +192,9 @@ export function InspectorPanel({ bot }: { bot: Bot }) {
         {lens !== "run" && <span className="ml-auto text-[11px] text-ink-secondary">
           {page ? (shown < total ? `last ${shown} of ${total}` : `${shown} entries`) : "loading…"}
         </span>}
-        {lens !== "run" && <button onClick={() => managedRefresh.current()} className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink" title="Reload from disk">
+        {lens !== "run" && <IconButton label="Reload from disk" onClick={() => managedRefresh.current()} className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink">
           <RefreshCw size={14} />
-        </button>}
+        </IconButton>}
       </div>
 
       <div role="tabpanel" id={`inspector-panel-${lens}`} aria-labelledby={`inspector-tab-${lens}`} tabIndex={0} className="flex min-h-0 flex-1 flex-col outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus/60">

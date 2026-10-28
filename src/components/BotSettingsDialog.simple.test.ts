@@ -8,6 +8,7 @@ import type { Bot, BotSettingsSection, InstanceInfo } from "@/state/store";
 import { AVATAR_FOCUS_CENTER, AVATAR_ZOOM_MIN } from "../../shared/bot-avatar";
 import type { ManagedSkill } from "./bot-settings/SkillsSection";
 import type { BotApps } from "./bot-settings/useBotApps";
+import { buttonProps } from "@/testing/ui-elements";
 
 // Hook-by-call-order harness: component state survives between renders, effects never run, and handlers are read off
 // the element tree.
@@ -194,7 +195,7 @@ const settingsPage = (bot: Bot, editingInstructions = false) =>
 const library = (bot: Bot) => capture(() => LibraryTab({ bot, onOpen }));
 const computer = (bot: Bot) => capture(() => ComputerTab({ bot, derived: derived(), onOpen }));
 const find = (rendered: { nodes: Node[] }, attr: string, value: unknown = true) => {
-  const found = rendered.nodes.find((node) => node.props[attr] === value);
+  const found = rendered.nodes.find((node) => buttonProps(node)[attr] === value);
   if (!found) throw new Error(`no node with ${attr}=${String(value)}`);
   return found;
 };
@@ -274,7 +275,7 @@ describe("the bot panel in Simple mode", () => {
     const rendered = panel(bot);
     expect(ofType(rendered, ChatShareMenu)!.props.bot).toBe(bot);
     const gear = find(rendered, "data-panel-gear");
-    expect([gear.props["aria-label"], gear.props.title]).toEqual(["Bot settings", "Bot settings"]);
+    expect([buttonProps(gear)["aria-label"], buttonProps(gear).title]).toEqual(["Bot settings", "Bot settings"]);
     click(find(rendered, "aria-label", "Close settings"));
     expect(onClose).toHaveBeenCalled();
     const hero = ofType(rendered, PanelHero)!;

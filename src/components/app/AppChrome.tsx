@@ -4,6 +4,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import type { AppNetwork } from "../../../shared/app";
 import { ASK_CHIP, ASK_CHIP_IDLE, ASK_QUIET_BUTTON } from "../AskCard";
+import { IconButton } from "../ui/IconButton";
 
 export const APP_SURFACE = "w-full overflow-hidden rounded-2xl bg-composer ring-1 ring-composer-ring";
 const ICON_BUTTON =
@@ -45,21 +46,19 @@ export function AppHeader({
         </div>
       </div>
       <div className="-me-1.5 mt-0.5 flex shrink-0 items-center gap-0.5">
-        <button
-          type="button"
-          aria-label={t("app.info")}
-          title={t("app.info")}
+        <IconButton label={t("app.info")}
+
           aria-expanded={infoOpen}
           aria-controls={infoId}
           onClick={onInfo}
           className={cn(ICON_BUTTON, infoOpen && "bg-ink/[0.07] text-ink")}
         >
           <Info size={15} />
-        </button>
+        </IconButton>
         {onReload && (
-          <button type="button" aria-label={t("app.reload")} title={t("app.reload")} onClick={onReload} disabled={reloading} className={ICON_BUTTON}>
+          <IconButton label={t("app.reload")} onClick={onReload} disabled={reloading} className={ICON_BUTTON}>
             <RotateCw size={14} className={cn(reloading && "animate-spin motion-reduce:animate-none")} />
-          </button>
+          </IconButton>
         )}
       </div>
     </div>

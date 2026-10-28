@@ -5,9 +5,9 @@ import { t } from "@/lib/i18n";
 import { productName } from "../lib/brand";
 import { NoticeToast } from "./NoticeCard";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
-const primaryAction =
-  "flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent py-1.5 text-[13px] font-medium text-white transition-colors disabled:cursor-default disabled:bg-control disabled:text-ink-secondary";
+const primaryAction = "flex flex-1 gap-1.5 disabled:cursor-default";
 
 // electron-updater surfaces failures as a whole HTTP dump (status line, every header, stack trace).
 function friendlyError(message?: string): string {
@@ -107,13 +107,12 @@ export function UpdateBanner({ sidebarIndicator = false }: UpdateBannerProps) {
           </div>
         </div>
         {!installing && (
-          <button
+          <IconButton label="Dismiss"
             onClick={() => setDismissed(key)}
             className="shrink-0 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-ink"
-            title="Dismiss"
           >
             <X size={14} />
-          </button>
+          </IconButton>
         )}
       </div>
 

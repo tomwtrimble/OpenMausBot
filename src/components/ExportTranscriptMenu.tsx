@@ -11,6 +11,7 @@ import {
 } from "@/lib/export-transcript";
 import type { Message } from "@/state/store";
 import { MENU_HEADING, MENU_SHEET } from "./menu-recipe";
+import { IconButton } from "./ui/IconButton";
 
 export interface ExportTranscriptMenuProps {
   title: string;
@@ -95,10 +96,8 @@ export function ExportTranscriptMenu({
 
   return (
     <div className="relative" ref={menuRef}>
-      <button
-        type="button"
+      <IconButton label="Export conversation" tooltip="Export conversation as Markdown"
         onClick={() => setOpen((prev) => !prev)}
-        aria-label="Export conversation"
         aria-haspopup="menu"
         aria-expanded={open}
         className={cn(
@@ -106,10 +105,9 @@ export function ExportTranscriptMenu({
           open ? "text-accent-text" : "text-ink-secondary hover:text-ink",
           className,
         )}
-        title="Export conversation as Markdown"
       >
         <Share size={18} />
-      </button>
+      </IconButton>
 
       {motion.shown && (
         <div

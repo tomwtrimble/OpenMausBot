@@ -6,6 +6,7 @@ import { useAdvancedMode } from "@/lib/interface-mode";
 import { MAUS_COLORS, type MausColor } from "@/lib/mascot";
 import { ELEVATED_CONTROL, ELEVATED_HOVER } from "../elevated";
 import { Switch } from "../SettingsPrimitives";
+import { IconButton } from "../ui/IconButton";
 
 export const rowCls = "flex min-h-[46px] items-center gap-2.5 px-3.5 py-[11px]";
 export const roundButtonCls = `flex size-[34px] shrink-0 items-center justify-center rounded-full text-ink ${ELEVATED_CONTROL} ${ELEVATED_HOVER} [:root[data-skin=daylight]_&]:shadow-[0_1px_3px_rgb(28_28_28/0.12)]`;
@@ -240,17 +241,15 @@ export function TrashButton({ label, onClick, disabled, ...rest }: {
   "data-panel-action"?: string;
 }) {
   return (
-    <button
-      type="button"
+    <IconButton label={label}
       {...rest}
-      aria-label={label}
-      title={label}
+
       disabled={disabled}
       onClick={onClick}
       className="flex size-7 shrink-0 items-center justify-center rounded-lg text-ink-tertiary hover:bg-ink/[0.05] hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
     >
       <Trash2 size={14} aria-hidden="true" />
-    </button>
+    </IconButton>
   );
 }
 

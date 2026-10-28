@@ -88,7 +88,7 @@ const activeTab = () => document.querySelector<HTMLElement>('[data-testid="compu
 const tabByLabel = (label: string) =>
   [...document.querySelectorAll<HTMLElement>('[data-testid="computer-tabs"] [role="tab"]')].find((candidate) => candidate.textContent?.trim() === label)!;
 const panelClose = () => document.querySelector<HTMLElement>("[data-computer-panel-close]");
-const panelGear = () => document.querySelector<HTMLElement>(`[title=${JSON.stringify(t("computer.botSettings"))}]`)!;
+const panelGear = () => document.querySelector<HTMLElement>(`[aria-label=${JSON.stringify(t("computer.botSettings"))}]`)!;
 const chatButton = () => {
   const button = document.createElement("button");
   button.dataset.tour = "computer";

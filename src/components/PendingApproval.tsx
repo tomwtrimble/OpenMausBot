@@ -12,6 +12,7 @@ import { reviewedSkillSha256 } from "../../shared/skill-request";
 import { useOwnerOrAdmin } from "@/lib/use-owner-or-admin";
 import { useInboxOrigin } from "./InboxLine";
 import { yourComputerAsk } from "@/lib/your-computer";
+import { IconButton } from "./ui/IconButton";
 
 interface ApprovalLabels {
   [tool: string]: LocaleKey;
@@ -189,17 +190,14 @@ export const PendingApprovalPanel = memo(function PendingApprovalPanel({
           </span>
         )}
         {(hidden || skill || more) && (
-          <button
-            type="button"
+          <IconButton label={open ? t("approval.applied.hideDetails") : t("approval.applied.details")}
             aria-expanded={open}
             aria-controls={detailsId}
-            aria-label={open ? t("approval.applied.hideDetails") : t("approval.applied.details")}
-            title={open ? t("approval.applied.hideDetails") : t("approval.applied.details")}
             onClick={() => setOpen((value) => !value)}
             className={cn(ASK_QUIET_BUTTON, "-me-2 w-7 px-0")}
           >
             <ChevronDown size={16} aria-hidden="true" className={cn("motion-safe:transition-transform", open && "rotate-180")} />
-          </button>
+          </IconButton>
         )}
       </div>
       {summary && <p dir="auto" className="mt-1.5 break-words text-[15px] font-medium leading-[22px] text-ink">{summary}</p>}

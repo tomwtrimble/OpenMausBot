@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { runSummary, type RunSkill, type RunStep } from "@/lib/verify-steps";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 function StatusIcon({ status }: { status: RunStep["status"] }) {
   const className = "size-4 shrink-0";
@@ -53,19 +54,17 @@ export function VerifyCard({
             {runSummary(steps).label}
           </span>
         </div>
-        <button
-          type="button"
+        <IconButton label={toggleLabel}
           onClick={() => setCollapsed((current) => !current)}
           aria-expanded={!collapsed}
-          aria-label={toggleLabel}
-          title={toggleLabel}
+
           className={ICON_BUTTON}
         >
           {collapsed ? <ChevronUp size={14} aria-hidden="true" /> : <ChevronDown size={14} aria-hidden="true" />}
-        </button>
-        <button type="button" onClick={onDismiss} aria-label={t("chat.verify.dismiss")} title={t("chat.verify.dismiss")} className={ICON_BUTTON}>
+        </IconButton>
+        <IconButton label={t("chat.verify.dismiss")} onClick={onDismiss} className={ICON_BUTTON}>
           <X size={14} aria-hidden="true" />
-        </button>
+        </IconButton>
       </div>
       {!collapsed && (
         <>

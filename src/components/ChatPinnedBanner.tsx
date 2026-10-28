@@ -3,6 +3,7 @@ import type { Bot, Message } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { peerLine } from "@/lib/peer-message";
 import { citationPreviewText } from "@/lib/citations";
+import { IconButton } from "./ui/IconButton";
 
 /** The chat's pinned message above the transcript: who said it, a one-line preview that jumps to it, and Unpin. */
 export function PinnedBanner({
@@ -37,14 +38,13 @@ export function PinnedBanner({
           <span className="shrink-0 text-[12px] font-medium text-accent-text">{sender}</span>
           <span dir="auto" className="truncate text-[13px] text-ink-secondary">{text}</span>
         </button>
-        {onUnpin && <button
+        {onUnpin && <IconButton label={t("chat.unpinMessage")} tooltip={t("chat.unpin")}
           onClick={onUnpin}
-          aria-label={t("chat.unpinMessage")}
-          title={t("chat.unpin")}
+
           className="shrink-0 rounded p-0.5 text-ink-secondary hover:bg-raised hover:text-ink"
         >
           <X size={13} />
-        </button>}
+        </IconButton>}
       </div>
     </div>
   );

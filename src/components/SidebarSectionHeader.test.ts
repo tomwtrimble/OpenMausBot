@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 
 import { SidebarSectionHeader } from "./SidebarSectionHeader";
+import { buttonName, isButton } from "@/testing/ui-elements";
 
 describe("SidebarSectionHeader", () => {
   it("exposes collapse and keyboard reorder semantics without a fake grip button", () => {
@@ -104,7 +105,9 @@ describe("SidebarSectionHeader as a Simple-mode line", () => {
     expect(html).toContain('data-sidebar-section-line=""');
     expect(html).toMatch(/text-\[12px\][^"]*text-ink-secondary/);
     expect(html).not.toContain("bg-edge");
-    expect(html).toContain('aria-label="Actions for Work department" title="Actions for Work department" aria-haspopup="menu" aria-expanded="false"');
+    // its name is the label; the tooltip shows on hover and keyboard focus, not as a native title
+    expect(html).toMatch(/<button(?=[^>]*aria-haspopup="menu")(?=[^>]*aria-expanded="false")[^>]*aria-label="Actions for Work department"/);
+    expect(html).not.toContain('title="Actions for Work department"');
     expect(html).toMatch(/aria-label="Actions for Work department"[^>]*class="[^"]*\bopacity-0\b[^"]*\bgroup-hover\/section:opacity-100\b[^"]*\baria-expanded:opacity-100\b/);
     expect(html).not.toContain("Delete Work department");
     expect(html).not.toContain("lucide-grip-vertical");
@@ -112,7 +115,7 @@ describe("SidebarSectionHeader as a Simple-mode line", () => {
     expect(html).toMatch(/lucide-chevron-down absolute text-ink-secondary opacity-0 transition-opacity group-hover\/section:opacity-100 group-focus-within\/section:opacity-100 touch:opacity-100/);
     expect(html.indexOf(">Work</span>")).toBeLessThan(html.indexOf("Actions for Work department"));
     const button = { id: "dots" };
-    const dots = nodes(element.props.children).find((node) => node.props["aria-label"] === "Actions for Work department")!;
+    const dots = nodes(element.props.children).find((node) => buttonName(node) === "Actions for Work department")!;
     (dots.props.onClick as (event: { currentTarget: unknown }) => void)({ currentTarget: button });
     expect(onMenu).toHaveBeenCalledExactlyOnceWith(button);
     expect(renderToStaticMarkup(line({ onMenu, menuOpen: true }))).toContain('aria-haspopup="menu" aria-expanded="true"');
@@ -145,7 +148,7 @@ describe("SidebarSectionHeader as a Simple-mode line", () => {
     const onContextMenu = vi.fn();
     const element = line({ onToggle, onMove, onContextMenu });
     expect(element.props.onContextMenu).toBe(onContextMenu);
-    const name = nodes(element.props.children).find((node) => node.type === "button")!;
+    const name = nodes(element.props.children).find((node) => isButton(node))!;
     expect(name.props["aria-keyshortcuts"]).toBe("Alt+ArrowUp Alt+ArrowDown");
     (name.props.onClick as () => void)();
     expect(onToggle).toHaveBeenCalledOnce();

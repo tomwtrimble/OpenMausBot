@@ -12,6 +12,7 @@ vi.mock("react", async original => ({ ...await original<typeof import("react")>(
 const config = vi.hoisted(() => ({ value: {} as Record<string, unknown> }));
 vi.mock("@/state/store", () => ({ useStore: () => ({ state: { config: config.value }, dispatch: () => {} }) }));
 import { ConnectedWorkspacesSettings } from "./ConnectedWorkspacesSettings";
+import { buttonName, isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; onClick?: () => void; "aria-label"?: string;
   onChange?: (event: { target: { value?: string; checked?: boolean } }) => void;
@@ -56,8 +57,8 @@ function stubEnvironments(stateOverrides: Record<string, unknown> = {}, bridgeEx
   stub({ environments, ...ogbExtra });
   return environments;
 }
-const rowButton = (ariaLabel: string) => render().nodes.filter(n => n.type === "button" && n.props["aria-label"] === ariaLabel)[0];
-const textButton = (label: string) => render().nodes.filter(n => n.type === "button" && Children.toArray(n.props.children).join("") === label)[0];
+const rowButton = (ariaLabel: string) => render().nodes.filter(n => isButton(n) && buttonName(n) === ariaLabel)[0];
+const textButton = (label: string) => render().nodes.filter(n => isButton(n) && Children.toArray(n.props.children).join("") === label)[0];
 const forms = () => render().nodes.filter(n => n.type === "form");
 const envFormFields = () => nodes(forms()[0]!.props.children).filter(n => n.type === "input");
 
@@ -180,7 +181,7 @@ it("a Cloud of the person's own has no lending control here, since this computer
   vi.mocked((globalThis.window as unknown as { ogb: { environments: { state: ReturnType<typeof vi.fn> } } }).ogb.environments.state)
     .mockResolvedValue({ localOrigin: "http://127.0.0.1:1", remote: false, activeId: "local", environments: [VPS, cloud, other] });
   await mount();
-  const labels = render().nodes.filter(node => node.type === "button").map(node => node.props["aria-label"] ?? Children.toArray(node.props.children).join(""));
+  const labels = render().nodes.filter(node => isButton(node)).map(node => String(buttonName(node) ?? Children.toArray(node.props.children).join("")));
   expect(labels).toContain("Computer access for VPS");
   expect(labels.filter(label => /Computer access for (My Cloud|Client A)|use this/.test(label))).toEqual([]);
   expect(render().html).not.toContain("data-cloud-lending-link");

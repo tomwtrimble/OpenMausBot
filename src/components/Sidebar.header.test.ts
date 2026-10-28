@@ -133,7 +133,7 @@ describe("sidebar top row", () => {
     expect(row).toMatch(/aria-label="Switch server: Servers"[^>]*title="Servers"[^>]*class="[^"]*\bh-7\b[^"]*\boverflow-hidden\b[^"]*\btext-\[13px\][^"]*" style="-webkit-app-region:no-drag"/);
     expect(row).toContain('<span class="min-w-0 truncate @max-[96px]/sidebar-top:hidden">Servers</span>');
     expect(row).toContain("focus-visible:outline-2");
-    expect(html).toContain('title="New or share"');
+    expect(html).toContain('aria-label="New or share"');
     expect(row).toContain('title="Collapse to avatars"');
     expect(row).toContain('aria-label="Collapse sidebar to avatars"');
     expect(row).toContain('title="Active Threads"');
@@ -156,9 +156,9 @@ describe("sidebar top row", () => {
     expect(buttons).toBeGreaterThan(slot);
     expect(classesOf(row, "data-sidebar-top-buttons")).toEqual(expect.arrayContaining(["shrink-0", "gap-2"]));
     expect(row.slice(buttons).match(/<button/g)).toHaveLength(2);
-    expect(row).toMatch(/data-sidebar-search-toggle="true" aria-label="Search bots and messages" aria-expanded="false" title="Search bots and messages" class="[^"]*\bsize-9\b[^"]*\brounded-full\b[^"]*\btext-ink\/90\b[^"]*\bbg-composer\b/);
+    expect(row).toMatch(/<button(?=[^>]*data-sidebar-search-toggle="true")(?=[^>]*aria-expanded="false")[^>]*aria-label="Search bots and messages" class="[^"]*\bsize-9\b[^"]*\brounded-full\b[^"]*\btext-ink\/90\b[^"]*\bbg-composer\b/);
     expect(html).toMatch(/aria-label="New or share" class="[^"]*\bsize-9\b[^"]*\brounded-full\b/);
-    expect(html).toMatch(/data-sidebar-edge-toggle="true" aria-label="Collapse sidebar to avatars" aria-expanded="true" title="Collapse to avatars" style="-webkit-app-region:no-drag" class="[^"]*\babsolute\b[^"]*\bpointer-events-none opacity-0\b[^"]*\btouch:pointer-events-auto touch:opacity-100\b[^"]*\btop-\[14px\]/);
+    expect(html).toMatch(/<button(?=[^>]*data-sidebar-edge-toggle="true")(?=[^>]*aria-expanded="true")(?=[^>]*style="-webkit-app-region:no-drag")[^>]*aria-label="Collapse sidebar to avatars" class="[^"]*\babsolute\b[^"]*\bpointer-events-none opacity-0\b[^"]*\btouch:pointer-events-auto touch:opacity-100\b[^"]*\btop-\[14px\]/);
     expect(html).not.toContain('title="Active Threads"');
     expect(html).not.toContain("data-sidebar-search-pill");
   });
@@ -211,7 +211,7 @@ describe("sidebar top row", () => {
       expect(index, marker).toBeGreaterThan(-1);
       return index;
     };
-    expect(html).toMatch(/data-sidebar-edge-toggle="true" aria-label="Expand sidebar" aria-expanded="false"[^>]*class="[^"]*\bopacity-100\b[^"]*"><svg[^>]*lucide-chevron-right/);
+    expect(html).toMatch(/<button(?=[^>]*data-sidebar-edge-toggle="true")(?=[^>]*aria-expanded="false")[^>]*aria-label="Expand sidebar" class="[^"]*\bopacity-100\b[^"]*"[^>]*><svg[^>]*lucide-chevron-right/);
     expect(foot).not.toContain('aria-label="Expand sidebar"');
     expect(foot).not.toContain('aria-label="Search bots and messages"');
     const positions = [

@@ -16,6 +16,7 @@ import { ComputerNode } from "./ComputerNode";
 import { InstanceProviderMark, ProviderMark } from "./ProviderIcons";
 import { openBotSettings } from "./bot-panel/panel-link";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 type Gesture = {
   id: number;
@@ -64,22 +65,22 @@ function BotCard({ bot, selected, moving, connected, tagged = false, sent, onCom
       </span>
     </button>
     <div className="flex h-[43px] items-center gap-1 border-t border-hairline px-2">
-      <button className={cn(iconButton, "size-8")} aria-label={t("canvas.openBotChat", { name: bot.name })} title={t("canvas.openChat")}
-        onClick={() => openBot(dispatch, bot, showThreads)}><MessageCircle size={13} /></button>
+      <IconButton label={t("canvas.openBotChat", { name: bot.name })} tooltip={t("canvas.openChat")} className={cn(iconButton, "size-8")}
+        onClick={() => openBot(dispatch, bot, showThreads)}><MessageCircle size={13} /></IconButton>
       {status.tone !== "idle" && <span className="flex items-center gap-1.5 text-[10px] text-ink-secondary" title={status.label}>
         <span className={cn("size-1.5 rounded-full", status.tone === "success" ? "bg-success" : status.tone === "warning" ? "bg-warning" : status.tone === "danger" ? "bg-danger" : "bg-ink-secondary/35")} />
         {status.label}
       </span>}
-      {selected && onComputer && <button className={cn(iconButton, "size-8")} aria-label={t("canvas.botComputer", { name: bot.name })} title={t("computer.tab.computer")}
-        onClick={() => onComputer(bot)}><Monitor size={13} /></button>}
-      <button aria-label={t("canvas.changeModel", { name: bot.name })} title={`${t("canvas.defaultModel")}: ${model}`}
+      {selected && onComputer && <IconButton label={t("canvas.botComputer", { name: bot.name })} tooltip={t("computer.tab.computer")} className={cn(iconButton, "size-8")}
+        onClick={() => onComputer(bot)}><Monitor size={13} /></IconButton>}
+      <Button variant="ghost" aria-label={t("canvas.changeModel", { name: bot.name })} title={`${t("canvas.defaultModel")}: ${model}`}
         onClick={() => openBotSettings(dispatch, "model", { botId: bot.id })}
-        className="ml-auto flex h-8 min-w-0 max-w-[130px] items-center gap-1.5 rounded-md px-2 text-[10px] text-ink-secondary hover:bg-control hover:text-ink focus-visible:outline-2 focus-visible:outline-focus">
+        className="ml-auto flex min-w-0 max-w-[130px] gap-1.5 px-2 text-[10px] font-normal">
         <span className="flex size-3.5 shrink-0 items-center justify-center">{instance
           ? <InstanceProviderMark instance={instance} size={13} />
           : <ProviderMark driverKind="" size={13} />}</span>
         <span className="truncate">{model || t("canvas.defaultModel")}</span>
-      </button>
+      </Button>
     </div>
   </article>;
 }

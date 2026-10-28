@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { shortPath } from "@/lib/short-path";
 import { useDesktopCapabilities } from "./DesktopCapabilities";
+import { IconButton } from "./ui/IconButton";
 
 /**
  * PATCHed directly, not via patchGroup: the server validates the path, and a rejected folder must not stick in local
@@ -102,13 +103,12 @@ export function RoomWorkingFolderChip({ group, onToggle }: { group: Group; onTog
   const folder = roomWorkingFolder(group);
   if (!folder) {
     return (
-      <button
+      <IconButton label={t("room.folder.chipTitle")}
         onClick={onToggle}
         className="rounded-md p-1.5 text-ink-secondary hover:bg-raised hover:text-ink"
-        title={t("room.folder.chipTitle")}
       >
         <Folder size={14} />
-      </button>
+      </IconButton>
     );
   }
   return (

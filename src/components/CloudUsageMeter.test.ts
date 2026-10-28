@@ -14,12 +14,13 @@ vi.mock("react", async original => ({ ...await original<typeof import("react")>(
   useRef: (current: unknown) => { const index = f.index++; if (!(index in f.values)) f.values[index] = { current }; return f.values[index]; },
 }));
 import { CloudUsageCardView, CloudUsageSettingsView, confirmUpgrade, previewUpgrade, useUpgrade } from "./CloudUsageMeter";
+import { hostButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<Record<string, any>>;
 const nodes = (value: ReactNode): Node[] => {
   if (!isValidElement(value)) return [];
   const node = value as Node;
-  if (typeof node.type === "function") return nodes((node.type as (props: unknown) => ReactNode)(node.props));
+  if (typeof node.type === "function") return nodes(hostButton(node) ?? (node.type as (props: unknown) => ReactNode)(node.props));
   return [node, ...Children.toArray(node.props.children).flatMap(nodes)];
 };
 const button = (tree: Node[], text: string) => tree.find(node => node.type === "button" && renderToStaticMarkup(node).includes(text));

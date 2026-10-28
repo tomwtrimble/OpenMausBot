@@ -23,6 +23,7 @@ import { roomMemberQueueTitle } from "./RoomQueueList";
 import { RoomWorkingFolderChip } from "./RoomWorkingFolder";
 import { Select } from "./Select";
 import { GroupTaskPicker } from "./TaskPicker";
+import { IconButton } from "./ui/IconButton";
 
 export function DefaultResponderSelect({ group, members }: { group: Group; members: Bot[] }) {
   const { state, dispatch } = useStore();
@@ -220,19 +221,16 @@ export function RoomHeader({
           className="flex items-center gap-1.5 @max-3xl/roomhead:ml-auto @max-3xl/roomhead:flex-wrap @max-3xl/roomhead:justify-end"
           style={controlsShiftStyle}
         >
-          <button
-            type="button"
+          <IconButton label={t("chat.find")} tooltip={t("chat.findShortcut")}
             onClick={onToggleFind}
-            aria-label={t("chat.find")}
             aria-pressed={findOpen}
             className={cn(
               "flex size-8 items-center justify-center rounded-full transition-colors hover:bg-ink/[0.06]",
               findOpen ? "text-accent-text" : "text-ink-secondary hover:text-ink",
             )}
-            title={t("chat.findShortcut")}
           >
             <Search size={18} />
-          </button>
+          </IconButton>
           <ExportTranscriptMenu
             title={group.name}
             messages={group.messages}

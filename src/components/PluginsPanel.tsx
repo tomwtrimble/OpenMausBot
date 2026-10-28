@@ -37,6 +37,7 @@ import { openBotSettings } from "./bot-panel/panel-link";
 import { openKeySettings } from "./keys/key-focus";
 import { ServiceIcon, type ToolkitCard } from "./ServiceIcon";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 export { ServiceIcon, type ToolkitCard } from "./ServiceIcon";
 
 let cachedConnectorStatus: Record<string, ConnectorStatus> | null = null;
@@ -532,15 +533,14 @@ export function PluginsPanel() {
                 </span>
                 <ChevronRight size={14} aria-hidden="true" className="shrink-0 rtl:-scale-x-100" />
               </button>
-              <button
+              <IconButton label={t("connectors.refreshTitle")}
                 onClick={() => { setWhopRefresh((value) => value + 1); void loadConnectionInventory(true); }}
                 disabled={refreshing}
                 className="flex size-8 items-center justify-center rounded-full text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-50"
-                title={t("connectors.refreshTitle")}
-                aria-label={t("connectors.refreshTitle")}
+
               >
                 <RefreshCw size={16} className={cn(refreshing && "animate-spin")} />
-              </button>
+              </IconButton>
               <button data-tour="apps-close"
                 onClick={close}
                 aria-label={t("connectors.closeAria")}

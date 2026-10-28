@@ -7,6 +7,7 @@ import type { Bot, Group, InstanceInfo } from "@/state/store";
 import { SEND_KEYS, type SendKey } from "@/lib/send-key";
 import type { ApprovalModeSelector } from "./ApprovalModeSelector";
 import type { ModelPicker } from "./ModelPicker";
+import { TOOLTIP_DELAY_MS } from "./ui/Tooltip";
 
 const fixture = vi.hoisted(() => ({ dispatch: vi.fn(), instances: [] as unknown[], config: undefined as unknown, tourOpen: false }));
 vi.mock("@/state/store", async (importOriginal) => {
@@ -207,16 +208,28 @@ describe("an input method in the composer's menus", () => {
   });
 });
 
+/** The tooltip a button shows once the pointer rests on it (a disabled button cannot take focus), read from the element
+ * its aria-describedby names. */
+async function tooltipOf(button: HTMLElement | null): Promise<string | null> {
+  if (!button) return null;
+  flushSync(() => button.dispatchEvent(new PointerEvent("pointerover", { bubbles: true, pointerType: "mouse" })));
+  await new Promise((resolve) => setTimeout(resolve, TOOLTIP_DELAY_MS + 50));
+  const id = button.getAttribute("aria-describedby");
+  const text = id ? document.getElementById(id)?.textContent ?? null : null;
+  flushSync(() => button.dispatchEvent(new PointerEvent("pointerout", { bubbles: true, pointerType: "mouse" })));
+  return text;
+}
+
 describe("the send key in hints", () => {
-  it("names the key on the send button and in the busy composer", () => {
+  it("names the key on the send button and in the busy composer", async () => {
     fixture.instances = [{ instanceId: "test", driverKind: "codex", displayName: "Test", capabilities: { queueing: true } } as unknown as InstanceInfo];
     render(createElement(Composer, { bot }));
     type(textarea(), "hi");
-    expect(host.querySelector('button[aria-label="Send message"]')?.getAttribute("title")).toBe("Send (Enter)");
+    expect(await tooltipOf(host.querySelector('button[aria-label="Send message"]'))).toBe("Send (Enter)");
     flushSync(() => setSendKey("shift-enter"));
-    expect(host.querySelector('button[aria-label="Send message"]')?.getAttribute("title")).toBe("Send (Shift+Enter)");
+    expect(await tooltipOf(host.querySelector('button[aria-label="Send message"]'))).toBe("Send (Shift+Enter)");
     flushSync(() => setSendKey("mod-enter"));
-    expect(host.querySelector('button[aria-label="Send message"]')?.getAttribute("title")).toBe("Send (Ctrl+Enter)");
+    expect(await tooltipOf(host.querySelector('button[aria-label="Send message"]'))).toBe("Send (Ctrl+Enter)");
 
     type(textarea(), "");
     render(createElement(Composer, { bot: { ...bot, busy: true, tasks: [{ ...bot.tasks![0]!, busy: true }] } }));
@@ -247,9 +260,9 @@ describe("the send key in hints", () => {
     expect(document.body.textContent).toContain(`Type anything and press ${label}. Every chat`);
   });
 
-  it("names the key on the Cloud's first-job button", () => {
+  it("names the key on the Cloud's first-job button", async () => {
     setSendKey("mod-enter");
     render(createElement(CloudIntent));
-    expect(host.querySelector('button[aria-label="Start setting it up"]')?.getAttribute("title")).toBe("Start setting it up (Ctrl+Enter)");
+    expect(await tooltipOf(host.querySelector('button[aria-label="Start setting it up"]'))).toBe("Start setting it up (Ctrl+Enter)");
   });
 });

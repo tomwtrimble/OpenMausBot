@@ -23,6 +23,7 @@ import { MAX_TEAM_BACKUP_BYTES } from "../../shared/team-backup";
 import { takeImportName } from "../../shared/import-name";
 import { isGrokLink } from "../../shared/grok-import";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 const COMMUNITY_TEAMS_REPOSITORY = "https://github.com/milind-soni/openmausbot-teams";
 
 export { TeamImportDetails };
@@ -927,14 +928,13 @@ export function TeamLibraryPanel({
                                     </div>
                                   </div>
                                 </label>
-                                <button
+                                <IconButton label={t("templates.openDirectory", { name: candidate.name })} tooltip={t("templates.readBeforeAdding")}
                                   onClick={() => void openExternal(candidate.detailUrl)}
-                                  aria-label={t("templates.openDirectory", { name: candidate.name })}
-                                  title={t("templates.readBeforeAdding")}
+
                                   className="rounded-lg p-1.5 text-ink-secondary hover:bg-raised hover:text-ink"
                                 >
                                   <ExternalLink size={14} />
-                                </button>
+                                </IconButton>
                               </div>
                             ))}
                           </div>

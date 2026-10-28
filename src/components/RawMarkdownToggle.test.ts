@@ -22,7 +22,7 @@ describe("RawToggleAction", () => {
     );
 
     expect(markup).toContain('aria-label="Show raw markdown"');
-    expect(markup).toContain('title="Show raw markdown"');
+    expect(markup).not.toContain("title=");
     expect(markup).not.toContain("text-accent-text");
     expect(markup).toContain('type="button"');
     expect(markup).toContain('aria-pressed="false"');
@@ -37,7 +37,7 @@ describe("RawToggleAction", () => {
     );
 
     expect(markup).toContain('aria-label="Show rendered markdown"');
-    expect(markup).toContain('title="Show rendered markdown"');
+    expect(markup).not.toContain("title=");
     expect(markup).toContain("text-accent-text");
     expect(markup).toContain("bg-raised");
     expect(markup).toContain("opacity-100");
@@ -53,7 +53,7 @@ describe("RawToggleAction", () => {
     for (const [active, label] of [[false, "Voir le Markdown brut"], [true, "Voir le Markdown rendu"]] as const) {
       const markup = renderToStaticMarkup(createElement(RawToggleAction, { active, onToggle: () => undefined }));
       expect(markup).toContain(`aria-label="${label}"`);
-      expect(markup).toContain(`title="${label}"`);
+      expect(markup).toContain(`aria-label="${label}"`);
     }
   });
 });

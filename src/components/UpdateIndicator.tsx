@@ -8,6 +8,7 @@ import { RELEASES_URL, appVersion, openExternalLink } from "@/lib/app-links";
 import { productName } from "../lib/brand";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
+import { IconButton } from "./ui/IconButton";
 
 export function updateIndicatorShown(state: UpdaterState | null): boolean {
   return Boolean(state && ["downloading", "preparing", "downloaded", "installing"].includes(state.status));
@@ -42,20 +43,17 @@ export function UpdateIndicator({ className }: { className?: string }) {
     <div
       className={cn("flex size-[46px] shrink-0 items-center justify-center", className)}
     >
-      <button
+      <IconButton label={label}
         ref={buttonRef}
-        type="button"
         data-update-indicator={state.status}
-        aria-label={label}
         aria-haspopup="dialog"
-        title={label}
         onClick={() => setOpen(true)}
         className={cn(
           "relative flex size-7 shrink-0 items-center justify-center rounded-full bg-white text-neutral-900 shadow-sm ring-1 ring-black/10 transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
         )}
       >
         <ArrowDown size={16} strokeWidth={2.25} aria-hidden className={cn(!ready && "animate-pulse")} />
-      </button>
+      </IconButton>
       {open && <UpdateCard state={state} onClose={() => setOpen(false)} returnFocusRef={buttonRef} />}
     </div>
   );

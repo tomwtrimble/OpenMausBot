@@ -7,6 +7,7 @@ import { t } from "@/lib/i18n";
 import { isLiveCallRunning, useLiveMedia } from "@/lib/live-call-media";
 import { speaker } from "@/lib/tts";
 import { cn } from "@/lib/cn";
+import { IconButton } from "./ui/IconButton";
 
 export interface VoiceNoteAttachment {
   kind: "audio";
@@ -106,16 +107,14 @@ export function VoiceNoteBubble({
             giveBackVoice();
           }}
         />
-        <button
-          type="button"
+        <IconButton label={playing ? t("chat.voiceNote.pause") : onLiveCall ? t("chat.voiceNote.onLiveCall") : t("chat.voiceNote.play")}
           onClick={toggle}
           disabled={onLiveCall && !playing}
-          aria-label={playing ? t("chat.voiceNote.pause") : onLiveCall ? t("chat.voiceNote.onLiveCall") : t("chat.voiceNote.play")}
-          title={playing ? t("chat.voiceNote.pause") : onLiveCall ? t("chat.voiceNote.onLiveCall") : t("chat.voiceNote.play")}
+
           className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent text-white transition-opacity hover:opacity-90 disabled:opacity-40"
         >
           {playing ? <Pause size={13} className="fill-current" /> : <Play size={13} className="translate-x-px fill-current" />}
-        </button>
+        </IconButton>
         <input
           type="range"
           aria-label={t("chat.voiceNote.seek")}

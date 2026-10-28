@@ -6,6 +6,7 @@ import type { LocaleKey } from "@/locales";
 import { useStore, type Message } from "@/state/store";
 import { HelperSetup } from "./HelperSetup";
 import { SimpleHelperIntro } from "./SimpleHelperIntro";
+import { IconButton } from "./ui/IconButton";
 
 export const HELPER_ASK_KEYS: readonly LocaleKey[] = [
   "helperIntro.ask.overview", "helperIntro.ask.inbox", "helperIntro.ask.routine", "helperIntro.ask.howto",
@@ -57,16 +58,14 @@ function AdvancedHelperIntro({ botId, threadId, message, answered }: IntroProps)
               {t(key)}
             </button>
           ))}
-          <button
-            type="button"
+          <IconButton label={t("helperIntro.dismiss")}
             data-helper-dismiss=""
             onClick={() => dispatch({ type: "dismissCard", botId, threadId, messageId: message.id })}
-            aria-label={t("helperIntro.dismiss")}
-            title={t("helperIntro.dismiss")}
+
             className="flex size-7 items-center justify-center rounded-full text-ink-tertiary hover:bg-raised-hover hover:text-ink"
           >
             <X size={14} />
-          </button>
+          </IconButton>
         </div>
       )}
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { Minus, Square, Copy, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
+import { IconButton } from "./ui/IconButton";
 
 /** Drawn by the renderer because the WCO overlay API cannot style hover. */
 export function WindowCaptionButtons({ visible }: { visible: boolean }) {
@@ -39,33 +40,27 @@ export function WindowCaptionButtons({ visible }: { visible: boolean }) {
       // z-40: above docked panels (z-20/z-40, earlier in the DOM); centre-screen modals (z-50) still paint over.
       className="absolute right-0 top-0 z-40 flex items-stretch"
     >
-      <button
-        type="button"
-        aria-label={t("window.minimize")}
-        title={t("window.minimize")}
+      <IconButton label={t("window.minimize")}
+
         className={captionButton}
         onClick={() => void controls?.minimize()}
       >
         <Minus size={14} />
-      </button>
-      <button
-        type="button"
-        aria-label={maximized ? t("window.restore") : t("window.maximize")}
-        title={maximized ? t("window.restore") : t("window.maximize")}
+      </IconButton>
+      <IconButton label={maximized ? t("window.restore") : t("window.maximize")}
+
         className={captionButton}
         onClick={() => void controls?.toggleMaximize()}
       >
         {maximized ? <Copy size={11} /> : <Square size={11} />}
-      </button>
-      <button
-        type="button"
-        aria-label={t("window.close")}
-        title={t("window.close")}
+      </IconButton>
+      <IconButton label={t("window.close")}
+
         className={cn(captionButton, "hover:bg-danger/25 hover:text-danger-text")}
         onClick={() => void controls?.close()}
       >
         <X size={15} />
-      </button>
+      </IconButton>
     </div>
   );
 }

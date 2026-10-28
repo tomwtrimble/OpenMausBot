@@ -9,6 +9,7 @@ import { t } from "@/lib/i18n";
 import { railShown, usePlaces } from "@/lib/places";
 import { CloudTile } from "./cloud-buy/parts";
 import { SIMPLE_RAIL_BUTTON } from "./SidebarSimpleTop";
+import { IconButton } from "./ui/IconButton";
 
 export function openServerMenu(bridge: { menu: (options?: { from?: "howto" }) => Promise<void> }, { howTo = false, onClosed }: { howTo?: boolean; onClosed?: () => void } = {}): Promise<void> {
   return bridge.menu(howTo ? { from: "howto" } : undefined).finally(() => { if (howTo) onClosed?.(); });
@@ -121,11 +122,11 @@ function Switcher({ compact = false, inline = false, pill = false, rail = false,
   const title = current?.origin ? `${shown} · ${current.origin}` : shown;
   const label = t("sidebar.switchServer", { name: shown });
   if (rail) return <div data-workspace-switcher="rail" className="relative">
-    <button type="button" aria-label={label} aria-haspopup="menu" aria-expanded={open} data-cloud-home-indicator={cloudHome || undefined}
-      data-tour="server-switcher" title={title} onClick={openMenu} className={cn(SIMPLE_RAIL_BUTTON, "aria-expanded:bg-raised")}
+    <IconButton label={label} tooltip={title} aria-haspopup="menu" aria-expanded={open} data-cloud-home-indicator={cloudHome || undefined}
+      data-tour="server-switcher" onClick={openMenu} className={cn(SIMPLE_RAIL_BUTTON, "aria-expanded:bg-raised")}
       style={{ WebkitAppRegion: "no-drag" } as React.CSSProperties}>
       {cloudColor(current?.color) ? <CloudTile color={current?.color} size={18} /> : <Icon size={18} aria-hidden="true" />}
-    </button>
+    </IconButton>
     {error && <p role="alert" className="popover-surface absolute bottom-0 left-full z-40 ml-2 w-56 rounded-md bg-menu px-2 py-1 text-[11px] text-danger-text shadow-lg">{error}</p>}
     {waking && !error && <p role="status" data-cloud-waking className="popover-surface absolute bottom-0 left-full z-40 ml-2 w-56 rounded-md bg-menu px-2 py-1 text-[11px] text-ink-secondary shadow-lg">{waking}</p>}
   </div>;

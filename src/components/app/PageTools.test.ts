@@ -14,6 +14,7 @@ import { POINT_LIMITS, POINTED_METHOD } from "../../../shared/app-frame/point";
 import { createAppPool, type AppPool } from "./app-pool";
 import { AppMessage, forgetAppRows } from "./AppMessage";
 import { PAGE_HEIGHT } from "./PageTools";
+import { TOOLTIP_DELAY_MS } from "../ui/Tooltip";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -55,6 +56,14 @@ const wideFrame = () => overlay()!.querySelector<HTMLIFrameElement>("iframe")!;
 const button = (label: string, within: ParentNode = document) => Array.from(within.querySelectorAll<HTMLButtonElement>("button"))
   .find((element) => element.textContent?.trim() === label || element.getAttribute("aria-label") === label)!;
 const click = (label: string, within?: ParentNode) => act(async () => { button(label, within).click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+/** The tooltip once the pointer rests on a control; a disabled one cannot take focus. */
+const tooltipOf = async (element: HTMLElement) => {
+  await act(async () => { element.dispatchEvent(new PointerEvent("pointerover", { bubbles: true, pointerType: "mouse" })); });
+  await act(async () => { await new Promise((resolve) => setTimeout(resolve, TOOLTIP_DELAY_MS + 50)); });
+  const text = document.getElementById(element.getAttribute("aria-describedby") ?? "")?.textContent;
+  await act(async () => { element.dispatchEvent(new PointerEvent("pointerout", { bubbles: true, pointerType: "mouse" })); });
+  return text;
+};
 const chips = () => JSON.parse(host.querySelector("[data-chips]")!.getAttribute("data-chips")!) as unknown[];
 const documents = () => fetchMock.mock.calls.map(([path]) => new URL(path, "http://omb.test")).filter((url) => url.pathname.endsWith("/app"));
 const posts = (ending: string) => fetchMock.mock.calls.filter(([path, init]) => path.endsWith(ending) && init?.method === "POST").map(([, init]) => JSON.parse(String(init!.body)));
@@ -99,7 +108,7 @@ describe("a bot's page in the chat", () => {
     expect(card().querySelector<HTMLElement>("[data-app-box]")!.style.height).toBe(`${PAGE_HEIGHT.start}px`);
     for (const label of ["Point", "Share", "Full screen"]) expect(button(label, card()).disabled, label).toBe(false);
     expect(button("Open in new tab", card()).disabled).toBe(true);
-    expect(button("Open in new tab", card()).title).toBe("Share the page to open it in a new tab");
+    expect(await tooltipOf(button("Open in new tab", card()))).toBe("Share the page to open it in a new tab");
     expect(documents()[0]!.searchParams.get("origin")).toBe(window.location.origin);
   });
 

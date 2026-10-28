@@ -69,7 +69,7 @@ describe("VoiceNoteBubble", () => {
     void startLiveCall({ botId: "b1", threadId: "t1" });
     try {
       const markup = renderToStaticMarkup(createElement(VoiceNoteBubble, { attachment: note }));
-      expect(markup).toMatch(/<button[^>]*disabled=""[^>]*aria-label="Voice notes can&#x27;t play during a Live call."/);
+      expect(markup).toMatch(/<button(?=[^>]*disabled="")[^>]*aria-label="Voice notes can&#x27;t play during a Live call."/);
     } finally {
       resetLiveMedia();
     }

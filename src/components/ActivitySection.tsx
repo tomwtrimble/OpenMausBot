@@ -8,6 +8,7 @@ import { ACTIVITY_WHATS, activityQuery, describeEntry, formatValue, whoLabel, ty
 import type { LocaleKey } from "@/locales";
 import { Select } from "./Select";
 import { Card } from "./SettingsPrimitives";
+import { IconButton } from "./ui/IconButton";
 
 const inputClass = "rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none";
 
@@ -101,9 +102,9 @@ export function ActivitySection() {
           {t("activity.to")}
           <input type="date" value={filters.to} min={filters.from || undefined} onChange={(e) => set({ to: e.target.value })} className={inputClass} />
         </label>
-        <button type="button" onClick={() => void load()} disabled={loading} aria-label={t("activity.refresh")} title={t("activity.refresh")} className="cursor-pointer rounded-md p-2 text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50">
+        <IconButton label={t("activity.refresh")} onClick={() => void load()} disabled={loading} className="cursor-pointer rounded-md p-2 text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50">
           {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
-        </button>
+        </IconButton>
         <a href={`/api/admin-activity.csv${query}`} download className="ui-button hover:bg-raised-hover">
           <Download size={13} aria-hidden="true" />{t("activity.export")}
         </a>

@@ -9,6 +9,7 @@ import { api, currentTaskBot, openBotThread, useStore, visibleMessages, type Bot
 import { lastLine } from "../sidebar-preview";
 import { isArchived, orderedThreadList, SidebarThreadRow, stampClock, threadRecency, threadRowActions, useRelativeNow } from "../SidebarThreadRow";
 import { filterTasks } from "../TaskPicker";
+import { IconButton } from "../ui/IconButton";
 
 export const CONVERSATIONS_SHOWN = 3;
 const PANEL_ROW_LOOK = "[&_.font-semibold]:font-medium [&_time]:text-[12px] [&_time]:text-ink-tertiary [&_span.bg-accent]:size-2";
@@ -121,17 +122,15 @@ export function BotConversations({ bot }: { bot: Bot }) {
           <span className="truncate">{t("botPanel.conversations.new")}</span>
         </button>
         {listed && (
-          <button
-            type="button"
+          <IconButton label={t("botPanel.conversations.search")}
             data-conversations-search
-            aria-label={t("botPanel.conversations.search")}
-            title={t("botPanel.conversations.search")}
+
             aria-pressed={searching}
             onClick={() => (searching ? stopSearching() : setSearching(true))}
             className={cn("flex size-9 shrink-0 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink", searching && "bg-ink/[0.06] text-ink")}
           >
             <Search size={15} aria-hidden="true" />
-          </button>
+          </IconButton>
         )}
       </div>
       {listed && searching && (

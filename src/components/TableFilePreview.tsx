@@ -4,6 +4,7 @@ import { requestMessageFile, type MessageAttachmentContext } from "./AttachmentP
 import { RichTable, TableDialog } from "./RichTable";
 import { TABLE_FILE_MAX_BYTES, tableDelimiter, type TextTable } from "@/lib/table-data";
 import { t } from "@/lib/i18n";
+import { IconButton } from "./ui/IconButton";
 
 /** A preview limit, not a download limit: chunked responses are bounded too. */
 export async function readTableResponse(response: Response, signal: AbortSignal, maxBytes = TABLE_FILE_MAX_BYTES): Promise<string> {
@@ -33,7 +34,7 @@ export function TableFileButton({ path, name, message }: { path: string; name: s
   const delimiter = tableDelimiter(name) ?? tableDelimiter(path);
   if (!delimiter) return null;
   return <>
-    <button ref={trigger} type="button" className="table-action" title={t("table.preview", { name })} aria-label={t("table.preview", { name })} onClick={() => setOpen(true)}><Table2 size={14} /></button>
+    <IconButton label={t("table.preview", { name })} ref={trigger} className="table-action" onClick={() => setOpen(true)}><Table2 size={14} /></IconButton>
     {open && <TableDialog title={name} returnFocus={trigger.current} onClose={() => setOpen(false)}><TableFileContent key={`${message.threadId}:${message.messageId}:${path}`} path={path} name={name} message={message} delimiter={delimiter} /></TableDialog>}
   </>;
 }

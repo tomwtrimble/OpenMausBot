@@ -100,6 +100,7 @@ import { RoomHeader } from "./RoomHeader";
 import { useChatFindRequests } from "@/lib/chat-find";
 import { simpleRoomHeader } from "@/lib/room-panel";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 export function RoomToolChip({ message, roomId, live = false }: { message: Message; roomId?: string; live?: boolean }) {
   const { state, dispatch } = useStore();
@@ -1075,14 +1076,13 @@ export function GroupView({ group }: { group: Group }) {
                 <span className="shrink-0 text-[12px] font-medium text-accent-text">{sender}</span>
                 <span dir="auto" className="truncate text-[13px] text-ink-secondary">{text}</span>
               </button>
-              <button
+              <IconButton label={t("chat.unpinMessage")} tooltip={t("chat.unpin")}
                 onClick={() => dispatch({ type: "patchGroup", groupId: group.id, patch: { pinnedMessageId: "" } })}
-                aria-label={t("chat.unpinMessage")}
-                title={t("chat.unpin")}
+
                 className={cn("shrink-0 rounded p-0.5 text-ink-secondary hover:bg-raised hover:text-ink", remoteClient && "hidden")}
               >
                 <X size={13} />
-              </button>
+              </IconButton>
             </div>
           </div>
         );

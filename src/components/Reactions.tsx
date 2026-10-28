@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
 import { api, useStore, type Bot, type Message } from "@/state/store";
+import { IconButton } from "./ui/IconButton";
 
 const LABEL: Record<Reaction, LocaleKey> = {
   "👍": "chat.reaction.yes",
@@ -110,18 +111,16 @@ export function ReactAction({ threadId, message }: { threadId: string; message: 
       className="relative"
       onBlur={(event) => { if (!(event.relatedTarget instanceof Node && rootRef.current?.contains(event.relatedTarget))) setOpen(false); }}
     >
-      <button
+      <IconButton label={t("chat.react")}
         ref={buttonRef}
-        type="button"
         onClick={() => setOpen((value) => !value)}
-        aria-label={t("chat.react")}
-        title={t("chat.react")}
+
         aria-expanded={open}
         aria-controls={open ? id : undefined}
         className={cn(messageActionClass, open && "bg-ink/10 text-ink")}
       >
         <SmilePlus {...ACTION_ICON} aria-hidden="true" />
-      </button>
+      </IconButton>
       {open && (
         <div
           ref={rowRef}

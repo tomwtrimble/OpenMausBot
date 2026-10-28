@@ -10,6 +10,7 @@ import { MASCOT_BODIES, MASCOT_BODY_IDS } from "../../shared/mascot-bodies";
 import { MausAvatar } from "./Avatar";
 import { AvatarImageGenerator } from "./AvatarImageGenerator";
 import type { AvatarPatch, useAvatarImage } from "./avatar-editing";
+import { IconButton } from "./ui/IconButton";
 
 export const AVATAR_FILE_TYPES = "image/png,image/jpeg,image/gif,image/webp";
 const LABEL = "text-[12px] font-medium uppercase tracking-wide text-ink-secondary";
@@ -63,18 +64,16 @@ export function MausBotCustomize({ preview, name, nameRef, image, onName, onPatc
         <span className={LABEL}>{t("mausbotWelcome.look")}</span>
         <div className="mt-1.5 grid grid-cols-5 gap-1">
           {MASCOT_BODY_IDS.map((id) => (
-            <button
+            <IconButton label={MASCOT_BODIES[id].name}
               key={id}
-              type="button"
               aria-pressed={!picture && (preview.mascotBody ?? "cursor") === id}
-              aria-label={MASCOT_BODIES[id].name}
-              title={MASCOT_BODIES[id].name}
+
               data-mausbot-welcome-body={id}
               onClick={() => shape({ mascotBody: id })}
               className={cn("flex h-11 items-center justify-center rounded-xl", !picture && (preview.mascotBody ?? "cursor") === id ? "bg-ink/[0.08] ring-[1.5px] ring-inset ring-ink/25" : "hover:bg-ink/[0.05]")}
             >
               <MausAvatar color={preview.color} bodyId={id} size={30} animated={false} trackPointer={false} />
-            </button>
+            </IconButton>
           ))}
         </div>
       </div>

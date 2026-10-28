@@ -62,6 +62,7 @@ import { cloudRefusal, type PlaceActionId, type PlaceFacts, type PlaceView } fro
 import { t } from "@/lib/i18n";
 import { LocalizedPanelError, panelErrorText } from "@/lib/computer-messages";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 interface VpsComputerStatus {
   configured: boolean;
@@ -1219,17 +1220,16 @@ export function ComputerPanel({
       <div {...dragProps} className={cn("@container/paneltabs ml-1.5 py-3 pl-2.5 pr-4", padClass)}>
         <div className="relative flex min-h-7 items-center justify-center">
           {advanced && (
-            <button
+            <IconButton label={t("computer.botSettings")}
               onClick={() => {
                 releaseComputerPanelFocus(panelRef.current, bot.id);
                 dispatch({ type: "toggleComputer", open: false });
                 dispatch({ type: "toggleSettings", open: true, section: "access" });
               }}
               className="absolute left-0 top-1/2 -translate-y-1/2 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-ink"
-              title={t("computer.botSettings")}
             >
               <Settings size={18} />
-            </button>
+            </IconButton>
           )}
           <div className="mx-9 flex min-w-0 touch-pan-x gap-0.5 overflow-x-auto whitespace-nowrap rounded-full bg-inset p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" data-tour="computer-tabs" data-testid="computer-tabs" role="tablist" aria-label={t("computer.tabsAria")} onWheel={scrollTabsWithWheel} onKeyDown={(event) => moveBetweenTabs(event, panelTabs, chooseTab)}>
             {panelTabs.map((view) => {
@@ -1245,18 +1245,17 @@ export function ComputerPanel({
               );
             })}
           </div>
-          <button
+          <IconButton label={t("computer.close")}
             data-computer-panel-close
             onClick={() => {
               releaseComputerPanelFocus(panelRef.current, bot.id);
               dispatch({ type: "toggleComputer", open: false });
             }}
             className="absolute right-0 top-1/2 -translate-y-1/2 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-ink"
-            aria-label={t("computer.close")}
-            title={t("computer.close")}
+
           >
             <X size={18} />
-          </button>
+          </IconButton>
         </div>
       </div>
 

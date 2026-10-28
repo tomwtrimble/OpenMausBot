@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { plainErrorLine } from "@/lib/plain-error";
 import type { AppState } from "@/state/store";
+import { IconButton } from "./ui/IconButton";
 
 export function ChatNotice({ notice }: { notice: AppState["notice"] }) {
   if (!notice) return null;
@@ -30,15 +31,13 @@ export function ChatErrorBanner({ message, onDismiss }: { message: string | null
           <p>{plain ?? message}</p>
           {plain && <details className="mt-1 text-[12px] text-ink-secondary"><summary className="cursor-pointer">{t("chat.error.details")}</summary><p dir="auto" className="mt-1 break-words">{message}</p></details>}
         </div>
-        <button
-          type="button"
+        <IconButton label={t("chat.error.dismiss")}
           onClick={onDismiss}
-          aria-label={t("chat.error.dismiss")}
-          title={t("chat.error.dismiss")}
+
           className="shrink-0 rounded p-0.5 hover:bg-danger/10"
         >
           <X size={13} />
-        </button>
+        </IconButton>
       </div>
     </div>
   );

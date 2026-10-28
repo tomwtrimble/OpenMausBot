@@ -15,6 +15,7 @@ import { AvatarImageGenerator } from "../AvatarImageGenerator";
 import { AvatarFraming, OrganizationAvatarIcons, RESET_MASCOT_PATCH, useAvatarImage, type AvatarPatch } from "../avatar-editing";
 import { Segmented } from "./rows";
 import { MascotFaceColorPicker } from "../MascotFaceColorPicker";
+import { IconButton } from "../ui/IconButton";
 
 export type AvatarEditorTab = "bot" | "generate" | "upload";
 
@@ -71,13 +72,11 @@ export function AvatarEditorCard({ bot, activeState, onPatch, onClose }: {
   const [moreLooks, setMoreLooks] = useState(() => dressed || isHalloweenBody(body) || Boolean(bot.mascotExpression && bot.mascotExpression !== "idle"));
   const dressedAs = costume !== body && isHalloweenBody(costume) ? HALLOWEEN_BODIES[costume].name : null;
   const bodyButton = (id: BotBodyId, name: string) => (
-    <button
+    <IconButton label={`Use the ${name} body`} tooltip={name}
       key={id}
-      type="button"
       disabled={busy}
       aria-pressed={!showsImage && body === id}
-      aria-label={`Use the ${name} body`}
-      title={name}
+
       onClick={() => pickMascot({ mascotBody: id })}
       className={cn(
         "flex h-[58px] items-center justify-center rounded-xl disabled:opacity-50",
@@ -85,7 +84,7 @@ export function AvatarEditorCard({ bot, activeState, onPatch, onClose }: {
       )}
     >
       <MausAvatar color={bot.color} faceColor={bot.mascotFaceColor} bodyId={id} size={40} animated={false} trackPointer={false} />
-    </button>
+    </IconButton>
   );
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -248,16 +247,14 @@ export function AvatarEditorCard({ bot, activeState, onPatch, onClose }: {
                 options={IMAGE_CROPS.map((value) => ({ value, label: t(CROP_KEY[value]), disabled: busy || !bot.avatarUrl }))}
               />
               {bot.avatarUrl && (
-                <button
-                  type="button"
+                <IconButton label="Remove custom avatar image" tooltip={t("botPanel.avatar.remove")}
                   onClick={removeImage}
                   disabled={busy}
-                  aria-label="Remove custom avatar image"
-                  title={t("botPanel.avatar.remove")}
+
                   className="flex size-8 shrink-0 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"
                 >
                   <Trash2 size={14} />
-                </button>
+                </IconButton>
               )}
             </div>
             {!showsImage && <p className="mt-2 text-[12px] text-ink-tertiary">{t("botPanel.avatar.uploadHint")}</p>}

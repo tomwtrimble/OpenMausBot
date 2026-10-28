@@ -15,6 +15,7 @@ import type { PublishedPageCard } from "../../../shared/published-page";
 import { publishAppPage, unpublishPage } from "./app-api";
 import { AppFrame, type AppFrameHandle } from "./AppFrame";
 import { ASK_CHIP, ASK_CHIP_IDLE, ASK_CHIP_PICKED, ASK_PRIMARY_BUTTON } from "../AskCard";
+import { IconButton } from "../ui/IconButton";
 
 /** A page starts at this height in the chat and grows to its content up to the cap, then scrolls inside. */
 export const PAGE_HEIGHT = { start: 520, cap: 560 } as const;
@@ -133,11 +134,11 @@ export function PageToolbar({ version, point, share, ready, fullScreen, classNam
   return (
     <div data-page-tools className={cn("flex flex-wrap items-center gap-x-1.5 gap-y-2", className)}>
       <div className="flex items-center gap-0.5 text-[13px] text-ink-secondary">
-        <button type="button" className={TOOL} aria-label={t("chat.preview.older")} title={t("chat.preview.older")} disabled={version.rev <= version.first}
-          onClick={() => version.show(version.rev - 1)}><ChevronLeft size={15} /></button>
+        <IconButton label={t("chat.preview.older")} className={TOOL} disabled={version.rev <= version.first}
+          onClick={() => version.show(version.rev - 1)}><ChevronLeft size={15} /></IconButton>
         <span data-page-version className="min-w-6 text-center tabular-nums">{label}</span>
-        <button type="button" className={TOOL} aria-label={t("chat.preview.newer")} title={t("chat.preview.newer")} disabled={version.latest}
-          onClick={() => version.show(version.rev + 1)}><ChevronRight size={15} /></button>
+        <IconButton label={t("chat.preview.newer")} className={TOOL} disabled={version.latest}
+          onClick={() => version.show(version.rev + 1)}><ChevronRight size={15} /></IconButton>
         {!version.latest && <button type="button" className="ms-1 rounded px-1 text-accent-text hover:underline" onClick={() => version.show(null)}>{t("chat.preview.latest")}</button>}
         {version.flash && <span role="status" data-page-updated className="ms-1 rounded-full bg-accent/15 px-2 py-px font-medium text-accent-text">{t("chat.preview.updated")}</span>}
       </div>
@@ -149,15 +150,14 @@ export function PageToolbar({ version, point, share, ready, fullScreen, classNam
         <button type="button" onClick={() => void share.run(version.rev)} disabled={busy} className={cn(ASK_CHIP, ASK_CHIP_IDLE)}>
           {busy ? <Loader2 size={14} className="animate-spin" /> : <Share2 size={14} />}{t("chat.preview.share")}
         </button>
-        <button type="button" className={TOOL} disabled={!share.url} onClick={() => share.url && void openExternalLink(share.url)}
-          aria-label={t("chat.preview.openTab")} title={share.url ? t("chat.preview.openTab") : t("chat.preview.openTabNeedsLink")}>
+        <IconButton label={t("chat.preview.openTab")} tooltip={share.url ? t("chat.preview.openTab") : t("chat.preview.openTabNeedsLink")} className={TOOL} disabled={!share.url} onClick={() => share.url && void openExternalLink(share.url)}
+           >
           <ArrowUpRight size={15} />
-        </button>
-        <button type="button" className={TOOL} onClick={fullScreen.toggle} aria-pressed={fullScreen.open}
-          aria-label={fullScreen.open ? t("chat.preview.exitFullScreen") : t("chat.preview.fullScreen")}
-          title={fullScreen.open ? t("chat.preview.exitFullScreen") : t("chat.preview.fullScreen")}>
+        </IconButton>
+        <IconButton label={fullScreen.open ? t("chat.preview.exitFullScreen") : t("chat.preview.fullScreen")} className={TOOL} onClick={fullScreen.toggle} aria-pressed={fullScreen.open}
+          >
           {fullScreen.open ? <X size={16} /> : <Maximize2 size={14} />}
-        </button>
+        </IconButton>
       </div>
     </div>
   );

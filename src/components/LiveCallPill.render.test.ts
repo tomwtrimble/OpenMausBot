@@ -16,12 +16,13 @@ vi.mock("@/state/store", async (importOriginal) => {
 import { endCall } from "@/lib/call";
 import { configureLiveMedia, liveMedia, resetLiveMedia, startLiveCall } from "@/lib/live-call-media";
 import { LiveCallChip, LiveCallPill } from "./LiveCallPill";
+import { buttonProps } from "@/testing/ui-elements";
 
 type ElementProps = { children?: ReactNode; onClick?: () => void; [key: string]: unknown };
 function findElement(tree: ReactNode, match: (props: ElementProps) => boolean): ReactElement<ElementProps> | undefined {
   for (const child of Children.toArray(tree)) {
     if (!isValidElement<ElementProps>(child)) continue;
-    if (match(child.props)) return child;
+    if (match(buttonProps(child) as ElementProps)) return child;
     const found = findElement(child.props.children, match);
     if (found) return found;
   }

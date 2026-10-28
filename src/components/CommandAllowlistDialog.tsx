@@ -5,6 +5,7 @@ import type { CommandAllowRule, CommandAllowlistResponse } from "../../shared/co
 import { api, useStore } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 // Electron collects -webkit-app-region from layout boxes and ignores z-index, so the chat header's drag strip swallows
 // clicks on top of it.
@@ -162,12 +163,11 @@ export function CommandAllowlistDialog({ botId, botName, threadId, onClose }: {
                   <p className="mt-1.5 break-words text-[11px] text-ink-secondary">{providerName(rule.providerInstanceId)}</p>
                   <p className="mt-0.5 break-all font-mono text-[11px] text-ink-secondary">{rule.cwd}</p>
                 </div>
-                <button type="button" disabled={Boolean(saving)} onClick={() => void save(rule)}
-                  aria-label={t("commandAllowlist.removeAria", { command: rule.command })}
-                  title={t(saving === rule.id ? "commandAllowlist.removing" : "commandAllowlist.remove")}
+                <IconButton label={t("commandAllowlist.removeAria", { command: rule.command })} tooltip={t(saving === rule.id ? "commandAllowlist.removing" : "commandAllowlist.remove")} disabled={Boolean(saving)} onClick={() => void save(rule)}
+
                   className="shrink-0 rounded-md p-1.5 text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40">
                   {saving === rule.id ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
-                </button>
+                </IconButton>
               </li>)}
             </ul> : <p className="mt-4 rounded-xl bg-inset px-3 py-4 text-[13px] text-ink-secondary">{t("commandAllowlist.empty")}</p>}
             {data.supported ? <form className="mt-5 border-t border-hairline pt-4" onSubmit={(event) => { event.preventDefault(); void save(); }}>

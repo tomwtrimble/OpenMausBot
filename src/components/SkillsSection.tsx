@@ -8,6 +8,7 @@ import { Card, Switch } from "./SettingsPrimitives";
 import type { SkillsLibrarySkillWire } from "../../shared/wire";
 import { Select } from "./Select";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 export function filterLibrarySkills(
   skills: readonly SkillsLibrarySkillWire[],
@@ -295,16 +296,14 @@ export function SkillsSection() {
                       skill.assignedBots.map((bot) => (
                         <span key={bot.id} className="flex items-center gap-1 rounded-full bg-control px-2 py-0.5">
                           <span className="max-w-40 truncate">{bot.name}</span>
-                          <button
-                            type="button"
-                            aria-label={t("skills.library.removeAssignment", { bot: bot.name })}
-                            title={t("skills.library.removeAssignment", { bot: bot.name })}
+                          <IconButton label={t("skills.library.removeAssignment", { bot: bot.name })}
+
                             disabled={Boolean(working || importing)}
                             onClick={() => void unassign(skill, bot.id)}
                             className="flex size-4 items-center justify-center rounded-full text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40"
                           >
                             <X size={11} />
-                          </button>
+                          </IconButton>
                         </span>
                       ))
                     )}

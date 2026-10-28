@@ -163,7 +163,7 @@ describe("bot-first sidebar", () => {
     expect(line.slice(0, line.indexOf("data-provider-mark"))).not.toContain("title=");
     expect(String(findElement(tree, "data-sidebar-bot-row", bot.id)!.props.className)).not.toContain("group-hover:pr-9");
     expect(markup).not.toContain("group-hover:pr-7");
-    expect(markup).toMatch(/data-bot-actions="atlas"[^>]*class="[^"]*\bright-2 top-1 translate-y-0\b/);
+    expect(markup).toMatch(/<button(?=[^>]*data-bot-actions="atlas")[^>]*class="[^"]*\bright-2 top-1 translate-y-0\b/);
   });
 
   it("fades the collapsed rail's engine badge in both modes", () => {
@@ -242,10 +242,10 @@ describe("bot-first sidebar", () => {
     const candidate = { ...bot, tasks: [], projects: [] };
     const simple = renderToStaticMarkup(createElement(BotListItem, rowProps("comfortable", candidate)));
     expect(simple).toContain("[--row:var(--color-raised)]");
-    expect(simple).toMatch(/data-bot-actions="atlas"[^>]*class="[^"]*\bpointer-events-none opacity-0 group-hover:pointer-events-auto/);
+    expect(simple).toMatch(/<button(?=[^>]*data-bot-actions="atlas")[^>]*class="[^"]*\bpointer-events-none opacity-0 group-hover:pointer-events-auto/);
     expect(simple).toContain('class="flex items-baseline justify-between gap-2 pr-7"');
     fixture.advanced = true;
-    expect(renderToStaticMarkup(createElement(BotListItem, rowProps("comfortable", candidate)))).toMatch(/data-bot-actions="atlas"[^>]*class="[^"]*\bpointer-events-auto opacity-100/);
+    expect(renderToStaticMarkup(createElement(BotListItem, rowProps("comfortable", candidate)))).toMatch(/<button(?=[^>]*data-bot-actions="atlas")[^>]*class="[^"]*\bpointer-events-auto opacity-100/);
   });
 
   it("marks an unread Simple group chat with the same top-right dot as a bot row, said once for a screen reader", () => {
@@ -492,7 +492,7 @@ describe("bot-first sidebar", () => {
     expect(markup).toContain('aria-label="New thread"');
     expect(markup).toContain('aria-label="Collapse Planning threads"');
     const working = renderToStaticMarkup(createElement(GroupListItem, { group: { ...group, working: true }, density: "comfortable", onMenu: vi.fn() }));
-    expect(working).toMatch(/<button type="button" disabled="" aria-label="New thread"/);
+    expect(working).toMatch(/<button(?=[^>]*disabled="")[^>]*aria-label="New thread"/);
     const single = renderToStaticMarkup(createElement(GroupListItem, { group: { ...group, tasks: [group.tasks![0]] }, density: "comfortable", onMenu: vi.fn() }));
     expect(single).not.toContain("Planning threads");
     expect(single).not.toContain('data-sidebar-thread-row=');

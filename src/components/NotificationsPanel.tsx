@@ -9,6 +9,7 @@ import { BotAvatar, type BotAvatarProps } from "./Avatar";
 import { threadUpdatedLabel } from "./SidebarThreadRow";
 import type { NotificationLogEntry, NotifyKind } from "../../shared/notification";
 import { Select } from "./Select";
+import { IconButton } from "./ui/IconButton";
 
 const KIND_LOOK: Record<NotifyKind, { Icon: LucideIcon; className: string; status: LocaleKey }> = {
   done: { Icon: CheckCircle2, className: "text-success", status: "notifications.status.done" },
@@ -143,28 +144,23 @@ export function NotificationsPanel() {
         <button type="button" onClick={markAllRead} className="shrink-0 whitespace-nowrap text-[12px] text-accent-text hover:underline">
           {t("notifications.markAllRead")}
         </button>
-        <button
-          type="button"
+        <IconButton label={state.notificationsPinned ? t("notifications.unpin") : t("notifications.pin")}
           onClick={() => dispatch({ type: "toggleNotificationsPinned" })}
-          aria-label={state.notificationsPinned ? t("notifications.unpin") : t("notifications.pin")}
           aria-pressed={state.notificationsPinned}
-          title={state.notificationsPinned ? t("notifications.unpin") : t("notifications.pin")}
           className={cn(
             "flex size-[26px] shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-raised hover:text-ink",
             state.notificationsPinned && "text-accent-text",
           )}
         >
           <Pin size={14} />
-        </button>
-        <button
-          type="button"
+        </IconButton>
+        <IconButton label={t("notifications.close")}
           onClick={() => dispatch({ type: "toggleNotifications", open: false })}
-          aria-label={t("notifications.close")}
-          title={t("notifications.close")}
+
           className="flex size-[26px] shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-raised hover:text-ink"
         >
           <X size={14} />
-        </button>
+        </IconButton>
       </div>
       <div className="border-b border-hairline px-3.5 py-2">
         <Select size="sm" className="w-full"

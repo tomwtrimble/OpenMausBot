@@ -20,6 +20,7 @@ import { AvatarFraming, OrganizationAvatarIcons, RESET_MASCOT_PATCH, useAvatarIm
 import { t } from "@/lib/i18n";
 import { MascotFaceColorPicker } from "./MascotFaceColorPicker";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 export function BotProfileAvatarCard({
   bot,
@@ -71,26 +72,23 @@ export function BotProfileAvatarCard({
             className="sr-only"
             onChange={(event) => void upload(event.target.files?.[0])}
           />
-          <button
-            type="button"
+          <Button size="lg"
             onClick={() => fileRef.current?.click()}
             disabled={busy}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+            className="flex flex-1 gap-1.5 px-3 font-normal"
           >
             {uploading ? <Loader2 size={14} className="animate-spin" /> : <ImagePlus size={14} />}
             {t("botIdentity.uploadImage")}
-          </button>
+          </Button>
           {bot.avatarUrl && (
-            <button
-              type="button"
+            <IconButton label={t("botIdentity.removeAvatar")} tooltip={t("botIdentity.removeImage")}
               onClick={removeImage}
               disabled={busy}
-              aria-label={t("botIdentity.removeAvatar")}
-              title={t("botIdentity.removeImage")}
+
               className="flex size-10 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"
             >
               <Trash2 size={14} />
-            </button>
+            </IconButton>
           )}
         </div>
         <div className="mt-1.5 text-[12px] text-ink-secondary">{t("botIdentity.imageTypes")}</div>
@@ -125,9 +123,8 @@ export function BotProfileAvatarCard({
             </div>
             <div className="grid grid-cols-5 gap-2">
               {PICKABLE_STATES.map((expression) => (
-                <button
+                <IconButton label={`Use ${expression} expression`} tooltip={expression}
                   key={expression}
-                  type="button"
                   disabled={busy}
                   aria-pressed={activeState === expression}
                   onClick={() => onPatch({ mascotExpression: expression })}
@@ -135,11 +132,10 @@ export function BotProfileAvatarCard({
                     "flex h-[58px] items-center justify-center rounded-xl bg-inset transition-colors hover:bg-control disabled:opacity-50",
                     activeState === expression && "ring-2 ring-accent-border",
                   )}
-                  title={expression}
-                  aria-label={`Use ${expression} expression`}
+
                 >
                   <MausAvatar color={bot.color} faceColor={bot.mascotFaceColor} bodyId={bot.mascotBody ?? undefined} state={expression} size={42} animated={false} />
-                </button>
+                </IconButton>
               ))}
             </div>
 

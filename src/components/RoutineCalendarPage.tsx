@@ -94,6 +94,7 @@ const INTERVAL_PRESETS = [5, 10, 15, 30, 60];
 const EVENT_DURATION_OPTIONS = Array.from({ length: 240 / CALENDAR_SLOT_MINUTES }, (_, index) => (index + 1) * CALENDAR_SLOT_MINUTES);
 import { BOT_DRAG_TYPE, EVENT_DRAG_TYPE, LimitResetMarker, type ResetDrop } from "./routines/LimitResetMarkers";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 export type EventKind = "routine" | "call";
 export type RoutinesLayout = "day" | "week" | "list";
@@ -1595,20 +1596,20 @@ export function EventDetails({
       <div className="space-y-2 border-t border-hairline px-4 py-3">
         {routine && (
           <div className="flex items-center gap-2">
-            <button onClick={runRoutineNow} disabled={working} className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-[12px] font-semibold text-accent-ink hover:brightness-110 disabled:opacity-50">{starting ? <Loader2 size={13} className="animate-spin" /> : <Play size={13} />}{starting ? t("routines.starting") : t("routines.runNow")}</button>
-            <button disabled={working} onClick={() => void invoke(`/api/routines/${routine.id}`, "PATCH", { enabled: !routine.enabled })} title={routine.enabled ? "Pause routine" : "Resume routine"} className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-hairline bg-control px-3 py-2 text-[12px] font-medium text-ink hover:bg-raised-hover disabled:opacity-40">{routine.enabled ? <Pause size={13} /> : <Play size={13} />}{routine.enabled ? t("routines.pause") : t("routines.resume")}</button>
+            <Button variant="primary" size="lg" onClick={runRoutineNow} disabled={working} className="flex flex-1 gap-1.5 px-3 text-[12px]">{starting ? <Loader2 size={13} className="animate-spin" /> : <Play size={13} />}{starting ? t("routines.starting") : t("routines.runNow")}</Button>
+            <Button size="lg" disabled={working} onClick={() => void invoke(`/api/routines/${routine.id}`, "PATCH", { enabled: !routine.enabled })} title={routine.enabled ? "Pause routine" : "Resume routine"} className="flex flex-1 gap-1.5 border border-hairline px-3 text-[12px]">{routine.enabled ? <Pause size={13} /> : <Play size={13} />}{routine.enabled ? t("routines.pause") : t("routines.resume")}</Button>
           </div>
         )}
         <div className="flex flex-wrap items-center gap-1">
-          {roomId && <button onClick={() => onOpenRoom(roomId)} className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-[12px] font-semibold text-accent-ink hover:brightness-110"><ExternalLink size={13} />Join group</button>}
-          {call && call.botIds.length > 1 && <button onClick={joinRoom} disabled={working} className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-[12px] font-semibold text-accent-ink hover:brightness-110 disabled:opacity-50"><ExternalLink size={13} />Join group</button>}
-          {isRoomGoal && goalGroup && !executionThreadId && <button onClick={() => { onOpenRoom(goalGroup.id); onClose(); }} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-raised hover:text-ink"><ExternalLink size={13} />Open group</button>}
-          {canOpenExecution && <button onClick={openRunTask} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-raised hover:text-ink"><ExternalLink size={13} />{isRoomGoal && goalGroupId ? "Open group thread" : "Open thread"}</button>}
-          {canOpenResults && openResultsId && <button type="button" onClick={() => { openNotificationTarget(dispatch, { botId: botIds[0], threadId: openResultsId }, state, showThreads); onClose(); }} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-raised hover:text-ink"><ExternalLink size={13} />{t("routines.results.open")}</button>}
-          {run && ["queued", "running", "waiting"].includes(run.status) && <button onClick={() => void invoke(`/api/routine-runs/${run.id}/cancel`)} disabled={working} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-40"><X size={13} />Cancel run</button>}
+          {roomId && <Button variant="primary" size="lg" onClick={() => onOpenRoom(roomId)} className="flex gap-1.5 px-3 text-[12px]"><ExternalLink size={13} />Join group</Button>}
+          {call && call.botIds.length > 1 && <Button variant="primary" size="lg" onClick={joinRoom} disabled={working} className="flex gap-1.5 px-3 text-[12px]"><ExternalLink size={13} />Join group</Button>}
+          {isRoomGoal && goalGroup && !executionThreadId && <Button variant="ghost" onClick={() => { onOpenRoom(goalGroup.id); onClose(); }} className="flex gap-1.5 text-[12px] font-normal"><ExternalLink size={13} />Open group</Button>}
+          {canOpenExecution && <Button variant="ghost" onClick={openRunTask} className="flex gap-1.5 text-[12px] font-normal"><ExternalLink size={13} />{isRoomGoal && goalGroupId ? "Open group thread" : "Open thread"}</Button>}
+          {canOpenResults && openResultsId && <Button variant="ghost" onClick={() => { openNotificationTarget(dispatch, { botId: botIds[0], threadId: openResultsId }, state, showThreads); onClose(); }} className="flex gap-1.5 text-[12px] font-normal"><ExternalLink size={13} />{t("routines.results.open")}</Button>}
+          {run && ["queued", "running", "waiting"].includes(run.status) && <Button variant="ghost" onClick={() => void invoke(`/api/routine-runs/${run.id}/cancel`)} disabled={working} className="flex gap-1.5 text-[12px] font-normal"><X size={13} />Cancel run</Button>}
           <div className="ml-auto flex items-center gap-1">
             {(routine || call) && <button onClick={onEdit} className="rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-ink hover:bg-raised">{t("routines.edit")}</button>}
-            {(routine || call) && <button onClick={() => void deleteEvent()} className="rounded-lg p-2 text-ink-secondary hover:bg-danger/10 hover:text-danger-text" title={t("routines.delete")} aria-label={t("routines.delete")}><Trash2 size={14} /></button>}
+            {(routine || call) && <IconButton label={t("routines.delete")} onClick={() => void deleteEvent()} className="rounded-lg p-2 text-ink-secondary hover:bg-danger/10 hover:text-danger-text"><Trash2 size={14} /></IconButton>}
           </div>
         </div>
       </div>

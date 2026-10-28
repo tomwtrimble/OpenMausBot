@@ -60,6 +60,7 @@ import { useAdvancedMode } from "@/lib/interface-mode";
 import { Select } from "./Select";
 import { BrowserProfilesRow, ColorUserBubblesRow, AdvancedModeRow, ExperimentalFeaturesRow, LanguageRow, NewBotEffortRow, PinnedCirclesRow, ReplayTourRow, RunCardRow, SendKeyRow, ShowThreadsRow, SidebarDensityRow, ToolCallsRow, UniversalPinsRow, UpdatesRow } from "./AppSettingsRows";
 import { SIMPLE_ADVANCED_ONLY, SimpleAiPage, SimpleBillingPage, SimpleComputerPage, SimpleGeneralPage, SimpleLooksPage, SimpleUpdatesPage, type Disclose, type SimpleDisclosureId } from "./SettingsSimplePages";
+import { IconButton } from "./ui/IconButton";
 
 // labelKey, not a label: t() reads the active pack when called, so a label resolved at module scope would freeze the
 // boot language.
@@ -532,15 +533,13 @@ export function SettingsModal() {
                 {looksOpen ? t("settings.simple.page.looks") : currentPage ? t(currentPage.labelKey) : null}
               </h2>
             </header>
-            <button
-              type="button"
+            <IconButton label={t("settings.close")} tooltip={`${t("settings.close")} (${shortcutLabel("close-panel")})`}
               onClick={close}
-              aria-label={t("settings.close")}
-              title={`${t("settings.close")} (${shortcutLabel("close-panel")})`}
+
               className="absolute right-3 top-3 flex size-8 cursor-pointer items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink motion-reduce:transition-none"
             >
               <X size={16} aria-hidden="true" />
-            </button>
+            </IconButton>
 
             <div
               ref={scrollRef}
@@ -645,14 +644,13 @@ export function SettingsModal() {
             <span className="hidden text-[15px] font-semibold text-ink sm:block">
               {sectionLabelKey ? t(sectionLabelKey) : null}
             </span>
-            <button
+            <IconButton label={t("settings.close")} tooltip={`${t("settings.close")} (${shortcutLabel("close-panel")})`}
               onClick={close}
-              aria-label={t("settings.close")}
-              title={`${t("settings.close")} (${shortcutLabel("close-panel")})`}
+
               className="ui-icon-button cursor-pointer shrink-0 max-md:size-9 max-md:rounded-full max-md:border max-md:border-edge max-md:bg-card"
             >
               <X size={18} />
-            </button>
+            </IconButton>
           </div>
 
           <div ref={scrollRef} className="flex flex-1 flex-col gap-4 overflow-y-auto px-3 py-4 sm:px-5 sm:pb-5">

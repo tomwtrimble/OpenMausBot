@@ -7,6 +7,7 @@ import { InstanceProviderMark } from "./ProviderIcons";
 import { hasSavedApiKey, needsCli, needsSignIn } from "./EngineSetup";
 import { MENU_META, MENU_ROW, MENU_STROKE } from "./menu-recipe";
 import { Select } from "./Select";
+import { IconButton } from "./ui/IconButton";
 
 type ModelOption = InstanceInfo["models"]["options"][number];
 
@@ -164,16 +165,14 @@ export function ModelEngineRail({ instances, selectedInstance, claudeInstance, o
       {(api.length > 0 || onAddApiKeys) && <div className={cn(RAIL_LABEL, subscription.length > 0 ? "pt-2" : "pt-0.5")}>{t("model.rail.apiKeys")}</div>}
       {api.map(railButton)}
       {onAddApiKeys && (
-        <button
-          type="button"
+        <IconButton label={apiKeysLabel(instances)}
           data-rail-add-api-key
           onClick={onAddApiKeys}
-          aria-label={apiKeysLabel(instances)}
-          title={apiKeysLabel(instances)}
+
           className="flex size-9 shrink-0 items-center justify-center rounded-[8px] border border-dashed border-ink/20 text-ink-tertiary hover:bg-ink/[0.06] hover:text-ink"
         >
           <Plus size={16} strokeWidth={MENU_STROKE} aria-hidden="true" />
-        </button>
+        </IconButton>
       )}
       {local.length > 0 && <div className={cn(RAIL_LABEL, "pt-2")}>{t("model.rail.local")}</div>}
       {local.map(railButton)}

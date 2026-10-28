@@ -40,6 +40,7 @@ vi.mock("@/state/store", async (importOriginal) => {
 
 import { Sidebar } from "./Sidebar";
 import { SidebarNewChatPanel } from "./SidebarNewChatPanel";
+import { buttonName, isButton } from "@/testing/ui-elements";
 
 type Props = { children?: ReactNode; className?: string; onClick?: () => void; [key: string]: unknown };
 function nodes(value: ReactNode): ReactElement<Props>[] {
@@ -53,7 +54,7 @@ function render() {
   fixture.effects = [];
   return nodes(Sidebar({ open: false, onClose: () => {} }));
 }
-const trigger = (label: string) => render().find((node) => node.type === "button" && node.props["aria-label"] === label)!;
+const trigger = (label: string) => render().find((node) => isButton(node) && buttonName(node) === label)!;
 
 let window: EventTarget;
 function runEffects() {
@@ -124,7 +125,7 @@ describe.each(menus)("sidebar header menu: $name", ({ label, item }) => {
       const ref = node.props.ref as { current: unknown } | undefined;
       if (!ref || typeof ref !== "object") return false;
       const inner = nodes(node.props.children);
-      return inner.some((child) => child.props["aria-label"] === label) && text(inner).includes(item);
+      return inner.some((child) => buttonName(child) === label) && text(inner).includes(item);
     }).at(-1);
     expect(root).toBeDefined();
     (root!.props.ref as { current: unknown }).current = { contains: (target: unknown) => target === INSIDE };
@@ -139,7 +140,7 @@ describe.each(menus)("sidebar header menu: $name", ({ label, item }) => {
 describe("sidebar header menu: New chat", () => {
   it("leads the + menu and opens the New chat panel in its place", () => {
     trigger("New or share").props.onClick!();
-    const first = render().find((node) => node.type === "button" && text([node]).includes("New chat"));
+    const first = render().find((node) => isButton(node) && text([node]).includes("New chat"));
     expect(first).toBeDefined();
     expect(render().some((node) => node.type === SidebarNewChatPanel)).toBe(false);
     first!.props.onClick!();

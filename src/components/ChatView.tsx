@@ -134,6 +134,7 @@ import { TranscriptAnnouncer } from "./TranscriptAnnouncer";
 import { JumpToLatestButton } from "./JumpToLatestButton";
 import { isBotTextRow, joinedCorners, needsStamp, quietRow, simpleRowLayout, SIMPLE_BOT_BUBBLE, SIMPLE_BUBBLE_MAX, SIMPLE_BUBBLE_TEXT, SIMPLE_STACKED, SIMPLE_USER_BUBBLE, type BubbleJoin } from "./chat-bubble";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 const USER_COLLAPSE_CHARS = 600;
 const USER_COLLAPSE_LINES = 8;
@@ -586,25 +587,23 @@ const Bubble = memo(function Bubble({
       <ReactionChips threadId={threadId} message={message} bots={bots} align={user ? "end" : "start"} canReact={canReact} />
       {forks.length > 1 && (
         <div className="mt-1 flex items-center gap-0.5 pr-1 text-[12px] text-ink-secondary">
-          <button
+          <IconButton label={t("chat.previousVersion")}
             onClick={() => switchTo(forks[versionIndex - 1])}
             disabled={versionIndex <= 0 || busy}
             className="rounded p-0.5 hover:bg-raised hover:text-ink disabled:opacity-30 disabled:hover:bg-transparent"
-            title={t("chat.previousVersion")}
           >
             <ChevronLeft size={14} />
-          </button>
+          </IconButton>
           <span className="tabular-nums">
             {versionIndex + 1}/{forks.length}
           </span>
-          <button
+          <IconButton label={t("chat.nextVersion")}
             onClick={() => switchTo(forks[versionIndex + 1])}
             disabled={versionIndex >= forks.length - 1 || busy}
             className="rounded p-0.5 hover:bg-raised hover:text-ink disabled:opacity-30 disabled:hover:bg-transparent"
-            title={t("chat.nextVersion")}
           >
             <ChevronRight size={14} />
-          </button>
+          </IconButton>
         </div>
       )}
     </div>
@@ -1036,12 +1035,10 @@ export function ChatView({ bot: profile }: { bot: Bot }) {
             />
           ) : advanced ? (
             <div data-chathead-pill className={cn(CHATHEAD_PILL, "pr-1")}>
-              <button
-                type="button"
+              <IconButton label={t("chat.openProfileAria", { name: bot.name })} tooltip={t("chat.openProfile")}
                 onClick={() => dispatch({ type: "toggleSettings", open: true })}
                 className="flex shrink-0 items-center justify-center rounded-full"
-                title={t("chat.openProfile")}
-                aria-label={t("chat.openProfileAria", { name: bot.name })}
+
               >
                 <BotAvatar
                   bot={bot}
@@ -1051,7 +1048,7 @@ export function ChatView({ bot: profile }: { bot: Bot }) {
                   motionKey={mascotMotion?.nonce ?? 0}
                   animated={headerAnimated}
                 />
-              </button>
+              </IconButton>
               <RenameTitle
                 value={bot.name}
                 onCommit={(name) => {

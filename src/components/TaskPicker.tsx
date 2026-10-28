@@ -15,6 +15,7 @@ import { useShowThreads } from "@/lib/thread-preferences";
 import { attentionJumpAction, attentionOwnerName, AttentionThreadRows, crossBotAttentionThreads, threadsWhenTreeHidden, type AttentionThread } from "./SidebarBotActivity";
 import { formatUpdatedAt, orderedThreadList, threadByline, threadRecency, threadUpdatedLabel, useRelativeNow } from "./SidebarThreadRow";
 import { Select } from "./Select";
+import { IconButton } from "./ui/IconButton";
 
 export const TASK_PICKER_DISMISS_MS = 500;
 
@@ -355,26 +356,22 @@ function ConversationTaskPicker({
                     </button>
                   )}
                   {onPin && renaming !== task.threadId && (
-                    <button
-                      type="button"
+                    <IconButton label={task.pinned === true ? t("sidebar.bot.unpin") : t("sidebar.bot.pin")}
                       onClick={() => onPin(task.threadId, task.pinned !== true)}
-                      aria-label={task.pinned === true ? t("sidebar.bot.unpin") : t("sidebar.bot.pin")}
-                      title={task.pinned === true ? t("sidebar.bot.unpin") : t("sidebar.bot.pin")}
+
                       className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-70"
                     >
                       {task.pinned === true ? <PinOff size={14} /> : <Pin size={14} />}
-                    </button>
+                    </IconButton>
                   )}
                   {renaming !== task.threadId && (
-                    <button
-                      type="button"
+                    <IconButton label={t("task.renameNamed", { title: task.title })} tooltip={t("task.renameTitle")}
                       onClick={() => startRename(task)}
-                      aria-label={t("task.renameNamed", { title: task.title })}
-                      title={t("task.renameTitle")}
+
                       className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-70"
                     >
                       <SquarePen size={14} />
-                    </button>
+                    </IconButton>
                   )}
                   {bot && onMove && (bot.projects?.length ?? 0) > 0 && <label title={t("folder.move")} className="relative rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-ink focus-within:opacity-100 group-hover:opacity-100 touch:opacity-70">
                     <FolderInput size={14} />
@@ -385,16 +382,14 @@ function ConversationTaskPicker({
                       {bot.projects?.map((project) => <option key={project.id} value={project.id}>{project.emoji ? `${project.emoji} ` : ""}{project.name}</option>)}
                     </select>
                   </label>}
-                  <button
-                    type="button"
+                  <IconButton label={t("task.deleteAria")} tooltip={t("task.deleteTitle")}
                     onClick={() => onDelete(task.threadId)}
                     disabled={Boolean(task.busy) || busy && active}
-                    aria-label={t("task.deleteAria")}
-                    title={t("task.deleteTitle")}
+
                     className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-danger-text focus-visible:opacity-100 group-hover:opacity-100 disabled:opacity-20 touch:opacity-70 touch:disabled:opacity-20"
                   >
                     <Trash2 size={14} />
-                  </button>
+                  </IconButton>
                 </div>
                 </Fragment>
               );

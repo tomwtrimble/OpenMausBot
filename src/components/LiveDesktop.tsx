@@ -6,6 +6,7 @@ import { connectDesktop, typeOnDesktop } from "@/lib/desktop-connection";
 import { t } from "@/lib/i18n";
 import { useCaptionChrome, useDesktopCapabilities } from "./DesktopCapabilities";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 type Connection = "connecting" | "connected" | "disconnected";
 
@@ -115,9 +116,9 @@ export function LiveDesktop({ target, threadId, name, poster, expanded, onExpand
               aria-label={t("desktopViewer.text")}
               className="w-44 min-w-0 rounded-lg border border-edge bg-inset px-2.5 py-1.5 text-[12px] text-ink outline-none focus:border-focus max-sm:w-28"
             />
-            <button type="submit" disabled={connection !== "connected" || !text} title={t("desktopViewer.send")} aria-label={t("desktopViewer.send")} className={cn(iconButton, "bg-control text-ink hover:bg-raised-hover")}>
+            <IconButton label={t("desktopViewer.send")} type="submit" disabled={connection !== "connected" || !text} className={cn(iconButton, "bg-control text-ink hover:bg-raised-hover")}>
               <Send size={14} aria-hidden="true" />
-            </button>
+            </IconButton>
           </form>
           <button type="button" style={noDragStyle} onClick={() => onExpandedChange(false)} className={cn(iconButton, "bg-control text-ink hover:bg-raised-hover")}>
             <Minimize2 size={14} aria-hidden="true" />

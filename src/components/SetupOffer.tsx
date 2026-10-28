@@ -12,6 +12,7 @@ import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
 import { api, useStore, type Bot, type Message } from "@/state/store";
 import { moveChoiceFocus, returnFocusToComposer } from "./AskCard";
+import { IconButton } from "./ui/IconButton";
 
 const blank = (bot: Pick<Bot, "soul" | "description">): boolean => !bot.soul?.trim() && !bot.description?.trim();
 const LETTERS = "ABCDEFGH";
@@ -110,10 +111,10 @@ export function SetupOffer({ botId, threadId, message, transcript }: { botId: st
       className="w-full max-w-[min(var(--chat-bubble-max),var(--chat-bubble-pct))] rounded-[24px] bg-composer px-2 pb-2 pt-3 ring-[0.5px] ring-ink/10">
       <div className="flex items-start justify-between gap-2 ps-3 pe-1">
         <h3 dir="auto" className="py-px text-[16px] font-semibold leading-[22px] text-ink-secondary">{title}</h3>
-        {!settled && <button type="button" onClick={close} aria-label={t("common.close")} title={t("common.close")}
+        {!settled && <IconButton label={t("common.close")} onClick={close}
           className="-mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full text-ink-tertiary hover:bg-ink/[0.07] hover:text-ink-secondary">
           <X size={15} aria-hidden="true" />
-        </button>}
+        </IconButton>}
       </div>
       {pending ? <div data-setup-waiting="" className="mt-1.5 flex flex-col">
         {PLACEHOLDER_WIDTHS.map((width) => (
@@ -180,11 +181,10 @@ function WaitingChip({ bot, threadId }: { bot: Bot; threadId: string }) {
       <span className="inline-flex h-7 max-w-full items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 ps-2.5 pe-1 text-[13px] text-ink">
         <Sparkles size={13} aria-hidden="true" className="shrink-0 text-accent-text" />
         <bdi dir="auto" className="min-w-0 truncate">{t("composer.setupRequest.waiting", { name: bot.name })}</bdi>
-        <button type="button" data-setup-request-cancel="" onClick={stop} disabled={stopping}
-          aria-label={t("composer.setupRequest.cancel", { name: bot.name })} title={t("composer.setupRequest.cancel", { name: bot.name })}
+        <IconButton label={t("composer.setupRequest.cancel", { name: bot.name })} data-setup-request-cancel="" onClick={stop} disabled={stopping}
           className="flex size-5 shrink-0 items-center justify-center rounded-full text-ink-secondary hover:bg-ink/[0.08] hover:text-ink">
           <X size={12} />
-        </button>
+        </IconButton>
       </span>
     </div>
   );

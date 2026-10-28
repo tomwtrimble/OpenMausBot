@@ -16,6 +16,7 @@ vi.mock("@/lib/cloud-intent", async original => {
 import { CloudIntent } from "./CloudIntent";
 import { dismissCloudIntent } from "@/lib/cloud-intent";
 import { api } from "@/state/store";
+import { buttonName, isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; onClick?: () => void }>;
 function nodes(value: ReactNode): Node[] {
@@ -49,7 +50,7 @@ it("asks with /setup in front, offers ideas, and says plainly how to skip", () =
 });
 
 it("Skip for now steps aside at once and is kept in the Cloud's record, so no device asks again", async () => {
-  const skip = render().nodes.find(node => node.type === "button" && text(node) === "Skip for now")!;
+  const skip = render().nodes.find(node => isButton(node) && text(node) === "Skip for now")!;
   skip.props.onClick!();
   expect(dismissCloudIntent).toHaveBeenCalledOnce();
   await Promise.resolve();
@@ -57,7 +58,7 @@ it("Skip for now steps aside at once and is kept in the Cloud's record, so no de
 });
 
 it("sends nothing while the box is empty", () => {
-  const send = render().nodes.find(node => node.type === "button" && (node.props as { "aria-label"?: string })["aria-label"] === "Start setting it up")!;
+  const send = render().nodes.find(node => isButton(node) && buttonName(node) === "Start setting it up")!;
   expect((send.props as { disabled?: boolean }).disabled).toBe(true);
   send.props.onClick!();
   expect(store.dispatch).not.toHaveBeenCalled();

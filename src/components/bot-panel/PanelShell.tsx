@@ -16,6 +16,7 @@ import { PageBody, pageSurfaceCls } from "./pages";
 import { linkTarget, usePanelLink, type PanelLink } from "./panel-link";
 import { PanelHero } from "./PanelHero";
 import { PageHeader, roundButtonCls } from "./rows";
+import { IconButton } from "../ui/IconButton";
 
 function initialTarget(section: BotSettingsSection | null, link: PanelLink | null): PanelTarget {
   return section ? linkTarget(section, link) : { tab: "details" };
@@ -99,17 +100,15 @@ export function BotPanel({ bot, derived, headerClassName, linkedSection, onClose
     <div className="flex min-h-0 flex-1 flex-col" onKeyDown={onKeyDown}>
       <div {...dragProps} className={cn("flex h-[50px] shrink-0 items-start justify-end gap-2.5 px-[13px] pt-[13px]", headerClassName)}>
         <ChatShareMenu bot={bot} className={roundButtonCls} />
-        <button
-          type="button"
+        <IconButton label={t("botPanel.page.settings")}
           data-panel-gear
-          aria-label={t("botPanel.page.settings")}
-          title={t("botPanel.page.settings")}
+
           aria-current={page === "settings" ? "page" : undefined}
           onClick={() => go({ tab: "details", page: "settings" })}
           className={roundButtonCls}
         >
           <Settings size={16} className="pointer-events-none" />
-        </button>
+        </IconButton>
         <button type="button" onClick={onClose} aria-label={t("botSettings.simple.close")} className={roundButtonCls}>
           <X size={16} className="pointer-events-none" />
         </button>

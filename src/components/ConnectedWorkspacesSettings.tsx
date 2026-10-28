@@ -9,6 +9,7 @@ import { useStore } from "@/state/store";
 import { sharedComputersEnabled } from "@/lib/feature-flags";
 import { productName } from "@/lib/brand";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 type SavedWorkspaces = Awaited<ReturnType<NonNullable<NonNullable<Window["ogb"]>["environments"]>["state"]>>;
 type SavedEntry = SavedWorkspaces["environments"][number] | { id: string; name: string; origin: string; color: undefined };
@@ -95,9 +96,9 @@ export function ConnectedWorkspacesSettings() {
                   return true;
                 }, setEnvError)}
                 className="rounded-md px-2 py-1.5 text-[12px] text-ink hover:bg-control disabled:opacity-50">{t("connectedWorkspaces.switch")}</button>}
-            {!active && <button type="button" disabled={busy} aria-label={t("connectedWorkspaces.forgetName", { name: entry.name })} title={t("connectedWorkspaces.forgetName", { name: entry.name })}
+            {!active && <IconButton label={t("connectedWorkspaces.forgetName", { name: entry.name })} disabled={busy}
               onClick={() => { setEnvForget(entry.id); setEnvPurge(false); }}
-              className="rounded-md p-1.5 text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"><Trash2 size={14} /></button>}
+              className="rounded-md p-1.5 text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"><Trash2 size={14} /></IconButton>}
           </li>;
         })}
       </ul>}
@@ -158,8 +159,8 @@ export function ConnectedWorkspacesSettings() {
                 <button type="button" disabled={busy} aria-label={`Switch to ${entry.name}`} onClick={() => void perform(async () => { await bridge.switch(entry.id); return true; })}
                   className="rounded-md px-2 py-1.5 text-[12px] text-ink hover:bg-control disabled:opacity-50">Switch</button>}
               {entry.id !== "local" && !ownCloud(entry) && sharingOffered && <button type="button" disabled={busy} aria-label={`Computer access for ${entry.name}`} onClick={() => setComputerId(entry.id)} className="rounded-md px-2 py-1.5 text-[12px] text-ink hover:bg-control">Computer access</button>}
-              {entry.id !== "local" && <button type="button" disabled={busy} aria-label={`Forget ${entry.name}`} title={`Forget ${entry.name}`}
-                onClick={() => void perform(() => bridge.forget(entry.id))} className="rounded-md p-1.5 text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"><Trash2 size={14} /></button>}
+              {entry.id !== "local" && <IconButton label={`Forget ${entry.name}`} disabled={busy}
+                onClick={() => void perform(() => bridge.forget(entry.id))} className="rounded-md p-1.5 text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"><Trash2 size={14} /></IconButton>}
             </li>;
           })}
         </ul>}

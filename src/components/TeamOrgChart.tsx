@@ -10,6 +10,7 @@ import { api, useStore, type Action, type Bot } from "@/state/store";
 import { mayChangeOwner, ownerChanged, ownerOf, useTeamPeople, type TeamPeople } from "@/state/team-people";
 import { BotAvatar } from "./Avatar";
 import { PersonFace, requestOwnerPick } from "./TeamOwner";
+import { IconButton } from "./ui/IconButton";
 
 export type MapMode = "departments" | "people";
 const BOT_DRAG_TYPE = "application/x-openmausbot-org-bot";
@@ -48,12 +49,12 @@ function BotRow({ bot, team, onDragStart }: { bot: Bot; team: TeamPeople; onDrag
       <BotAvatar bot={bot} size={24} motion="none" motionKey={0} animated={false} />
       <span className="min-w-0 flex-1 truncate text-[13px] text-ink">{bot.name}</span>
       {bot.chiefOfStaff && <Crown size={12} className="shrink-0 text-accent-text" aria-label={t("orgChart.chief")} />}
-      {movable && <button type="button" aria-label={t("owner.change", { bot: bot.name })} title={t("owner.change", { bot: bot.name })}
+      {movable && <IconButton label={t("owner.change", { bot: bot.name })}
         onClick={(event) => {
           const rect = event.currentTarget.getBoundingClientRect();
           requestOwnerPick({ botIds: [bot.id], title: t("owner.pickTitle"), current: ownerOf(bot, team)?.email ?? null, x: rect.left, y: rect.bottom + 4 });
         }}
-        className="flex size-6 shrink-0 items-center justify-center rounded text-ink-secondary opacity-0 hover:bg-raised hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-100"><UserRound size={13} /></button>}
+        className="flex size-6 shrink-0 items-center justify-center rounded text-ink-secondary opacity-0 hover:bg-raised hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-100"><UserRound size={13} /></IconButton>}
     </div>
   );
 }

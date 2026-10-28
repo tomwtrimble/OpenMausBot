@@ -9,6 +9,7 @@ import { DataCard, RunningStatus } from "./DataCard";
 import { DataResultFooter } from "./DataGrid";
 import { SqlEditor } from "./SqlEditor";
 import { cardsLatestFirst } from "./data-format";
+import { IconButton } from "../ui/IconButton";
 
 const QUERY_MIN_HEIGHT = 128;
 const RESULT_MIN_HEIGHT = 180;
@@ -242,9 +243,9 @@ function BotDataPanel({ bot, requestedCard }: { bot: Bot; requestedCard?: { id: 
             ))}
           </div>
         </details>
-        <button type="button" className={control} aria-label={t(fullscreen ? "desktopViewer.exitFullscreen" : "desktopViewer.fullscreen")} title={t(fullscreen ? "desktopViewer.exitFullscreen" : "desktopViewer.fullscreen")} onClick={() => void toggleFullscreen()}>
+        <IconButton label={t(fullscreen ? "desktopViewer.exitFullscreen" : "desktopViewer.fullscreen")} className={control} onClick={() => void toggleFullscreen()}>
           {fullscreen ? <Minimize2 size={14} aria-hidden="true" /> : <Maximize2 size={14} aria-hidden="true" />}
-        </button>
+        </IconButton>
   </>;
   const queryError = runError ?? (fullscreenError ? t("desktopViewer.fullscreenFailed") : null);
 

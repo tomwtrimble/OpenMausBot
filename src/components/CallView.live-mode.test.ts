@@ -73,7 +73,7 @@ describe("call modes", () => {
     void startLiveCall({ botId: bot.id, threadId: bot.threadId });
     const markup = render(createElement(CallButton, { bot }));
     expect(markup).toContain('aria-label="Hang up on Atlas"');
-    expect(markup).toMatch(/<button[^>]*disabled=""[^>]*aria-label="Call mode"/);
+    expect(markup).toMatch(/<button(?=[^>]*disabled="")[^>]*aria-label="Call mode"/);
   });
 
   it("blocks other chats' call buttons while this window is on a Live call", () => {

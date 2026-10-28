@@ -5,6 +5,7 @@ import { t } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 import { Card, SIMPLE_CARD } from "./SettingsPrimitives";
 import { UsageSummaryCard } from "./CloudUsageMeter";
+import { IconButton } from "./ui/IconButton";
 
 interface PlanWindow {
   available: boolean;
@@ -217,16 +218,14 @@ export function PlanUsage() {
   return (
     <Card title={t("planUsage.title")} subtitle={t("planUsage.subtitle")}>
       <div className="mb-3 flex justify-end">
-        <button
-          type="button"
+        <IconButton label={t("planUsage.refresh")}
           onClick={() => void load(true)}
           disabled={loading}
-          aria-label={t("planUsage.refresh")}
-          title={t("planUsage.refresh")}
+
           className="rounded-md p-2 text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
-        </button>
+        </IconButton>
       </div>
       {loading && !report && <p role="status" className="text-[13px] text-ink-secondary">{t("planUsage.loading")}</p>}
       {error && <p role="alert" className="mb-3 text-[13px] text-danger-text">{error}</p>}

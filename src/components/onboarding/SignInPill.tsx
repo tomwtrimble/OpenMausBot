@@ -10,6 +10,7 @@ import { plainSignIn } from "@/lib/onboarding";
 import { engineSignedIn } from "@/lib/product-events";
 import { api, useStore, type InstanceInfo } from "@/state/store";
 import { deviceSignInLink, isDeviceSignInCode } from "../../../shared/device-sign-in";
+import { IconButton } from "../ui/IconButton";
 
 const POLL_MS = 2_000;
 export const PILL = "ui-button ui-button-pill ui-button-lg ui-button-primary w-[288px] max-w-full";
@@ -146,10 +147,10 @@ function PasteSlot({ name, onSubmit }: { name: string; onSubmit: (code: string) 
       <input autoFocus value={code} onChange={(event) => setCode(event.target.value)} aria-label={t("onboarding.meet.paste", { name })}
         placeholder={t("onboarding.meet.paste", { name })}
         className="h-9 w-full rounded-[18px] border-[0.5px] border-ink/10 bg-composer pl-4 pr-10 text-[14px] leading-5 text-ink placeholder:text-ink-tertiary" />
-      <button type="submit" disabled={!code.trim()} aria-label={t("onboarding.meet.pasteSubmit")} title={t("onboarding.meet.pasteSubmit")}
+      <IconButton label={t("onboarding.meet.pasteSubmit")} type="submit" disabled={!code.trim()}
         className="absolute right-1 top-1 flex size-7 items-center justify-center rounded-full bg-ink text-app disabled:opacity-40">
         <ArrowUp size={14} strokeWidth={2} />
-      </button>
+      </IconButton>
     </form>
   );
 }

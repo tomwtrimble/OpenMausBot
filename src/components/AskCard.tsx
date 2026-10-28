@@ -7,6 +7,7 @@ import type { MausColor } from "@/lib/mascot";
 import type { Bot } from "@/state/store";
 import { BotAvatar } from "./Avatar";
 import { ELEVATED_CARD } from "./elevated";
+import { IconButton } from "./ui/IconButton";
 
 /** The bot a card asks for: its face and name lead the card. */
 export type Asker = Pick<Bot, "name" | "color"> & Partial<Pick<Bot, "avatarUrl" | "avatarCrop" | "avatarZoom" | "avatarFocusX" | "avatarFocusY" | "mascotBody" | "mascotFaceColor">>;
@@ -71,18 +72,16 @@ export function AskCard({
         </div>
         {meta && <span className="mt-0.5 shrink-0 text-[12px] tabular-nums text-ink-tertiary">{meta}</span>}
         {onDismiss && dismissLabel && (
-          <button
-            type="button"
+          <IconButton label={dismissLabel}
             onClick={onDismiss}
-            aria-label={dismissLabel}
-            title={dismissLabel}
+
             className={cn(
               "-me-1.5 flex size-7 shrink-0 items-center justify-center rounded-full text-ink-tertiary hover:bg-ink/[0.07] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus pointer-coarse:size-9",
               header ? "-mt-7" : "-mt-0.5",
             )}
           >
             <X size={15} />
-          </button>
+          </IconButton>
         )}
       </div>
       {explanation && <div className="mt-1 text-[14px] leading-5 text-ink-secondary">{explanation}</div>}

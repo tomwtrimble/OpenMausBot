@@ -11,6 +11,7 @@ import { OrgSkillsCard } from "./OrgSkillsCard";
 import { WriteCommandCard } from "./WriteCommandCard";
 import { Select } from "../Select";
 import { Button } from "../ui/Button";
+import { IconButton } from "../ui/IconButton";
 
 export interface ManagedSkill {
   name: string;
@@ -479,15 +480,14 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                     />
                   )}
                   {skill.origin !== "imported" && skill.origin !== "native" && (
-                    <button
-                      aria-label={`Remove ${skill.name}`}
-                      title="Remove skill"
+                    <IconButton label={`Remove ${skill.name}`} tooltip="Remove skill"
+
                       disabled={Boolean(working)}
                       onClick={() => void remove(skill)}
                       className="flex size-8 shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40"
                     >
                       <Trash2 size={15} />
-                    </button>
+                    </IconButton>
                   )}
                 </div>
                 <div className="mt-1 truncate text-[11px] text-ink-secondary" title={skill.source}>Source: {skill.source}</div>

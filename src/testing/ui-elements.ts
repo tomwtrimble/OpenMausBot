@@ -1,6 +1,6 @@
 // Shallow tests walk the element tree a component returns without rendering it. A control drawn with <Button> or
 // <IconButton> is an element of that component, not of "button"; these read it as the button it renders.
-import { isValidElement, type ReactElement } from "react";
+import { createElement, isValidElement, type ReactElement } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { IconButton } from "@/components/ui/IconButton";
@@ -25,4 +25,12 @@ export function buttonProps(node: Node): Record<string, unknown> {
     return { ...rest, "aria-label": label, title: tooltip ?? label };
   }
   return node?.props ?? {};
+}
+
+/** A walker that calls function components can call this first: a <Button> or <IconButton> becomes the <button> it
+ * draws, without the tooltip's hooks, so a test outside a render still sees its label and tooltip text. */
+export function hostButton(node: Node): ReactElement | null {
+  if (!node || (node.type !== Button && node.type !== IconButton)) return null;
+  const { children, ...rest } = buttonProps(node) as { children?: unknown };
+  return createElement("button", rest, children as never);
 }

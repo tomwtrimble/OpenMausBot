@@ -4,7 +4,6 @@ import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { AppState, Bot, Group } from "@/state/store";
 import type { Routine, RoutineRun } from "@/lib/routines";
 import { isButton } from "@/testing/ui-elements";
-import { Button } from "./ui/Button";
 
 const fixture = vi.hoisted(() => {
   vi.stubGlobal("window", {});

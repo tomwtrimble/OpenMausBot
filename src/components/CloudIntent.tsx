@@ -16,6 +16,7 @@ import type { MausMotion, MausState } from "@/lib/mascot";
 import type { OnboardingStatus } from "@/lib/onboarding";
 import type { LocaleKey } from "@/locales";
 import { api, useStore, type Action, type AppState } from "@/state/store";
+import { IconButton } from "./ui/IconButton";
 
 const IDEAS: Array<{ id: string; icon: LucideIcon; label: LocaleKey; text: LocaleKey }> = [
   { id: "digest", icon: Newspaper, label: "cloudIntent.idea.digest", text: "cloudIntent.idea.digestText" },
@@ -175,19 +176,17 @@ export function CloudIntent() {
               className="block min-h-12 w-full resize-none bg-transparent text-[15px] leading-6 text-ink outline-none placeholder:text-ink-tertiary"
               style={{ textIndent: indent }}
             />
-            <button
-              type="button"
+            <IconButton label={t("cloudIntent.send")} tooltip={`${t("cloudIntent.send")} (${sendKeyLabel(sendKey)})`}
               onClick={submit}
               disabled={!filled}
-              aria-label={t("cloudIntent.send")}
-              title={`${t("cloudIntent.send")} (${sendKeyLabel(sendKey)})`}
+
               className={cn(
                 "absolute bottom-3 right-3 flex size-8 items-center justify-center rounded-full transition-[background-color,color,transform] duration-150 ease-out active:scale-95",
                 filled ? "bg-accent text-white" : "bg-raised text-ink-secondary",
               )}
             >
               <ArrowUp size={16} strokeWidth={2.25} aria-hidden="true" />
-            </button>
+            </IconButton>
           </div>
         </div>
 

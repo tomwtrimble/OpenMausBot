@@ -13,6 +13,7 @@ import { useStore } from "@/state/store";
 
 import { SidebarSectionHeader } from "./SidebarSectionHeader";
 import { UpdateIndicator } from "./UpdateIndicator";
+import { IconButton } from "./ui/IconButton";
 
 
 function NavRow({
@@ -67,13 +68,11 @@ export function SidebarAppsButton() {
   const { state, dispatch } = useStore();
   const label = t("sidebar.nav.apps");
   return (
-    <button
-      type="button"
+    <IconButton label={label}
       data-tour="nav-apps"
       data-sidebar-nav="apps"
       onClick={() => dispatch({ type: "togglePlugins", open: true })}
-      aria-label={label}
-      title={label}
+
       aria-pressed={state.pluginsOpen}
       className={cn(
         "flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors",
@@ -81,7 +80,7 @@ export function SidebarAppsButton() {
       )}
     >
       <Puzzle size={18} />
-    </button>
+    </IconButton>
   );
 }
 

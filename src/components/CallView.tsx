@@ -30,6 +30,7 @@ import { VoiceSetupDialog } from "./VoiceSetupDialog";
 import { openBotSettings } from "./bot-panel/panel-link";
 import { MENU_SHEET } from "./menu-recipe";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 type Phase = "listening" | "sending" | "working" | "speaking";
 const CALL_ENDPOINT_MS = 850;
@@ -286,9 +287,8 @@ export function CallTargetButton({
         )}
       </button>
       {canLive && !round && (
-        <button
+        <IconButton label={t("call.mode.menu")}
           ref={chevronRef}
-          type="button"
           disabled={active || liveElsewhere}
           onClick={() => {
             const opening = !menuOpen;
@@ -307,7 +307,7 @@ export function CallTargetButton({
             )}
         >
           <ChevronDown size={13} className={cn("transition-transform", menuOpen && "rotate-180")} />
-        </button>
+        </IconButton>
       )}
 
       {menuOpen && (

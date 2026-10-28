@@ -11,6 +11,7 @@ import { isAppOrigin } from "@/lib/web-panels";
 import { useStore } from "@/state/store";
 
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 const LOAD_TIMEOUT_MS = 10_000;
 
@@ -40,15 +41,13 @@ export function WebPanelPage() {
       <header className="flex items-center gap-2 border-b border-hairline px-4 py-2.5">
         <Globe size={16} className="shrink-0 text-ink-secondary" />
         <h1 className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink" title={panel.url}>{panel.name}</h1>
-        <button
-          type="button"
+        <IconButton
+          label={t("webPanels.page.reload")}
           className="ui-icon-button shrink-0"
-          aria-label={t("webPanels.page.reload")}
-          title={t("webPanels.page.reload")}
           onClick={() => setReloads((n) => n + 1)}
         >
           <RotateCw size={16} />
-        </button>
+        </IconButton>
         <Button onClick={openInBrowser}>
           <ExternalLink size={14} />
           {t("webPanels.page.openInBrowser")}

@@ -11,6 +11,7 @@ import { freeFallback } from "../../../shared/ai-ranking";
 import { OrganisationRow } from "./beats/OrganisationRow";
 import { Dialog } from "../ui/Dialog";
 import type { WelcomeAiNow } from "./welcome-ai";
+import { IconButton } from "../ui/IconButton";
 
 /** A local-model setup and a step finished in Terminal keep their own words; every other sign-in says the same plain line
  * instead of the setup's technical one. */
@@ -164,10 +165,10 @@ export function ConnectAiDialog({ hosted = false, tested, onClose }: { hosted?: 
     >
       <div className="flex h-[52px] shrink-0 items-center justify-between pl-4 pr-3">
         <h2 id="connect-ai-title" className="text-[14px] font-semibold leading-[22px] text-ink">{t("onboarding.meet.connectAi")}</h2>
-        <button type="button" autoFocus onClick={onClose} aria-label={t("common.close")} title={t("common.close")}
+        <IconButton label={t("common.close")} autoFocus onClick={onClose}
           className="flex size-7 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink">
           <X size={16} />
-        </button>
+        </IconButton>
       </div>
       <div className="ui-modal-divider shrink-0" />
       <div className="min-h-0 overflow-y-auto p-4 [scrollbar-width:thin]">

@@ -8,6 +8,7 @@ import { copyText } from "@/lib/copy-text";
 import { columnMinimums, fitsColumns } from "@/lib/table-fit";
 import { cn } from "@/lib/cn";
 import { useAdvancedMode } from "@/lib/interface-mode";
+import { IconButton } from "./ui/IconButton";
 
 export interface TableCell { text: string; content?: ReactNode; align?: TableAlign; vAlign?: "top" | "middle" | "bottom" }
 export type TableAlign = "left" | "center" | "right" | "start" | "end";
@@ -94,8 +95,8 @@ export function RichTable({ columns, rows, name = t("table.title"), expanded = f
     <div data-table-card className={TABLE_CARD} dir="ltr">
       <div className="table-plate absolute end-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full bg-composer p-0.5 opacity-0 ring-[0.5px] ring-ink/10 transition-opacity focus-within:opacity-100 group-hover/table:opacity-100 touch:end-1 touch:top-0 touch:bg-transparent touch:p-0 touch:opacity-100 touch:ring-0">
         <button type="button" className="table-action !rounded-full" aria-label={t("table.copyPlain")} title={t("table.copyPlain")} onClick={() => void copy()}>{copyState === "copied" ? <Check size={14} /> : <Copy size={14} />}</button>
-        <button type="button" className="table-action !rounded-full" aria-label={t("table.download")} title={t("table.download")} onClick={download}><Download size={14} /></button>
-        <button type="button" className="table-action !rounded-full" aria-label={t("table.expand")} title={t("table.expand")} onClick={(event) => { trigger.current = event.currentTarget; setOpen(true); }}><Maximize2 size={14} /></button>
+        <IconButton label={t("table.download")} className="table-action !rounded-full" onClick={download}><Download size={14} /></IconButton>
+        <IconButton label={t("table.expand")} className="table-action !rounded-full" onClick={(event) => { trigger.current = event.currentTarget; setOpen(true); }}><Maximize2 size={14} /></IconButton>
       </div>
       {rows.length > SMALL_TABLE_ROWS && (
         <div className="flex items-center gap-2 px-4 pb-1.5 text-ink-tertiary">
@@ -111,10 +112,10 @@ export function RichTable({ columns, rows, name = t("table.title"), expanded = f
     if (simple && asCard && !large) return card();
     const small = !large && rows.length <= SMALL_TABLE_ROWS;
     const actions = <>
-        {!small && <button type="button" className="table-action" aria-label={t("table.wrap")} title={t("table.wrap")} aria-pressed={wrap} onClick={() => setWrap(!wrap)}><WrapText size={14} /></button>}
+        {!small && <IconButton label={t("table.wrap")} className="table-action" aria-pressed={wrap} onClick={() => setWrap(!wrap)}><WrapText size={14} /></IconButton>}
         <button type="button" className="table-action" aria-label={t("table.copy")} title={t("table.copy")} onClick={() => void copy()}>{copyState === "copied" ? <Check size={14} /> : <Copy size={14} />}</button>
-        <button type="button" className="table-action" aria-label={t("table.download")} title={t("table.download")} onClick={download}><Download size={14} /></button>
-        {!large && <button type="button" className="table-action" aria-label={t("table.expand")} title={t("table.expand")} onClick={(event) => { trigger.current = event.currentTarget; setOpen(true); }}><Maximize2 size={14} /></button>}
+        <IconButton label={t("table.download")} className="table-action" onClick={download}><Download size={14} /></IconButton>
+        {!large && <IconButton label={t("table.expand")} className="table-action" onClick={(event) => { trigger.current = event.currentTarget; setOpen(true); }}><Maximize2 size={14} /></IconButton>}
     </>;
     return (
     <div className={cn("rich-table w-fit min-w-[min(100%,var(--chat-prose-max))] max-w-full overflow-hidden rounded-xl border border-hairline text-ink", simple ? "bg-composer" : "bg-panel")} dir="ltr">

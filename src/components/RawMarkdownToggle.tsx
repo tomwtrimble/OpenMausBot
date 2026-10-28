@@ -2,6 +2,7 @@ import { Code, Eye } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { ACTION_ICON } from "@/components/MessageActions";
+import { IconButton } from "./ui/IconButton";
 
 export interface RawToggleActionProps {
   active: boolean;
@@ -12,12 +13,9 @@ export interface RawToggleActionProps {
 export function RawToggleAction({ active, onToggle, className }: RawToggleActionProps) {
   const label = t(active ? "chat.showRenderedMarkdown" : "chat.showRawMarkdown");
   return (
-    <button
-      type="button"
+    <IconButton label={label}
       onClick={onToggle}
-      aria-label={label}
       aria-pressed={active}
-      title={label}
       className={cn(
         "rounded-md p-1.5 transition-opacity focus-visible:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100 touch:opacity-100",
         active
@@ -27,7 +25,7 @@ export function RawToggleAction({ active, onToggle, className }: RawToggleAction
       )}
     >
       {active ? <Eye {...ACTION_ICON} aria-hidden="true" /> : <Code {...ACTION_ICON} aria-hidden="true" />}
-    </button>
+    </IconButton>
   );
 }
 

@@ -6,6 +6,7 @@ import { connectDesktop, DesktopUnreachable, typeOnDesktop } from "@/lib/desktop
 import { t } from "@/lib/i18n";
 import { useHeldMenuMotion, useMenuMotion } from "./MenuMotion";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 function subscribeLocation(listener: () => void) {
   window.addEventListener("hashchange", listener);
@@ -143,9 +144,9 @@ export function DesktopViewer() {
       }} className={cn("popover-surface absolute left-[72px] top-1/2 z-20 max-h-[calc(100dvh-24px)] w-[min(320px,calc(100%-84px))] -translate-y-1/2 overflow-y-auto rounded-2xl border border-edge bg-menu p-4 shadow-2xl", panelMotion.className)} style={{ marginLeft: "env(safe-area-inset-left)" }}>
         <div className="mb-3 flex items-center justify-between gap-2">
           <h1 className="font-medium">{t(keyboardPanel ? "desktopViewer.keyboard" : "desktopViewer.clipboard")}</h1>
-          <button type="button" title={t("desktopViewer.closePanel")} aria-label={t("desktopViewer.closePanel")} onClick={closePanel} className="ui-icon-button shrink-0">
+          <IconButton label={t("desktopViewer.closePanel")} onClick={closePanel} className="ui-icon-button shrink-0">
             <X size={18} aria-hidden="true" />
-          </button>
+          </IconButton>
         </div>
         <form onSubmit={event => {
           event.preventDefault();
@@ -179,8 +180,8 @@ export function DesktopViewer() {
 function ViewerTool({ id, label, icon: Icon, disabled, active, expanded, onClick }: {
   id?: string; label: string; icon: LucideIcon; disabled?: boolean; active?: boolean; expanded?: boolean; onClick: () => void;
 }) {
-  return <button id={id} type="button" title={label} aria-label={label} aria-pressed={active} aria-expanded={expanded} disabled={disabled} onClick={onClick} className={cn(
+  return <IconButton label={label} id={id} aria-pressed={active} aria-expanded={expanded} disabled={disabled} onClick={onClick} className={cn(
     "ui-icon-button size-11 min-h-11 shrink-0 rounded-xl focus-visible:outline-2 focus-visible:outline-focus",
     active ? "bg-accent/15 text-accent-text hover:bg-accent/25" : "text-ink-secondary hover:bg-raised-hover hover:text-ink",
-  )}><Icon size={19} strokeWidth={1.75} aria-hidden="true" /></button>;
+  )}><Icon size={19} strokeWidth={1.75} aria-hidden="true" /></IconButton>;
 }

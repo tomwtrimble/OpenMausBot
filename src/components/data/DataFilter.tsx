@@ -4,6 +4,7 @@ import type { DataColumn } from "../../../shared/data-surface";
 import { usePopoverDismiss } from "@/hooks/use-popover-dismiss";
 import { t } from "@/lib/i18n";
 import { isNumericType, isTemporalType } from "./data-format";
+import { IconButton } from "../ui/IconButton";
 
 export interface DataFilterValue { column?: string; text: string }
 
@@ -67,7 +68,7 @@ export function DataFilter({ columns, value, onChange }: { columns: DataColumn[]
         </div>
       </> : <>
         <div className="flex shrink-0 items-center gap-2 border-b border-hairline px-2 py-1.5">
-          <button type="button" aria-label={t("data.filter.chooseColumn")} title={t("data.filter.chooseColumn")} className="rounded-md p-1 text-ink-secondary hover:bg-inset" onClick={() => { setChoosing(true); setSearch(""); }}><ArrowLeft size={14} aria-hidden="true" /></button>
+          <IconButton label={t("data.filter.chooseColumn")} className="rounded-md p-1 text-ink-secondary hover:bg-inset" onClick={() => { setChoosing(true); setSearch(""); }}><ArrowLeft size={14} aria-hidden="true" /></IconButton>
           <span className="truncate text-xs" title={selected}>{selected}</span>
         </div>
         <div className="min-h-0 overflow-y-auto p-3">

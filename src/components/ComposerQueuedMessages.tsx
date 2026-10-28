@@ -5,6 +5,7 @@ import { t } from "@/lib/i18n";
 import { replySnippet } from "@/lib/replies";
 import { splitTranscriptCitations } from "@/lib/citations";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 const ATTACHMENT_TAG = /<attached-(?:image|file)\s/;
 
@@ -129,25 +130,21 @@ export function QueuedComposerMessages({
               </Button>
             )}
             {onEdit && (
-              <button
-                type="button"
+              <IconButton label={t("composer.queued.editAria", { index: index + 1, count: items.length })} tooltip={t("composer.queued.editTitle")}
                 onClick={() => onEdit(item.queueId)}
-                aria-label={t("composer.queued.editAria", { index: index + 1, count: items.length })}
-                title={t("composer.queued.editTitle")}
+
                 className="flex size-7 shrink-0 items-center justify-center rounded-lg text-ink-secondary outline-none hover:bg-raised-hover hover:text-ink focus-visible:ring-2 focus-visible:ring-focus/60"
               >
                 <Pencil size={14} aria-hidden="true" />
-              </button>
+              </IconButton>
             )}
-            <button
-              type="button"
+            <IconButton label={t("composer.queued.deleteAria", { index: index + 1, count: items.length })} tooltip={t("composer.queued.deleteTitle")}
               onClick={() => onCancel(item.queueId)}
-              aria-label={t("composer.queued.deleteAria", { index: index + 1, count: items.length })}
-              title={t("composer.queued.deleteTitle")}
+
               className="flex size-7 shrink-0 items-center justify-center rounded-lg text-ink-secondary outline-none hover:bg-raised-hover hover:text-ink focus-visible:ring-2 focus-visible:ring-focus/60"
             >
               <Trash2 size={14} aria-hidden="true" />
-            </button>
+            </IconButton>
           </li>;
         })}
       </ul>

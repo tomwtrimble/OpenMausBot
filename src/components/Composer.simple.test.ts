@@ -155,7 +155,9 @@ describe("the Simple composer in a bot chat", () => {
     render({ bot: { ...bot, busy: true } });
     expect(container.querySelector("textarea")!.getAttribute("placeholder")).toBe("Message Atlas");
     const send = container.querySelector<HTMLButtonElement>('button[aria-label="Sends when Atlas is done"]')!;
-    expect(send.getAttribute("title")).toBe("Sends when Atlas is done");
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab" }));
+    flushSync(() => send.focus());
+    expect(document.getElementById(send.getAttribute("aria-describedby") ?? "")?.textContent).toBe("Sends when Atlas is done");
   });
 
   it("rounds its corners in from 22 to 18 once the message takes a second line", () => {

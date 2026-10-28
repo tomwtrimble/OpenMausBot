@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 import { KEY_FIELD } from "./keys/KeyRow";
 import { Select } from "./Select";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 export function modelIds(text: string): string[] {
   return [...new Set(text.split(/[,，、\s]+/).map((id) => id.trim()).filter(Boolean))];
@@ -87,26 +88,22 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
               <option key={minutes} value={minutes}>{t("apiInstances.replyWaitMinutes", { minutes: String(minutes) })}</option>
             ))}
           </Select>
-          <button
-            type="button"
+          <IconButton label={t("apiInstances.refreshModels", { name: server.displayName })}
             onClick={() => run("other", () => api(`/api/instances/${encodeURIComponent(server.instanceId)}/refresh-models`, { method: "POST" }))}
             disabled={busy !== null}
-            aria-label={t("apiInstances.refreshModels", { name: server.displayName })}
-            title={t("apiInstances.refreshModels", { name: server.displayName })}
+
             className={ICON_BUTTON}
           >
             <RotateCw size={13} aria-hidden="true" />
-          </button>
-          <button
-            type="button"
+          </IconButton>
+          <IconButton label={t("apiInstances.remove", { name: server.displayName })}
             onClick={() => run("other", () => api(`/api/instances/${encodeURIComponent(server.instanceId)}`, { method: "DELETE" }))}
             disabled={busy !== null}
-            aria-label={t("apiInstances.remove", { name: server.displayName })}
-            title={t("apiInstances.remove", { name: server.displayName })}
+
             className={`${ICON_BUTTON} hover:bg-danger/10 hover:text-danger-text`}
           >
             <Trash2 size={13} aria-hidden="true" />
-          </button>
+          </IconButton>
         </div>
       ))}
       <div className="mt-2 flex flex-col gap-1.5">

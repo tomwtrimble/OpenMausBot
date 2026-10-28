@@ -21,6 +21,7 @@ import { Select } from "./Select";
 import { Switch } from "./SettingsPrimitives";
 import { WebhookEditor } from "./WebhookTrigger";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
 
 /** The bot filter earns its place only on a long list shared by several bots. */
 const FILTER_FROM = 9;
@@ -72,7 +73,7 @@ export function TriggersPage({ onBack, onOpenRoom }: { onBack: () => void; onOpe
     <main className="flex h-full min-w-0 flex-1 flex-col bg-app animate-workspace-in">
       <header className={cn("shrink-0 border-b border-hairline bg-app py-3 pr-4", macInset && view === "calendar" ? "pl-[86px]" : view === "list" ? "pl-12 md:pl-4" : "pl-4")} style={windowDragStyle}>
         <div className="flex flex-wrap items-center gap-2">
-          <button type="button" ref={backButtonRef} onClick={onBack} aria-label="Back" title="Back" className="flex size-9 shrink-0 items-center justify-center rounded-lg text-ink-secondary hover:bg-raised hover:text-ink" style={windowNoDragStyle}><ArrowLeft size={18} /></button>
+          <IconButton label="Back" ref={backButtonRef} onClick={onBack} className="flex size-9 shrink-0 items-center justify-center rounded-lg text-ink-secondary hover:bg-raised hover:text-ink" style={windowNoDragStyle}><ArrowLeft size={18} /></IconButton>
           <h1 data-tour="automations-page" className="mr-1 text-[18px] font-semibold tracking-tight text-ink">{t("automations.title")}</h1>
           <div className="ml-auto flex items-center gap-3" style={windowNoDragStyle}>
             {showFilter && view === "list" && (

@@ -5,6 +5,7 @@ import { peerLine } from "@/lib/peer-message";
 import { replyAuthor, replySnippet } from "@/lib/replies";
 import { t } from "@/lib/i18n";
 import type { Message } from "@/state/store";
+import { IconButton } from "./ui/IconButton";
 
 export function ReplyQuote({
   message,
@@ -72,15 +73,13 @@ export function ComposerReplyStrip({
       <span className="sr-only">{who}: </span>
       <span dir="auto" className="min-w-0 flex-1 truncate">{excerpt}</span>
       {onClear && (
-        <button
-          type="button"
+        <IconButton label={t("chat.reply.cancel")}
           onClick={onClear}
-          aria-label={t("chat.reply.cancel")}
-          title={t("chat.reply.cancel")}
+
           className="inline-flex size-6 shrink-0 items-center justify-center rounded-full text-ink-tertiary hover:bg-ink/10 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         >
           <X size={14} strokeWidth={1.5} aria-hidden="true" />
-        </button>
+        </IconButton>
       )}
     </div>
   );

@@ -7,6 +7,7 @@ import { forwardRef, useState, type ReactNode } from "react";
 import type { PreviewStreamControl } from "@/lib/browser-stream-client";
 import type { BrowserTakeStatus } from "@/lib/browser-control";
 import { t } from "@/lib/i18n";
+import { IconButton } from "../ui/IconButton";
 
 export interface BrowserTab {
   tabId: string;
@@ -92,7 +93,7 @@ export const ChromeRow = forwardRef<HTMLInputElement, {
               <button className={button} aria-label={`Close ${tab.title || "tab"}`} disabled={!commandsReady} onClick={() => props.onCommand({ type: "tabClose", tabId: tab.tabId })}><X size={13} /></button>
             </div>
           )) : <div className="flex items-center gap-2 rounded-xl bg-inset px-3 py-1.5 text-[12px] text-ink-secondary"><Globe size={13} aria-hidden="true" />New tab</div>}
-          <button className={`${button} shrink-0`} disabled={!commandsReady} aria-label="New tab" title="New tab" onClick={() => props.onCommand({ type: "tabNew" })}><Plus size={16} /></button>
+          <IconButton label="New tab" className={`${button} shrink-0`} disabled={!commandsReady} onClick={() => props.onCommand({ type: "tabNew" })}><Plus size={16} /></IconButton>
         </div>
         <button
           type="button"
@@ -109,9 +110,9 @@ export const ChromeRow = forwardRef<HTMLInputElement, {
           <span className="truncate">{PILL_TEXT[pill](botName)}</span>
           {pill === "bot" || pill === "watching" ? <span className="shrink-0 text-ink">· {t("browser.control.take")}</span> : handsBack ? <span className="shrink-0">· {t("browser.control.handBack")}</span> : null}
         </button>
-        <button className={button} title={props.maximized ? "Restore size" : "Maximize"} aria-label={props.maximized ? "Restore size" : "Maximize"} onClick={props.onMaximize}>{props.maximized ? <Shrink size={15} /> : <Expand size={15} />}</button>
-        <button className={button} title={props.fullscreen ? "Exit full screen" : "Full screen"} aria-label={props.fullscreen ? "Exit full screen" : "Full screen"} onClick={props.onFullscreen}>{props.fullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}</button>
-        <button className={`${button} rounded-xl bg-inset p-1.5`} title={`Browser profile: ${props.profileName}`} aria-label="Browser profiles" onClick={props.onProfiles}><UserRound size={15} /></button>
+        <IconButton label={props.maximized ? "Restore size" : "Maximize"} className={button} onClick={props.onMaximize}>{props.maximized ? <Shrink size={15} /> : <Expand size={15} />}</IconButton>
+        <IconButton label={props.fullscreen ? "Exit full screen" : "Full screen"} className={button} onClick={props.onFullscreen}>{props.fullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}</IconButton>
+        <IconButton label="Browser profiles" tooltip={`Browser profile: ${props.profileName}`} className={`${button} rounded-xl bg-inset p-1.5`} onClick={props.onProfiles}><UserRound size={15} /></IconButton>
       </div>
       <form
         className="relative flex h-10 items-center gap-1 px-2"
@@ -122,11 +123,11 @@ export const ChromeRow = forwardRef<HTMLInputElement, {
         }}
       >
         <div className="flex shrink-0 items-center" role="group" aria-label="Navigation">
-          <button type="button" className={button} disabled={!commandsReady || !nav.canGoBack} aria-label="Back" title="Back" onClick={() => props.onCommand({ type: "history", delta: -1 })}><ArrowLeft size={16} /></button>
-          <button type="button" className={button} disabled={!commandsReady || !nav.canGoForward} aria-label="Forward" title="Forward" onClick={() => props.onCommand({ type: "history", delta: 1 })}><ArrowRight size={16} /></button>
-          <button type="button" className={button} disabled={!commandsReady} aria-label={nav.loading ? "Loading, reload page" : "Reload page"} title="Reload" onClick={() => props.onCommand({ type: "reload" })}>
+          <IconButton label="Back" className={button} disabled={!commandsReady || !nav.canGoBack} onClick={() => props.onCommand({ type: "history", delta: -1 })}><ArrowLeft size={16} /></IconButton>
+          <IconButton label="Forward" className={button} disabled={!commandsReady || !nav.canGoForward} onClick={() => props.onCommand({ type: "history", delta: 1 })}><ArrowRight size={16} /></IconButton>
+          <IconButton label={nav.loading ? "Loading, reload page" : "Reload page"} tooltip="Reload" className={button} disabled={!commandsReady} onClick={() => props.onCommand({ type: "reload" })}>
             {nav.loading ? <Loader2 size={16} className="animate-spin" /> : <RotateCw size={16} />}
-          </button>
+          </IconButton>
         </div>
         <input
           ref={addressRef}

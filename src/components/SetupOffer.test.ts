@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Bot, Message } from "@/state/store";
 import { SetupOffer, SetupRequestChip, setupRequestPlaceholder } from "./SetupOffer";
+import { buttonName } from "@/testing/ui-elements";
 
 const fixture = vi.hoisted(() => ({ values: [] as unknown[], index: 0, api: vi.fn(), focus: vi.fn(), dispatch: vi.fn(), bots: [] as unknown[], instances: [] as unknown[], reactor: "user" }));
 vi.mock("react", async (original) => ({
@@ -32,7 +33,7 @@ function renderOffer(message: Message, transcript: Message[] = [message]) {
   const all = nodes(tree);
   return { html, card: all.find((node) => node.props["data-setup-card"] !== undefined),
     choices: all.filter((node) => node.props["data-ask-choice"] !== undefined),
-    close: all.find((node) => node.props["aria-label"] === "Close") };
+    close: all.find((node) => buttonName(node) === "Close") };
 }
 const press = (node: Node | undefined) => (node!.props.onClick as () => void)();
 const key = (card: Node | undefined, value: string) => {
