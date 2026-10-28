@@ -1328,6 +1328,35 @@ body {
   :root[data-skin="daylight"] .ui-button:enabled:is(:hover, :active) {
     background: color-mix(in srgb, var(--color-ink) 10%, transparent);
   }
+  /* <Button variant="ghost">: no fill or rim until hovered, the Cancel beside a dialog's primary action. `:root` lifts
+     these over the Midnight and Daylight rules above, which they follow. */
+  :root .ui-button.ui-button-ghost {
+    border-color: transparent;
+    background: transparent;
+    color: var(--color-ink-secondary);
+  }
+  :root .ui-button.ui-button-ghost:enabled:is(:hover, :active) {
+    background: var(--color-raised);
+    color: var(--color-ink);
+  }
+  :root:is([data-skin="midnight"], [data-skin="daylight"]) .ui-button.ui-button-ghost:enabled:is(:hover, :active) {
+    background: color-mix(in srgb, var(--color-ink) 6%, transparent);
+  }
+  /* <Button variant="danger">: a destructive action, filled in the danger tone in every skin. */
+  :root .ui-button.ui-button-danger {
+    border-color: transparent;
+    background: var(--color-danger);
+    color: var(--color-danger-ink);
+  }
+  :root .ui-button.ui-button-danger:enabled:is(:hover, :active) {
+    background: var(--color-danger);
+    color: var(--color-danger-ink);
+    filter: brightness(1.1);
+  }
+  /* <Button loading>: the colours stay, the press is ignored. */
+  .ui-button[data-loading] {
+    cursor: progress;
+  }
   /* A dialog for the first-run surfaces: the menu tone on a hairline of ink, lifted only in Daylight. */
   .ui-modal {
     border: 0.5px solid color-mix(in srgb, var(--color-ink) 10%, transparent);

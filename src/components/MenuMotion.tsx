@@ -3,10 +3,11 @@ import { useLayoutEffect, useRef, useState } from "react";
 /** Same length as `--animate-pop-in` in styles.css. */
 export const MENU_MOTION_MS = 200;
 
-function reducedMotion(): boolean {
+/** The app's own Reduce motion setting, else the system's. */
+export function prefersReducedMotion(): boolean {
   if (typeof document === "undefined") return false;
   if (document.documentElement.dataset.reducedMotion === "true") return true;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 }
 
 export interface MenuMotion {
@@ -25,7 +26,7 @@ export function useMenuMotion(open: boolean): MenuMotion {
       return;
     }
     if (!mounted) return;
-    if (reducedMotion()) {
+    if (prefersReducedMotion()) {
       setMounted(false);
       return;
     }

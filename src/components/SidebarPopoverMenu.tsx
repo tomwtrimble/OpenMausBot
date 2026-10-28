@@ -5,7 +5,9 @@ import { cn } from "@/lib/cn";
 import { useMenuMotion } from "./MenuMotion";
 import { popoverClosesOnKey, usePopoverDismiss } from "@/hooks/use-popover-dismiss";
 import { submenuIntent, type Point, type SubmenuIntent } from "@/lib/submenu-intent";
-import { MENU_HEADING, MENU_ITEM_SEPARATOR, MENU_SHEET } from "./menu-recipe";
+import { MENU_HEADING, MENU_ITEM_SEPARATOR, MENU_SHEET, nextMenuIndex } from "./menu-recipe";
+
+export { nextMenuIndex };
 
 export interface SidebarMenuItem {
   key: string;
@@ -71,16 +73,6 @@ const isRtl = (element: Element | null) =>
 const menuItems = (menu: HTMLElement | null) =>
   menu ? [...menu.querySelectorAll<HTMLElement>(':scope > div > [role="menuitem"]:not(:disabled)')] : [];
 
-export function nextMenuIndex(key: string, current: number, count: number): number | null {
-  if (count === 0) return null;
-  switch (key) {
-    case "ArrowDown": return current < 0 ? 0 : (current + 1) % count;
-    case "ArrowUp": return current < 0 ? count - 1 : (current - 1 + count) % count;
-    case "Home": return 0;
-    case "End": return count - 1;
-    default: return null;
-  }
-}
 
 function MenuRows({
   items,
