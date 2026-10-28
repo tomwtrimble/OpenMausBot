@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState, type MutableRefObject, type R
 import { createPortal } from "react-dom";
 import { ArrowUpRight, Check, ChevronLeft, ChevronRight, Copy, Crosshair, Globe, Loader2, Maximize2, Share2, Trash2, X } from "lucide-react";
 import { useStore } from "@/state/store";
+import { useModalDialog } from "@/hooks/use-modal-dialog";
 import { openExternalLink } from "@/lib/app-links";
 import { cn } from "@/lib/cn";
 import { useCopyFeedback } from "@/lib/copy-text";
@@ -215,19 +216,14 @@ export function PageFullScreen(props: PageToolsProps & {
 }) {
   const { point, close } = props;
   const closer = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      event.preventDefault();
-      if (point.pointing) point.stop();
-      else close();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [point, close]);
+  const dialog = useRef<HTMLDivElement | null>(null);
+  useModalDialog(dialog, () => {
+    if (point.pointing) point.stop();
+    else close();
+  });
   useEffect(() => { closer.current?.querySelector<HTMLButtonElement>("[aria-pressed=true]")?.focus(); }, []);
   return createPortal(
-    <div role="dialog" aria-modal="true" aria-label={props.title} data-page-fullscreen={props.doc.messageId}
+    <div ref={dialog} role="dialog" aria-modal="true" aria-label={props.title} data-page-fullscreen={props.doc.messageId} tabIndex={-1}
       className="fixed inset-0 z-50 flex flex-col bg-panel">
       <div ref={closer} className="flex flex-col gap-2 border-b border-hairline px-4 pb-3 pt-3">
         <div className="truncate text-[15px] font-semibold text-ink" title={props.title}><bdi dir="auto">{props.title}</bdi></div>

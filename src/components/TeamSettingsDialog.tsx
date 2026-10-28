@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
@@ -18,6 +18,7 @@ import {
   type TeamPlanRow,
   type TeamResultRow,
 } from "@/lib/team-bulk-settings";
+import { useModalDialog } from "@/hooks/use-modal-dialog";
 import { api, desktopApprovalBridge, persistBotUpdate, useStore } from "@/state/store";
 import { EFFORT_LEVELS, type EffortLevel } from "../../shared/wire";
 import { approvalModeOptions } from "./ApprovalModeSelector";
@@ -59,6 +60,7 @@ export function TeamSettingsDialog({ team, onClose }: { team: string; onClose: (
   const [results, setResults] = useState<TeamResultRow[] | null>(null);
   const [consent, setConsent] = useState(false);
   const dialog = useRef<HTMLDivElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
 
   const bots = useMemo(() => teamBots(state.bots, team), [state.bots, team]);
   const models = useMemo(() => teamModelChoices(bots, state.instances), [bots, state.instances]);
@@ -73,12 +75,6 @@ export function TeamSettingsDialog({ team, onClose }: { team: string; onClose: (
       };
   const plan = change ? planTeamChange(bots, state.instances, change) : [];
   const applying = plan.filter((row) => row.status === "apply").length;
-
-  useEffect(() => {
-    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    dialog.current?.querySelector<HTMLElement>("button")?.focus();
-    return () => { if (opener?.isConnected) opener.focus(); };
-  }, []);
 
   const run = async (acknowledgeLocalAuto: boolean) => {
     if (running || !applying) return;
@@ -96,6 +92,7 @@ export function TeamSettingsDialog({ team, onClose }: { team: string; onClose: (
     else void run(false);
   };
   const close = () => { if (!running) onClose(); };
+  useModalDialog(dialog, close, { initialFocus: closeButton });
   const counts = results ? teamResultCounts(results) : null;
   const tabClass = (active: boolean) => cn("flex-1 rounded-md px-2.5 py-1.5 text-[13px] font-medium",
     active ? "bg-raised text-ink" : "text-ink-secondary hover:text-ink");
@@ -104,12 +101,11 @@ export function TeamSettingsDialog({ team, onClose }: { team: string; onClose: (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onMouseDown={(event) => {
       if (event.target === event.currentTarget) close();
     }}>
-      <div ref={dialog} role="dialog" aria-modal="true" aria-labelledby="team-settings-title" data-testid="team-settings-dialog"
-        className="max-h-[90vh] w-full max-w-[460px] overflow-y-auto rounded-2xl border border-hairline bg-panel p-5 text-ink shadow-2xl"
-        onKeyDown={(event) => { if (event.key === "Escape" && !consent) { event.stopPropagation(); close(); } }}>
+      <div ref={dialog} role="dialog" aria-modal="true" aria-labelledby="team-settings-title" data-testid="team-settings-dialog" tabIndex={-1}
+        className="max-h-[90vh] w-full max-w-[460px] overflow-y-auto rounded-2xl border border-hairline bg-panel p-5 text-ink shadow-2xl">
         <div className="mb-2 flex items-center justify-between gap-3">
           <h2 id="team-settings-title" className="text-[17px] font-semibold">{t("teamSettings.title", { name: team || t("teamSettings.general") })}</h2>
-          <button type="button" aria-label={t("teamSettings.close")} disabled={running} onClick={close} className="rounded-lg p-1.5 text-ink-secondary hover:bg-raised"><X size={18} /></button>
+          <button ref={closeButton} type="button" aria-label={t("teamSettings.close")} disabled={running} onClick={close} className="rounded-lg p-1.5 text-ink-secondary hover:bg-raised"><X size={18} /></button>
         </div>
         {results && counts ? (
           <>

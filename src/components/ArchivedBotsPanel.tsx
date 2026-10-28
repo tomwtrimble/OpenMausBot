@@ -4,6 +4,7 @@ import { Loader2, Trash2, X } from "lucide-react";
 
 import { t } from "@/lib/i18n";
 import { useShowThreads } from "@/lib/thread-preferences";
+import { useModalDialog } from "@/hooks/use-modal-dialog";
 import { api, openBot, useStore, type Bot } from "@/state/store";
 
 import { BotAvatar } from "./Avatar";
@@ -105,14 +106,7 @@ export function ArchivedBotsPanel({
     if (bots.length === 0) onClose();
   }, [bots.length, onClose]);
 
-  useEffect(() => {
-    dialogRef.current?.focus();
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !locked) onClose();
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [locked, onClose]);
+  useModalDialog(dialogRef, () => { if (!locked) onClose(); });
 
   const restore = async (bot: Bot) => {
     setBusyId(bot.id);

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Mail } from "lucide-react";
 import type { UpdatesConsentBridge, UpdatesConsentState, UpdatesConsentStatus } from "../../electron/updates-consent.mjs";
 import { t } from "@/lib/i18n";
 import { SettingRow, Switch } from "./SettingsPrimitives";
+import { Dialog } from "./ui/Dialog";
 
 export const UPDATES_CONSENT_POPUP = "[data-updates-consent-popup]";
 const TITLE = "updates-consent-title";
@@ -45,20 +46,18 @@ export function UpdatesConsentDialog({ signedIn, onYes, onNo }: {
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  useEffect(() => { document.getElementById(TITLE)?.focus(); }, []);
+  const title = useRef<HTMLHeadingElement>(null);
   const yes = () => {
     const typed = email.trim();
     if (!signedIn && typed && !EMAIL.test(typed)) { setError(t("updatesConsent.badEmail")); return; }
     setBusy(true); setError(null);
     void onYes(signedIn || !typed ? undefined : typed).catch(() => { setBusy(false); setError(t("updatesConsent.failed")); });
   };
-  return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-6" onMouseDown={event => { if (event.target === event.currentTarget && !busy) onNo(); }}>
-    <div role="dialog" aria-modal="true" aria-labelledby={TITLE} aria-describedby="updates-consent-body" data-updates-consent-popup="" tabIndex={-1}
-      onKeyDown={event => { if (event.key === "Escape" && !busy) { event.preventDefault(); event.stopPropagation(); onNo(); } }}
+  return <Dialog onClose={() => { if (!busy) onNo(); }} initialFocus={title} aria-labelledby={TITLE} aria-describedby="updates-consent-body" data-updates-consent-popup=""
       className="relative max-h-full w-full max-w-[400px] overflow-y-auto rounded-2xl border border-hairline bg-panel p-6 text-ink shadow-2xl outline-none">
       <div className="flex items-center gap-2.5">
         <Mail size={18} className="shrink-0 text-accent-text" aria-hidden="true" />
-        <h2 id={TITLE} tabIndex={-1} className="text-[17px] font-semibold outline-none">{t("updatesConsent.title")}</h2>
+        <h2 ref={title} id={TITLE} tabIndex={-1} className="text-[17px] font-semibold outline-none">{t("updatesConsent.title")}</h2>
       </div>
       <p id="updates-consent-body" className="mt-3 text-[14px] leading-relaxed text-ink-secondary">{t("updatesConsent.body")}</p>
       {!signedIn && <label className="mt-4 flex flex-col gap-1.5 text-[13px] font-medium">
@@ -73,8 +72,7 @@ export function UpdatesConsentDialog({ signedIn, onYes, onNo }: {
         <button type="button" className={SECONDARY} disabled={busy} onClick={onNo}>{t("updatesConsent.no")}</button>
         <button type="button" className={PRIMARY} disabled={busy} onClick={yes}>{t("updatesConsent.yes")}</button>
       </div>
-    </div>
-  </div>;
+  </Dialog>;
 }
 
 /** Settings → General: on exactly when this computer's answer (or the signed-in account's) is "opted_in". */

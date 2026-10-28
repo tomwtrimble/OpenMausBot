@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { createPortal } from "react-dom";
 import { Folder, FolderOpen, MoreHorizontal } from "lucide-react";
 import type { CloudFilesBridge, CloudFilesDisk, CloudFilesState, FolderCheck, SharedFolder } from "../../electron/cloud-sync.mjs";
 import { cn } from "@/lib/cn";
@@ -10,6 +9,7 @@ import { useStore } from "@/state/store";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { useCaptionChrome } from "./DesktopCapabilities";
 import { Switch } from "./SettingsPrimitives";
+import { Dialog } from "./ui/Dialog";
 import { MENU_SHEET } from "./menu-recipe";
 
 const REFUSAL: Record<string, LocaleKey> = {
@@ -234,18 +234,10 @@ function Storage({ disk, busy, onMore }: { disk: CloudFilesDisk; busy: boolean; 
 }
 
 function FilesDialog({ label, children, actions, onClose }: { label: string; children?: ReactNode; actions: ReactNode; onClose: () => void }) {
-  const close = useRef(onClose);
-  close.current = onClose;
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") { event.preventDefault(); close.current(); } };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-  return createPortal(<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-6" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-    <div role="dialog" aria-modal="true" aria-labelledby="files-dialog-label" className="w-full max-w-[440px] rounded-2xl border border-hairline bg-panel p-5 shadow-2xl">
-      <h2 id="files-dialog-label" className="text-[15px] font-semibold text-ink">{label}</h2>
-      {children}
-      <div className="mt-5 flex justify-end gap-2">{actions}</div>
-    </div>
-  </div>, document.body);
+  return <Dialog portal onClose={onClose} aria-labelledby="files-dialog-label" overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-6"
+    className="w-full max-w-[440px] rounded-2xl border border-hairline bg-panel p-5 shadow-2xl">
+    <h2 id="files-dialog-label" className="text-[15px] font-semibold text-ink">{label}</h2>
+    {children}
+    <div className="mt-5 flex justify-end gap-2">{actions}</div>
+  </Dialog>;
 }

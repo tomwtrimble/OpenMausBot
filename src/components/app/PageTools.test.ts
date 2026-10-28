@@ -175,7 +175,9 @@ describe("a bot's page in the chat", () => {
     expect(overlay()?.getAttribute("role")).toBe("dialog");
     expect(wideFrame().style.height).toBe("100%");
     expect(card().querySelector("iframe")).toBeNull();
-    await act(async () => { window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })); });
+    // The dialog holds focus, so Escape comes from inside it.
+    expect(overlay()!.contains(document.activeElement)).toBe(true);
+    await act(async () => { document.activeElement!.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); });
     expect(overlay()).toBeNull();
     await settle();
     expect(inlineFrame()).toBeTruthy();
@@ -183,7 +185,7 @@ describe("a bot's page in the chat", () => {
     await click("Full screen", card());
     vi.spyOn(wideFrame().contentWindow!, "postMessage").mockImplementation(() => {});
     await click("Point", overlay()!);
-    await act(async () => { window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })); });
+    await act(async () => { overlay()!.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); });
     expect(overlay()).not.toBeNull();
     await click("Point", overlay()!);
     await fromFrame(PICK, wideFrame().contentWindow);

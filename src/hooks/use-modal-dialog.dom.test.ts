@@ -48,4 +48,34 @@ describe("modal dialog focus trap", () => {
     expect(tab(true).defaultPrevented).toBe(true);
     expect(document.activeElement).toBe(named("Source"));
   });
+
+  it("leaves focus where a choice in the dialog already moved it on close", () => {
+    const opener = document.createElement("button");
+    const landed = document.createElement("button");
+    document.body.append(opener, landed);
+    opener.focus();
+    const host = document.createElement("div");
+    document.body.append(host);
+    root = createRoot(host);
+    flushSync(() => root!.render(createElement(Dialog)));
+    expect(document.activeElement).not.toBe(opener);
+    landed.focus();
+    flushSync(() => root!.unmount());
+    root = null;
+    expect(document.activeElement).toBe(landed);
+  });
+
+  it("gives focus back to the opener when it closes from inside", () => {
+    const opener = document.createElement("button");
+    document.body.append(opener);
+    opener.focus();
+    const host = document.createElement("div");
+    document.body.append(host);
+    root = createRoot(host);
+    flushSync(() => root!.render(createElement(Dialog)));
+    named("Close").focus();
+    flushSync(() => root!.unmount());
+    root = null;
+    expect(document.activeElement).toBe(opener);
+  });
 });

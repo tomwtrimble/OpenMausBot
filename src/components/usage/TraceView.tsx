@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { createPortal } from "react-dom";
 import { Loader2, X } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { listenLiveFrames } from "@/lib/live-events";
 import { fetchTrace } from "@/lib/usage-trace";
 import type { TraceDetail } from "../../../shared/usage-trace";
 import { TraceWaterfall } from "./TraceWaterfall";
+import { Dialog } from "../ui/Dialog";
 
 /** Refetches at most this often while the run is live; the now-line ticks in between. */
 const LIVE_REFRESH_MS = 1_000;
@@ -67,41 +67,26 @@ export function TraceView({ id, at, actions }: { id: string; at?: number; action
 /** The waterfall over the chat, for one turn's "View trace". */
 export function TraceDialog({ id, at, onClose }: { id: string; at?: number; onClose: () => void }) {
   const closeRef = useRef<HTMLButtonElement>(null);
-  const close = useRef(onClose);
-  close.current = onClose;
-  useEffect(() => {
-    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    closeRef.current?.focus();
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      event.preventDefault();
-      close.current();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      if (opener?.isConnected) opener.focus();
-    };
-  }, []);
-  return createPortal(
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/55 p-3 sm:p-8"
-      onMouseDown={(event) => event.target === event.currentTarget && onClose()}
+  return (
+    <Dialog
+      portal
+      onClose={onClose}
+      initialFocus={closeRef}
+      aria-label={t("trace.title")}
+      overlayClassName="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/55 p-3 sm:p-8"
+      className="w-full max-w-[1100px] animate-pop-in shadow-2xl"
     >
-      <div role="dialog" aria-modal="true" aria-label={t("trace.title")} className="w-full max-w-[1100px] animate-pop-in shadow-2xl">
-        <TraceView id={id} at={at} actions={(
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={onClose}
-            aria-label={t("trace.close")}
-            className="-mr-1.5 flex size-8 shrink-0 items-center justify-center rounded-lg text-ink-secondary hover:bg-raised hover:text-ink"
-          >
-            <X size={16} />
-          </button>
-        )} />
-      </div>
-    </div>,
-    document.body,
+      <TraceView id={id} at={at} actions={(
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={onClose}
+          aria-label={t("trace.close")}
+          className="-mr-1.5 flex size-8 shrink-0 items-center justify-center rounded-lg text-ink-secondary hover:bg-raised hover:text-ink"
+        >
+          <X size={16} />
+        </button>
+      )} />
+    </Dialog>
   );
 }

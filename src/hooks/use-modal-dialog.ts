@@ -1,6 +1,6 @@
 import { useEffect, useRef, type RefObject } from "react";
 
-const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]';
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), iframe, [tabindex]';
 
 export interface ModalDialogOptions {
   /** Where focus lands on open. Without it focus stays on a field already inside (autoFocus), else goes to the dialog. */
@@ -48,6 +48,9 @@ export function useModalDialog(dialogRef: RefObject<HTMLElement | null>, onClose
     dialog.addEventListener("keydown", onKey);
     return () => {
       dialog.removeEventListener("keydown", onKey);
+      // A choice that already moved focus on (to a message it opened, say) keeps it there.
+      const now = document.activeElement;
+      if (now && now !== document.body && now !== dialog && !dialog.contains(now) && now !== previousFocus) return;
       // `isConnected` is false only once the opener has left the page.
       const opener = previousFocus && previousFocus.isConnected !== false && previousFocus !== document.body ? previousFocus : null;
       (opener ?? optionsRef.current.returnFocus?.current)?.focus();

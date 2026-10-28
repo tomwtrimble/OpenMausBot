@@ -12,6 +12,7 @@ import { firstReplyPending } from "@/lib/corner-popup";
 import { launchDialogShown, markLaunchDialog } from "@/lib/launch-dialogs";
 import { welcomeDue, welcomeFinishedThisLaunch, type WelcomeViewer } from "@/lib/onboarding";
 import { useStore, type Bot } from "@/state/store";
+import { useModalDialog } from "@/hooks/use-modal-dialog";
 import { BOT_PROFILE_LIMITS } from "../../shared/bot-profile";
 import { BotAvatar } from "./Avatar";
 import { useAvatarImage } from "./avatar-editing";
@@ -99,7 +100,6 @@ export function MausBotWelcomeCard({ bot, onClose }: { bot: Bot; onClose: () => 
   const preview: Bot = { ...bot, ...draft, name };
   const edit = (patch: Partial<WelcomeDraft>) => setDraft((current) => ({ ...current, ...patch }));
   const image = useAvatarImage(preview, edit);
-  useEffect(() => { dialogRef.current?.focus(); }, []);
   useEffect(() => { if (editing) nameRef.current?.focus(); }, [editing]);
 
   const recede = () => {
@@ -128,6 +128,11 @@ export function MausBotWelcomeCard({ bot, onClose }: { bot: Bot; onClose: () => 
     onClose();
   };
 
+  // Escape inside the open picture editor closes only the editor.
+  useModalDialog(dialogRef, () => {
+    if (editing && panelRef.current?.contains(document.activeElement)) { setEditing(false); pictureRef.current?.focus(); } else dismiss();
+  });
+
   const drop = (event: DragEvent) => {
     const file = event.dataTransfer.files?.[0];
     if (!file) return;
@@ -145,11 +150,6 @@ export function MausBotWelcomeCard({ bot, onClose }: { bot: Bot; onClose: () => 
         aria-labelledby="mausbot-welcome-title"
         tabIndex={-1}
         style={{ outline: "none" }}
-        onKeyDown={(event) => {
-          if (event.key !== "Escape") return;
-          event.preventDefault();
-          if (editing && panelRef.current?.contains(event.target as Node)) { setEditing(false); pictureRef.current?.focus(); } else dismiss();
-        }}
         className={cn("animate-pop-in w-full max-w-[460px] rounded-2xl px-6 pb-5 pt-5", advanced ? "border border-hairline bg-panel shadow-2xl" : "ui-modal border-0")}
       >
         <div className="flex flex-col items-center text-center">

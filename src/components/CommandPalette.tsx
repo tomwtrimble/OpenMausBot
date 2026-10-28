@@ -7,6 +7,7 @@ import { useShowThreads } from "@/lib/thread-preferences";
 import { cn } from "@/lib/cn";
 import type { SearchHit } from "@/lib/search-hit";
 import { landOnSearchHit } from "@/lib/focus-message";
+import { Dialog } from "./ui/Dialog";
 
 type PaletteEntry =
   | { kind: "bot"; bot: Bot }
@@ -147,101 +148,96 @@ export function CommandPalette({ onOpenChange }: { onOpenChange?: (open: boolean
   );
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-6 pt-[14vh]"
-      onMouseDown={(e) => e.target === e.currentTarget && setOpen(false)}
+    <Dialog
+      onClose={() => setOpen(false)}
+      overlayClassName="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-6 pt-[14vh]"
       onKeyDown={onKeyDown}
+      aria-label="Command palette"
+      className="popover-surface flex max-h-[min(480px,70vh)] w-full max-w-[560px] flex-col overflow-hidden rounded-xl border border-hairline bg-menu shadow-2xl shadow-shadow/60"
     >
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Command palette"
-        className="popover-surface flex max-h-[min(480px,70vh)] w-full max-w-[560px] flex-col overflow-hidden rounded-xl border border-hairline bg-menu shadow-2xl shadow-shadow/60"
-      >
-        <div className="flex items-center gap-3 border-b border-hairline px-4 py-3">
-          <Search size={16} className="shrink-0 text-ink-secondary" />
-          <input
-            autoFocus
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            aria-label={t("commandPalette.searchLabel")}
-            placeholder={t("commandPalette.searchPlaceholder")}
-            className="w-full bg-transparent text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
-          />
-          <kbd className="shrink-0 rounded-md border border-hairline px-1.5 py-0.5 text-[11px] text-ink-secondary">
-            esc
-          </kbd>
-        </div>
-        <div className="min-h-0 flex-1 overflow-y-auto p-2">
-          {entries.length === 0 && (
-            <div className="px-3 py-6 text-center text-[13px] text-ink-secondary">
-              {q ? `Nothing matches “${query}”` : "Nothing to switch to yet"}
-            </div>
-          )}
-          {bots.length > 0 && (
-            <div className="px-3 pb-1 pt-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-secondary">
-              Bots
-            </div>
-          )}
-          {bots.map((bot, i) =>
-            row(
-              `bot:${bot.id}`,
-              i,
-              () => void activate({ kind: "bot", bot }),
-              <>
-                <BotIcon size={16} className="shrink-0 text-ink-secondary" />
-                <span className="truncate text-[14px] text-ink">{bot.name}</span>
-                {bot.title && (
-                  <span className="min-w-0 truncate text-[13px] text-ink-secondary">{bot.title}</span>
-                )}
-              </>,
-            ),
-          )}
-          {rooms.length > 0 && (
-            <div className="px-3 pb-1 pt-2 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-secondary">
-              Groups
-            </div>
-          )}
-          {rooms.map((group, i) =>
-            row(
-              `room:${group.id}`,
-              roomOffset + i,
-              () => void activate({ kind: "room", group }),
-              <>
-                <Users size={16} className="shrink-0 text-ink-secondary" />
-                <span className="truncate text-[14px] text-ink">{group.name}</span>
-              </>,
-            ),
-          )}
-          {q && messageHits.length > 0 && (
-            <div className="px-3 pb-1 pt-2 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-secondary">
-              Messages
-            </div>
-          )}
-          {q &&
-            messageHits.map((hit, i) => {
-              const before = hit.snippet.slice(0, hit.matchStart);
-              const match = hit.snippet.slice(hit.matchStart, hit.matchStart + hit.matchLength);
-              const after = hit.snippet.slice(hit.matchStart + hit.matchLength);
-              return row(
-                `msg:${hit.threadId}:${hit.messageId}`,
-                messageOffset + i,
-                () => void activate({ kind: "message", hit }),
-                <>
-                  <span className="flex items-center gap-2 truncate text-[13px] font-medium text-ink">
-                    <MessageSquare size={13} className="shrink-0 text-ink-secondary" />
-                    {hit.name}
-                    {hit.task ? <span className="font-normal text-ink-secondary"> · {hit.task}</span> : null}
-                  </span>
-                  <span className="line-clamp-2 text-[13px] text-ink-secondary">
-                    {before}<mark className="rounded-sm bg-accent/25 px-0.5 text-ink">{match}</mark>{after}
-                  </span>
-                </>,
-                true,
-              );
-            })}
-        </div>
+      <div className="flex items-center gap-3 border-b border-hairline px-4 py-3">
+        <Search size={16} className="shrink-0 text-ink-secondary" />
+        <input
+          autoFocus
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          aria-label={t("commandPalette.searchLabel")}
+          placeholder={t("commandPalette.searchPlaceholder")}
+          className="w-full bg-transparent text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
+        />
+        <kbd className="shrink-0 rounded-md border border-hairline px-1.5 py-0.5 text-[11px] text-ink-secondary">
+          esc
+        </kbd>
       </div>
-    </div>
+      <div className="min-h-0 flex-1 overflow-y-auto p-2">
+        {entries.length === 0 && (
+          <div className="px-3 py-6 text-center text-[13px] text-ink-secondary">
+            {q ? `Nothing matches “${query}”` : "Nothing to switch to yet"}
+          </div>
+        )}
+        {bots.length > 0 && (
+          <div className="px-3 pb-1 pt-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-secondary">
+            Bots
+          </div>
+        )}
+        {bots.map((bot, i) =>
+          row(
+            `bot:${bot.id}`,
+            i,
+            () => void activate({ kind: "bot", bot }),
+            <>
+              <BotIcon size={16} className="shrink-0 text-ink-secondary" />
+              <span className="truncate text-[14px] text-ink">{bot.name}</span>
+              {bot.title && (
+                <span className="min-w-0 truncate text-[13px] text-ink-secondary">{bot.title}</span>
+              )}
+            </>,
+          ),
+        )}
+        {rooms.length > 0 && (
+          <div className="px-3 pb-1 pt-2 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-secondary">
+            Groups
+          </div>
+        )}
+        {rooms.map((group, i) =>
+          row(
+            `room:${group.id}`,
+            roomOffset + i,
+            () => void activate({ kind: "room", group }),
+            <>
+              <Users size={16} className="shrink-0 text-ink-secondary" />
+              <span className="truncate text-[14px] text-ink">{group.name}</span>
+            </>,
+          ),
+        )}
+        {q && messageHits.length > 0 && (
+          <div className="px-3 pb-1 pt-2 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-secondary">
+            Messages
+          </div>
+        )}
+        {q &&
+          messageHits.map((hit, i) => {
+            const before = hit.snippet.slice(0, hit.matchStart);
+            const match = hit.snippet.slice(hit.matchStart, hit.matchStart + hit.matchLength);
+            const after = hit.snippet.slice(hit.matchStart + hit.matchLength);
+            return row(
+              `msg:${hit.threadId}:${hit.messageId}`,
+              messageOffset + i,
+              () => void activate({ kind: "message", hit }),
+              <>
+                <span className="flex items-center gap-2 truncate text-[13px] font-medium text-ink">
+                  <MessageSquare size={13} className="shrink-0 text-ink-secondary" />
+                  {hit.name}
+                  {hit.task ? <span className="font-normal text-ink-secondary"> · {hit.task}</span> : null}
+                </span>
+                <span className="line-clamp-2 text-[13px] text-ink-secondary">
+                  {before}<mark className="rounded-sm bg-accent/25 px-0.5 text-ink">{match}</mark>{after}
+                </span>
+              </>,
+              true,
+            );
+          })}
+      </div>
+    </Dialog>
   );
 }
