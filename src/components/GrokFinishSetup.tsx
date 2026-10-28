@@ -4,6 +4,7 @@ import { prependComposerDraft } from "@/lib/drafts";
 import { t } from "@/lib/i18n";
 import type { GrokSetupNotes } from "@/lib/team-import";
 import { useStore, type Action, type Bot } from "@/state/store";
+import { Button } from "./ui/Button";
 
 /** Something is left to do: apps to connect, Grok-only tools, or what the export could not carry. */
 export const grokSetupLeft = (notes: GrokSetupNotes | undefined): notes is GrokSetupNotes =>
@@ -64,13 +65,13 @@ export function GrokFinishSetup({ notes, imported, onDone, className = "min-h-0 
         {notes.leftOut.length > routines && <li>{t("grokFinish.other", { count: notes.leftOut.length - routines })}</li>}
       </ul>
       <div className="mt-5 flex flex-wrap items-center gap-3">
-        <button
+        <Button variant="primary" size="lg"
           onClick={open}
-          className="flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-white hover:bg-accent/90"
+          className="flex gap-2 rounded-full px-5 text-[14px] min-h-10"
         >
           {helper.chief ? <Crown size={15} /> : <MessageSquare size={15} />}
           {helper.chief ? t("grokFinish.askChief") : t("grokFinish.askBot", { name: imported.name })}
-        </button>
+        </Button>
         <button onClick={onDone} className="rounded-full bg-raised px-4 py-2.5 text-[13px] text-ink hover:bg-raised-hover">
           {t("grokFinish.later")}
         </button>

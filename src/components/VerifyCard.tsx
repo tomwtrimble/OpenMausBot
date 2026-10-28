@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { runSummary, type RunSkill, type RunStep } from "@/lib/verify-steps";
+import { Button } from "./ui/Button";
 
 function StatusIcon({ status }: { status: RunStep["status"] }) {
   const className = "size-4 shrink-0";
@@ -92,14 +93,13 @@ export function VerifyCard({
             </div>
           ) : canSave && (
             <div className="flex flex-col items-end gap-1 border-t border-hairline px-3 py-2">
-              <button
-                type="button"
+              <Button variant="ghost" size="md"
                 onClick={onSave}
-                className="flex h-7 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-ink-secondary outline-none hover:bg-raised-hover hover:text-ink focus-visible:ring-2 focus-visible:ring-focus/60"
+                className="flex shrink-0 gap-1.5 outline-none"
               >
                 <BookmarkPlus size={13} aria-hidden="true" />
                 {t("chat.verify.save")}
-              </button>
+              </Button>
               <span className="text-[12px] text-ink-secondary">{t("chat.verify.saveHint")}</span>
             </div>
           )}

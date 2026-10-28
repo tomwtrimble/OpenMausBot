@@ -3,6 +3,7 @@ import { track } from "@/lib/analytics";
 import { useStore, type Group } from "@/state/store";
 import { BotPickerList } from "./BotPickerList";
 import { nextMemberIds } from "@/lib/room-members";
+import { Button } from "./ui/Button";
 
 export function ManageMembersPanel({
   group,
@@ -122,13 +123,13 @@ export function ManageMembersPanel({
           >
             Cancel
           </button>
-          <button
+          <Button variant="primary" size="lg"
             onClick={save}
             disabled={!memberIds.length}
-            className="flex-1 rounded-lg bg-accent py-2 text-[14px] font-medium text-white hover:brightness-110 disabled:opacity-40"
+            className="flex-1 text-[14px]"
           >
             Save{memberIds.length ? ` · ${memberIds.length} ${memberIds.length === 1 ? "bot" : "bots"}` : ""}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

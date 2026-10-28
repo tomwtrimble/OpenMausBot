@@ -4,6 +4,7 @@ import { useDesktopCapabilities } from "./DesktopCapabilities";
 import { macCuaPermissionMessage, missingMacCuaPermissions } from "@/lib/mac-cua-permissions";
 import { MacCuaRecoveryActions } from "./MacCuaRecoveryActions";
 import { t } from "@/lib/i18n";
+import { Button } from "./ui/Button";
 
 export function MacLocalControl() {
   const { capabilities } = useDesktopCapabilities();
@@ -77,14 +78,13 @@ export function MacLocalControl() {
           <div className="mt-3 flex flex-wrap gap-2">
             {permissionMessage && reason && <MacCuaRecoveryActions reason={reason} />}
             {!permissionMessage && (
-              <button
-                type="button"
+              <Button variant="primary"
                 onClick={() => void openSettings()}
                 disabled={pending}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+                className="gap-1.5"
               >
                 Open System Settings
-              </button>
+              </Button>
             )}
             <button
               type="button"

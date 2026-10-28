@@ -29,6 +29,7 @@ import { onCallStartRequest } from "@/lib/call-start-request";
 import { VoiceSetupDialog } from "./VoiceSetupDialog";
 import { openBotSettings } from "./bot-panel/panel-link";
 import { MENU_SHEET } from "./menu-recipe";
+import { Button } from "./ui/Button";
 
 type Phase = "listening" | "sending" | "working" | "speaking";
 const CALL_ENDPOINT_MS = 850;
@@ -297,8 +298,7 @@ export function CallTargetButton({
           aria-haspopup="menu"
           aria-expanded={menuOpen}
           aria-controls={menuOpen ? menuId : undefined}
-          aria-label={t("call.mode.menu")}
-          title={t("call.mode.menu")}
+
           className={cn(
               "grid place-content-center",
               "bg-control w-8 hover:bg-raised-hover text-ink-secondary hover:text-ink disabled:opacity-40 transition-colors",
@@ -358,8 +358,7 @@ export function CallTargetButton({
             </button>
           )}
           {voiceSetupRequired && setupBot && (
-            <button
-              type="button"
+            <Button variant="primary"
               aria-haspopup={remoteClient ? undefined : "dialog"}
               data-voice-setup-open
               onClick={() => {
@@ -371,10 +370,10 @@ export function CallTargetButton({
                 }
                 setVoiceSetupOpen(true);
               }}
-              className="mt-2.5 rounded-lg bg-accent px-3 py-1.5 text-[12px] font-medium text-accent-ink hover:brightness-110"
+              className="mt-2.5 text-[12px]"
             >
               {t("call.voiceSetup.open")}
-            </button>
+            </Button>
           )}
         </div>
       )}

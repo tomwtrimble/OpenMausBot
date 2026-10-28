@@ -3,7 +3,8 @@ import { Copy, ExternalLink } from "lucide-react";
 import type { CloudOffer } from "../../../electron/cloud-home.mjs";
 import { cloudPlanLabel, dueToday, offerPlanLabel, usd } from "@/lib/cloud-plan";
 import { t } from "@/lib/i18n";
-import { Checklist, Heading, LINK, PRIMARY, QUIET, SCREEN } from "./parts";
+import { Checklist, Heading, LINK, SCREEN } from "./parts";
+import { Button } from "../ui/Button";
 
 export function PayScreen({ plan, offer, browser, late, link, email, busy, copied, failed, onReopen, onCopy, onChangePlan }: {
   plan: string; offer: CloudOffer | null; browser: "checkout" | "signin"; late: boolean; link: boolean; email: string | null;
@@ -22,9 +23,9 @@ export function PayScreen({ plan, offer, browser, late, link, email, busy, copie
       { key: "setup", state: "next", title: t("cloudBuy.pay.setup"), detail: t("cloudBuy.pay.setupHint") },
     ]} />
     <div className="flex flex-wrap items-center gap-2">
-      <button type="button" className={late ? PRIMARY : QUIET} disabled={busy} onClick={onReopen}>
-        <ExternalLink size={14} aria-hidden="true" />{t("cloudAdd.reopenCheckout")}</button>
-      {link && <button type="button" className={QUIET} disabled={busy} onClick={onCopy}><Copy size={14} aria-hidden="true" />{t("cloudBuy.pay.copy")}</button>}
+      <Button variant={late ? "primary" : "secondary"} pill disabled={busy} onClick={onReopen}>
+        <ExternalLink size={14} aria-hidden="true" />{t("cloudAdd.reopenCheckout")}</Button>
+      {link && <Button pill disabled={busy} onClick={onCopy}><Copy size={14} aria-hidden="true" />{t("cloudBuy.pay.copy")}</Button>}
       <button type="button" className={`${LINK} ms-1 px-1 py-1`} onClick={onChangePlan}>{t("cloudAdd.changePlan")}</button>
     </div>
     <div aria-live="polite" className="text-[13px] leading-[18px] empty:-mt-5">

@@ -37,6 +37,7 @@ import { copyText } from "@/lib/copy-text";
 import { AgentCursor } from "./AgentCursor";
 import { AuthPrompt } from "./AuthPrompt";
 import { SelectPopup, type SelectPopupOption } from "./SelectPopup";
+import { Button } from "../ui/Button";
 
 export interface StreamSurfaceHandle {
   /** The canvas once it shows a frame, to seed picture in picture. */
@@ -709,7 +710,7 @@ export function StreamSurface(props: {
             />
             <div className="flex justify-end gap-2">
               <button type="button" className="rounded-lg px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-inset" onClick={() => answerFileChooser([])}>Cancel</button>
-              <button type="button" className="rounded-lg bg-accent px-3 py-1.5 text-[12px] text-accent-ink" onClick={() => fileInputRef.current?.click()}>Choose {fileChooser.multiple ? "files" : "file"}</button>
+              <Button variant="primary" className="text-[12px]" onClick={() => fileInputRef.current?.click()}>Choose {fileChooser.multiple ? "files" : "file"}</Button>
             </div>
           </div>
         ) : null}
@@ -721,7 +722,7 @@ export function StreamSurface(props: {
                 {control.dialog.type === "prompt" ? <input aria-label="Dialog response" value={promptText} onChange={(event) => setPromptText(event.target.value)} className="rounded-lg bg-inset px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-focus" /> : null}
                 <div className="flex justify-end gap-2">
                   <button type="button" className="rounded-lg px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-inset" onClick={() => direct({ type: "dialog", accept: false })}>Dismiss</button>
-                  <button type="button" className="rounded-lg bg-accent px-3 py-1.5 text-[12px] text-accent-ink" onClick={() => direct({ type: "dialog", accept: true, ...(control.dialog?.type === "prompt" ? { promptText } : {}) })}>Accept</button>
+                  <Button variant="primary" className="text-[12px]" onClick={() => direct({ type: "dialog", accept: true, ...(control.dialog?.type === "prompt" ? { promptText } : {}) })}>Accept</Button>
                 </div>
               </>
             ) : <p className="text-[12px] text-ink-secondary">Take control to respond.</p>}
@@ -746,12 +747,12 @@ export function StreamSurface(props: {
                   <>
                     <Download size={13} aria-hidden="true" className="shrink-0" />
                     <span className="min-w-0 truncate">Downloaded {notice.download.fileName}</span>
-                    <button type="button" className="shrink-0 rounded-md bg-accent px-2 py-0.5 text-accent-ink" onClick={() => { save(notice.download); dismiss(notice.id); }}>Save</button>
+                    <Button variant="primary" size="sm" className="shrink-0" onClick={() => { save(notice.download); dismiss(notice.id); }}>Save</Button>
                   </>
                 ) : notice.kind === "clipboard" ? (
                   <>
                     <span className="min-w-0 truncate">The page copied text</span>
-                    <button type="button" className="shrink-0 rounded-md bg-accent px-2 py-0.5 text-accent-ink" onClick={() => { void copyText(notice.text); dismiss(notice.id); }}>Copy</button>
+                    <Button variant="primary" size="sm" className="shrink-0" onClick={() => { void copyText(notice.text); dismiss(notice.id); }}>Copy</Button>
                   </>
                 ) : <span role="alert" className="min-w-0 text-danger-text">{notice.message}</span>}
                 <button type="button" aria-label="Dismiss" className="shrink-0 rounded-md p-0.5 text-ink-secondary hover:bg-inset" onClick={() => dismiss(notice.id)}><X size={12} /></button>

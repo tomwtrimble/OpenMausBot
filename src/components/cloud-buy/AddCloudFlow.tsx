@@ -14,7 +14,8 @@ import { t } from "@/lib/i18n";
 import { placeInitials } from "@/lib/places";
 import { SwatchRadios } from "../SwatchRadios";
 import { ChooseScreen } from "./ChooseScreen";
-import { BackLink, Checklist, FIELD, Heading, PRIMARY_WIDE, ProgressBar } from "./parts";
+import { BackLink, Checklist, FIELD, Heading, ProgressBar } from "./parts";
+import { Button } from "../ui/Button";
 
 const POLL_MS = 3_000;
 const STOP_LINE: Record<Exclude<AddCloudStop, "one">, Parameters<typeof t>[0]> = {
@@ -45,9 +46,9 @@ function NameScreen({ plan, name, color, busy, suggested, onName, onColor, onBac
       </span>
     </div>
     <p className="text-[13px] leading-relaxed text-ink-secondary">{t("cloudBuy.card.paid", { price: usd(plan.amount / 100) })}</p>
-    <button type="submit" className={PRIMARY_WIDE} disabled={busy}>
+    <Button variant="primary" pill size="lg" type="submit" className="w-full" disabled={busy}>
       {busy && <Loader2 size={15} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />}{t("cloudBuy.extra.continue")}
-    </button>
+    </Button>
   </form>;
 }
 
@@ -173,8 +174,8 @@ export function AddCloudFlow({ onClose, onFirstCloud, onWide = () => {}, onBack 
       </div>;
       case "ready": return <div data-cloud-add="extra-ready" className="flex flex-col gap-4 px-[30px] pb-[26px] pt-7">
         <Heading title={t("cloudBuy.ready.title", { name: screen.adding.name })} sub={t("cloudBuy.extra.readySub")} />
-        <button type="button" data-autofocus className={PRIMARY_WIDE} disabled={busy}
-          onClick={() => act(async () => { await bridge?.open(); onClose(); }, () => setNote("open-failed"))}>{t("cloudBuy.setup.open", { name: screen.adding.name })}</button>
+        <Button variant="primary" pill size="lg" data-autofocus className="w-full" disabled={busy}
+          onClick={() => act(async () => { await bridge?.open(); onClose(); }, () => setNote("open-failed"))}>{t("cloudBuy.setup.open", { name: screen.adding.name })}</Button>
         {note === "open-failed" && <p role="alert" className="text-[13px] text-danger-text">{t("cloudBuy.openFailed", { name: screen.adding.name })}</p>}
       </div>;
       case "problem": return <div data-cloud-add="extra-problem" className="flex flex-col gap-4 px-[30px] pb-[26px] pt-7">

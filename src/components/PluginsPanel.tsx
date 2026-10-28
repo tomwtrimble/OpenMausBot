@@ -36,6 +36,7 @@ import { mergeCompleteConnectorStatus, mergeCurrentConnectorStatus, onlyLatestCo
 import { openBotSettings } from "./bot-panel/panel-link";
 import { openKeySettings } from "./keys/key-focus";
 import { ServiceIcon, type ToolkitCard } from "./ServiceIcon";
+import { Button } from "./ui/Button";
 export { ServiceIcon, type ToolkitCard } from "./ServiceIcon";
 
 let cachedConnectorStatus: Record<string, ConnectorStatus> | null = null;
@@ -981,13 +982,13 @@ export function PluginsPanel() {
                   : t("connectors.aliasAriaNew", { service: card.label })}
                 className="h-8 min-w-0 flex-1 rounded-full bg-inset px-3 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus"
               />
-              <button
+              <Button variant="primary" size="md"
                 type="submit"
                 disabled={busy || !aliasDraft.trim()}
-                className="inline-flex h-7 shrink-0 items-center rounded-full bg-accent px-3 text-[13px] font-medium leading-5 text-accent-ink disabled:opacity-40"
+                className="shrink-0 rounded-full"
               >
                 {t("connectors.action.continue")}
-              </button>
+              </Button>
             </form>
           )}
         </div>

@@ -4,6 +4,7 @@ import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { Bot, InstanceInfo, Message, Task } from "@/state/store";
 import type { FeatureFlagConfig } from "@/lib/feature-flags";
+import { isButton } from "@/testing/ui-elements";
 
 // Hook-by-call-order harness: state survives between renders, effects never run, handlers are read off the element
 // tree. `seed` presets what the resolve effect would have reached.
@@ -150,21 +151,21 @@ function render(forBot: Bot, props: { onOpenVmWorkspace?: (botId: string) => voi
   }
   const html = renderToStaticMarkup(createElement(Capture));
   const all = nodes(tree);
-  const buttons = all.filter((node) => node.type === "button");
+  const buttons = all.filter((node) => isButton(node));
   const button = (label: string) => buttons.find((node) => text(node.props.children) === label);
   return { html, nodes: all, buttons, button };
 }
 
 const tabs = (rendered: ReturnType<typeof render>) => {
   const bar = rendered.nodes.find((node) => node.props["data-testid"] === "computer-tabs")!;
-  return nodes(bar.props.children).filter((node) => node.type === "button").map((node) => text(node.props.children));
+  return nodes(bar.props.children).filter((node) => isButton(node)).map((node) => text(node.props.children));
 };
 const placeLine = (rendered: ReturnType<typeof render>) =>
   text(rendered.nodes.find((node) => node.props["data-testid"] === "place-line")!.props.children).replace(/&#x27;/g, "'");
 const grid = (rendered: ReturnType<typeof render>) => {
   const card = rendered.nodes.find((node) => node.props["data-testid"] === "where-works");
   if (!card) return [];
-  return nodes(card.props.children).filter((node) => node.type === "button");
+  return nodes(card.props.children).filter((node) => isButton(node));
 };
 
 beforeEach(() => {
@@ -467,7 +468,7 @@ describe("Where the bot works", () => {
         const start = makeBot({ computer: patch.computer === "off" ? "cloud" : "off" });
         const rendered = render(start);
         const group = rendered.nodes.find((node) => node.props.role === "group" && node.props["aria-label"] === "Computer destination")!;
-        const option = nodes(group.props.children).filter((node) => node.type === "button")[index]!;
+        const option = nodes(group.props.children).filter((node) => isButton(node))[index]!;
         (option.props.onClick as () => void)();
         calls.push((fixture.dispatch as ReturnType<typeof vi.fn>).mock.calls);
       }
@@ -570,7 +571,7 @@ describe("Technical controls", () => {
     fixture.seed = { phase: "ready", resolved: { botId: "scout", threadId: "thread-scout", computer: "cloud", cloudBackend: "box" } };
     const simple = render(cloud());
     const row = simple.nodes.find((node) => node.props["data-testid"] === "computer-actions")!;
-    expect(nodes(row.props.children).filter((node) => node.type === "button").map((node) => text(node.props.children)))
+    expect(nodes(row.props.children).filter((node) => isButton(node)).map((node) => text(node.props.children)))
       .toEqual(["Take control", "Full screen", "Sleep"]);
 
     fixture.advanced = true;
@@ -595,7 +596,7 @@ describe("Technical controls", () => {
     expect(simple.html).not.toContain("Open two desktops");
     expect(simple.html).not.toContain("Delete this bot");
     const row = simple.nodes.find((node) => node.props["data-testid"] === "computer-actions")!;
-    expect(nodes(row.props.children).filter((node) => node.type === "button").map((node) => text(node.props.children)))
+    expect(nodes(row.props.children).filter((node) => isButton(node)).map((node) => text(node.props.children)))
       .toEqual(["Take control", "Full screen"]);
 
     fixture.advanced = true;

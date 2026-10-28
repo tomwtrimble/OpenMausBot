@@ -3,6 +3,7 @@ import { track } from "@/lib/analytics";
 import { useStore } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { BotPickerList } from "./BotPickerList";
+import { Button } from "./ui/Button";
 
 /** Sidebar → New channel: name it, optionally file it under a context, pick its bots. */
 export function NewRoomPanel({ onClose }: { onClose: () => void }) {
@@ -67,17 +68,17 @@ export function NewRoomPanel({ onClose }: { onClose: () => void }) {
           onToggle={toggle}
           emptyHint={t("sidebar.newChannel.emptyHint")}
         />
-        <button
+        <Button variant="primary" size="lg"
           onClick={create}
           disabled={!picked.size}
-          className="mt-3 w-full rounded-lg bg-accent py-2 text-[14px] font-medium text-white hover:brightness-110 disabled:opacity-40"
+          className="mt-3 w-full text-[14px]"
         >
           {picked.size === 0
             ? t("sidebar.newChannel.create")
             : picked.size === 1
               ? t("sidebar.newChannel.createOne")
               : t("sidebar.newChannel.createMany", { count: picked.size })}
-        </button>
+        </Button>
       </div>
     </div>
   );

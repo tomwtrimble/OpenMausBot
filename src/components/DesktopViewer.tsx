@@ -5,6 +5,7 @@ import type RFB from "@novnc/novnc";
 import { connectDesktop, DesktopUnreachable, typeOnDesktop } from "@/lib/desktop-connection";
 import { t } from "@/lib/i18n";
 import { useHeldMenuMotion, useMenuMotion } from "./MenuMotion";
+import { Button } from "./ui/Button";
 
 function subscribeLocation(listener: () => void) {
   window.addEventListener("hashchange", listener);
@@ -161,9 +162,9 @@ export function DesktopViewer() {
               if (connected) rfb.current?.clipboardPasteFrom(value);
             }
           }} />
-          {keyboardPanel && <button id="send" type="submit" className="mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-accent px-3 font-medium text-accent-ink transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-40" disabled={!connected || !text}>
+          {keyboardPanel && <Button variant="primary" size="lg" id="send" type="submit" className="mt-3 flex w-full gap-2 rounded-xl px-3 min-h-11" disabled={!connected || !text}>
             <Send size={16} aria-hidden="true" />{t("desktopViewer.send")}
-          </button>}
+          </Button>}
         </form>
         {keyboardPanel && <div className="mt-4 grid grid-cols-2 gap-2 border-t border-edge pt-4">
           <button className={action} disabled={!connected} onClick={() => rfb.current?.sendKey(0xff09, "Tab")}>{t("desktopViewer.keyTab")}</button>

@@ -16,6 +16,7 @@ import type { LocaleKey } from "@/locales";
 import type { Routine } from "@/lib/routines";
 import { useShowThreads } from "@/lib/thread-preferences";
 import { openBot, useStore } from "@/state/store";
+import { Button } from "./ui/Button";
 
 const TITLE: Record<CloudSetupStep, LocaleKey> = {
   cloud: "cloudSetup.cloud.title", job: "cloudSetup.job.title", engine: "cloudSetup.engine.title", plan: "cloudSetup.plan.title", move: "cloudWelcome.step.bring",
@@ -97,7 +98,7 @@ function CloudReady({ routine, onDone }: { routine?: Routine; onDone: () => void
           </button>
           <button type="button" className="py-1 text-[12px] text-ink-secondary transition-colors hover:text-ink" onClick={() => setLeaving(true)}>{t("cloudSetup.ready.later")}</button>
         </div>
-      : <button type="button" className="ui-button relative mt-4 w-full" onClick={() => setLeaving(true)}>{t("cloudSetup.ready.done")}</button>}
+      : <Button className="relative mt-4 w-full" onClick={() => setLeaving(true)}>{t("cloudSetup.ready.done")}</Button>}
   </aside>;
 }
 

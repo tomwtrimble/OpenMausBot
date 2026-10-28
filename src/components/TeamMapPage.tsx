@@ -27,6 +27,7 @@ import { useMapComputers, useShowComputers } from "@/lib/map-computers";
 import { MapComposer } from "./MapComposer";
 import { openBotSettings } from "./bot-panel/panel-link";
 import type { TeamComputer } from "../../shared/team-computer";
+import { Button } from "./ui/Button";
 
 export function EdgeRow({ edge, bots }: { edge: TeamMapEdge; bots: Bot[] }) {
   const { state, dispatch } = useStore();
@@ -244,17 +245,17 @@ function SectionContextDialog({ section, label, onClose }: { section: string; la
         </div>
 
         <footer className="flex items-center justify-end gap-2 border-t border-hairline px-6 py-4 sm:px-8">
-          <button onClick={requestClose} disabled={saving} className="rounded-lg px-3.5 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-40">
+          <Button variant="ghost" size="lg" onClick={requestClose} disabled={saving} className="font-normal">
             {t("common.cancel")}
-          </button>
-          <button
+          </Button>
+          <Button variant="primary" size="lg"
             onClick={() => void save()}
             disabled={loading || saving || !dirty || bytes > maxBytes}
-            className="flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-40"
+            className="flex gap-2"
           >
             {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
             {t("team.instructionsSave")}
-          </button>
+          </Button>
         </footer>
       </div>
     </div>,

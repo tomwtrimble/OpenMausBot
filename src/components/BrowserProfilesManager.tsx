@@ -7,6 +7,7 @@ import { t } from "@/lib/i18n";
 import { SignedInSites } from "./SignedInSites";
 import { Select } from "./Select";
 import { browserScope } from "@/lib/team-browser";
+import { Button } from "./ui/Button";
 
 /** Security: the server owns session routing and erasure; this UI never handles cookies or partitions. */
 export function BrowserProfilesManager({ bot, onProfileChanged, disabled = false }: {
@@ -214,7 +215,7 @@ export function BrowserProfilesManager({ bot, onProfileChanged, disabled = false
                     ) : (
                       <>
                         <button type="button" disabled={locked} onClick={() => { setRenaming({ id: profile.id, name: profile.name }); setError(""); }} className="min-w-0 flex-1 truncate text-left text-[13px] font-medium text-ink hover:underline disabled:opacity-50" title={t("settings.profiles.rename")}>{profile.name}</button>
-                        <button type="button" onClick={() => void remove(profile)} disabled={locked || Boolean(blocked)} title={blocked ?? t("settings.profiles.deleteTitle")} aria-label={`${t("common.delete")} ${profile.name}`} className="flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"><Trash2 size={13} />{t("common.delete")}</button>
+                        <Button variant="ghost" size="md" onClick={() => void remove(profile)} disabled={locked || Boolean(blocked)} title={blocked ?? t("settings.profiles.deleteTitle")} aria-label={`${t("common.delete")} ${profile.name}`} className="flex shrink-0 gap-1 text-[12px] hover:text-danger-text font-normal"><Trash2 size={13} />{t("common.delete")}</Button>
                       </>
                     )}
                   </div>

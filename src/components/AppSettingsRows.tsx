@@ -21,6 +21,7 @@ import { setShowRunCard, useShowRunCard } from "@/lib/run-card-preferences";
 import { parseSendKey, SEND_KEYS, sendKeyLabel, setSendKey, useSendKey } from "@/lib/send-key";
 import { effectiveLanguage, setLanguageChoice, useLanguageChoice } from "@/lib/language-preference";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 export function UpdatesRow({ title = t("settings.updates.title") }: { title?: string }) {
   const s = useUpdaterState();
@@ -51,7 +52,7 @@ export function UpdatesRow({ title = t("settings.updates.title") }: { title?: st
                   : t("settings.updates.latest");
   return (
     <SettingRow title={title} subtitle={label}>
-      <button
+      <Button
         onClick={() => {
           if (s.status === "downloaded") return void updater.install();
           void updater.check();
@@ -60,7 +61,6 @@ export function UpdatesRow({ title = t("settings.updates.title") }: { title?: st
           s.status === "checking" || s.status === "downloading" || s.status === "preparing" ||
           s.status === "installing" || s.retryable === false
         }
-        className="ui-button"
       >
         {s.retryable === false
           ? t("settings.updates.quitReopen")
@@ -75,7 +75,7 @@ export function UpdatesRow({ title = t("settings.updates.title") }: { title?: st
                   ? t("settings.updates.opening")
                   : t("settings.updates.restartingShort")
                 : t("settings.updates.check")}
-      </button>
+      </Button>
     </SettingRow>
   );
 }
@@ -132,7 +132,7 @@ function ReplayAppTourButton() {
   const [failed, setFailed] = useState(false);
   return (
     <div>
-      <button
+      <Button
         disabled={saving}
         onClick={() => {
           setSaving(true);
@@ -152,10 +152,9 @@ function ReplayAppTourButton() {
             .catch(() => setFailed(true))
             .finally(() => setSaving(false));
         }}
-        className="ui-button"
       >
         {t("settings.welcome.appTour")}
-      </button>
+      </Button>
       {failed && <p role="alert" className="mt-2 text-[13px] text-danger-text">{t("onboarding.tour.error")}</p>}
     </div>
   );
@@ -167,12 +166,11 @@ export function ReplayTourRow() {
     <SettingRow title={t("settings.welcome.title")} subtitle={t("settings.welcome.subtitleShort")}>
       <div className="flex flex-wrap justify-end gap-2">
         <ReplayAppTourButton />
-        <button
+        <Button
           onClick={() => dispatch({ type: "toggleWelcome", open: true })}
-          className="ui-button"
         >
           {t("settings.welcome.replay")}
-        </button>
+        </Button>
       </div>
     </SettingRow>
   );

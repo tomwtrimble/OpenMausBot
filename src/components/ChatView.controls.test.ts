@@ -6,6 +6,7 @@ import type { ApprovalModeSelector } from "./ApprovalModeSelector";
 import type { ModelPicker } from "./ModelPicker";
 import { CODEX_USAGE_LIMIT_REACHED, CODEX_USAGE_URL } from "../../shared/codex-usage-limit";
 import { failedTurnTool } from "../../shared/failed-turn";
+import { isButton } from "@/testing/ui-elements";
 
 const fixture = vi.hoisted(() => {
   vi.stubGlobal("window", {});
@@ -659,7 +660,7 @@ describe("a guest's composer on a Cloud home", () => {
     expect(markup).toContain(">New conversation<");
     expect(markup).not.toContain("<textarea");
     const tree = NewConversationInstead({ onNew }) as { props: { children: Array<{ type: string; props: { onClick?: () => void } }> } };
-    tree.props.children.find((child) => child.type === "button")!.props.onClick!();
+    tree.props.children.find((child) => isButton(child))!.props.onClick!();
     expect(onNew).toHaveBeenCalledOnce();
   });
 

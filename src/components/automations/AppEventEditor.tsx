@@ -11,6 +11,7 @@ import { t } from "@/lib/i18n";
 import { useStore, type Bot } from "@/state/store";
 import { Select } from "../Select";
 import { suggestedName } from "../WebhookTrigger";
+import { Button } from "../ui/Button";
 
 const FIELD = "w-full rounded-xl border border-hairline bg-panel px-3.5 py-2.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/70";
 const LABEL = "mb-1.5 block text-[12px] font-medium text-ink-secondary";
@@ -107,7 +108,7 @@ export function AppEventEditor({ trigger, bots, initialBotId, onClose, onSaved }
           {!trigger && catalog && (catalog.unavailable || !catalog.apps.some((candidate) => candidate.events.length)) && (
             <div className="rounded-xl border border-hairline bg-inset/50 p-3.5 text-[13px] text-ink-secondary">
               <p>{catalog.unavailable ?? t("automations.editor.appEvent.noApps")}</p>
-              {!catalog.unavailable && <button type="button" onClick={() => dispatch({ type: "togglePlugins", open: true, surface: "apps" })} className="mt-2.5 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-accent-ink hover:brightness-110">{t("automations.editor.appEvent.connect")}</button>}
+              {!catalog.unavailable && <Button variant="primary" onClick={() => dispatch({ type: "togglePlugins", open: true, surface: "apps" })} className="mt-2.5">{t("automations.editor.appEvent.connect")}</Button>}
             </div>
           )}
           {!trigger && catalog && appEntry && (
@@ -166,8 +167,8 @@ export function AppEventEditor({ trigger, bots, initialBotId, onClose, onSaved }
           {error && <div role="alert" className="rounded-xl border border-danger/30 bg-danger/10 px-3.5 py-3 text-[12px] text-danger-text">{error}</div>}
         </div>
         <div className="flex justify-end gap-2 border-t border-hairline px-5 py-4">
-          <button type="button" onClick={onClose} className="rounded-xl px-4 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink">{t("automations.newBox.cancel")}</button>
-          <button type="button" disabled={saving || !botId || (!trigger && !chosen) || required.some((field) => !config[field.name]?.trim())} onClick={() => void save()} className="flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-[13px] font-medium text-accent-ink hover:brightness-110 disabled:opacity-40">{saving && <Loader2 size={14} className="animate-spin" />}{trigger ? t("automations.editor.app.save") : t("automations.editor.app.create")}</button>
+          <Button variant="ghost" size="lg" onClick={onClose} className="rounded-xl font-normal">{t("automations.newBox.cancel")}</Button>
+          <Button variant="primary" size="lg" disabled={saving || !botId || (!trigger && !chosen) || required.some((field) => !config[field.name]?.trim())} onClick={() => void save()} className="flex gap-2 rounded-xl">{saving && <Loader2 size={14} className="animate-spin" />}{trigger ? t("automations.editor.app.save") : t("automations.editor.app.create")}</Button>
         </div>
       </div>
     </div>

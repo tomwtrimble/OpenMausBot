@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ConfigStatus, InstanceInfo } from "@/state/store";
 import { AutomaticRecoverySettings } from "./AutomaticRecoverySettings";
 import { Switch } from "./SettingsPrimitives";
+import { isButton } from "@/testing/ui-elements";
 
 const fixture = vi.hoisted(() => ({
   values: [] as unknown[], index: 0,
@@ -46,7 +47,7 @@ function render() {
     toggle: all.find(node => node.type === Switch)!,
     engine: all.find(node => node.props.id === "automatic-recovery-engine")!,
     model: all.find(node => node.props.id === "automatic-recovery-model")!,
-    save: all.find(node => node.type === "button")!,
+    save: all.find(node => isButton(node))!,
   };
 }
 const click = (node: Node) => (node.props.onClick as () => void)();

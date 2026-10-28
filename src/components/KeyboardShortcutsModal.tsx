@@ -9,6 +9,7 @@ import {
   type ShortcutItem,
 } from "@/lib/keyboard-shortcuts";
 import { useSendKey } from "@/lib/send-key";
+import { Button } from "./ui/Button";
 
 export interface KeyboardShortcutsModalProps {
   open: boolean;
@@ -131,13 +132,11 @@ export function KeyboardShortcutsModal({ open, onClose }: KeyboardShortcutsModal
           <span>
             Press <kbd className="rounded bg-control px-1 py-0.5 font-mono text-[11px]">?</kbd> when not typing to open
           </span>
-          <button
-            type="button"
+          <Button size="md"
             onClick={onClose}
-            className="ui-button ui-button-md"
           >
             Done
-          </button>
+          </Button>
         </div>
       </div>
     </dialog>

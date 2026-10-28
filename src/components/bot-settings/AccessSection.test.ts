@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { StoreProvider, type Bot, type ConfigStatus } from "@/state/store";
 import type { useBotSettingsDerived } from "./useBotSettingsDerived";
+import { isButton } from "@/testing/ui-elements";
 
 const fixture = vi.hoisted(() => ({
   dispatch: vi.fn(),
@@ -149,7 +150,7 @@ describe("AccessSection always-allowed list", () => {
       const node = value as Node;
       return [node, ...Children.toArray(node.props.children).flatMap(nodes)];
     };
-    const connect = nodes(tree).find((node) => node.type === "button" && renderToStaticMarkup(node).includes("Connect an app"))!;
+    const connect = nodes(tree).find((node) => isButton(node) && renderToStaticMarkup(node).includes("Connect an app"))!;
     connect.props.onClick!();
     expect(fixture.dispatch.mock.calls).toEqual([
       [{ type: "toggleSettings", open: false }],
@@ -200,7 +201,7 @@ describe("AccessSection Works on", () => {
     let tree!: ReturnType<typeof AccessSection>;
     function Capture() { tree = AccessSection({ bot: makeBot(), derived: makeDerived() }); return tree; }
     renderToStaticMarkup(createElement(StoreProvider, null, createElement(Capture)));
-    const open = nodes(tree).find((node) => node.type === "button" && renderToStaticMarkup(node).includes("Open the Screen panel"))!;
+    const open = nodes(tree).find((node) => isButton(node) && renderToStaticMarkup(node).includes("Open the Screen panel"))!;
     open.props.onClick!();
     expect(fixture.dispatch.mock.calls).toEqual([
       [{ type: "toggleSettings", open: false }],
@@ -242,7 +243,7 @@ describe("Research (treg) card", () => {
     expect(html).toContain("Add your treg key in Settings → API keys to let bots research X, companies, people and more.");
     expect(html).toMatch(new RegExp(`${SWITCH}[^>]* disabled=""`));
     expect(html).toMatch(new RegExp(`${SWITCH}[^>]*aria-checked="false"`));
-    const open = capture(makeBot()).card.find((node) => node.type === "button" && typeof node.props.onClick === "function")!;
+    const open = capture(makeBot()).card.find((node) => isButton(node) && typeof node.props.onClick === "function")!;
     (open.props.onClick as () => void)();
     expect(fixture.dispatch).toHaveBeenCalledWith({ type: "toggleAppSettings", open: true, section: "connections" });
   });

@@ -35,6 +35,7 @@ import { NewBotDialog } from "./NewBotDialog";
 import { setTeamChats } from "@/state/team-chats";
 import { Select } from "./Select";
 import type { BotCreationDraft } from "@/lib/bot-creation-draft";
+import { isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; role?: string; "aria-label"?: string; onClick?: () => void; disabled?: boolean }>;
 function nodes(value: ReactNode): Node[] {
@@ -92,7 +93,7 @@ describe("bot draft dialog", () => {
     fixture.create.mockResolvedValue({ bot, warnings: [] });
     const failed = () => { throw new Error("Caller failed"); };
     const result = render(false, asyncFailure ? async () => failed() : failed);
-    result.nodes.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    result.nodes.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.close).toHaveBeenCalledOnce());
     expect(fixture.create).toHaveBeenCalledTimes(1);
     expect(fixture.dispatch).toHaveBeenCalledWith({ type: "botAdded", bot, preserveSelection: false });
@@ -105,7 +106,7 @@ describe("bot draft dialog", () => {
     fixture.create.mockResolvedValue({ bot, warnings: [] });
     const result = render();
     expect(result.html).not.toContain('role="alertdialog"');
-    result.nodes.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    result.nodes.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.create).toHaveBeenCalledTimes(1));
     expect(fixture.create.mock.calls[0][0].bot).toMatchObject({ name: "Fixture", approvalMode: "full" });
     expect(fixture.create.mock.calls[0][0].consent).toEqual({});
@@ -131,7 +132,7 @@ describe("bot draft dialog", () => {
     fixture.effects[0]();
     expect(fixture.api).toHaveBeenCalledExactlyOnceWith("/api/bot-defaults");
     expect(fixture.dispatch).not.toHaveBeenCalled();
-    const submit = result.nodes.find(node => node.type === "button" && node.props.disabled)!;
+    const submit = result.nodes.find(node => isButton(node) && node.props.disabled)!;
     expect(submit.props.disabled).toBe(true);
   });
 
@@ -158,7 +159,7 @@ describe("bot draft dialog", () => {
 
   it("can cancel a loading draft without creating or deleting a bot", () => {
     const result = render();
-    result.nodes.find(node => node.type === "button" && node.props["aria-label"] === "Close")!.props.onClick!();
+    result.nodes.find(node => isButton(node) && node.props["aria-label"] === "Close")!.props.onClick!();
     expect(fixture.close).toHaveBeenCalledOnce();
     expect(fixture.dispatch).not.toHaveBeenCalled();
     expect(fixture.api).not.toHaveBeenCalled();
@@ -174,7 +175,7 @@ describe("bot draft dialog", () => {
     fixture.create.mockResolvedValue({ bot: { id: "created", name: "Fixture" }, warnings: [] });
     const dialog = render().nodes;
     for (const value of choices) chooseStartingRole(dialog, value);
-    dialog.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    dialog.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.close).toHaveBeenCalledOnce());
     expect(fixture.track.mock.calls).toEqual([["bot_created", props]]);
   });
@@ -184,7 +185,7 @@ describe("bot draft dialog", () => {
     fixture.ready = true;
     const bot = { id: "created", name: "Fixture" };
     fixture.create.mockResolvedValue({ bot, warnings: [] });
-    render().nodes.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    render().nodes.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.openBot).toHaveBeenCalledTimes(1));
     expect(fixture.openBot.mock.calls[0].slice(0, 2)).toEqual([fixture.dispatch, bot]);
     const added = fixture.dispatch.mock.calls.findIndex(([action]) => action.type === "botAdded");
@@ -195,7 +196,7 @@ describe("bot draft dialog", () => {
   it("anywhere but a team's Cloud, leaves the new bot selected as it always was", async () => {
     fixture.ready = true;
     fixture.create.mockResolvedValue({ bot: { id: "created", name: "Fixture" }, warnings: [] });
-    render().nodes.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    render().nodes.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.dispatch).toHaveBeenCalledWith(expect.objectContaining({ type: "botAdded" })));
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(fixture.openBot).not.toHaveBeenCalled();
@@ -208,7 +209,7 @@ describe("bot draft dialog", () => {
     const dialog = render().nodes;
     chooseStartingRole(dialog, "coder");
     (dialog.find(named("DraftSection"))!.props as unknown as { draft: BotCreationDraft }).draft.choosePreset({ id: "My secret preset", skills: [], notes: [] });
-    dialog.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    dialog.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.close).toHaveBeenCalledOnce());
     expect(fixture.track.mock.calls).toEqual([["bot_created", { source: "preset" }]]);
   });
@@ -216,10 +217,10 @@ describe("bot draft dialog", () => {
   it("reports nothing when saving the defaults for new bots, or when creating fails", async () => {
     fixture.ready = true;
     fixture.api.mockResolvedValue({});
-    render(true).nodes.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    render(true).nodes.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.api).toHaveBeenCalledWith("/api/config", expect.objectContaining({ method: "PATCH" })));
     fixture.create.mockRejectedValue(new Error("no engine"));
-    render().nodes.filter(node => node.type === "button").at(-1)!.props.onClick!();
+    render().nodes.filter(node => isButton(node)).at(-1)!.props.onClick!();
     await vi.waitFor(() => expect(fixture.create).toHaveBeenCalled());
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(fixture.track).not.toHaveBeenCalled();

@@ -24,6 +24,7 @@ vi.mock("react", async (original) => ({
   },
 }));
 import { OrganisationRow } from "./OrganisationRow";
+import { isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; disabled?: boolean; onClick?: () => void }>;
 function nodes(value: ReactNode): Node[] {
@@ -57,7 +58,7 @@ function render() {
 const flush = async () => {
   for (let i = 0; i < 20; i++) await Promise.resolve();
 };
-const button = (label: string) => render().nodes.find((node) => node.type === "button" && text(node.props.children) === label);
+const button = (label: string) => render().nodes.find((node) => isButton(node) && text(node.props.children) === label);
 async function mount(state: ManagedDesktopState = { status: "signed-out" }) {
   vi.mocked(bridge.state).mockResolvedValueOnce(state);
   render();

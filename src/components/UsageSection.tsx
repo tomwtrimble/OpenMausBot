@@ -14,6 +14,7 @@ import { Select } from "./Select";
 import { UsageBudgetCards, type BudgetState } from "./UsageBudget";
 import { TraceView } from "./usage/TraceView";
 import { LiveBadge, modelName, StatStrip, totalsStats } from "./usage/TraceWaterfall";
+import { Button } from "./ui/Button";
 
 export type UsageGroupBy = "bot" | "model" | "user" | "day" | "engine" | "routine";
 const OTHER_GROUPINGS: readonly UsageGroupBy[] = ["model", "user", "day", "engine", "routine"];
@@ -225,9 +226,9 @@ export function UsageSection() {
       {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       {open ? (
         <TraceView id={open.id} at={open.at} actions={(
-          <button type="button" onClick={() => setOpen(null)} className="flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink">
+          <Button variant="ghost" size="md" onClick={() => setOpen(null)} className="flex shrink-0 gap-1 font-normal">
             <ArrowLeft size={13} />{t("trace.back")}
-          </button>
+          </Button>
         )} />
       ) : (
         <>

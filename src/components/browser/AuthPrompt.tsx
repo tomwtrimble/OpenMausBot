@@ -1,5 +1,6 @@
 import { LockKeyhole } from "lucide-react";
 import type { FormEvent } from "react";
+import { Button } from "../ui/Button";
 
 /**
  * A site's HTTP sign-in (basic or digest), which a page cannot draw itself. Security: the password goes only to that
@@ -27,7 +28,7 @@ export function AuthPrompt({ origin, realm, onAnswer }: {
       <input name="password" type="password" aria-label="Password" autoComplete="new-password" maxLength={1024} placeholder="Password" className="rounded-lg bg-inset px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-focus" />
       <div className="flex justify-end gap-2">
         <button type="button" onClick={() => onAnswer(null)} className="rounded-lg px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-inset">Cancel</button>
-        <button type="submit" className="rounded-lg bg-accent px-3 py-1.5 text-[12px] text-accent-ink">Sign in</button>
+        <Button variant="primary" type="submit" className="text-[12px]">Sign in</Button>
       </div>
     </form>
   );

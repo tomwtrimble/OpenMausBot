@@ -8,6 +8,7 @@ import { engineSignedIn } from "@/lib/product-events";
 import type { LocaleKey } from "@/locales";
 import { deviceSignInLink, isDeviceSignInCode, type DeviceSignInProvider } from "../../shared/device-sign-in";
 import { CodexMark } from "./ProviderIcons";
+import { Button } from "./ui/Button";
 
 export interface DeviceSignInStatus {
   phase: "waiting" | "succeeded" | "failed" | "expired" | "cancelled";
@@ -223,9 +224,9 @@ export function DeviceSignIn({ instanceId, browserPkce = false, provider = "code
     <div className="mt-3 space-y-2" data-device-sign-in={provider} data-chatgpt-plan-sign-in={browserPkce || undefined}>
       {auth && <DeviceSignInProgress auth={auth} browserPkce={browserPkce} provider={provider} />}
       {auth?.phase === "waiting" ? (
-        <button type="button" disabled={busy} onClick={() => void cancel()} className="w-full rounded-lg bg-control px-3 py-2 text-[12px] font-medium text-ink disabled:opacity-50">
+        <Button size="lg" disabled={busy} onClick={() => void cancel()} className="w-full px-3 text-[12px]">
           {busy ? t("engineSetup.device.cancelling") : t("engineSetup.device.cancel")}
-        </button>
+        </Button>
       ) : auth?.phase !== "succeeded" && (
         <button type="button" disabled={busy} onClick={() => void start()} className={browserPkce ? chatgptButton : "flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-50"}>
           {busy ? <Loader2 size={14} className="animate-spin" /> : browserPkce ? <CodexMark size={16} className="fill-current" /> : <LogIn size={14} />}

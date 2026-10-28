@@ -5,6 +5,7 @@ import { cloudIntroView } from "@/lib/cloud-plan";
 import { t } from "@/lib/i18n";
 import { LINK, Tag } from "./cloud-buy/parts";
 import { NoticeCard, NotNowButton, PRIMARY_BUTTON } from "./NoticeCard";
+import { Button } from "./ui/Button";
 
 export function CloudTrialIntroCard({ offer, onStart, onHowTo, onSignIn, onNotNow, onDismiss }: {
   offer: CloudOffer;
@@ -24,7 +25,7 @@ export function CloudTrialIntroCard({ offer, onStart, onHowTo, onSignIn, onNotNo
     {view.moneyBack && <p className="text-[12px] text-ink-secondary">{view.moneyBack}</p>}
     <div className="mt-3 flex flex-wrap items-center gap-2">
       <button type="button" className={PRIMARY_BUTTON} onClick={onStart}>{t("cloudIntro.start")}</button>
-      <button type="button" className="ui-button" onClick={onHowTo}>{t("cloudIntro.howTo")}</button>
+      <Button onClick={onHowTo}>{t("cloudIntro.howTo")}</Button>
     </div>
     <div className="mt-1 flex items-center justify-between gap-3">
       {onSignIn ? <button type="button" className={cn(LINK, "py-2 text-left text-[12px]")} onClick={onSignIn}>{t("cloudAccount.signIn")}</button> : <span />}

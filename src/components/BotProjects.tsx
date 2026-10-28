@@ -6,6 +6,7 @@ import { cn } from "@/lib/cn";
 import { MENU_SHEET } from "./menu-recipe";
 import { useHeldMenuMotion } from "./MenuMotion";
 import { t } from "@/lib/i18n";
+import { Button } from "./ui/Button";
 
 const FOLDER_EMOJI = ["📁", "💼", "🏠", "📬", "💡", "🚀", "🎨", "🧪", "📚", "🌱", "⭐", "🛠️"];
 
@@ -140,8 +141,8 @@ export function BotProjectDialog({ bot, project, onClose, onCreated }: {
             <input ref={nameRef} value={name} maxLength={80} disabled={saving} onChange={(event) => setName(event.target.value)}
               className="mt-1.5 w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink focus:border-accent/60 focus:outline-none" />
           </label>
-          <button ref={iconRef} type="button" disabled={saving} aria-label={t("folder.icon")} aria-expanded={choosingIcon} onClick={() => setChoosingIcon((open) => !open)}
-            className="mt-3 flex items-center gap-2 rounded-lg border border-hairline px-2.5 py-2 text-[12px] text-ink-secondary hover:bg-raised"><FolderIcon emoji={emoji} size={18} />{t("folder.icon")}</button>
+          <Button variant="ghost" size="lg" ref={iconRef} disabled={saving} aria-label={t("folder.icon")} aria-expanded={choosingIcon} onClick={() => setChoosingIcon((open) => !open)}
+            className="mt-3 flex gap-2 border border-hairline px-2.5 text-[12px] font-normal"><FolderIcon emoji={emoji} size={18} />{t("folder.icon")}</Button>
           {choosingIcon && <div className="mt-2 rounded-lg border border-hairline bg-inset p-3"
             onKeyDown={(event) => { if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); setChoosingIcon(false); iconRef.current?.focus(); } }}>
             <p className="mb-2 text-[12px] text-ink-secondary">{t("folder.emojiHint")}</p>
@@ -156,8 +157,8 @@ export function BotProjectDialog({ bot, project, onClose, onCreated }: {
           <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("folder.detail", { name: bot.name })}</p>
           {error && <p role="alert" className="mt-3 text-[12px] text-danger-text">{error}</p>}
           <div className="mt-5 flex justify-end gap-2">
-            <button type="button" onClick={onClose} className="rounded-lg px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised">{t("common.cancel")}</button>
-            <button type="submit" disabled={!name.trim() || saving} className="rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-white disabled:opacity-40">{t(saving ? "folder.saving" : project ? "folder.save" : "folder.create")}</button>
+            <Button variant="ghost" size="lg" onClick={onClose} className="px-3 font-normal">{t("common.cancel")}</Button>
+            <Button variant="primary" size="lg" type="submit" disabled={!name.trim() || saving} className="px-3">{t(saving ? "folder.saving" : project ? "folder.save" : "folder.create")}</Button>
           </div>
         </form>
         {project && <div className="mt-4 border-t border-hairline pt-3">

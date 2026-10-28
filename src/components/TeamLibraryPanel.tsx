@@ -22,6 +22,7 @@ import { OrgLibraryTab } from "./TeamLibraryPanelOrg";
 import { MAX_TEAM_BACKUP_BYTES } from "../../shared/team-backup";
 import { takeImportName } from "../../shared/import-name";
 import { isGrokLink } from "../../shared/grok-import";
+import { Button } from "./ui/Button";
 const COMMUNITY_TEAMS_REPOSITORY = "https://github.com/milind-soni/openmausbot-teams";
 
 export { TeamImportDetails };
@@ -497,15 +498,15 @@ export function TeamLibraryPanel({
           </div>
           <div className="flex shrink-0 items-center gap-1">
             {!pending && (
-              <button
+              <Button variant="ghost" size="lg"
                 onClick={() => void openExternal(catalog?.repositoryUrl ?? COMMUNITY_TEAMS_REPOSITORY)}
-                className="flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink"
+                className="flex gap-1.5 px-2.5 font-normal"
                 title={t("templates.openRepository")}
               >
                 <Github size={16} />
                 <span className="max-sm:hidden">{t("templates.communityRepo")}</span>
                 <ExternalLink size={12} />
-              </button>
+              </Button>
             )}
             <button
               onClick={onClose}
@@ -538,30 +539,30 @@ export function TeamLibraryPanel({
               </div>
               {pendingOrg ? (
                 orgCardAction(pendingOrg) === "add" ? (
-                  <button
+                  <Button variant="primary" size="lg"
                     onClick={() => void addOrgPackage(pendingOrg)}
                     disabled={importing}
                     aria-label={t("orgLibrary.addAria", { name: pendingOrg.name })}
-                    className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-white hover:bg-accent/90 disabled:opacity-60"
+                    className="flex shrink-0 gap-2 rounded-full px-5 text-[14px] min-h-10"
                   >
                     {importing && <Loader2 size={15} className="animate-spin" />}
                     {importing ? t("orgLibrary.adding") : t("orgLibrary.add")}
-                  </button>
+                  </Button>
                 ) : (
                   <span className="flex shrink-0 items-center gap-1 rounded-full bg-raised px-4 py-2 text-[13px] text-ink-secondary">
                     <Check size={14} className="text-success" />{t("orgLibrary.added")}
                   </span>
                 )
-              ) : <button
+              ) : <Button variant="primary" size="lg"
                 onClick={() => void importTeam()}
                 disabled={importing}
-                className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-white hover:bg-accent/90 disabled:opacity-60"
+                className="flex shrink-0 gap-2 rounded-full px-5 text-[14px] min-h-10"
               >
                 {importing && <Loader2 size={15} className="animate-spin" />}
                 {importing
                   ? t("templates.importing")
                   : pending.kind === "backup" ? t("templates.importBackup") : pending.library ? t("teamImport.addPresets") : t("templates.addTeam")}
-              </button>}
+              </Button>}
             </footer>
           </>
         ) : (
@@ -779,14 +780,14 @@ export function TeamLibraryPanel({
                           aria-label={t("templates.githubUrl")}
                           className="min-w-0 flex-1 rounded-xl bg-raised/80 px-3 py-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
                         />
-                        <button
+                        <Button variant="primary" size="lg"
                           onClick={() => void loadGithubTeam()}
                           disabled={!githubUrl.trim() || githubLoading}
-                          className="flex items-center gap-1.5 rounded-full bg-accent px-4 py-2.5 text-[13px] font-medium text-white hover:bg-accent/90 disabled:opacity-40"
+                          className="flex gap-1.5 rounded-full min-h-10"
                         >
                           {githubLoading && <Loader2 size={13} className="animate-spin" />}
                           {t("templates.load")}
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -849,14 +850,14 @@ export function TeamLibraryPanel({
                         {t("templates.browse")}
                       </button>
                     )}
-                    <button
+                    <Button variant="primary" size="lg"
                       onClick={() => void runScout(scoutTarget)}
                       disabled={!scoutTarget || scouting}
-                      className="flex items-center justify-center gap-1.5 rounded-full bg-accent px-4 py-2.5 text-[13px] font-medium text-white hover:bg-accent/90 disabled:opacity-40"
+                      className="flex gap-1.5 rounded-full min-h-10"
                     >
                       {scouting ? <Loader2 size={14} className="animate-spin" /> : <Compass size={14} />}
                       {scouting ? t("templates.scouting") : t("templates.scout")}
-                    </button>
+                    </Button>
                   </div>
 
                   {scouted && (
@@ -947,14 +948,14 @@ export function TeamLibraryPanel({
                           aria-label={t("templates.groupChatName")}
                           className="min-w-0 flex-1 rounded-xl bg-raised/80 px-3 py-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
                         />
-                        <button
+                        <Button variant="primary" size="lg"
                           onClick={() => void createProject()}
                           disabled={creating}
-                          className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-white hover:bg-accent/90 disabled:opacity-60"
+                          className="flex shrink-0 gap-2 rounded-full px-5 text-[14px] min-h-10"
                         >
                           {creating && <Loader2 size={15} className="animate-spin" />}
                           {creating ? t("templates.creating") : t("templates.createGroupChat")}
-                        </button>
+                        </Button>
                       </div>
                       <p className="mt-2 text-[12px] text-ink-secondary">
                         {t("templates.createGroupHint")}

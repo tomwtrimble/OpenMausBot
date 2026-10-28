@@ -11,7 +11,8 @@ import { t } from "@/lib/i18n";
 import { placeInitials, refreshPlaces } from "@/lib/places";
 import type { LocaleKey } from "@/locales";
 import { SwatchRadios } from "../SwatchRadios";
-import { BackLink, FIELD, Heading, PRIMARY_WIDE } from "./parts";
+import { BackLink, FIELD, Heading } from "./parts";
+import { Button } from "../ui/Button";
 
 const BLOCKED: Record<OrganizationBlock, LocaleKey> = { no_team_plan: "rail.orgNoPlan", limit: "rail.orgLimit", rate: "rail.orgRate", off: "rail.orgOff" };
 type OrganizationAnswer = { outcome: "added" | "taken" | "unsupported" | "failed" } | { outcome: "blocked"; blocked: OrganizationBlock };
@@ -61,8 +62,8 @@ export function NewOrganization({ onBack, onClose }: { onBack: (() => void) | nu
       </span>
     </div>
     {(blocked || problem) && <p role="alert" data-org-problem className="text-[13px] leading-relaxed text-danger-text">{t(blocked ?? problem!)}</p>}
-    <button type="submit" className={PRIMARY_WIDE} disabled={busy || !shown || Boolean(blocked)}>
+    <Button variant="primary" pill size="lg" type="submit" className="w-full" disabled={busy || !shown || Boolean(blocked)}>
       {busy && <Loader2 size={15} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />}{t("rail.orgCreate")}
-    </button>
+    </Button>
   </form>;
 }

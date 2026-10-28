@@ -8,6 +8,7 @@ import { botAvatarUrlFromStoredPath } from "../../shared/bot-avatar";
 import { AboutMeSettings } from "./AboutMeSettings";
 import { profileInitials } from "./SidebarProfileMenu";
 import { User } from "lucide-react";
+import { Button } from "./ui/Button";
 
 const PHOTO_MIN_SIDE = 64;
 const PHOTO_MAX_SIDE = 8192;
@@ -129,8 +130,8 @@ function ProfilePhoto() {
                   <input aria-label={t("settings.profile.avatar.zoom")} type="range" min="1" max="2.5" step="0.05" value={draft.zoom} onChange={(event) => replaceDraft({ ...draft, zoom: Number(event.target.value) })} className="ml-2 w-28 align-middle accent-accent" />
                 </label>
               </div>
-              <button type="button" className="rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-control" onClick={() => replaceDraft(null)}>{t("settings.profile.avatar.cancel")}</button>
-              <button type="button" className="rounded-md bg-control px-2 py-1 text-[12px] text-ink hover:bg-raised-hover" disabled={busy} onClick={() => save(draft)}>{t("settings.profile.avatar.save")}</button>
+              <Button variant="ghost" size="md" className="text-[12px] font-normal" onClick={() => replaceDraft(null)}>{t("settings.profile.avatar.cancel")}</Button>
+              <Button size="md" className="text-[12px] font-normal" disabled={busy} onClick={() => save(draft)}>{t("settings.profile.avatar.save")}</Button>
             </div>
           </div>
         ) : avatarUrl ? <img src={avatarUrl} alt="" className="size-12 rounded-full object-cover" /> : <div className="size-12 rounded-full bg-raised" />}
@@ -232,9 +233,9 @@ export function ProfileSummaryRow() {
             {name && email && <div className="truncate text-[13px] leading-[18px] text-ink-secondary">{email}</div>}
           </> : <div className="truncate text-[14px] leading-5 text-ink-secondary">{t("settings.simple.account.noName")}</div>}
         </div>
-        <button type="button" aria-expanded={editing} aria-controls={fieldsId} className="ui-button shrink-0" onClick={() => setEditing(!editing)}>
+        <Button aria-expanded={editing} aria-controls={fieldsId} className="shrink-0" onClick={() => setEditing(!editing)}>
           {editing ? t("common.done") : t(name || email ? "settings.simple.account.edit" : "settings.simple.account.add")}
-        </button>
+        </Button>
       </div>
       <div id={fieldsId} ref={fields} hidden={!editing} className="mt-4">
         {editing && <ProfileFields />}

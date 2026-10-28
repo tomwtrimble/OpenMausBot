@@ -13,6 +13,7 @@ vi.mock("react", async original => ({ ...await original<typeof import("react")>(
 vi.mock("@/state/store", () => ({ useStore: () => ({ dispatch: f.dispatch }),
   CLOUD_LINK_SETTINGS: { type: "toggleAppSettings", open: true, section: "cloudAccount", cloudLink: true } }));
 import { ProSettingsCard, proOfferAvailable } from "./ProIntroduction";
+import { isButton } from "@/testing/ui-elements";
 
 const PLANS = [{ tier: "starter", label: "Starter", amount: 1500, trialDays: 7 }, { tier: "pro", label: "Pro", amount: 4900, trialDays: 7 }];
 const TRIAL: CloudOffer = { plans: PLANS, recommended: "pro", creditUsd: 5, refundDays: 14 };
@@ -43,7 +44,7 @@ type Node = ReactElement<{ children?: ReactNode; onClick?: () => void }>;
 const nodes = (value: ReactNode): Node[] => !isValidElement(value) ? [] : [value as Node, ...Children.toArray((value as Node).props.children).flatMap(nodes)];
 const press = (label: string, Component = ProSettingsCard) => {
   f.index = 0; f.effects = [];
-  const button = nodes(Component()).find(node => node.type === "button" && renderToStaticMarkup(node).includes(`>${label}<`));
+  const button = nodes(Component()).find(node => isButton(node) && renderToStaticMarkup(node).includes(`>${label}<`));
   expect(button, label).toBeTruthy(); button!.props.onClick!();
 };
 

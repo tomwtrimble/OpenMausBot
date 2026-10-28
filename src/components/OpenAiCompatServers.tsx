@@ -7,6 +7,7 @@ import { addedServers } from "@/lib/openai-compat-endpoints";
 import { cn } from "@/lib/cn";
 import { KEY_FIELD } from "./keys/KeyRow";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 export function modelIds(text: string): string[] {
   return [...new Set(text.split(/[,，、\s]+/).map((id) => id.trim()).filter(Boolean))];
@@ -118,15 +119,14 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
         <input value={models} onChange={(e) => setModels(e.target.value)} placeholder={t("apiInstances.models")} aria-label={t("apiInstances.models")}
           spellCheck={false} disabled={busy !== null} className={cn(INPUT, "font-mono")} />
         <p className="text-[12px] leading-4 text-ink-secondary">{t("apiInstances.modelsHint")}</p>
-        <button
-          type="button"
+        <Button
           onClick={add}
           disabled={busy !== null || !ready}
-          className="ui-button self-start"
+          className="self-start"
         >
           {busy === "add" ? <Loader2 size={12} aria-hidden="true" className="animate-spin" /> : <Plus size={12} aria-hidden="true" />}
           {busy === "add" ? t("apiInstances.adding") : t("apiInstances.add")}
-        </button>
+        </Button>
       </div>
       {error && <div className="mt-1 text-[12px] text-danger-text">{error}</div>}
     </div>
@@ -208,15 +208,14 @@ export function LmStudioServer({ heading = true }: { heading?: boolean } = {}) {
         />
         <p className="text-[12px] leading-4 text-ink-secondary">{t("lmStudio.tokenHint")}</p>
         {url && <p className="truncate font-mono text-[12px] leading-4 text-ink-secondary">{url}</p>}
-        <button
-          type="button"
+        <Button
           onClick={add}
           disabled={busy || !url || present}
-          className="ui-button self-start"
+          className="self-start"
         >
           {busy ? <Loader2 size={12} aria-hidden="true" className="animate-spin" /> : <Plus size={12} aria-hidden="true" />}
           {busy ? t("lmStudio.adding") : t("lmStudio.add")}
-        </button>
+        </Button>
         {present && <p className="text-[12px] text-ink-secondary">{t("lmStudio.added")}</p>}
       </div>
       {error && <div className="mt-1 text-[12px] text-danger-text">{error}</div>}

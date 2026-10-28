@@ -17,6 +17,7 @@ import {
 } from "@/lib/usage-meter";
 import type { LocaleKey } from "@/locales";
 import { useStore } from "@/state/store";
+import { Button } from "./ui/Button";
 
 const TEAM_TIERS: readonly string[] = ["team", "business"];
 export type UpgradeSource = "app_usage" | "app_settings";
@@ -235,11 +236,11 @@ export function UpgradeButton({ usage, upgrade, className }: { usage: CloudUsage
   const path = upgradePath(usage), target = nextPlan(usage);
   if (path === "top") return null;
   return (
-    <button type="button" className={cn("ui-button ui-button-primary gap-1.5", className)} disabled={upgrade.busy !== null} onClick={() => upgrade.onUpgrade()}>
+    <Button variant="primary" className={cn("gap-1.5", className)} disabled={upgrade.busy !== null} onClick={() => upgrade.onUpgrade()}>
       {upgrade.busy === "preview" && <Loader2 size={13} className="animate-spin" aria-hidden="true" />}
       {target ? upgradeLabel(target) : t("usageMeter.upgrade")}
       {path === "browser" && <ArrowUpRight size={13} aria-hidden="true" />}
-    </button>
+    </Button>
   );
 }
 

@@ -1,6 +1,7 @@
 import { useId, useState } from "react";
 import { MausAvatar } from "@/components/Avatar";
 import { t } from "@/lib/i18n";
+import { Button } from "../ui/Button";
 
 const DISMISSED_KEY = "omb.onboarding.sharedWorkspaceHint";
 
@@ -47,13 +48,12 @@ export function SharedWorkspaceHint({
           {t("onboarding.shared.title")}
         </h2>
         <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("onboarding.shared.body")}</p>
-        <button
-          type="button"
+        <Button variant="primary"
           onClick={close}
-          className="mt-2.5 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-white transition-transform duration-150 active:scale-[0.98]"
+          className="mt-2.5 transition-transform duration-150 active:scale-[0.98]"
         >
           {t("onboarding.spot.gotIt")}
-        </button>
+        </Button>
       </div>
     </aside>
   );

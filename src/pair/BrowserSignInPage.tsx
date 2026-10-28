@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { newAttemptId, signInWithBrowserGrant } from "../lib/session";
+import { Button } from "../components/ui/Button";
 
 /** Nothing is redeemed until the person continues, so a sent link never signs this browser in unseen; the credential is never shown. */
 export function BrowserSignInPage({ credential, owner }: { credential: string; owner: string }) {
@@ -26,10 +27,10 @@ export function BrowserSignInPage({ credential, owner }: { credential: string; o
         <h1 className="text-[20px] font-semibold">Signing in to {owner}’s Cloud</h1>
         <p className="mt-1.5 text-[14px] text-ink-secondary">Not your email? Close this tab.</p>
         {error ? <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
-        <button type="button" onClick={() => void continueSignIn()} disabled={busy}
-          className="mt-5 w-full rounded-md bg-accent px-4 py-2 text-[14px] font-medium text-accent-ink disabled:opacity-50">
+        <Button variant="primary" size="lg" onClick={() => void continueSignIn()} disabled={busy}
+          className="mt-5 w-full text-[14px]">
           {busy ? "Signing in…" : "Continue"}
-        </button>
+        </Button>
       </div>
     </main>
   );

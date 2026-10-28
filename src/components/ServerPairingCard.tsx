@@ -12,6 +12,7 @@ import { Card, SettingRow, SIMPLE_CARD } from "./SettingsPrimitives";
 import { Select } from "./Select";
 import { cn } from "@/lib/cn";
 import { TeamPhoneCard } from "./TeamPhoneCard";
+import { Button } from "./ui/Button";
 
 export interface PairingOffer {
   id: string;
@@ -189,9 +190,9 @@ export function ServerPairingCard({ initialSession = null, initialPairingCodes =
                     <option value="client">{t("remote.serverPairing.scope.client")}</option>
                   </Select>
                 )}
-                <button type="button" data-phone-pairing-action onClick={() => void create()} disabled={busy} className="ui-button">
+                <Button data-phone-pairing-action onClick={() => void create()} disabled={busy}>
                   {busy ? t("remote.serverPairing.creating") : t("settings.simple.computer.createCode")}
-                </button>
+                </Button>
               </div>
             ) : null}
           </SettingRow>
@@ -208,7 +209,7 @@ export function ServerPairingCard({ initialSession = null, initialPairingCodes =
                 </span>
               </span>
               {device.id === current ? null : (
-                <button type="button" onClick={() => void signOut(device.id)} className="ui-button ml-auto shrink-0">{t("remote.serverPairing.signOut")}</button>
+                <Button onClick={() => void signOut(device.id)} className="ml-auto shrink-0">{t("remote.serverPairing.signOut")}</Button>
               )}
             </div>
           ))}

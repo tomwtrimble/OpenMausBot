@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Check, Copy, X } from "lucide-react";
 import { useCopyFeedback } from "@/lib/copy-text";
 import { t } from "@/lib/i18n";
+import { Button } from "./ui/Button";
 
 export const addressPreview = (value: string): string => {
   if (value.length <= 3) return "…";
@@ -22,12 +23,12 @@ export function ConnectionDetail({ label, value }: { label: string; value: strin
           {revealed ? value : addressPreview(value)}
         </div>
       </div>
-      <button
+      <Button variant="ghost" size="sm"
         onClick={() => setRevealed((current) => !current)}
-        className="shrink-0 rounded px-2 py-1 text-[11px] text-ink-secondary hover:bg-control hover:text-ink"
+        className="shrink-0 text-[11px] font-normal"
       >
         {revealed ? "Hide" : "Reveal"}
-      </button>
+      </Button>
       <button
         onClick={copy}
         aria-label={copyState === "failed" ? t("common.copyFailed") : `Copy ${label}`}

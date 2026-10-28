@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { AlertTriangle } from "lucide-react";
 
 import { cn } from "@/lib/cn";
+import { Button } from "./ui/Button";
 
 export type ConfirmTone = "danger" | "neutral";
 
@@ -128,26 +129,17 @@ export function ConfirmDialogCard({
         </div>
       </div>
       <div className="mt-5 flex justify-end gap-2">
-        <button
+        <Button variant="ghost" size="lg"
           ref={cancelRef}
-          type="button"
           onClick={onCancel}
           disabled={pending}
-          className="rounded-xl px-4 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink"
+          className="rounded-xl font-normal"
         >
           {cancelLabel}
-        </button>
-        <button
-          type="button"
-          onClick={onConfirm}
-          disabled={pending}
-          className={cn(
-            "rounded-xl px-4 py-2 text-[13px] font-medium",
-            danger ? "bg-danger text-white hover:brightness-110" : "bg-accent text-white hover:brightness-110",
-          )}
-        >
+        </Button>
+        <Button variant={danger ? "danger" : "primary"} size="lg" onClick={onConfirm} disabled={pending} className="rounded-xl">
           {confirmLabel}
-        </button>
+        </Button>
       </div>
     </div>
   );

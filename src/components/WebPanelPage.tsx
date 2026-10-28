@@ -10,6 +10,8 @@ import { useWebPanels } from "@/lib/web-panel-preferences";
 import { isAppOrigin } from "@/lib/web-panels";
 import { useStore } from "@/state/store";
 
+import { Button } from "./ui/Button";
+
 const LOAD_TIMEOUT_MS = 10_000;
 
 export function WebPanelPage() {
@@ -47,18 +49,18 @@ export function WebPanelPage() {
         >
           <RotateCw size={16} />
         </button>
-        <button type="button" className="ui-button" onClick={openInBrowser}>
+        <Button onClick={openInBrowser}>
           <ExternalLink size={14} />
           {t("webPanels.page.openInBrowser")}
-        </button>
+        </Button>
       </header>
       {status === "failed" || isAppOrigin(panel.url, window.location.origin) ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
           <p className="text-[14px] font-medium text-ink">{t("webPanels.page.cantEmbed")}</p>
           <p className="max-w-sm text-[13px] text-ink-secondary">{t("webPanels.page.cantEmbedBody")}</p>
-          <button type="button" className="ui-button ui-button-primary" onClick={openInBrowser}>
+          <Button variant="primary" onClick={openInBrowser}>
             {t("webPanels.page.openInBrowser")}
-          </button>
+          </Button>
         </div>
       ) : (
         <iframe

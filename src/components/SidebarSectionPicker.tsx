@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { useHeldMenuMotion } from "./MenuMotion";
 import { MENU_HEADING, MENU_ITEM, MENU_ITEM_SEPARATOR, MENU_SHEET } from "./menu-recipe";
+import { Button } from "./ui/Button";
 
 /** "Move to context": the sidebar sections in use, a field for a new one, and "remove from context". */
 export function SectionPicker({
@@ -103,13 +104,13 @@ export function SectionPicker({
           aria-label={t("sidebar.section.newContextAria")}
           className="w-full rounded-md bg-ink/[0.05] px-2 py-1.5 text-[13px] text-ink placeholder:text-ink-tertiary focus:outline-none"
         />
-        <button
+        <Button size="md" variant="primary"
           type="submit"
           disabled={!trimmed || trimmed.length > 60}
-          className="ui-button ui-button-md ui-button-primary shrink-0"
+          className="shrink-0"
         >
           {t("common.add")}
-        </button>
+        </Button>
       </form>
       {sectionCurrent && (
         <>

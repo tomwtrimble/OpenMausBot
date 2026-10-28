@@ -8,7 +8,8 @@ import { cardRows, moneyBackShort, planCards, sharedTrialDays, trialTimeline, ty
 import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
 import { NightCard } from "./NightCard";
-import { LINK, PRIMARY_WIDE, QUIET_WIDE, SCREEN, Tag } from "./parts";
+import { LINK, SCREEN, Tag } from "./parts";
+import { Button } from "../ui/Button";
 
 const FEATURES: ReadonlyArray<readonly [LucideIcon, LocaleKey, LocaleKey]> = [
   [Moon, "cloudBuy.benefit.awayTitle", "cloudBuy.benefit.away"],
@@ -59,8 +60,8 @@ function PlanCard({ card, shown, details, compare, busy, onStart }: {
     </ul>
     <div className="flex flex-col gap-2 self-start pt-1">
       {card.action
-        ? <button type="button" data-plan-buy={card.tier} aria-describedby={nameId} className={card.popular ? PRIMARY_WIDE : QUIET_WIDE} disabled={busy}
-          onClick={() => onStart(card.tier)}>{card.action}</button>
+        ? <Button variant={card.popular ? "primary" : "secondary"} pill size="lg" className="w-full" data-plan-buy={card.tier} aria-describedby={nameId} disabled={busy}
+          onClick={() => onStart(card.tier)}>{card.action}</Button>
         : <p data-plan-mine="" className="grid min-h-9 place-items-center rounded-full bg-ink/[0.04] px-4 text-[14px] text-ink-secondary">{t("cloudBuy.card.current")}</p>}
       {card.terms && <p className="text-center text-[12px] leading-4 text-ink-tertiary">{card.terms}</p>}
     </div>

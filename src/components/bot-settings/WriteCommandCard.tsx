@@ -8,6 +8,7 @@ import {
 } from "../../../shared/written-skill";
 import { useBotEditor } from "./BotEditorContext";
 import { inputCls } from "./field";
+import { Button } from "../ui/Button";
 
 const PROBLEM_KEY = {
   name: "skills.write.problem.name",
@@ -105,13 +106,13 @@ export function WriteCommandCard({ bot, taken, onSaved }: { bot: Bot; taken: rea
           <div className="min-w-0 text-[12px] text-ink-secondary">
             {touched && problem ? t(PROBLEM_KEY[problem]) : message}
           </div>
-          <button
+          <Button size="lg"
             type="submit"
             disabled={saving || Boolean(problem)}
-            className="shrink-0 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+            className="shrink-0 px-3 font-normal"
           >
             {saving ? t("skills.write.saving") : t("skills.write.save")}
-          </button>
+          </Button>
         </div>
         {error && <div role="alert" className="text-[12px] text-danger-text">{error}</div>}
       </form>

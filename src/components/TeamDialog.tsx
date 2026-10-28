@@ -4,6 +4,7 @@ import { Plus, X } from "lucide-react";
 import { api, useStore, type Bot } from "@/state/store";
 import { BotPickerList } from "./BotPickerList";
 import { t } from "@/lib/i18n";
+import { Button } from "./ui/Button";
 
 export function TeamDialog({ section, rename = false, onClose, onRenamed }: {
   section?: string;
@@ -105,11 +106,11 @@ export function TeamDialog({ section, rename = false, onClose, onRenamed }: {
         </>}
         {error && <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p>}
         <div className="mt-4 flex justify-end gap-2">
-          <button disabled={saving} onClick={onClose} className="rounded-lg px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised">{t("common.cancel")}</button>
-          <button disabled={saving || (!moving && !name.trim()) || unchanged} onClick={() => void save()}
-            className="rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white disabled:opacity-40">
+          <Button variant="ghost" size="lg" disabled={saving} onClick={onClose} className="px-3 font-normal">{t("common.cancel")}</Button>
+          <Button variant="primary" size="lg" disabled={saving || (!moving && !name.trim()) || unchanged} onClick={() => void save()}
+            >
             {saving ? t("team.saving") : rename ? t("folder.saveName") : managing ? t("common.save") : moving ? picked.size ? t(picked.size === 1 ? "team.moveOne" : "team.moveMany", { count: picked.size }) : t("team.moveSelected") : t("team.create")}
-          </button>
+          </Button>
         </div>
       </div>
     </div>, document.body,

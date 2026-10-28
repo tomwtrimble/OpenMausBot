@@ -3,6 +3,7 @@ import { t } from "@/lib/i18n";
 import { archivedIds, chunkIds, clearSelection, clickRow, isTickable, olderThanIds, selectAll, summarizeDelete, type DeleteResponse, type SelectableRow } from "@/lib/bulk-select";
 import { api, type Action, type BotAnnouncement, type Group } from "@/state/store";
 import { ConfirmDialog } from "./ConfirmDialog";
+import { Button } from "./ui/Button";
 
 export type BulkDeleteResult = { responses: DeleteResponse[]; error?: string };
 type Selection = ReadonlySet<string>;
@@ -121,8 +122,8 @@ export function BulkSelectBar({ rows, selected, maxDeletable, freshConversation,
     </span>
     <div className="flex items-center gap-2">
       <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-ink">{t("task.bulk.selected", { count })}</span>
-      <button type="button" disabled={count === 0 || pending} onClick={() => onChange(clearSelection())}
-        className="rounded-md px-2.5 py-1 text-[12px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-40">{t("task.bulk.cancel")}</button>
+      <Button variant="ghost" size="md" disabled={count === 0 || pending} onClick={() => onChange(clearSelection())}
+        className="text-[12px] font-normal">{t("task.bulk.cancel")}</Button>
       <button type="button" disabled={count === 0 || overLimit || pending} aria-busy={pending || undefined} onClick={() => setConfirming(true)}
         className="rounded-md bg-danger px-2.5 py-1 text-[12px] font-medium text-white hover:brightness-110 disabled:opacity-40">
         {pending ? t("task.bulk.deleting") : t("task.bulk.delete", { count })}

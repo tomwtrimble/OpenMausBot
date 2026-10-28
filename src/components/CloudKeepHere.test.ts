@@ -10,6 +10,7 @@ vi.mock("react", async original => ({ ...await original<typeof import("react")>(
 }));
 vi.mock("@/lib/interface-mode", () => ({ useAdvancedMode: () => f.advanced }));
 import { CloudKeepHere } from "./CloudKeepHere";
+import { isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; onClick?: () => void; disabled?: boolean; checked?: boolean; "aria-label"?: string }>;
 function nodes(value: ReactNode): Node[] { if (!isValidElement(value)) return []; const node = value as Node; return [node, ...Children.toArray(node.props.children).flatMap(nodes)]; }
@@ -23,7 +24,7 @@ function render(with_ = bridge) {
 }
 const flush = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
 const toggle = () => render().nodes.find(node => node.props["aria-label"] === "Keep this computer's bots on this computer");
-const press = (label: string) => { const button = render().nodes.find(node => node.type === "button" && node.props.children === label); expect(button, label).toBeTruthy(); button!.props.onClick!(); };
+const press = (label: string) => { const button = render().nodes.find(node => isButton(node) && node.props.children === label); expect(button, label).toBeTruthy(); button!.props.onClick!(); };
 const before: KeepHereState = { shown: true, on: false, moved: false, coming: false };
 const moved: KeepHereState = { shown: true, on: false, moved: true, coming: false };
 async function ready(state: KeepHereState) {

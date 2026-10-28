@@ -11,6 +11,7 @@ import { boatCapableEngine } from "@/lib/remote-desktop";
 import type { RoutineRunOn } from "@/lib/routines";
 import { WEBHOOK_DEFAULT_MAX_PENDING_RUNS, WEBHOOK_MAX_PENDING_RUNS_LIMIT, webhookActivationDefaults, webhookMaxPendingRunsInput, type WebhookCredential, type WebhookTrigger, type WebhookTriggerInput } from "@/lib/webhooks";
 import { api, useStore, type Bot } from "@/state/store";
+import { Button } from "./ui/Button";
 
 /** A name when the person gives none: the instructions' first words, or the bot's. */
 export function suggestedName(prompt: string, bot?: Bot) {
@@ -97,8 +98,8 @@ export function WebhookEditor({ webhook, bots, initialBotId, onClose, onCredenti
           {error && <div className="rounded-xl border border-danger/30 bg-danger/10 px-3.5 py-3 text-[12px] text-danger-text">{error}</div>}
         </div>
         <div className="flex justify-end gap-2 border-t border-hairline px-5 py-4">
-          <button type="button" onClick={onClose} className="rounded-xl px-4 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink">{t("automations.newBox.cancel")}</button>
-          <button type="button" disabled={saving || !botId} onClick={() => void save()} className="flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-[13px] font-medium text-accent-ink hover:brightness-110 disabled:opacity-40">{saving && <Loader2 size={14} className="animate-spin" />}{webhook ? t("automations.editor.app.save") : t("automations.editor.app.create")}</button>
+          <Button variant="ghost" size="lg" onClick={onClose} className="rounded-xl font-normal">{t("automations.newBox.cancel")}</Button>
+          <Button variant="primary" size="lg" disabled={saving || !botId} onClick={() => void save()} className="flex gap-2 rounded-xl">{saving && <Loader2 size={14} className="animate-spin" />}{webhook ? t("automations.editor.app.save") : t("automations.editor.app.create")}</Button>
         </div>
       </div>
     </div>

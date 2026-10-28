@@ -22,6 +22,7 @@ vi.mock("react", async original => ({ ...await original<typeof import("react")>(
 }));
 vi.mock("@/state/store", () => ({ api: vi.fn() }));
 import { CompanyBackupSettings, ConnectedCompanyBackupSettings, SavedCompanyBackupSchedule } from "./CompanyBackupSettings";
+import { isButton } from "@/testing/ui-elements";
 
 type BackupBridge = NonNullable<NonNullable<Window["ogb"]>["companyBackups"]>;
 type Node = ReactElement<{
@@ -53,7 +54,7 @@ function render(outer = false) {
 const flush = async () => { for (let i = 0; i < 30; i++) await Promise.resolve(); };
 const change = (input: Node, value: string) => input.props.onChange!({ target: { value } });
 const submit = (form: Node) => form.props.onSubmit!({ preventDefault: vi.fn() });
-const buttons = (label: string) => render().nodes.filter(node => node.type === "button" && content(node.props.children) === label);
+const buttons = (label: string) => render().nodes.filter(node => isButton(node) && content(node.props.children) === label);
 const button = (label: string) => buttons(label)[0];
 const passwords = () => render().nodes.filter(node => node.type === "input" && node.props.type === "password");
 const form = () => render().nodes.find(node => node.type === "form")!;
@@ -327,7 +328,7 @@ describe("optional Company cloud backup settings", () => {
     expect(render().html).toContain("THIS installation");
     expect(render().html).toContain("personal conversations and files");
     expect(render().html).toContain("Saved account credentials and connections are not included");
-    const submitButton = () => render().nodes.find(node => node.type === "button" && node.props.type === "submit")!;
+    const submitButton = () => render().nodes.find(node => isButton(node) && node.props.type === "submit")!;
     expect(submitButton().props.disabled).toBe(false);
     const createForm = form(); submit(createForm); submit(createForm); await flush();
     expect(bridge.create).toHaveBeenCalledExactlyOnceWith({ clientState: { "omb-drafts": "private fixture draft", "omb-skin": "fixture-theme" } });
@@ -519,7 +520,7 @@ describe("optional Company cloud backup settings", () => {
     await ready();
     buttons("Delete cloud backup")[1].props.onClick!();
     expect(bridge.delete).not.toHaveBeenCalled(); expect(render().html).toContain("Type DELETE to confirm");
-    const confirmDelete = () => render().nodes.filter(node => node.type === "button" && content(node.props.children) === "Delete cloud backup").at(-1)!;
+    const confirmDelete = () => render().nodes.filter(node => isButton(node) && content(node.props.children) === "Delete cloud backup").at(-1)!;
     expect(confirmDelete().props.disabled).toBe(true);
     change(confirmation(), "delete"); expect(confirmDelete().props.disabled).toBe(true);
     change(confirmation(), "DELETE"); expect(confirmDelete().props.disabled).toBe(false);

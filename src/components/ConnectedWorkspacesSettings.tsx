@@ -8,6 +8,7 @@ import { cloudColor } from "@/lib/cloud-look";
 import { useStore } from "@/state/store";
 import { sharedComputersEnabled } from "@/lib/feature-flags";
 import { productName } from "@/lib/brand";
+import { Button } from "./ui/Button";
 
 type SavedWorkspaces = Awaited<ReturnType<NonNullable<NonNullable<Window["ogb"]>["environments"]>["state"]>>;
 type SavedEntry = SavedWorkspaces["environments"][number] | { id: string; name: string; origin: string; color: undefined };
@@ -138,9 +139,9 @@ export function ConnectedWorkspacesSettings() {
             }, setEnvError)} className="shrink-0 rounded-lg border border-hairline px-3 text-[12px] text-ink hover:bg-control disabled:opacity-50">{t("connectedWorkspaces.choose")}</button>
           </span>
         </label>
-        <button type="submit" disabled={busy || !envName.trim()} className="flex w-fit items-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-accent-ink disabled:opacity-50">
+        <Button variant="primary" size="lg" type="submit" disabled={busy || !envName.trim()} className="flex w-fit gap-2 px-3">
           {busy && <Loader2 size={14} className="animate-spin" />}{t("connectedWorkspaces.create")}
-        </button>
+        </Button>
       </form>
     </Card>}
     <Card title="Your servers" subtitle="Saved on this computer. Your hosted bots keep running when you switch away.">
@@ -184,9 +185,9 @@ export function ConnectedWorkspacesSettings() {
           <code className="mt-1 block select-all break-words rounded-md bg-inset px-2 py-2 text-ink">npx openmausbot pair --label "My desktop"</code>
         </details>
         {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
-        <button type="submit" disabled={busy || !address.trim()} className="flex w-fit items-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-accent-ink disabled:opacity-50">
+        <Button variant="primary" size="lg" type="submit" disabled={busy || !address.trim()} className="flex w-fit gap-2 px-3">
           {busy && <Loader2 size={14} className="animate-spin" />}Connect
-        </button>
+        </Button>
       </form>
     </Card>
   </>;

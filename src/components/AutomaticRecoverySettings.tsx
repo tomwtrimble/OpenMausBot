@@ -3,6 +3,7 @@ import { api, useStore, type ConfigStatus } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { Card, Switch } from "./SettingsPrimitives";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 type Recovery = NonNullable<ConfigStatus["automaticRecovery"]>;
 
@@ -70,8 +71,8 @@ export function AutomaticRecoverySettings() {
       </div>
       <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("settings.recovery.charges")}</p>
       {value.enabled && !ready && <p className="mt-2 text-[12px] text-ink-secondary">{t("settings.recovery.required")}</p>}
-      <button type="button" disabled={!draft || saving || (value.enabled && !ready)} onClick={() => void save()}
-        className="mt-3 cursor-pointer rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-white disabled:opacity-50">{saving ? t("settings.threads.saving") : t("common.save")}</button>
+      <Button variant="primary" size="lg" disabled={!draft || saving || (value.enabled && !ready)} onClick={() => void save()}
+        className="mt-3 px-3">{saving ? t("settings.threads.saving") : t("common.save")}</Button>
       {saving && <span role="status" className="sr-only">{t("settings.threads.saving")}</span>}
       {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </Card>

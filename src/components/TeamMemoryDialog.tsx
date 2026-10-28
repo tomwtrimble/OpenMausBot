@@ -8,6 +8,7 @@ import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
 import { cn } from "@/lib/cn";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 type Kind = "person" | "place" | "decision" | "term";
 
@@ -191,13 +192,13 @@ export function TeamMemoryDialog({ section, label, onClose }: { section: string;
                       <span className="text-ink"> — {entry.detail}</span>
                       <span className="block text-[11px] text-ink-secondary">{t("teamMemory.source", { name: entry.source.botName })}{entry.source.quote && ` · ${t("teamMemory.sourceQuote", { quote: entry.source.quote })}`}</span>
                     </span>
-                    <button
+                    <Button variant="primary" size="md"
                       onClick={() => void accept(entry)}
                       disabled={busyId !== null}
-                      className="flex shrink-0 items-center gap-1 rounded-md bg-accent px-2.5 py-1 text-[12px] font-medium text-white disabled:opacity-50"
+                      className="flex shrink-0 gap-1 text-[12px]"
                     >
                       <Check size={12} /> {t("teamMemory.remember")}
-                    </button>
+                    </Button>
                     <button
                       onClick={() => void remove(entry)}
                       disabled={busyId !== null}
@@ -296,13 +297,12 @@ export function TeamMemoryDialog({ section, label, onClose }: { section: string;
                 className="mt-2 w-full rounded-lg border border-hairline bg-inset px-2 py-1 text-[13px] text-ink outline-none focus:border-accent"
               />
               <div className="mt-2 flex items-center gap-2">
-                <button
+                <Button variant="primary" size="md"
                   onClick={add}
                   disabled={busyId !== null || !draft.name.trim() || !draft.detail.trim()}
-                  className="rounded-lg bg-accent px-3 py-1 text-[13px] font-medium text-white disabled:opacity-50"
                 >
                   {busyId === "new" ? t("teamMemory.adding") : t("teamMemory.add")}
-                </button>
+                </Button>
                 <button onClick={() => setAdding(false)} className="text-[13px] text-ink-secondary hover:text-ink">
                   {t("common.cancel")}
                 </button>

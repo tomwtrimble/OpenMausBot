@@ -1,5 +1,6 @@
 import { Children, isValidElement, type ReactElement, type ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { isButton } from "@/testing/ui-elements";
 
 const KEY = "sk-ant-api03-ZZtestSECRET0123456789";
 
@@ -123,7 +124,7 @@ describe("a key saved in Settings → API keys", () => {
   it("reports a removed key as removed, once, and a failed remove not at all", async () => {
     fixture.config = { anthropic: { configured: true, last4: "6789" } };
     fixture.api.mockRejectedValueOnce(new ApiError("busy", 409, { error: "busy" })).mockResolvedValueOnce({ anthropic: { configured: false } });
-    const remove = () => render({ id: "anthropic" }).find((node) => node.type === "button" && node.props["data-key-remove"])!;
+    const remove = () => render({ id: "anthropic" }).find((node) => isButton(node) && node.props["data-key-remove"])!;
     remove().props.onClick!();
     await flush();
     expect(fixture.track).not.toHaveBeenCalled();
@@ -135,7 +136,7 @@ describe("a key saved in Settings → API keys", () => {
   });
 
   it("offers Remove for a Composio project key of the person's own, and none for the managed connection", async () => {
-    const remove = () => render({ id: "composio" }).find((node) => node.type === "button" && node.props["data-key-remove"]);
+    const remove = () => render({ id: "composio" }).find((node) => isButton(node) && node.props["data-key-remove"]);
     fixture.config = { composio: { configured: true, mode: "managed" } };
     expect(remove()).toBeUndefined();
     fixture.config = { composio: { configured: true, mode: "self-hosted" } };

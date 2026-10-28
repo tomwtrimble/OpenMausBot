@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { readAdvancedMode, setAdvancedMode, useAdvancedMode } from "@/lib/interface-mode";
 import { markSimpleModePromptSeen } from "@/lib/simple-mode-prompt";
+import { Button } from "./ui/Button";
 
 export const SIMPLE_MODE_PROMPT = "[data-simple-mode-prompt]";
 const TITLE = "simple-mode-prompt-title";
@@ -91,10 +92,10 @@ export function SimpleModePrompt({ onClose }: { onClose: () => void }) {
         </button>
         <p className="mt-3 text-[13px] leading-[18px] text-ink-tertiary">{t("simpleModePrompt.where")}</p>
         <div className="mt-5 flex justify-end">
-          <button type="button" data-primary="" onClick={close}
-            className="ui-button ui-button-pill min-w-[88px] border-transparent bg-ink text-app hover:bg-ink/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+          <Button pill data-primary="" onClick={close}
+            className="min-w-[88px] border-transparent bg-ink text-app hover:bg-ink/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
             {t("common.done")}
-          </button>
+          </Button>
         </div>
         <button type="button" onClick={close} aria-label={t("common.close")} className="ui-icon-button absolute end-3 top-3"><X size={16} /></button>
       </div>

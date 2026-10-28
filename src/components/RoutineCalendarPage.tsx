@@ -38,7 +38,7 @@ import { pathForFile } from "@/components/ComposerAttachments";
 import { ResultsDestination } from "@/components/routines/ResultsDestination";
 import { CronScheduleFields, CronSchedulePreview } from "@/components/routines/CronScheduleFields";
 import { cronChoiceFor, cronDraftFor, cronEditorValue, isCronChoice, type CronChoice } from "@/components/routines/cron-editor";
-import { routineRunLabel, routineRunsOn, routineRunTime, routineScheduleState } from "@/lib/routine-display";
+import { routineRunLabel, routineRunMood, routineRunsOn, routineRunTime, routineScheduleState } from "@/lib/routine-display";
 import { useAdvancedMode } from "@/lib/interface-mode";
 import { useShowThreads } from "@/lib/thread-preferences";
 import { t } from "@/lib/i18n";
@@ -51,7 +51,7 @@ import {
   intakeFiles,
   type Attachment,
 } from "@/lib/composer-attachments";
-import { MAUS_COLORS, type MausState } from "@/lib/mascot";
+import { MAUS_COLORS } from "@/lib/mascot";
 import {
   addDays,
   atLocalTime,
@@ -79,7 +79,6 @@ import {
   type RoutineInput,
   type RoutineRunOn,
   type RoutineRun,
-  type RoutineRunStatus,
   type RoutineSchedule,
   type RoutineScheduleInput,
   type RoutineTarget,
@@ -94,6 +93,7 @@ const WEEKDAYS = [1, 2, 3, 4, 5];
 const INTERVAL_PRESETS = [5, 10, 15, 30, 60];
 const EVENT_DURATION_OPTIONS = Array.from({ length: 240 / CALENDAR_SLOT_MINUTES }, (_, index) => (index + 1) * CALENDAR_SLOT_MINUTES);
 import { BOT_DRAG_TYPE, EVENT_DRAG_TYPE, LimitResetMarker, type ResetDrop } from "./routines/LimitResetMarkers";
+import { Button } from "./ui/Button";
 
 export type EventKind = "routine" | "call";
 export type RoutinesLayout = "day" | "week" | "list";
@@ -208,15 +208,6 @@ function makeRoutineSchedule(
 ): RoutineScheduleInput {
   if (choice === "interval") return { type: "interval", everyMinutes, ...interval };
   return makeCalendarSchedule(choice, at, weekdays);
-}
-
-function statusState(status: RoutineRunStatus): MausState {
-  if (status === "running") return "working";
-  if (status === "waiting") return "curious";
-  if (status === "completed") return "proud";
-  if (status === "failed" || status === "missed") return "sad";
-  if (status === "cancelled") return "sleeping";
-  return "drowsy";
 }
 
 function AttachmentChips({
@@ -1015,8 +1006,8 @@ export function EventEditor({
 
 
         <div className="sticky bottom-0 flex items-center justify-end gap-2 border-t border-hairline bg-panel/95 px-5 py-3.5 backdrop-blur">
-          <button onClick={onClose} className="rounded-lg px-4 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink">Cancel</button>
-          <button onClick={save} disabled={saving || attachmentPending || !valid} className="flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-40">{(saving || attachmentPending) && <Loader2 size={14} className="animate-spin" />}{attachmentPending ? "Attaching…" : existingRoutine || existingCall || (kind === "routine" && !isRoomGoal) ? t("automations.editor.app.save") : kind === "call" ? "Schedule call" : "Schedule team goal"}</button>
+          <Button variant="ghost" size="lg" onClick={onClose} className="font-normal">Cancel</Button>
+          <Button variant="primary" size="lg" onClick={save} disabled={saving || attachmentPending || !valid} className="flex gap-2 px-5">{(saving || attachmentPending) && <Loader2 size={14} className="animate-spin" />}{attachmentPending ? "Attaching…" : existingRoutine || existingCall || (kind === "routine" && !isRoomGoal) ? t("automations.editor.app.save") : kind === "call" ? "Schedule call" : "Schedule team goal"}</Button>
         </div>
       </div>
     </div>
@@ -1165,7 +1156,7 @@ export function QuickComposer({
       </div>
       <div className="flex items-center justify-end gap-2 border-t border-hairline px-4 py-3">
         <button onClick={() => onMore({ ...seed, kind, botIds, name, description, durationMinutes, resultsThreadId })} title="Choose repeating schedules and other options" className="rounded-lg px-3 py-2 text-[12px] font-medium text-accent-text hover:bg-accent/10">More options</button>
-        <button onClick={save} disabled={!valid || working} className="flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-[12px] font-semibold text-white hover:brightness-110 disabled:opacity-40">{working && <Loader2 size={13} className="animate-spin" />}Save</button>
+        <Button variant="primary" size="lg" onClick={save} disabled={!valid || working} className="flex gap-1.5 text-[12px]">{working && <Loader2 size={13} className="animate-spin" />}Save</Button>
       </div>
     </div>
   );
@@ -1269,7 +1260,7 @@ function CalendarEventCard({
       }}
     >
       <div className="flex min-w-0 items-start gap-1.5">
-        {previewDuration >= 30 && (isCall ? <Video size={compact ? 11 : 13} className="mt-0.5 shrink-0" /> : primary ? <BotAvatar bot={primary} state={status ? statusState(status) : paused ? "sleeping" : "idle"} size={compact ? 18 : 22} animated={status === "running" || status === "waiting"} /> : null)}
+        {previewDuration >= 30 && (isCall ? <Video size={compact ? 11 : 13} className="mt-0.5 shrink-0" /> : primary ? <BotAvatar bot={primary} state={status ? routineRunMood(status) : paused ? "sleeping" : "idle"} size={compact ? 18 : 22} animated={status === "running" || status === "waiting"} /> : null)}
         <div className="min-w-0 flex-1">
           <div className={cn("truncate text-[11px] font-semibold", previewDuration < 30 ? "leading-none" : "leading-tight")}>{name}</div>
           {previewDuration >= 30 && <div className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] opacity-80">{!isCall && <span data-event-status={paused ? "paused" : attention ? "needs-you" : "working"} className={cn("size-1.5 shrink-0 rounded-full", paused ? "bg-ink-tertiary" : attention ? "bg-warning" : "bg-success")} />}<span className="truncate">{niceTime(item.at)} · {isCall ? t(ownerBots.length === 1 ? "routines.botCountOne" : "routines.botCountMany", { count: ownerBots.length }) : room ? room.name : intervalCadence ? `${primary?.name ?? ""} · ${intervalCadence}` : primary?.name}</span></div>}
@@ -1552,7 +1543,7 @@ export function EventDetails({
           ? <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent-text"><Video size={16} /></span>
           : isRoomGoal
             ? <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent-text"><UsersRound size={16} /></span>
-            : primary && <BotAvatar bot={primary} state={run ? statusState(run.status) : routine?.enabled === false ? "sleeping" : "idle"} size={36} animated={false} />}
+            : primary && <BotAvatar bot={primary} state={run ? routineRunMood(run.status) : routine?.enabled === false ? "sleeping" : "idle"} size={36} animated={false} />}
         <div className="min-w-0 flex-1">
           <div className="break-words text-[15px] font-semibold leading-snug text-ink">{title}</div>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">

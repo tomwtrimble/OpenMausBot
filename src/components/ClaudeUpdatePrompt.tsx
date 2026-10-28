@@ -4,6 +4,7 @@ import { Check, Copy, Download, Loader2, RefreshCw, X } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { useCopyFeedback } from "@/lib/copy-text";
 import { api, useStore, type InstanceInfo } from "@/state/store";
+import { Button } from "./ui/Button";
 
 const UPDATE_COMMAND = "claude update";
 
@@ -58,20 +59,18 @@ export function ClaudeUpdatePrompt({
         <>
           <p className="leading-relaxed">{t("chat.claudeUpdate.offer")}</p>
           <div className="mt-2 flex flex-wrap gap-2">
-            <button
-              type="button"
+            <Button variant="primary" size="md"
               onClick={update}
-              className="ui-button-primary flex items-center gap-1.5 rounded-full bg-accent px-3 py-1 text-[13px] font-medium text-white hover:brightness-110"
+              className="flex gap-1.5 rounded-full"
             >
               <Download size={12} aria-hidden="true" /> {t("chat.claudeUpdate.doIt")}
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button variant="ghost" size="md"
               onClick={() => setPhase({ kind: "manual" })}
-              className="rounded-full border border-hairline px-3 py-1 text-[13px] text-ink-secondary hover:bg-raised-hover hover:text-ink"
+              className="rounded-full border border-hairline font-normal"
             >
               {t("chat.claudeUpdate.myself")}
-            </button>
+            </Button>
           </div>
         </>
       )}
@@ -107,13 +106,12 @@ export function ClaudeUpdatePrompt({
           <div className="mt-2 flex flex-wrap gap-2">
             {retry}
             {phase.kind === "failed" && (
-              <button
-                type="button"
+              <Button variant="ghost" size="md"
                 onClick={update}
-                className="rounded-full border border-hairline px-2.5 py-1 text-[13px] text-ink-secondary hover:bg-raised-hover hover:text-ink"
+                className="rounded-full border border-hairline font-normal"
               >
                 {t("chat.claudeUpdate.tryAgain")}
-              </button>
+              </Button>
             )}
           </div>
         </>

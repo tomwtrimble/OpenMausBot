@@ -32,6 +32,7 @@ import { LocalComputerAutoWarning } from "./LocalComputerAutoWarning";
 import { SharePresetDialog } from "./SharePresetDialog";
 import { SettingRow } from "./SettingsPrimitives";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 const SECTIONS = ["Identity", "Soul", "Skills", "Memory", "Routines", "Access", "Model", "Permissions", "Voice & alerts"] as const;
 type Section = typeof SECTIONS[number];
@@ -201,11 +202,11 @@ export function NewBotDialog({ defaultsMode = false, onClose, onCreated, readyBo
       </div>
       {error && <p role="alert" className="max-h-24 overflow-y-auto border-t border-hairline px-5 py-3 text-[13px] text-danger-text">{error}</p>}
       <div className="flex shrink-0 justify-end gap-2 border-t border-hairline px-5 py-3">
-        <button type="button" onClick={() => closeRef.current()} className="rounded-lg px-4 py-2 text-[13px] text-ink-secondary hover:bg-control">{t("common.cancel")}</button>
-        <button type="button" disabled={!ready || saving || (!defaultsMode && !bot.name.trim())} onClick={() => void save()}
-          className="ui-button-primary flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-40">
+        <Button variant="ghost" size="lg" onClick={() => closeRef.current()} className="font-normal">{t("common.cancel")}</Button>
+        <Button variant="primary" size="lg" disabled={!ready || saving || (!defaultsMode && !bot.name.trim())} onClick={() => void save()}
+          className="flex gap-2 px-5">
           {saving && <Loader2 size={15} className="animate-spin" />}{t(defaultsMode ? "newBot.saveDefaults" : "newBot.create")}
-        </button>
+        </Button>
       </div>
       <LocalComputerAutoWarning open={warning === "local"} onCancel={() => setWarning(null)} onConfirm={() => { draft.consent.acknowledgeLocalAuto = true; setWarning(null); void save(); }} />
     </div>
@@ -317,8 +318,8 @@ function StartingRole({ draft, defaultsMode }: { draft: BotCreationDraft; defaul
     </label>
     {chosen && <div className="mt-2 space-y-1 rounded-lg bg-card px-3 py-2.5 text-[13px] text-ink-secondary" data-new-bot-preset>
       {presetSummaryLines(chosen).map((line, index) => <p key={index} className="break-words">{line}</p>)}
-      {chosen.source === "file" && <button type="button" onClick={() => void remove(chosen)}
-        className="mt-1 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-control hover:text-ink">{t("newBot.presetRemove")}</button>}
+      {chosen.source === "file" && <Button variant="ghost" size="md" onClick={() => void remove(chosen)}
+        className="mt-1 text-[12px] font-normal">{t("newBot.presetRemove")}</Button>}
     </div>}
     {error && <p role="alert" className="mt-2 text-[13px] text-danger-text">{error}</p>}
   </div>;
@@ -342,7 +343,7 @@ function DraftMemory({ draft }: { draft: BotCreationDraft }) {
 function DraftRoutines({ draft }: { draft: BotCreationDraft }) {
   const [editing, setEditing] = useState<Routine | "new" | null>(null);
   return <div className="space-y-3">
-    <button type="button" className="rounded-lg bg-accent px-3 py-2 text-[13px] text-white" onClick={() => setEditing("new")}>{t("computer.routines.create")}</button>
+    <Button variant="primary" size="lg" className="px-3" onClick={() => setEditing("new")}>{t("computer.routines.create")}</Button>
     {draft.routines.map(routine => <div key={routine.id} className="flex items-center gap-2 rounded-lg bg-card p-3">
       <button type="button" className="min-w-0 flex-1 text-left text-[13px]" onClick={() => setEditing(routine)}>{routine.name}</button>
       <label className="flex items-center gap-1.5 text-[12px] text-ink-secondary"><input type="checkbox" checked={routine.enabled} onChange={event => draft.setRoutineEnabled(routine.id, event.target.checked)} />{t("newBot.enabled")}</label>
@@ -358,8 +359,8 @@ export function DefaultBotSettings() {
 
     const content = <>
       <div className="flex shrink-0 gap-2">
-        <button type="button" onClick={() => setSharing(true)} className="cursor-pointer rounded-lg px-3 py-1.5 text-[13px] text-ink-secondary hover:bg-control hover:text-ink">{t("newBot.sharePreset")}</button>
-        <button type="button" onClick={() => setOpen(true)} className="cursor-pointer rounded-lg bg-control px-3 py-1.5 text-[13px] text-ink hover:bg-raised-hover">{t("newBot.edit")}</button>
+        <Button variant="ghost" onClick={() => setSharing(true)} className="font-normal">{t("newBot.sharePreset")}</Button>
+        <Button onClick={() => setOpen(true)} className="font-normal">{t("newBot.edit")}</Button>
       </div>
       {open && <NewBotDialog defaultsMode onClose={() => setOpen(false)} />}
       {sharing && <SharePresetDialog onClose={() => setSharing(false)} />}

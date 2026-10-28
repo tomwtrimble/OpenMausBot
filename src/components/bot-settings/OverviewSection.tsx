@@ -6,6 +6,7 @@ import { t } from "@/lib/i18n";
 import { whenLabel } from "@/lib/schedule-label";
 import type { BotSettingsSection } from "@/state/store";
 import { PromptPreview, type PromptPreviewData } from "./PromptPreview";
+import { Button } from "../ui/Button";
 
 export function OverviewSection({
   overview,
@@ -86,13 +87,12 @@ export function OverviewSection({
           </ul>
           {onSetup && (
             <div className="mt-3 flex items-center gap-3">
-              <button
-                type="button"
+              <Button variant="primary" size="lg"
                 onClick={onSetup}
-                className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-accent-ink hover:brightness-110"
+                className="flex gap-1.5 px-3"
               >
                 <Sparkles size={14} /> {t("botSetup.withBot")}
-              </button>
+              </Button>
               <span className="text-[12px] text-ink-secondary">{t("botSetup.help")}</span>
             </div>
           )}

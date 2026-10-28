@@ -4,6 +4,7 @@ import { useStore, type InstanceInfo } from "@/state/store";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { InstanceProviderMark } from "./ProviderIcons";
+import { Button } from "./ui/Button";
 
 export function engineReady(instance: InstanceInfo): boolean {
   if (instance.driverKind === "clineAgent") {
@@ -103,17 +104,17 @@ export function RefreshEngines() {
   const [error, setError] = useState<string | null>(null);
   const [checked, setChecked] = useState(false);
   return <div>
-    <button type="button" disabled={busy} onClick={async () => {
+    <Button variant="ghost" size="lg" disabled={busy} onClick={async () => {
       setBusy(true);
       setError(null);
       setChecked(false);
       try { await refreshInstances({ reportErrors: true }); setChecked(true); }
       catch (cause) { setError(cause instanceof Error ? cause.message : String(cause)); }
       finally { setBusy(false); }
-    }} className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-2 text-[12px] font-medium text-ink-secondary hover:bg-control hover:text-ink focus-visible:outline-2 focus-visible:outline-focus disabled:opacity-50">
+    }} className="shrink-0 gap-1.5 px-2.5 text-[12px]">
       <RefreshCw size={13} aria-hidden="true" className={cn(busy && "animate-spin")} />
       {busy ? t("common.checking") : t("engines.library.refresh")}
-    </button>
+    </Button>
     {error && <p role="alert" className="mt-1 text-[12px] text-danger-text">{t("engineSetup.checkFailed", { reason: error })}</p>}
     {checked && <p role="status" className="mt-1 text-[11px] text-ink-secondary">{t("engineSetup.checked")}</p>}
   </div>;

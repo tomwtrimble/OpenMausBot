@@ -20,6 +20,7 @@ import { RoutineEditor } from "./RoutineCalendarPage";
 import { Select } from "./Select";
 import { Switch } from "./SettingsPrimitives";
 import { WebhookEditor } from "./WebhookTrigger";
+import { Button } from "./ui/Button";
 
 /** The bot filter earns its place only on a long list shared by several bots. */
 const FILTER_FROM = 9;
@@ -88,7 +89,7 @@ export function TriggersPage({ onBack, onOpenRoom }: { onBack: () => void; onOpe
                 </button>
               ))}
             </div>
-            <button type="button" onClick={() => setNewText("")} className="flex items-center gap-1.5 rounded-lg bg-accent px-3.5 py-2 text-[13px] font-semibold text-accent-ink hover:brightness-110"><Plus size={15} aria-hidden="true" />{t("automations.new")}</button>
+            <Button variant="primary" size="lg" onClick={() => setNewText("")} className="flex gap-1.5"><Plus size={15} aria-hidden="true" />{t("automations.new")}</Button>
           </div>
         </div>
       </header>
@@ -103,7 +104,7 @@ export function TriggersPage({ onBack, onOpenRoom }: { onBack: () => void; onOpe
                   <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl bg-accent/10 text-accent-text"><Zap size={22} /></div>
                   <h2 className="text-[17px] font-semibold text-ink">{t("automations.empty.title")}</h2>
                   <button type="button" onClick={() => setNewText(t("automations.empty.example"))} className="mt-3 text-[14px] text-accent-text underline-offset-2 hover:underline">{t("automations.empty.try")}</button>
-                  <div><button type="button" onClick={() => setNewText("")} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-[13px] font-medium text-accent-ink hover:brightness-110"><Plus size={15} />{t("automations.new")}</button></div>
+                  <div><Button variant="primary" size="lg" onClick={() => setNewText("")} className="mt-6 gap-2 rounded-xl min-h-10"><Plus size={15} />{t("automations.new")}</Button></div>
                 </section>
               ) : (
                 <ul aria-label={t("automations.title")} className="divide-y divide-hairline overflow-hidden rounded-2xl border border-hairline bg-card">

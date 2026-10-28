@@ -4,6 +4,7 @@ import { useStore, type InstanceInfo } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { companyInstanceFor, instanceCanRun, planCompanySwitch } from "@/lib/company-models";
 import { EngineSetup, needsCli } from "./EngineSetup";
+import { Button } from "./ui/Button";
 
 const providerNames: Record<string, string> = { anthropic: "Anthropic", openai: "OpenAI", openrouter: "OpenRouter" };
 
@@ -41,11 +42,11 @@ export function CompanyModels({ providers }: { providers: ReadonlyArray<{ id: st
     {done && <p role="status" className="break-words text-[12px] text-ink-secondary">{t("organization.useCompanyDone", { name: done.name, names: done.bots.join(", ") })}</p>}
     {target && plan.bots.length > 0 && <div data-company-switch className="flex flex-col items-start gap-2 rounded-lg border border-hairline p-3">
       <p className="break-words text-[13px] text-ink">{t("organization.useCompanyBots", { names: names(plan.bots) })}</p>
-      <button type="button" className="ui-button" disabled={switching} onClick={() => void switchBots()}>
+      <Button disabled={switching} onClick={() => void switchBots()}>
         {plan.bots.length === 1
           ? t("organization.useCompanyOne", { name: target.displayName })
           : t("organization.useCompanyMany", { name: target.displayName, count: plan.bots.length })}
-      </button>
+      </Button>
       <p className="text-[12px] leading-relaxed text-ink-secondary">{t("organization.useCompanyNote")}</p>
     </div>}
     {target && plan.needsAsk.length > 0 &&

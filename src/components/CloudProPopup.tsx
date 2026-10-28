@@ -9,9 +9,10 @@ import { buyOfferAllowed, cloudIntroView, cloudPlanLabel, cloudPlanLine, cloudPl
 import { t } from "@/lib/i18n";
 import { cloudPlanFromAccount, cloudPlanFromSnapshot, type CloudPlanFacts } from "@/lib/usage-snapshot";
 import { NightCard } from "./cloud-buy/NightCard";
-import { CLOSE, ON_NIGHT, PRIMARY, QUIET, SHEET, Tag, TAG_ON_NIGHT } from "./cloud-buy/parts";
+import { CLOSE, ON_NIGHT, SHEET, Tag, TAG_ON_NIGHT } from "./cloud-buy/parts";
 import { NotNowButton } from "./NoticeCard";
 import { UPDATES_CONSENT_POPUP } from "./UpdatesConsent";
+import { Button } from "./ui/Button";
 
 export const CLOUD_PRO_POPUP_SOURCE = "update_popup" satisfies CloudSource;
 
@@ -180,8 +181,8 @@ export function CloudProPopup({ view, onPrimary, onSeePlans, onNotNow, onClose }
         </p>}
       </div>
       <div className="mt-5 flex flex-wrap items-center gap-2">
-        <button type="button" className={cn(PRIMARY, "ui-button-lg")} onClick={onPrimary}>{view.primary.label}</button>
-        {view.seePlans && <button type="button" className={cn(QUIET, "ui-button-lg")} onClick={onSeePlans}>{t("pro.seePlans")}</button>}
+        <Button variant="primary" pill size="lg" onClick={onPrimary}>{view.primary.label}</Button>
+        {view.seePlans && <Button pill size="lg" onClick={onSeePlans}>{t("pro.seePlans")}</Button>}
       </div>
       <div className="mt-4 flex items-center justify-between gap-3 border-t-[0.5px] border-ink/10 pt-2">
         <p className="min-w-0 flex-1 text-[12px] leading-4 text-ink-tertiary">{t("pro.disclaimer")}</p>

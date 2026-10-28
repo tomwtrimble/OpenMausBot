@@ -36,6 +36,7 @@ import {
 import { z } from "zod";
 import { Select } from "./Select";
 import { productName } from "@/lib/brand";
+import { Button } from "./ui/Button";
 
 const SLOT_CONTEXTS = ["local-vm-workspace:left", "local-vm-workspace:right"] as const;
 
@@ -456,15 +457,14 @@ function LocalVmPane({
           </div>
         </div>
         {bot && active ? (
-          <button
-            type="button"
+          <Button variant="primary" size="lg"
             onClick={onRelease}
             disabled={controlPending}
-            className="flex shrink-0 items-center gap-1.5 rounded-lg bg-accent px-2.5 py-2 text-[12px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+            className="flex shrink-0 gap-1.5 px-2.5 text-[12px]"
           >
             {controlPending ? <Loader2 size={13} className="animate-spin" /> : <Hand size={13} />}
             {t("vm.workspace.handBack")}
-          </button>
+          </Button>
         ) : bot ? (
           <button
             type="button"

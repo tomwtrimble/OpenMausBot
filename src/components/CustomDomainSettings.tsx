@@ -3,6 +3,7 @@ import { Check, ExternalLink, Globe, Loader2 } from "lucide-react";
 import { api } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { Card, CommandLine } from "./SettingsPrimitives";
+import { Button } from "./ui/Button";
 
 export interface CustomDomainStatus {
   publicUrl: string | null;
@@ -145,11 +146,11 @@ export function CustomDomainSettings() {
               <CustomDomainDnsRecord domain={domain} serverIpv4={status.serverIpv4} />
               <p className="text-[12px] leading-relaxed text-ink-secondary">{t("settings.domain.httpsNeeded")}</p>
               <div className="flex flex-wrap gap-2 pt-1">
-                <button type="submit" disabled={!domain.trim() || busy !== null} className="ui-button ui-button-primary">
+                <Button variant="primary" type="submit" disabled={!domain.trim() || busy !== null}>
                   {busy === "saving" ? <Loader2 size={14} className="animate-spin" /> : <Globe size={14} />}
                   {busy === "saving" ? t("settings.domain.verifying") : t("settings.domain.verify")}
-                </button>
-                {status.customDomain && <button type="button" disabled={busy !== null} onClick={() => void save(true)} className="rounded-lg bg-control px-3 py-2 text-[12px] font-medium text-ink hover:bg-raised-hover disabled:opacity-50">{busy === "removing" ? t("settings.domain.removing") : t("settings.domain.remove")}</button>}
+                </Button>
+                {status.customDomain && <Button size="lg" disabled={busy !== null} onClick={() => void save(true)} className="px-3 text-[12px]">{busy === "removing" ? t("settings.domain.removing") : t("settings.domain.remove")}</Button>}
               </div>
             </form>
             {status.publicUrl && <p className="break-all text-[12px] text-ink-secondary">{t("settings.domain.current")}: <span className="text-ink">{status.publicUrl}</span></p>}

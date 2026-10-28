@@ -140,7 +140,8 @@ describe("setting up a voice from the call button", () => {
     expect(help.html).not.toContain("Open agent settings");
     const setUp = find(help, "data-voice-setup-open");
     expect(setUp.props["aria-haspopup"]).toBe("dialog");
-    expect(String(setUp.props.className).split(" ")).toEqual(expect.arrayContaining(["bg-accent", "text-accent-ink"]));
+    // the primary action: the accent fill in the other skins, the ink pill in Midnight and Daylight
+    expect(setUp.props.variant).toBe("primary");
     expect(help.html).not.toContain("data-voice-setup-stub");
     click(setUp);
     expect(fixture.dispatch).not.toHaveBeenCalled();

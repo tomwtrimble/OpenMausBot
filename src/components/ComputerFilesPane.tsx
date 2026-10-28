@@ -7,6 +7,7 @@ import { AttachedFileChip, type MessageAttachmentContext } from "./AttachmentPre
 import { shortPath } from "@/lib/short-path";
 import { t } from "@/lib/i18n";
 import { openBotSettings } from "./bot-panel/panel-link";
+import { Button } from "./ui/Button";
 
 const MAX_FILES = 20;
 
@@ -94,16 +95,15 @@ export function ComputerFilesPane({ bot }: { bot: Bot }) {
           <span className="min-w-0 flex-1 truncate font-mono text-[12px] text-ink" title={cwd ?? undefined}>
             {cwd ? shortPath(cwd, home) : cwd === null ? t("computer.files.homeFolder") : t("computer.files.privateFolder", { name: bot.name })}
           </span>
-          <button
-            type="button"
+          <Button size="md"
             onClick={() => {
               dispatch({ type: "toggleComputer", open: false });
               openBotSettings(dispatch, "access", { page: "folder" });
             }}
-            className="shrink-0 rounded-lg bg-control px-2.5 py-1 text-[12px] text-ink hover:bg-raised-hover"
+            className="shrink-0 text-[12px] font-normal"
           >
             {t(pinned === undefined ? "computer.files.changeFolder" : "computer.files.changeDefaultFolder")}
-          </button>
+          </Button>
         </div>
         {pinned !== undefined && <p className="mt-2 text-[12px] leading-5 text-ink-secondary">{t("computer.files.pinnedFolderHint")}</p>}
       </div>

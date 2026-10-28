@@ -4,6 +4,7 @@ import { api, useStore, type ConfigStatus } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { saveTeamProfile } from "@/lib/own-profile";
 import { createAboutMeDraft } from "./about-me-draft";
+import { Button } from "./ui/Button";
 
 const drafts = new WeakMap<object, { controller: ReturnType<typeof createAboutMeDraft>; team: { current: boolean } }>();
 
@@ -106,10 +107,10 @@ function LearnedFacts({ onChanged }: { onChanged: (aboutMe: string) => void }) {
               {fact.text}{" "}
               <span className="text-[12px] text-ink-secondary">{t("settings.profile.learned.from", { name: fact.botName })}</span>
             </span>
-            <button type="button" disabled={busy === fact.id} onClick={() => void remove(fact.id)}
-              className="rounded-md px-2 py-1 text-[13px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50">
+            <Button variant="ghost" size="md" disabled={busy === fact.id} onClick={() => void remove(fact.id)}
+              className="font-normal">
               {t("settings.profile.learned.remove")}
-            </button>
+            </Button>
           </li>
         ))}
       </ul>

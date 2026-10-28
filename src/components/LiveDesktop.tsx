@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { connectDesktop, typeOnDesktop } from "@/lib/desktop-connection";
 import { t } from "@/lib/i18n";
 import { useCaptionChrome, useDesktopCapabilities } from "./DesktopCapabilities";
+import { Button } from "./ui/Button";
 
 type Connection = "connecting" | "connected" | "disconnected";
 
@@ -142,10 +143,10 @@ export function LiveDesktop({ target, threadId, name, poster, expanded, onExpand
         {connection === "disconnected" && (
           <div role="alert" className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 bg-card/95 p-3 text-center text-[12px] text-ink-secondary">
             <span>{t("desktopViewer.disconnected")}</span>
-            <button type="button" onClick={() => setAttempt((value) => value + 1)} className="flex items-center gap-1.5 rounded-md bg-control px-3 py-1.5 text-ink hover:bg-raised-hover">
+            <Button onClick={() => setAttempt((value) => value + 1)} className="flex gap-1.5 font-normal">
               <RefreshCw size={13} aria-hidden="true" />
               {t("desktopViewer.reconnect")}
-            </button>
+            </Button>
           </div>
         )}
       </div>

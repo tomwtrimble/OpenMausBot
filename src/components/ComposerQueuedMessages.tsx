@@ -4,6 +4,7 @@ import type { SteerQueueReason } from "../../shared/wire";
 import { t } from "@/lib/i18n";
 import { replySnippet } from "@/lib/replies";
 import { splitTranscriptCitations } from "@/lib/citations";
+import { Button } from "./ui/Button";
 
 const ATTACHMENT_TAG = /<attached-(?:image|file)\s/;
 
@@ -111,13 +112,12 @@ export function QueuedComposerMessages({
               {label}
             </span>
             {index === 0 && onSteer && (
-              <button
-                type="button"
+              <Button variant="ghost" size="md"
                 onClick={onSteer}
                 disabled={steering}
                 aria-label={steering ? t("composer.queued.steeringAria") : steerDescription}
                 title={steerDescription}
-                className="flex h-7 shrink-0 items-center gap-1 rounded-lg px-2 text-[13px] font-medium text-ink-secondary outline-none hover:bg-raised-hover hover:text-ink focus-visible:ring-2 focus-visible:ring-focus/60 disabled:cursor-wait disabled:opacity-60"
+                className="flex shrink-0 gap-1 outline-none disabled:cursor-wait"
               >
                 <CornerDownRight
                   size={13}
@@ -126,7 +126,7 @@ export function QueuedComposerMessages({
                   aria-hidden="true"
                 />
                 {steerLabel}
-              </button>
+              </Button>
             )}
             {onEdit && (
               <button

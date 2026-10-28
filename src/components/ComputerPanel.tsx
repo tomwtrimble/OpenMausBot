@@ -61,6 +61,7 @@ import { openPlaceAction, placeBlocked, placeFacts, placeHasIssue, placeViewFor,
 import { cloudRefusal, type PlaceActionId, type PlaceFacts, type PlaceView } from "../../shared/place-view";
 import { t } from "@/lib/i18n";
 import { LocalizedPanelError, panelErrorText } from "@/lib/computer-messages";
+import { Button } from "./ui/Button";
 
 interface VpsComputerStatus {
   configured: boolean;
@@ -1404,33 +1405,32 @@ export function ComputerPanel({
               {currentTeamComputer && placeActionButton(autoView)}
               {bot.computer === "cloud" && (phase === "unconfigured" || phase === "error") && cloudView.action?.id !== "add-boat-key" && placeActionButton(cloudView)}
               {phase === "local" && !isLinux && localMisses >= 3 && (
-                <button
+                <Button
                   onClick={() => window.ogb?.permOpenSettings?.("screen")}
-                  className="mt-1 rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover"
+                  className="mt-1 text-[12px] font-normal"
                 >
                   {t("computer.openSettings")}
-                </button>
+                </Button>
               )}
               {phase === "browser" && browserEnabled && (
-                <button
+                <Button
                   onClick={() => selectPanelView("browser")}
-                  className="mt-1 rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover"
+                  className="mt-1 text-[12px] font-normal"
                 >
                   {t("computer.openBrowserTab")}
-                </button>
+                </Button>
               )}
               {(phase === "show-ready-boat" || phase === "show-sleeping-boat" || phase === "show-pending-boat") && (
-                <button
-                  type="button"
+                <Button
                   onClick={() => updateComputerSelection({ computer: "cloud" })}
-                  className="mt-1 rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover"
+                  className="mt-1 text-[12px] font-normal"
                 >
                   {phase === "show-sleeping-boat"
                     ? t("computer.chooseCloudWake")
                     : phase === "show-ready-boat"
                       ? t("computer.chooseCloudOpen")
                       : t("computer.chooseCloudManage")}
-                </button>
+                </Button>
               )}
               {pending === null && (phase === "cloud-new" || phase === "cloud-asleep") && placeActionButton(cloudView)}
               {vmResumable && pending !== "vm-start" && (
@@ -1438,20 +1438,20 @@ export function ComputerPanel({
               )}
               {phase === "vm-unavailable" && (
                 canManageVm && vmResumable && vmStatus.mode !== "pool" ? (
-                  <button
+                  <Button variant="primary"
                     onClick={() => void runVmAction("vm-start")}
                     disabled={pending !== null}
                     aria-busy={pending === "vm-start"}
-                    className="mt-1 flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-[12px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+                    className="mt-1 flex gap-1.5 text-[12px]"
                   >
                     {pending === "vm-start" && <Loader2 size={13} className="animate-spin" />}
                     {t(pending === "vm-start" ? "vm.setup.starting" : "vm.setup.start")}
-                  </button>
+                  </Button>
                 ) : canManageVm && vmStatus?.mode === "per-bot" && vmStatus.image && vmStatus.create_supported ? (
-                  <button
+                  <Button variant="primary"
                     onClick={() => void runVmAction(vmStatus.container === "missing" ? "vm-create" : "vm-recreate")}
                     disabled={pending !== null}
-                    className="mt-1 rounded-lg bg-accent px-3 py-1.5 text-[12px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+                    className="mt-1 text-[12px]"
                   >
                     {(pending === "vm-create" || pending === "vm-recreate") && (
                       <Loader2 size={13} className="mr-1.5 inline animate-spin" />
@@ -1459,57 +1459,56 @@ export function ComputerPanel({
                     {vmStatus.container === "missing"
                       ? t("computer.createVm", { name: bot.name })
                       : t("computer.replaceVm", { name: bot.name })}
-                  </button>
+                  </Button>
                 ) : (
-                  <button
+                  <Button
                     onClick={openVmSettings}
-                    className="mt-1 rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover"
+                    className="mt-1 text-[12px] font-normal"
                   >
                     {t("computer.openVmSetup")}
-                  </button>
+                  </Button>
                 )
               )}
               {!advanced && computerStatusCurrent && (phase === "vps-unconfigured" || phase === "vps-stopped" || phase === "vps-incompatible") && (
                 <>
                   <p className="text-[12px]">{t("computer.simple.needsSetup", { name: bot.name })}</p>
-                  <button
-                    type="button"
+                  <Button
                     onClick={() => setAdvancedMode(true)}
-                    className="mt-1 rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover"
+                    className="mt-1 text-[12px] font-normal"
                   >
                     {t("computer.simple.showAdvanced")}
-                  </button>
+                  </Button>
                 </>
               )}
               {advanced && computerStatusCurrent && (phase === "vps-unconfigured" || phase === "vps-stopped") && (
-                <button
+                <Button
                   onClick={openConnectionSettings}
-                  className="mt-1 rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover"
+                  className="mt-1 text-[12px] font-normal"
                 >
                   {t("computer.openVpsSettings")}
-                </button>
+                </Button>
               )}
               {advanced && computerStatusCurrent && (phase === "vps-stopped" || (phase === "vps-unconfigured" && vpsStatus?.configured)) &&
                 canManageCloud && (
-                <button
+                <Button
                   onClick={() => run("provision")}
                   disabled={pending === "provision"}
-                  className="mt-1 rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                  className="mt-1 text-[12px] font-normal"
                 >
                   {pending === "provision" && <Loader2 size={13} className="mr-1.5 inline animate-spin" />}
                   {phase === "vps-stopped" ? t("computer.startVps") : t("computer.prepareVps")}
-                </button>
+                </Button>
               )}
               {advanced && computerStatusCurrent && phase === "vps-incompatible" && vpsStatus?.managed &&
                 canManageCloud && (
-                <button
+                <Button variant="primary"
                   onClick={() => void replaceVpsComputer()}
                   disabled={pending === "vps-replace"}
-                  className="mt-1 rounded-lg bg-accent px-3 py-1.5 text-[12px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+                  className="mt-1 text-[12px]"
                 >
                   {pending === "vps-replace" && <Loader2 size={13} className="mr-1.5 inline animate-spin" />}
                   {t("computer.replaceVps")}
-                </button>
+                </Button>
               )}
             </div>
           )}
@@ -1532,12 +1531,12 @@ export function ComputerPanel({
             <div className="mb-3 text-[13px] text-ink-secondary">
               {t("computer.vpsAliasHint")}
             </div>
-            <button
+            <Button size="lg"
               onClick={openConnectionSettings}
-              className="rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover"
+              className="px-3 font-normal"
             >
               {t("computer.openVpsSettings")}
-            </button>
+            </Button>
           </div>
         )}
 
@@ -1567,14 +1566,14 @@ export function ComputerPanel({
               {t("computer.youHaveWheel")}
               {cloudPreviewReady && !liveTarget && ` ${t(advanced ? "computer.useOpenDesktop" : "computer.simple.useFullScreen")}`}
             </div>
-            <button
+            <Button variant="primary" size="lg"
               onClick={() => void handBack()}
               disabled={controlPending || takeover.handingBack}
-              className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-2 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+              className="mt-2 flex w-full gap-2"
             >
               <Hand size={14} />
               {t("computer.handBack")}
-            </button>
+            </Button>
           </div>
         )}
         {advanced && phase === "vm" && (control.held || !bannerTakesControl) && (
@@ -1602,16 +1601,15 @@ export function ComputerPanel({
         {!advanced && (cloudPreviewReady || phase === "vm") && (
           <div className="mt-3 flex gap-2" data-testid="computer-actions">
             {!control.held && !bannerTakesControl && (
-              <button
-                type="button"
+              <Button variant="primary" size="lg"
                 onClick={() => void takeControl()}
                 disabled={controlPending || pending === "join" || (phase === "vm" && !liveTarget)}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-accent py-2 text-[13px] font-medium text-accent-ink hover:brightness-110 disabled:opacity-50"
+                className="flex flex-1 gap-2"
                 title={t("computer.takeControlTitle")}
               >
                 {pending === "join" ? <Loader2 size={14} className="animate-spin" /> : <Hand size={14} />}
                 {t("computer.takeControl")}
-              </button>
+              </Button>
             )}
             <button
               type="button"
@@ -1624,16 +1622,15 @@ export function ComputerPanel({
               {t("computer.fullScreen")}
             </button>
             {cloudPreviewReady && canManageCloud && (cloudBackend === "vps" || boatState !== "archived") && (
-              <button
-                type="button"
+              <Button size="lg"
                 onClick={() => run("sleep")}
                 disabled={pending === "sleep" || profileBot.busy}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                className="flex flex-1 gap-2 px-3 font-normal"
                 title={t("computer.sleepTitle")}
               >
                 {pending === "sleep" ? <Loader2 size={14} className="animate-spin" /> : <Moon size={14} />}
                 {t("vm.cloud.sleep")}
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -1661,15 +1658,15 @@ export function ComputerPanel({
               </button>
             )}
             {canManageCloud && (cloudBackend === "vps" || boatState !== "archived") && (
-              <button
+              <Button size="lg"
                 onClick={() => run("sleep")}
                 disabled={pending === "sleep" || profileBot.busy}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                className="flex flex-1 gap-2 px-3 font-normal"
                 title={t("computer.sleepTitle")}
               >
                 {pending === "sleep" ? <Loader2 size={14} className="animate-spin" /> : <Moon size={14} />}
                 {t("vm.cloud.sleep")}
-              </button>
+              </Button>
             )}
           </div>
         )}

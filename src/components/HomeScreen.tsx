@@ -3,6 +3,7 @@ import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
 import type { HomeView, HomeBridge } from "../../electron/home-window.mjs";
 import { CloudSetupSteps } from "./CloudSetupSteps";
+import { Button } from "./ui/Button";
 
 const MACHINE: Record<string, LocaleKey> = {
   stopped: "cloudHome.stopped",
@@ -54,8 +55,8 @@ export function HomeScreen({ bridge, manage }: { bridge: HomeBridge; manage?: ()
         {text.body && <p className="text-[14px] leading-relaxed text-ink-secondary">{text.body}</p>}
         {view?.screen === "setup" && <CloudSetupSteps step={view.step ?? "reserving"} />}
         {text.reason && <p data-home-reason className="text-[13px] leading-relaxed text-ink-secondary">{text.reason}</p>}
-        {text.action === "sign-in" && <button type="button" className="ui-button ui-button-primary mt-2" onClick={() => act(() => bridge.signIn())}>{t("homeScreen.signInButton")}</button>}
-        {text.action === "manage" && manage && <button type="button" className="ui-button mt-2" onClick={() => act(manage)}>{t("cloudAccount.manageInBrowser")}</button>}
+        {text.action === "sign-in" && <Button variant="primary" className="mt-2" onClick={() => act(() => bridge.signIn())}>{t("homeScreen.signInButton")}</Button>}
+        {text.action === "manage" && manage && <Button className="mt-2" onClick={() => act(manage)}>{t("cloudAccount.manageInBrowser")}</Button>}
         {failed && <p role="alert" className="text-[13px] text-danger-text">{t("cloudAccount.actionFailed")}</p>}
       </div>
     </main>

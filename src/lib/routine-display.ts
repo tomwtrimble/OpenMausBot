@@ -1,4 +1,5 @@
-import type { Routine, RoutineRun } from "./routines";
+import type { Routine, RoutineRun, RoutineRunStatus } from "./routines";
+import type { MausState } from "./mascot";
 import { activeLocale, t } from "./i18n";
 
 export function routineRunTime(run: RoutineRun): number {
@@ -51,4 +52,14 @@ export function routineRunsOn({ roomGoal, runOn, computer, cloudHome }: {
   if (computer === "cloud") return { label: t("routines.runsOn.botCloud"), hint };
   if (computer === "vm" && !cloudHome) return { label: t("routines.runsOn.botVm"), hint };
   return { label: t(cloudHome ? "routines.runsOn.cloudHome" : "routines.runsOn.local"), hint };
+}
+
+/** The bot's face for a run: working while it runs, proud when it finished, sad when it failed. */
+export function routineRunMood(status: RoutineRunStatus): MausState {
+  if (status === "running") return "working";
+  if (status === "waiting") return "curious";
+  if (status === "completed") return "proud";
+  if (status === "failed" || status === "missed") return "sad";
+  if (status === "cancelled") return "sleeping";
+  return "drowsy";
 }

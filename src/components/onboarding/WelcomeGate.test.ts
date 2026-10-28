@@ -28,6 +28,7 @@ vi.mock("@/components/Avatar", () => ({ MausAvatar: () => null }));
 import { SharedWorkspaceHint } from "./SharedWorkspaceHint";
 import { useWelcomeViewer, WelcomeGate } from "./WelcomeGate";
 import { WelcomeFlow } from "./WelcomeFlow";
+import { isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<Record<string, unknown> & { onClick?: () => void; onClose?: () => void; onDone?: (botId: string | null) => void; children?: ReactNode }>;
 function render(component: () => ReactNode) {
@@ -150,7 +151,7 @@ describe("who gets the welcome flow", () => {
       if (!isValidElement(node)) return [];
       const children = (node as Node).props.children;
       return [node as Node, ...(Array.isArray(children) ? children : [children]).flatMap(all)];
-    }).find((node) => node.type === "button")!;
+    }).find((node) => isButton(node))!;
     gotIt.props.onClick!();
     await flush();
     expect(store.api).not.toHaveBeenCalled();

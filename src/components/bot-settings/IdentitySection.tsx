@@ -15,6 +15,7 @@ import { PackageProvenance } from "./PackageProvenance";
 import { ProposalStatus } from "./ProposalStatus";
 import { randomBotName } from "@/lib/random-bot-name";
 import { t } from "@/lib/i18n";
+import { Button } from "../ui/Button";
 
 export type IdentityPart = "avatar" | "provenance" | "name" | "title" | "blurb";
 
@@ -47,12 +48,11 @@ export function IdentitySection({
         <div className="mb-1.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
           <label htmlFor={`bot-name-${bot.id}`} className="text-[13px] text-ink-secondary">{t("botSettings.identity.name")}</label>
           {draft && <div className="flex flex-wrap gap-1">
-            {(["female", "male"] as const).map(kind => <button
+            {(["female", "male"] as const).map(kind => <Button variant="ghost" size="md"
               key={kind}
-              type="button"
-              className="rounded-md px-2 py-1 text-xs text-ink-secondary hover:bg-control hover:text-ink"
+              className="text-xs font-normal"
               onClick={() => patch({ name: randomBotName(kind, bot.name, state.bots.map(existing => existing.name)) })}
-            >{t(kind === "female" ? "newBot.randomFemaleName" : "newBot.randomMaleName")}</button>)}
+            >{t(kind === "female" ? "newBot.randomFemaleName" : "newBot.randomMaleName")}</Button>)}
           </div>}
         </div>
         <ProposalStatus bot={bot} kind="chief" />

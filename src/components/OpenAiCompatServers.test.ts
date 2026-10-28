@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as store from "@/state/store";
 import { modelIds, OtherOpenAiCompatServers, LmStudioServer, lmStudioBaseUrl } from "./OpenAiCompatServers";
+import { isButton } from "@/testing/ui-elements";
 
 const fixture = vi.hoisted(() => ({ counting: false, values: [] as unknown[], index: 0, api: vi.fn(), track: vi.fn() }));
 vi.mock("react", async (original) => {
@@ -88,7 +89,7 @@ describe("adding another OpenAI-compatible server", () => {
     for (const [label, value] of [["Display name", "Ada's lab box"], ["Base URL", "https://ada.example.com/v1"], ["API key", KEY]] as const) {
       form().find((node) => node.props["aria-label"] === label)!.props.onChange!({ target: { value } });
     }
-    form().find((node) => node.type === "button" && node.props.children && JSON.stringify(node.props.children).includes("Add server"))!.props.onClick!();
+    form().find((node) => isButton(node) && node.props.children && JSON.stringify(node.props.children).includes("Add server"))!.props.onClick!();
     await flush();
   }
 
@@ -190,7 +191,7 @@ describe("LM Studio and Bionic setup", () => {
       fixture.counting = true;
       fixture.index = 0;
       try {
-        return elementNodes(LmStudioServer()).find((node) => node.type === "button")!;
+        return elementNodes(LmStudioServer()).find((node) => isButton(node))!;
       } finally {
         fixture.counting = false;
       }
@@ -222,7 +223,7 @@ describe("LM Studio and Bionic setup", () => {
       }
     };
     fields().find((node) => node.props["aria-label"] === "API token (optional)")!.props.onChange!({ target: { value: "studio-token" } });
-    fields().find((node) => node.type === "button")!.props.onClick!();
+    fields().find((node) => isButton(node))!.props.onClick!();
     for (let i = 0; i < 20; i++) await Promise.resolve();
     const body = JSON.parse(String(fixture.api.mock.calls[0][1].body)) as { key: string };
     expect(body.key).toBe("studio-token");

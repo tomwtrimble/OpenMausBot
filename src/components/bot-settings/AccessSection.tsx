@@ -31,6 +31,7 @@ import { openKeySettings } from "../keys/key-focus";
 import { KeysLink } from "../keys/KeysLink";
 import type { ConnectorScope, ConnectorScopes } from "../../../shared/connector-scopes";
 import type { useBotSettingsDerived } from "./useBotSettingsDerived";
+import { Button } from "../ui/Button";
 
 /**
  * Claude keeps sessions per project folder, so the server pins each task's folder on its first turn. PATCHed directly,
@@ -80,9 +81,9 @@ export function WorkingFolder({ bot }: { bot: Bot }) {
           <div className="min-w-0 flex-1 truncate rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink" title={bot.cwd}>
             {bot.cwd ? shortPath(bot.cwd, home) : <span className="text-ink-secondary">{t("botAccess.folder.private")}</span>}
           </div>
-          <button onClick={() => void pick()} disabled={saving} className="flex shrink-0 items-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50">
+          <Button size="lg" onClick={() => void pick()} disabled={saving} className="flex shrink-0 gap-1.5 px-3 font-normal">
             <FolderOpen size={14} /> {t("botAccess.folder.choose")}
-          </button>
+          </Button>
           {bot.cwd && (
             <button onClick={() => void save(null)} disabled={saving} className="shrink-0 rounded-lg px-2 py-2 text-[13px] text-ink-secondary hover:text-ink disabled:opacity-50">
               {t("botAccess.folder.clear")}
@@ -104,9 +105,9 @@ export function WorkingFolder({ bot }: { bot: Bot }) {
             value={draft ?? bot.cwd ?? ""}
             onChange={(e) => setDraft(e.target.value)}
           />
-          <button type="submit" disabled={saving || draft === null} className="shrink-0 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50">
+          <Button size="lg" type="submit" disabled={saving || draft === null} className="shrink-0 px-3 font-normal">
             {t("botAccess.folder.save")}
-          </button>
+          </Button>
         </form>
       )}
       {error && <div className="mt-2 text-[12px] text-danger-text">{error}</div>}
@@ -182,9 +183,9 @@ export function McpServersCard({ bot, patch }: { bot: Bot; patch: (patch: { mcpS
         </div>
       )}
       <div className="mt-3 flex items-center gap-2">
-        <button type="button" onClick={openPlugins} className="flex items-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover">
+        <Button size="lg" onClick={openPlugins} className="flex gap-1.5 px-3 font-normal">
           <Plus size={14} /> {t("botAccess.mcpAdd")}
-        </button>
+        </Button>
         {!usesAll && servers && servers.length > 0 && (
           <button type="button" disabled={!!bot.busy || error} onClick={() => { if (!bot.busy && !error) patch({ mcpServers: null }); }} className="rounded-lg px-2 py-2 text-[13px] text-ink-secondary hover:text-ink disabled:opacity-50">
             {t("botAccess.mcpUseAll")}
@@ -373,13 +374,12 @@ function ConnectorToolsGrants({
                           {t("botAccess.grants.allTools")}
                         </button>
                         {recordExists && (
-                          <button
-                            type="button"
+                          <Button size="md"
                             onClick={() => patch({ connectorTools: null })}
-                            className="rounded-full bg-control px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-raised-hover"
+                            className="rounded-full text-[12px]"
                           >
                             {t("botAccess.grants.allApps")}
-                          </button>
+                          </Button>
                         )}
                       </div>
                       {toolsError ? (
@@ -407,19 +407,18 @@ function ConnectorToolsGrants({
                             {VERB_ORDER.filter((verb) => verbCounts.has(verb)).map((verb) => {
                               const names = verbCounts.get(verb) ?? [];
                               return (
-                                <button
+                                <Button size="sm"
                                   key={verb}
-                                  type="button"
                                   title={t("botAccess.grants.verbHint")}
                                   onClick={() => {
                                     const next = [...new Set([...selected, ...names])];
                                     setLastExplicit((prev) => ({ ...prev, [slug]: next }));
                                     apply(slug, { tools: next });
                                   }}
-                                  className="rounded-full bg-control px-2.5 py-1 text-[11px] text-ink hover:bg-raised-hover"
+                                  className="rounded-full text-[11px] font-normal"
                                 >
                                   {t(VERB_LABELS[verb])} · {names.length}
-                                </button>
+                                </Button>
                               );
                             })}
                           </div>
@@ -487,9 +486,9 @@ function ResearchCard({ bot, patch }: { bot: Bot; patch: (patch: { xResearch: bo
         <div className="text-[15px] font-medium text-ink">{t("research.title")}</div>
         <div className="mt-0.5 text-[13px] text-ink-secondary">{line}</div>
         {!available && !connecting && (
-          <button type="button" className="ui-button mt-2" onClick={() => dispatch(openKeySettings("treg"))}>
+          <Button className="mt-2" onClick={() => dispatch(openKeySettings("treg"))}>
             {t("research.openKeys")}
-          </button>
+          </Button>
         )}
       </div>
       <Switch
@@ -578,13 +577,13 @@ export function VpsAliasField({ bot }: { bot: Bot }) {
           aria-label={t("botAccess.cloud.server")}
           onChange={(e) => setDraft(e.target.value)}
         />
-        <button
+        <Button size="lg"
           type="submit"
           disabled={saving || draft === null}
-          className="shrink-0 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+          className="shrink-0 px-3 font-normal"
         >
           {t("botAccess.cloud.serverSave")}
-        </button>
+        </Button>
       </form>
       {error && <div className="mt-2 text-[12px] text-danger-text">{error}</div>}
       {notice && <div role="status" className="mt-2 break-words text-[12px] text-ink-secondary">{notice}</div>}
@@ -676,16 +675,15 @@ export function AccessSection({
       {shows("worksOn") && <div className="rounded-xl bg-card p-4" data-testid="access-works-on">
         <div className="text-[15px] font-medium text-ink">{t("access.worksOn", { name: bot.name, short: worksOn.short })}</div>
         <ProposalStatus bot={bot} kind="owner" />
-        <button
-          type="button"
+        <Button
           onClick={() => {
             dispatch({ type: "toggleSettings", open: false });
             dispatch({ type: "toggleComputer", open: true });
           }}
-          className="mt-3 rounded-lg bg-control px-3 py-1.5 text-[13px] text-ink hover:bg-raised-hover"
+          className="mt-3 font-normal"
         >
           {t("place.action.openComputerPanel")}
-        </button>
+        </Button>
         <CloudPreference bot={bot} patch={patch} />
       </div>}
 
@@ -735,16 +733,15 @@ export function AccessSection({
           </>
         )}
         {connectedAppsEnabled && connectedAppsConfigured && (
-          <button
-            type="button"
+          <Button size="lg"
             onClick={() => {
               dispatch({ type: "toggleSettings", open: false });
               dispatch({ type: "togglePlugins", open: true, surface: "apps" });
             }}
-            className="mt-3 flex items-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover"
+            className="mt-3 flex gap-1.5 px-3 font-normal"
           >
             <Plus size={14} /> {t("botAccess.connectApp")}
-          </button>
+          </Button>
         )}
       </div>}
 

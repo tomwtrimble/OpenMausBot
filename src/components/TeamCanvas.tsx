@@ -15,6 +15,7 @@ import { BotAvatar } from "./Avatar";
 import { ComputerNode } from "./ComputerNode";
 import { InstanceProviderMark, ProviderMark } from "./ProviderIcons";
 import { openBotSettings } from "./bot-panel/panel-link";
+import { Button } from "./ui/Button";
 
 type Gesture = {
   id: number;
@@ -433,11 +434,11 @@ export function TeamCanvas({ sections, canManage, onMove, onInstructions, onMemo
               }}>
               <h2 className="truncate text-[13px] font-semibold tracking-tight">{section.name}</h2>
             </button>
-            {computer && <button aria-label={t("canvas.teamComputer", { team: section.name, name: computer.name })} title={`${computer.name}${computer.state ? ` · ${computer.state}` : ""}`}
+            {computer && <Button variant="ghost" aria-label={t("canvas.teamComputer", { team: section.name, name: computer.name })} title={`${computer.name}${computer.state ? ` · ${computer.state}` : ""}`}
               disabled={!onTeamComputer} onClick={() => onTeamComputer?.(section.key)}
-              className="flex min-w-0 max-w-[120px] shrink items-center gap-1.5 rounded-md px-1.5 py-2 text-[10px] text-ink-secondary hover:bg-control hover:text-ink focus-visible:outline-2 focus-visible:outline-focus disabled:pointer-events-none">
+              className="flex min-w-0 max-w-[120px] shrink gap-1.5 px-1.5 text-[10px] disabled:pointer-events-none font-normal">
               <Monitor size={12} className="shrink-0" /><span className="truncate">{computer.name}</span>
-            </button>}
+            </Button>}
             <span className="text-[11px] tabular-nums text-ink-secondary">{section.chiefs.length + section.members.length}</span>
             {canManage && <details className="relative" onToggle={(event) => {
               if (event.currentTarget.open) {
@@ -504,7 +505,7 @@ export function TeamCanvas({ sections, canManage, onMove, onInstructions, onMemo
       </div>
       <div className="pointer-events-auto flex shrink-0 items-center gap-0.5 rounded-xl border border-hairline bg-panel p-1 shadow-sm">
         <button className={iconButton} aria-label={t("canvas.zoomOut")} onClick={() => zoom(1 / 1.2)}><Minus size={15} /></button>
-        <button className="min-w-12 rounded-md px-1 py-2 text-[11px] tabular-nums text-ink-secondary hover:bg-control" aria-label={t("canvas.fit")} title={t("canvas.fitHint")} onClick={fit}>{Math.round(view.scale * 100)}%</button>
+        <Button variant="ghost" className="min-w-12 px-1 text-[11px] tabular-nums font-normal" aria-label={t("canvas.fit")} title={t("canvas.fitHint")} onClick={fit}>{Math.round(view.scale * 100)}%</Button>
         <button className={iconButton} aria-label={t("canvas.zoomIn")} onClick={() => zoom(1.2)}><Plus size={15} /></button>
       </div>
     </div>

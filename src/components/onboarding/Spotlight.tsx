@@ -4,6 +4,7 @@ import { MausAvatar } from "@/components/Avatar";
 import { cn } from "@/lib/cn";
 import type { MausState } from "@/lib/mascot";
 import { reducedMotion } from "@/lib/onboarding";
+import { Button } from "../ui/Button";
 
 const PAD = 8;
 const RADIUS = 14;
@@ -213,14 +214,13 @@ export function Spotlight({
             </div>
             <div className="mt-2.5 flex items-center gap-3">
               {primary && (
-                <button
-                  type="button"
+                <Button variant="primary"
                   autoFocus
                   onClick={primary.onClick}
-                  className="rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-white transition-transform duration-150 active:scale-[0.98]"
+                  className="transition-transform duration-150 active:scale-[0.98]"
                 >
                   {primary.label}
-                </button>
+                </Button>
               )}
               {progress && (
                 <span className="text-[12px] tabular-nums text-ink-secondary">

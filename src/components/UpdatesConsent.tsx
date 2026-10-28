@@ -4,12 +4,13 @@ import type { UpdatesConsentBridge, UpdatesConsentState, UpdatesConsentStatus } 
 import { t } from "@/lib/i18n";
 import { SettingRow, Switch } from "./SettingsPrimitives";
 import { Dialog } from "./ui/Dialog";
+import { Button } from "./ui/Button";
 
 export const UPDATES_CONSENT_POPUP = "[data-updates-consent-popup]";
 const TITLE = "updates-consent-title";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PRIMARY = "inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-[14px] font-medium text-accent-ink hover:opacity-90 disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus";
-const SECONDARY = "inline-flex min-h-10 items-center justify-center rounded-lg px-3 py-2 text-[14px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus";
+const PRIMARY = "min-h-10 gap-1.5 text-[14px]";
+const SECONDARY = "min-h-10 px-3 text-[14px] font-normal";
 
 export function updatesConsentBridge(): UpdatesConsentBridge | undefined {
   return window.ogb?.remoteClient?.active === true ? undefined : window.ogb?.updatesConsent;
@@ -69,8 +70,8 @@ export function UpdatesConsentDialog({ signedIn, onYes, onNo }: {
       </label>}
       {error && <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p>}
       <div className="mt-5 flex flex-wrap items-center justify-end gap-2">
-        <button type="button" className={SECONDARY} disabled={busy} onClick={onNo}>{t("updatesConsent.no")}</button>
-        <button type="button" className={PRIMARY} disabled={busy} onClick={yes}>{t("updatesConsent.yes")}</button>
+        <Button variant="ghost" size="lg" className={SECONDARY} disabled={busy} onClick={onNo}>{t("updatesConsent.no")}</Button>
+        <Button variant="primary" size="lg" className={PRIMARY} disabled={busy} onClick={yes}>{t("updatesConsent.yes")}</Button>
       </div>
   </Dialog>;
 }

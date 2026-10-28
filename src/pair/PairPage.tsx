@@ -15,9 +15,10 @@ import {
   type SessionState,
 } from "../lib/session";
 import { pairedDestination } from "../lib/phone-pairing";
+import { Button } from "../components/ui/Button";
 
 const input = "mt-1 w-full rounded-md border border-hairline bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent-border";
-const button = "mt-5 w-full rounded-md bg-accent px-4 py-2 text-[14px] font-medium text-accent-ink disabled:opacity-50";
+const button = "mt-5 w-full text-[14px]";
 const fieldLabel = "mt-4 block text-[12px] font-medium text-ink-secondary";
 
 /** Only the desktop app pairs from a link at once; a browser asks, so a sent link cannot sign it in unseen. */
@@ -174,9 +175,9 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
               </>
             ) : null}
             {error ? <p className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
-            <button type="submit" disabled={busy || !email.includes("@") || (sent && otp.replace(/\D/g, "").length < 8)} className={button}>
+            <Button variant="primary" size="lg" type="submit" disabled={busy || !email.includes("@") || (sent && otp.replace(/\D/g, "").length < 8)} className={button}>
               {busy ? (sent ? "Signing in…" : "Sending…") : sent ? "Sign in" : "Send code"}
-            </button>
+            </Button>
             {sent ? (
               <button type="button" onClick={() => setSent(false)} className="mt-3 w-full text-[13px] text-ink-secondary underline">
                 Send a new code

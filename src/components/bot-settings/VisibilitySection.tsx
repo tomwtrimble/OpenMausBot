@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Check, Loader2 } from "lucide-react";
+import { Check } from "lucide-react";
 
 import { api, useStore, type Bot } from "@/state/store";
-import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import type { BotVisibility } from "../../../shared/wire";
+import { Button } from "../ui/Button";
 
 export type VisibilityMode = "everyone" | "admins" | "people";
 
@@ -133,29 +133,22 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
           <p>{t("botSettings.visibility.mixedRooms", { rooms: mixed.map((room) => JSON.stringify(room.name)).join(", ") })}</p>
           <div className="flex flex-wrap gap-2">
             {mixed.map((room) => (
-              <button
+              <Button size="md"
                 key={room.id}
-                type="button"
                 disabled={busy}
                 onClick={() => void resetRoom(room.id)}
-                className="rounded-md bg-control px-2 py-1 text-[12px] text-ink hover:bg-control/70 disabled:opacity-50"
+                className="text-[12px] hover:bg-control/70 font-normal"
               >
                 {t("botSettings.visibility.resetRoom", { room: JSON.stringify(room.name) })}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
       )}
       <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={() => void save()}
-          disabled={busy || !dirty}
-          className={cn("flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-50")}
-        >
-          {busy && <Loader2 size={13} className="animate-spin" />}
+        <Button variant="primary" loading={busy} onClick={() => void save()} disabled={!busy && !dirty}>
           {busy ? t("botSettings.visibility.saving") : t("botSettings.visibility.save")}
-        </button>
+        </Button>
         {status === "saved" && !dirty && (
           <span role="status" className="flex items-center gap-1 text-[12px] text-success"><Check size={13} />{t("botSettings.visibility.saved")}</span>
         )}

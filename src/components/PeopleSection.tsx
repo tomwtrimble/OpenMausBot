@@ -12,6 +12,7 @@ import { canPairDevices } from "./ServerPairingCard";
 import { normalizeAccessEntry, withEntry, withoutEntry, type SignInLists } from "./SignInAccessCard";
 import { Card, SettingRow } from "./SettingsPrimitives";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 export type Role = "admin" | "member";
 
@@ -142,10 +143,10 @@ export function CopyLink({ link }: { link: string }) {
       <div className="mb-1 text-ink-secondary">{t("people.link")}</div>
       <div className="flex items-center gap-2">
         <code className="min-w-0 flex-1 select-all break-all text-ink">{link}</code>
-        <button type="button" onClick={copy} className="flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-control hover:text-ink">
+        <Button variant="ghost" size="md" onClick={copy} className="flex shrink-0 gap-1 text-[12px] font-normal">
           {state === "copied" ? <Check size={13} className="text-success" /> : state === "failed" ? <X size={13} className="text-danger-text" /> : <Copy size={13} />}
           {t(state === "copied" ? "people.copied" : state === "failed" ? "common.copyFailed" : "people.copy")}
-        </button>
+        </Button>
       </div>
       <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("people.linkHint")}</p>
     </div>
@@ -298,9 +299,9 @@ export function PeopleSection({ simple = false, startOpen = false }: { simple?: 
     return (
       <div data-people-summary="">
         <SettingRow title={t("people.title")} subtitle={t("settings.simple.people")}>
-          <button type="button" aria-expanded={open} className="ui-button" onClick={() => setOpen(!open)}>
+          <Button aria-expanded={open} onClick={() => setOpen(!open)}>
             {open ? t("common.done") : t("settings.simple.people.invite")}
-          </button>
+          </Button>
         </SettingRow>
         {open && <div className="px-3.5 pb-3.5 pt-1">{portal ?? content}</div>}
       </div>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { SettingRow } from "./SettingsPrimitives";
+import { Button } from "./ui/Button";
 
 /**
  * Where this app's logs are, and the recent part of them to share with support. Security: the report never holds
@@ -54,15 +55,14 @@ export function DiagnosticsRow({ simple = false }: { simple?: boolean }) {
       </>}
     >
       {here && <div className="flex flex-wrap gap-2">
-        {window.ogb?.openLogsFolder && <button type="button" onClick={() => void openLogs()} className="ui-button">{t("settings.diagnostics.openLogs")}</button>}
-        <button
+        {window.ogb?.openLogsFolder && <Button onClick={() => void openLogs()}>{t("settings.diagnostics.openLogs")}</Button>}
+        <Button
           onClick={() => void exportDiagnostics()}
           disabled={exporting}
           aria-label={t("settings.diagnostics.aria")}
-          className="ui-button"
         >
           {exporting ? t("settings.diagnostics.exporting") : t("settings.diagnostics.export")}
-        </button>
+        </Button>
       </div>}
     </SettingRow>
   );

@@ -65,6 +65,7 @@ import {
 } from "../lib/companion-state";
 import { ConnectionDetail } from "./ConnectionDetail";
 import { productName } from "../lib/brand";
+import { Button } from "./ui/Button";
 
 export interface PhoneDevice {
   id: string;
@@ -915,14 +916,10 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
           {t("phone.intro.detail")}
         </p>
         <ValuePoints />
-        <button
-          data-phone-pairing-action
-          onClick={c.start}
-          disabled={!c.state || c.busy || c.accountBusy}
-          className="mt-5 w-full max-w-[320px] rounded-lg bg-accent py-2.5 text-[14px] font-medium text-white hover:opacity-90 disabled:cursor-wait disabled:opacity-40"
-        >
+        <Button variant="primary" size="lg" data-phone-pairing-action onClick={c.start} disabled={!c.state || c.busy || c.accountBusy}
+          className="mt-5 w-full max-w-[320px] text-[14px] disabled:cursor-wait min-h-10">
           {c.state?.devices.length ? t("phone.intro.pairAnother") : t("phone.intro.pair")}
-        </button>
+        </Button>
         {c.error && <p role="alert" className="mt-3 max-w-[390px] text-[13px] text-danger-text">{c.error}</p>}
       </div>
     );
@@ -991,13 +988,13 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
                 />
               </label>
             )}
-            <button
+            <Button variant="primary" size="lg"
               disabled={c.accountBusy || (!c.codeSent && !canSubmitEmail) || (c.codeSent && c.code.length !== 8)}
               onClick={c.codeSent ? c.verifyCode : c.requestCode}
-              className="rounded-lg bg-accent py-2.5 text-[14px] font-medium text-white hover:opacity-90 disabled:opacity-40"
+              className="text-[14px] min-h-10"
             >
               {c.accountBusy ? t("phone.signIn.working") : c.codeSent ? t("phone.signIn.verify") : t("phone.signIn.sendCode")}
-            </button>
+            </Button>
             {c.codeSent && (
               <button
                 disabled={c.accountBusy}
@@ -1014,13 +1011,13 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
         )}
 
         {(unavailable || failed) && (
-          <button
+          <Button variant="primary" size="lg"
             disabled={c.accountBusy}
             onClick={c.retryAccount}
-            className="mt-5 rounded-lg bg-accent py-2.5 text-[14px] font-medium text-white disabled:opacity-40"
+            className="mt-5 text-[14px] min-h-10"
           >
             {c.accountBusy ? t("remote.account.retrying") : t("phone.signIn.retry")}
-          </button>
+          </Button>
         )}
         {actionError && <p role="alert" className="mt-3 text-[13px] text-danger-text">{actionError}</p>}
         <div className="my-4 flex items-center gap-3 text-[11px] text-ink-secondary">
@@ -1078,12 +1075,12 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
         <p className="mt-1.5 text-[13px] text-ink-secondary">
           {t("phone.success.detail")}
         </p>
-        <button
+        <Button variant="primary" size="lg"
           onClick={c.finish}
-          className="mt-5 w-full max-w-[280px] rounded-lg bg-accent py-2.5 text-[14px] font-medium text-white"
+          className="mt-5 w-full max-w-[280px] text-[14px] min-h-10"
         >
           {t("phone.success.done")}
-        </button>
+        </Button>
       </div>
     );
   }
@@ -1121,9 +1118,9 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
         </p>
       )}
       {c.pairingExpired && (
-        <button onClick={c.refreshCode} className="mt-5 rounded-lg bg-accent px-5 py-2.5 text-[14px] font-medium text-white">
+        <Button variant="primary" size="lg" onClick={c.refreshCode} className="mt-5 px-5 text-[14px] min-h-10">
           {t("phone.code.createNew")}
-        </button>
+        </Button>
       )}
       {!c.pairingExpired && c.state?.pairing && (
         <details className="mt-4 w-full max-w-[390px] rounded-lg border border-hairline px-3 py-2 text-left">

@@ -10,6 +10,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { useCloudSendNotice } from "./CloudSendStrip";
 import type { SidebarMenuItem } from "./SidebarPopoverMenu";
+import { Button } from "./ui/Button";
 
 export type AccountMoveLine = NonNullable<ReturnType<typeof moveLine>>;
 export type AccountMoveKind = AccountMoveLine["kind"];
@@ -148,19 +149,17 @@ export function AccountMoveStatus({ kind, retry = null, onOpen, className }: { k
     <div role="status" data-account-move={kind} className={cn("flex min-w-0 items-center gap-1.5", className)}>
       <button type="button" onClick={onOpen} className={cn(look, kind === "failed" ? "hover:underline" : "hover:text-ink")}>{body}</button>
       {kind === "failed" && retry && (
-        <button
-          type="button"
+        <Button
+          size="sm"
+          loading={retry.retrying}
           data-move-retry
           aria-label={t("sidebar.account.moveRetryName")}
-          aria-busy={retry.retrying || undefined}
-          aria-disabled={retry.retrying || undefined}
           title={retry.why}
-          onClick={retry.retrying ? undefined : retry.onRetry}
-          className={cn("ui-button ui-button-sm shrink-0", retry.retrying && "cursor-progress")}
+          onClick={retry.onRetry}
+          className="shrink-0"
         >
-          {retry.retrying && <Loader2 aria-hidden="true" className="size-3.5 shrink-0 animate-spin motion-reduce:animate-none" />}
           {t("cloudSend.strip.retry")}
-        </button>
+        </Button>
       )}
     </div>
   );

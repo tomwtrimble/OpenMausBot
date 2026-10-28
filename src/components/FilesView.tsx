@@ -11,6 +11,7 @@ import { useCaptionChrome } from "./DesktopCapabilities";
 import { Switch } from "./SettingsPrimitives";
 import { Dialog } from "./ui/Dialog";
 import { MENU_SHEET } from "./menu-recipe";
+import { Button } from "./ui/Button";
 
 const REFUSAL: Record<string, LocaleKey> = {
   "too-broad": "files.refusal.tooBroad", "app-data": "files.refusal.appData", "already-shared": "files.refusal.alreadyShared",
@@ -76,7 +77,7 @@ function Unavailable() {
   const { dispatch } = useStore();
   return <div className="flex flex-col items-start gap-3">
     <p className="text-[14px] text-ink">{t("files.unavailable")}</p>
-    <button type="button" className="ui-button" onClick={() => dispatch(SETTINGS)}>{t("files.openSettings")}</button>
+    <Button onClick={() => dispatch(SETTINGS)}>{t("files.openSettings")}</Button>
   </div>;
 }
 
@@ -112,7 +113,7 @@ function FilesPage({ bridge }: { bridge: CloudFilesBridge }) {
     {(state.phase === "offline" || state.phase === "asleep") && <p role="status" data-files-phase={state.phase} className="rounded-xl bg-card px-4 py-3 text-[13px] text-ink-secondary">{t(state.phase === "asleep" ? "files.asleep" : "files.offline")}</p>}
     {state.phase === "signed-out" && <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-card px-4 py-3">
       <p className="text-[13px] text-ink">{t("files.signedOut")}</p>
-      <button type="button" className="ui-button" onClick={() => dispatch(SETTINGS)}>{t("files.openSettings")}</button>
+      <Button onClick={() => dispatch(SETTINGS)}>{t("files.openSettings")}</Button>
     </div>}
     {failed && <p role="alert" className="text-[13px] text-danger-text">{failed}</p>}
     <section aria-labelledby="files-shared" className="flex flex-col gap-3">
@@ -125,8 +126,8 @@ function FilesPage({ bridge }: { bridge: CloudFilesBridge }) {
           {state.shared.map((folder) => <FolderRow key={folder.id} folder={folder} bridge={bridge} busy={busy} run={run} onStop={() => setAsk({ kind: "stop", folder })} />)}
         </ul>
         : <p className="text-[13px] text-ink-secondary">{t("files.empty")}</p>}
-      <button type="button" disabled={busy} className="ui-button self-start"
-        onClick={() => void run(async () => { const check = await bridge.pickFolder(); if (check) setAsk({ kind: "share", check }); })}>{t("files.add")}</button>
+      <Button disabled={busy} className="self-start"
+        onClick={() => void run(async () => { const check = await bridge.pickFolder(); if (check) setAsk({ kind: "share", check }); })}>{t("files.add")}</Button>
       {state.disk && <Storage disk={state.disk} busy={busy} onMore={moreSpace} />}
     </section>
     <section aria-labelledby="files-outputs" className="flex flex-col gap-3">
@@ -141,20 +142,20 @@ function FilesPage({ bridge }: { bridge: CloudFilesBridge }) {
             onClick={() => void run(() => bridge.setOutputs(!state.outputs.enabled))} />
         </div>
         {state.outputs.problem && <p className="text-[12px] text-danger-text">{state.outputs.problem}</p>}
-        {state.outputs.enabled && <button type="button" className="ui-button" onClick={() => void run(() => bridge.open({ outputs: true }))}>{t("files.outputs.open")}</button>}
+        {state.outputs.enabled && <Button onClick={() => void run(() => bridge.open({ outputs: true }))}>{t("files.outputs.open")}</Button>}
       </div>
     </section>
     {ask?.kind === "share" && (ask.check.refusal
       ? <FilesDialog label={refusalText(ask.check.refusal)} onClose={close}
-        actions={<button type="button" autoFocus className="ui-button ui-button-primary" onClick={close}>{t("files.ok")}</button>} />
+        actions={<Button variant="primary" autoFocus onClick={close}>{t("files.ok")}</Button>} />
       : <ConfirmDialog open tone="neutral" icon={<FolderOpen size={18} />} title={t("files.share.title", { name: ask.check.name })}
         body={t("files.share.body", { size: folderSize(ask.check) })} confirmLabel={t("files.share.confirm")}
         onCancel={close} onConfirm={() => share([ask.check.token])} />)}
     {ask?.kind === "stop" && <ConfirmDialog open title={t("files.stop.title", { name: ask.folder.name })} body={t("files.stop.body")}
       confirmLabel={t("files.stop")} onCancel={close} onConfirm={() => { close(); void run(() => bridge.stopSharing(ask.folder.id)); }} />}
     {ask?.kind === "suggest" && <FilesDialog label={t("files.suggest.title")} onClose={close} actions={<>
-      <button type="button" autoFocus className="ui-button" onClick={close}>{t("files.cancel")}</button>
-      <button type="button" disabled={!ask.chosen.length} className="ui-button ui-button-primary" onClick={() => share(ask.chosen)}>{t("files.share.confirm")}</button>
+      <Button autoFocus onClick={close}>{t("files.cancel")}</Button>
+      <Button variant="primary" disabled={!ask.chosen.length} onClick={() => share(ask.chosen)}>{t("files.share.confirm")}</Button>
     </>}>
       <p className="mt-1.5 text-[13px] leading-relaxed text-ink-secondary">{t("files.suggest.body")}</p>
       <ul className="mt-3 flex max-h-72 flex-col gap-1 overflow-y-auto">
@@ -175,7 +176,7 @@ function FilesPage({ bridge }: { bridge: CloudFilesBridge }) {
 
 function FolderRow({ folder, bridge, busy, run, onStop }: { folder: SharedFolder; bridge: CloudFilesBridge; busy: boolean; run: Run; onStop: () => void }) {
   const button = (label: string, action: () => void, primary = false) =>
-    <button type="button" disabled={busy} className={cn("ui-button ui-button-sm", primary && "ui-button-primary")} onClick={action}>{label}</button>;
+    <Button variant={primary ? "primary" : "secondary"} size="sm" disabled={busy} onClick={action}>{label}</Button>;
   const actions = folder.status === "waiting" ? button(t("files.moreSpace"), () => void run(() => bridge.moreSpace()))
     : folder.status === "confirm-deletes" ? <>
       {button(t("files.deletes.remove"), () => void run(() => bridge.answerDeletes(folder.id, true)))}
@@ -228,7 +229,7 @@ function Storage({ disk, busy, onMore }: { disk: CloudFilesDisk; busy: boolean; 
     </div>
     {disk.warn && <div className="flex flex-wrap items-center gap-2">
       <span className="text-[12px] text-warning-text">{t("files.almostFull")}</span>
-      <button type="button" disabled={busy} className="ui-button ui-button-sm" onClick={onMore}>{t("files.moreSpace")}</button>
+      <Button size="sm" disabled={busy} onClick={onMore}>{t("files.moreSpace")}</Button>
     </div>}
   </div>;
 }

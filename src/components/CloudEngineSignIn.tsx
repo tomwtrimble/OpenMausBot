@@ -15,6 +15,7 @@ import type { MausMotion, MausState } from "@/lib/mascot";
 import { withViewTransition } from "@/components/onboarding/view-transition";
 import { useStore, type InstanceInfo } from "@/state/store";
 import { openKeySettings } from "./keys/key-focus";
+import { Button } from "./ui/Button";
 
 type Choice = "claude" | "codex" | "grok";
 type ChoiceKind = "claudeAgent" | "codex" | "grokAgent";
@@ -202,9 +203,9 @@ export function CloudEngineSignIn() {
             <figcaption className="flex items-center justify-between gap-3 text-[12px] text-ink-secondary">
               {t("cloudIntent.pending")}
               {!handing && (
-                <button type="button" onClick={() => withViewTransition(() => reopenCloudIntent(true))} className="rounded-md px-1.5 py-0.5 font-medium text-ink-secondary transition-colors hover:bg-raised hover:text-ink">
+                <Button variant="ghost" size="sm" onClick={() => withViewTransition(() => reopenCloudIntent(true))}>
                   {t("cloudIntent.edit")}
-                </button>
+                </Button>
               )}
             </figcaption>
             <p className="mt-1 text-[14px] leading-relaxed text-ink">

@@ -1,5 +1,6 @@
 import { Children, isValidElement, type ReactElement, type ReactNode } from "react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
+import { isButton } from "@/testing/ui-elements";
 
 const fixture = vi.hoisted(() => ({
   values: [] as unknown[], index: 0, effects: [] as (() => (() => void) | undefined)[],
@@ -37,7 +38,7 @@ const waiting = { phase: "waiting", flowId: "flow-one", authorizationUrl: "https
 const [AUTH, CODE, , ERROR] = [0, 1, 2, 3];
 
 async function startAndPaste(code: string, onDone?: (signedIn: boolean) => void) {
-  render({ onDone }).find((node) => node.type === "button")!.props.onClick!();
+  render({ onDone }).find((node) => isButton(node))!.props.onClick!();
   await flush();
   fixture.values[CODE] = code;
   render({ onDone }).find((node) => node.type === "form")!.props.onSubmit!({ preventDefault: () => {} });
@@ -72,7 +73,7 @@ it("ends the flow with Claude Code's own words when it refuses the code, and off
   fixture.api.mockResolvedValueOnce({ auth: waiting }).mockRejectedValueOnce(new ApiError(refused, 500)).mockResolvedValueOnce({ auth: { ...waiting, phase: "failed" } });
   await startAndPaste("bad-12345678");
   expect(fixture.values[AUTH]).toMatchObject({ phase: "failed", message: refused });
-  expect(JSON.stringify(render().filter((node) => node.type === "button").map((node) => node.props.children))).toContain("Try again");
+  expect(JSON.stringify(render().filter((node) => isButton(node)).map((node) => node.props.children))).toContain("Try again");
   expect(fixture.track).not.toHaveBeenCalled();
 });
 
@@ -88,9 +89,9 @@ it("keeps the flow open after a code Claude Code never took, so a typo can be fi
 
 it("reports no sign-in when the person cancels or the code expires", async () => {
   fixture.api.mockResolvedValueOnce({ auth: waiting }).mockResolvedValueOnce({});
-  render().find((node) => node.type === "button")!.props.onClick!();
+  render().find((node) => isButton(node))!.props.onClick!();
   await flush();
-  const cancel = render().filter((node) => node.type === "button").find((node) => JSON.stringify(node.props.children).includes("Cancel"))!;
+  const cancel = render().filter((node) => isButton(node)).find((node) => JSON.stringify(node.props.children).includes("Cancel"))!;
   await cancel.props.onClick!();
   await flush();
   expect(fixture.values[AUTH]).toBeNull();

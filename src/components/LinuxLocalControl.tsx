@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { useDesktopCapabilities } from "./DesktopCapabilities";
+import { Button } from "./ui/Button";
 
 const LINUX_GUIDE_URL =
   "https://github.com/milind-soni/OpenMausBot/blob/main/docs/linux-desktop.md#enable-local-control";
@@ -135,15 +136,14 @@ export function LinuxLocalControl() {
 
       {!waylandSafetyBlocked && <div className="mt-3 flex gap-2">
         {!local.enabled ? (
-          <button
-            type="button"
+          <Button variant="primary" size="lg"
             disabled={busy}
             onClick={() => void run("enable")}
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-accent py-2 text-[13px] font-medium text-white hover:opacity-90 disabled:opacity-50"
+            className="flex flex-1 gap-2"
           >
             {pending === "enable" ? <Loader2 size={14} className="animate-spin" /> : <Power size={14} />}
             {t("computer.linux.enable")}
-          </button>
+          </Button>
         ) : (
           <>
             {!ready && (

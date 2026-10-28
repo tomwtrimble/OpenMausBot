@@ -6,6 +6,7 @@ import { normalizeImageGenerationUrl, type AvatarImageProvider } from "../../sha
 import { Select } from "./Select";
 import { t } from "@/lib/i18n";
 import { productName } from "@/lib/brand";
+import { Button } from "./ui/Button";
 
 const PROVIDERS = {
   openai: { label: "OpenAI", keyLabel: "OpenAI image API key", credential: "openaiImageApiKey" },
@@ -259,8 +260,7 @@ export function AvatarImageGenerator({
       />
       <div className="mt-2 flex items-center justify-between gap-3">
         <span className="text-[11px] tabular-nums text-ink-secondary">{direction.length}/400</span>
-        <button
-          type="button"
+        <Button variant="primary"
           onClick={() => {
             if (!busy && configured && !unsaved) {
               setError(null);
@@ -268,11 +268,11 @@ export function AvatarImageGenerator({
             }
           }}
           disabled={busy || !configured || unsaved}
-          className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+          className="flex gap-1.5"
         >
           {generating ? <Loader2 size={13} className="animate-spin" /> : <Sparkles size={13} />}
           {generating ? t("botIdentity.ai.generating") : t("botIdentity.ai.generate")}
-        </button>
+        </Button>
       </div>
       {unsaved && <p role="status" className="mt-2 text-[11px] text-ink-secondary">{t("botIdentity.ai.saveBeforeGenerate")}</p>}
       {error && <div role="alert" className="mt-3 text-[12px] text-danger-text">{error}</div>}

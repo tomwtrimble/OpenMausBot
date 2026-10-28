@@ -11,6 +11,7 @@ import { ChatGptPlanStatus } from "./ChatGptPlanStatus";
 import { EngineCard, engineReady, providerName, type EngineCardSummary } from "./EngineLibrary";
 import { CommandRow, EngineSetup, EngineUpdateNotice, EngineWarningNotice } from "./EngineSetup";
 import { MENU_SHEET } from "./menu-recipe";
+import { Button } from "./ui/Button";
 
 /** Providers whose accounts are listed together on one card, each signed in on its own. */
 export type AccountGroup = "claude" | "chatgpt";
@@ -177,7 +178,7 @@ function RenameForm({ instance, onDone }: { instance: InstanceInfo; onDone: () =
         <button type="submit" disabled={saving || !name.trim()} className="rounded-lg bg-raised px-3 py-1.5 text-[12px] font-medium text-ink hover:bg-raised-hover disabled:opacity-50">
           {saving ? <Loader2 size={13} className="animate-spin" /> : t("common.save")}
         </button>
-        <button type="button" onClick={onDone} disabled={saving} className="rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control">{t("common.cancel")}</button>
+        <Button variant="ghost" onClick={onDone} disabled={saving} className="text-[12px] font-normal">{t("common.cancel")}</Button>
       </div>
       {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
     </form>
@@ -216,10 +217,9 @@ function AccountRow({ group, instance, signingIn, onSignIn, onSignInDone }: {
               <div className="truncate text-[12px] text-ink-secondary" title={detail}>{detail}</div>
             </div>
             {state !== "signedIn" && state !== "unavailable" && !blocked && !signingIn && (
-              <button type="button" onClick={onSignIn} className={cn("shrink-0 rounded-lg px-3 py-1.5 text-[12px] font-semibold",
-                state === "signedOut" ? "bg-accent text-white hover:brightness-110" : "bg-control text-ink hover:bg-raised-hover")}>
+              <Button variant={state === "signedOut" ? "primary" : "secondary"} onClick={onSignIn} className="shrink-0 text-[12px]">
                 {t("accounts.signIn")}
-              </button>
+              </Button>
             )}
             <AccountMenu group={group} instance={instance} onRename={() => setRenaming(true)} />
           </>
@@ -283,9 +283,9 @@ export function AddAccount({ label, endpoint, extra, folder: offerFolder = false
 
   if (!open) {
     return (
-      <button type="button" onClick={() => setOpen(true)} className="flex min-h-8 w-fit items-center gap-1.5 rounded-lg px-2 py-1.5 text-[13px] font-medium text-ink-secondary outline-none hover:bg-control hover:text-ink focus-visible:ring-2 focus-visible:ring-focus">
+      <Button variant="ghost" onClick={() => setOpen(true)} className="flex w-fit gap-1.5 px-2 outline-none">
         <Plus size={14} />{label}
-      </button>
+      </Button>
     );
   }
   return (
@@ -306,10 +306,10 @@ export function AddAccount({ label, endpoint, extra, folder: offerFolder = false
       )}
       {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       <div className="flex justify-end gap-2">
-        <button type="button" onClick={() => { setOpen(false); setError(null); }} disabled={saving} className="rounded-lg px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-control disabled:opacity-50">{t("common.cancel")}</button>
-        <button type="submit" disabled={saving || !name.trim()} className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-[12px] font-semibold text-white hover:brightness-110 disabled:opacity-50">
+        <Button variant="ghost" onClick={() => { setOpen(false); setError(null); }} disabled={saving} className="text-[12px] font-normal">{t("common.cancel")}</Button>
+        <Button variant="primary" type="submit" disabled={saving || !name.trim()} className="flex gap-1.5 text-[12px]">
           {saving && <Loader2 size={13} className="animate-spin" />}{t("accounts.addSubmit")}
-        </button>
+        </Button>
       </div>
     </form>
   );

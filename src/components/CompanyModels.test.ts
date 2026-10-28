@@ -19,6 +19,7 @@ vi.mock("@/state/store", async (original) => ({ ...await original<typeof import(
   useStore: () => ({ state: { bots: fixture.bots, instances: fixture.instances }, dispatch: fixture.dispatch, flushBotPatches: fixture.flushBotPatches, refreshInstances: vi.fn(), refreshModels: vi.fn() }),
 }));
 import { CompanyModels } from "./CompanyModels";
+import { isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; onClick?: () => void }>;
 function nodes(value: ReactNode): Node[] {
@@ -38,7 +39,7 @@ function render() {
   const html = renderToStaticMarkup(createElement(Capture));
   return { html, nodes: nodes(tree) };
 }
-const buttons = () => render().nodes.filter((node) => node.type === "button");
+const buttons = () => render().nodes.filter((node) => isButton(node));
 const flush = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
 
 const managed = { organizationId: "fixture-org", organizationName: "Fixture Company" };
@@ -85,7 +86,7 @@ describe("Company models in the connected Organisation panel", () => {
     const view = render();
     expect(view.html).toContain("Can’t run now: Scout, Maus");
     expect(view.html).not.toContain("Writer");
-    const action = view.nodes.find((node) => node.type === "button" && node.props.children === "Use Company · Fixture Company · Claude for 2 bots that can’t run");
+    const action = view.nodes.find((node) => isButton(node) && node.props.children === "Use Company · Fixture Company · Claude for 2 bots that can’t run");
     expect(action).toBeDefined();
     expect(view.html).not.toMatch(/role="dialog"/);
     expect(fixture.dispatch).not.toHaveBeenCalled();
@@ -99,7 +100,7 @@ describe("Company models in the connected Organisation panel", () => {
 
   it("names only bots the server kept on the Company model", async () => {
     fixture.kept = new Set(["b3"]);
-    const use = () => render().nodes.find((node) => node.type === "button" && String(node.props.children).startsWith("Use "))!;
+    const use = () => render().nodes.find((node) => isButton(node) && String(node.props.children).startsWith("Use "))!;
     use().props.onClick!(); await flush();
     expect(fixture.flushBotPatches.mock.calls).toEqual([["b1"], ["b3"]]);
     const html = render().html;
@@ -125,7 +126,7 @@ describe("Company models in the connected Organisation panel", () => {
     fixture.bots = [bot("b2", "Writer", "grok")];
     const view = render();
     expect(view.html).toContain("does not allow the Claude engine");
-    const action = view.nodes.find((node) => node.type === "button" && node.props.children === "Use Company · Fixture Company · OpenRouter for 1 bot that can’t run");
+    const action = view.nodes.find((node) => isButton(node) && node.props.children === "Use Company · Fixture Company · OpenRouter for 1 bot that can’t run");
     action!.props.onClick!(); await flush();
     expect(fixture.dispatch).toHaveBeenCalledExactlyOnceWith({ type: "setModel", botId: "b2", selection: { instanceId: "company.fixture.openrouter", model: "fixture/router" } });
   });

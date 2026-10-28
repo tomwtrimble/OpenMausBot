@@ -5,6 +5,7 @@ import type { Bot } from "@/state/store";
 import { t } from "@/lib/i18n";
 import type { OfferedOrgSkill } from "@/lib/org-library";
 import { useBotEditor } from "./BotEditorContext";
+import { Button } from "../ui/Button";
 
 export function OrgSkillsCard({ bot, onAdded }: { bot: Bot; onAdded: () => void }) {
   const { request, draft } = useBotEditor();
@@ -80,15 +81,14 @@ export function OrgSkillsCard({ bot, onAdded }: { bot: Bot; onAdded: () => void 
                 <Check size={13} className="text-success" />{t("orgLibrary.added")}
               </span>
             ) : (
-              <button
-                type="button"
+              <Button
                 disabled={working !== ""}
                 onClick={() => void add(skill)}
                 aria-label={t("orgLibrary.skillAddAria", { name: skill.name })}
-                className="shrink-0 rounded-lg bg-control px-3 py-1.5 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                className="shrink-0 font-normal"
               >
                 {working === `${skill.installId}:${skill.name}` ? t("orgLibrary.adding") : t("orgLibrary.add")}
-              </button>
+              </Button>
             )}
           </div>
         ))}

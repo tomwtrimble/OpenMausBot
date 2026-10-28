@@ -8,6 +8,7 @@ import { grokImportPreview, teamImportPreview, type PendingTeamImport } from "@/
 import { api } from "@/state/store";
 import { GrokBotMark } from "./GrokBotMark";
 import { GROK_EXPORT_PROMPT, grokStarterPackage, type GrokExport, type GrokTemplateCard } from "../../shared/grok-import";
+import { Button } from "./ui/Button";
 
 const errorText = (cause: unknown) => (cause instanceof Error ? cause.message : String(cause));
 const CURSOR_POLL_MS = 2_000;
@@ -87,14 +88,14 @@ export function GrokImportView(props: GrokImportViewProps) {
           aria-label={t("grokImport.linkLabel")}
           className="min-w-0 flex-1 rounded-xl bg-raised/80 px-3 py-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
         />
-        <button
+        <Button variant="primary" size="lg"
           onClick={props.onLoad}
           disabled={!url.trim() || loading}
-          className="flex items-center gap-1.5 rounded-full bg-accent px-4 py-2.5 text-[13px] font-medium text-white hover:bg-accent/90 disabled:opacity-40"
+          className="flex gap-1.5 rounded-full min-h-10"
         >
           {loading && <Loader2 size={13} className="animate-spin" />}
           {t("templates.load")}
-        </button>
+        </Button>
       </div>
       {!card && <CursorLine cursor={props.cursor} card={null} onSignIn={props.onCursorSignIn} onSignOut={props.onCursorSignOut} />}
       {card && (
@@ -126,13 +127,13 @@ export function GrokImportView(props: GrokImportViewProps) {
         className="mt-3 w-full resize-y rounded-xl bg-raised/80 px-3 py-2.5 font-mono text-[12px] text-ink placeholder:text-ink-secondary focus:outline-none"
       />
       <div className="mt-2 flex justify-end">
-        <button
+        <Button variant="primary" size="lg"
           onClick={props.onPreviewReply}
           disabled={!reply.trim()}
-          className="rounded-full bg-accent px-4 py-2.5 text-[13px] font-medium text-white hover:bg-accent/90 disabled:opacity-40"
+          className="rounded-full min-h-10"
         >
           {t("grokImport.preview")}
-        </button>
+        </Button>
       </div>
       {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
     </section>

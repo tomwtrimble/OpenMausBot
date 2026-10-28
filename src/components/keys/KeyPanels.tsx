@@ -6,6 +6,7 @@ import { t } from "@/lib/i18n";
 import { Switch } from "../SettingsPrimitives";
 import { KEY_FIELD } from "./KeyRow";
 import { cleanKey, looksLikeKey } from "./key-save";
+import { Button } from "../ui/Button";
 
 /** Security: write-only; the server returns names, never keys, and hands the keys to OpenCode alone. */
 export function OpenCodeProviderKeys() {
@@ -59,15 +60,14 @@ export function OpenCodeProviderKeys() {
       {names.map((saved) => (
         <div key={saved} data-opencode-provider-key={saved} className="flex flex-wrap items-center gap-2">
           <span className={cn(KEY_FIELD, "block flex-1 truncate text-ink")}>{saved}</span>
-          <button
-            type="button"
+          <Button
             onClick={() => remove(saved)}
             disabled={busy}
             aria-label={t("keys.opencode.otherProviders.removeAria", { name: saved })}
-            className="ui-button shrink-0"
+            className="shrink-0"
           >
             {removing === saved ? <Loader2 size={13} className="animate-spin" aria-hidden="true" /> : t("keys.row.remove")}
-          </button>
+          </Button>
         </div>
       ))}
       <div className="flex flex-wrap items-center gap-2">
@@ -94,9 +94,9 @@ export function OpenCodeProviderKeys() {
           autoComplete="off"
           className={cn(KEY_FIELD, "w-auto min-w-[min(100%,10rem)] flex-1")}
         />
-        <button type="button" onClick={add} disabled={busy || !name.trim() || !key.trim()} className="ui-button ui-button-primary shrink-0">
+        <Button variant="primary" onClick={add} disabled={busy || !name.trim() || !key.trim()} className="shrink-0">
           {adding ? <Loader2 size={13} className="animate-spin" aria-hidden="true" /> : t("common.save")}
-        </button>
+        </Button>
       </div>
       {error && <div role="alert" className="text-[12px] leading-4 text-danger-text">{error}</div>}
     </div>
@@ -186,15 +186,15 @@ export function VpsConnection() {
           spellCheck={false}
           className={cn(KEY_FIELD, "w-auto min-w-[min(100%,12rem)] flex-1")}
         />
-        <button
-          type="button"
+        <Button
+          variant={clearing ? "secondary" : "primary"}
           onClick={save}
           disabled={saving || (!alias.trim() && !configured) || alias.trim() === (state.config?.vps?.sshAlias ?? "")}
-          className={cn("ui-button shrink-0", !clearing && "ui-button-primary")}
+          className="shrink-0"
           title={clearing ? t("keys.vps.removeAlias") : undefined}
         >
           {saving ? <Loader2 size={13} className="animate-spin" aria-hidden="true" /> : clearing ? t("keys.row.remove") : t("common.save")}
-        </button>
+        </Button>
       </div>
       {error && <div role="alert" className="text-[12px] leading-4 text-danger-text">{error}</div>}
     </div>

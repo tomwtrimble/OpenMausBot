@@ -5,6 +5,7 @@ import { productName } from "@/lib/brand";
 import { t } from "@/lib/i18n";
 import { companyModelCount, DEFAULT_ADMIN_ORIGIN } from "@/lib/onboarding";
 import { staggerIndex } from "./shared";
+import { Button } from "../../ui/Button";
 
 const linkClass = "w-fit text-[12px] text-ink-secondary underline-offset-2 transition-colors hover:text-ink hover:underline";
 
@@ -96,14 +97,13 @@ export function OrganisationRow({
       </>
     );
     action = (
-      <button
-        type="button"
+      <Button variant="primary"
         disabled={busy}
         onClick={() => void perform(() => bridge.begin({ portalOrigin: DEFAULT_ADMIN_ORIGIN }))}
-        className="shrink-0 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-white transition-[filter] hover:brightness-110 disabled:opacity-50"
+        className="shrink-0 transition-[filter]"
       >
         {busy ? t("organization.working") : t("onboarding.org.signIn")}
-      </button>
+      </Button>
     );
   } else if (connection.status === "connecting") {
     body = (
@@ -120,14 +120,13 @@ export function OrganisationRow({
       </>
     );
     action = (
-      <button
-        type="button"
+      <Button variant="ghost" size="md"
         disabled={busy}
         onClick={() => void perform(() => bridge.cancelEnrollment())}
-        className="shrink-0 rounded-md px-2 py-1 text-[12px] text-ink-secondary transition-colors hover:bg-raised hover:text-ink disabled:opacity-50"
+        className="shrink-0 text-[12px] font-normal"
       >
         {t("organization.cancel")}
-      </button>
+      </Button>
     );
   } else if (connection.status === "connected") {
     body = (

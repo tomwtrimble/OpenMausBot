@@ -4,6 +4,7 @@ import { api, useStore, type ConfigStatus } from "@/state/store";
 import { liveDisclosure } from "@/lib/call-mode";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
+import { Button } from "./ui/Button";
 
 export function LiveKeySetup({ onSaved, compact = false }: { onSaved: () => void; compact?: boolean }) {
   const { state, dispatch } = useStore();
@@ -60,13 +61,13 @@ export function LiveKeySetup({ onSaved, compact = false }: { onSaved: () => void
         className="rounded-lg border border-edge bg-inset px-3 py-2 text-[13px] text-ink outline-none focus:border-accent/60"
       />
       {error && <div className="text-[12px] text-danger-text">{error}</div>}
-      <button
+      <Button variant="primary"
         type="submit"
         disabled={!key.trim() || saving}
-        className="self-start rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+        className="self-start"
       >
         {saving ? t("call.live.keySaving") : compact ? t("common.save") : t("call.live.keySaveAndCall")}
-      </button>
+      </Button>
     </form>
   );
 }

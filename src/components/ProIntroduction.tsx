@@ -8,6 +8,7 @@ import { t } from "@/lib/i18n";
 import { SettingRow } from "./SettingsPrimitives";
 import { UpgradeButton, type UpgradeUi } from "./CloudUsageMeter";
 import type { CloudUsage } from "../../electron/cloud-home.mjs";
+import { Button } from "./ui/Button";
 
 export function proOfferAvailable(account: CloudAccountState | null): boolean {
   return buyOfferAllowed(cloudPlanView(account));
@@ -49,7 +50,7 @@ export function ProSettingsCard() {
         <div className="flex flex-wrap items-center gap-3">
           <button type="button" className="cursor-pointer text-[13px] text-ink-secondary underline underline-offset-2 hover:text-ink"
             onClick={() => dispatch({ type: "openCloudAdd", source: "app_settings" })}>{t("pro.seePlans")}</button>
-          <button type="button" className="ui-button ui-button-primary" onClick={() => dispatch({ type: "openCloudAdd", source: "app_settings" })}>{t(trial ? "cloudIntro.start" : "cloudAccount.upgrade")}</button>
+          <Button variant="primary" onClick={() => dispatch({ type: "openCloudAdd", source: "app_settings" })}>{t(trial ? "cloudIntro.start" : "cloudAccount.upgrade")}</Button>
         </div>
         {view.kind === "signed-out" && <button type="button" className="cursor-pointer text-[13px] font-medium text-accent-text underline underline-offset-2 hover:text-ink"
           onClick={() => dispatch({ type: "openCloudAdd", source: "app_settings", signIn: true })}>{t("cloudAccount.signIn")}</button>}
@@ -64,7 +65,7 @@ export function ProSettingsCard() {
       <div><h3 className="text-[14px] font-semibold text-ink">{t("settings.section.cloudAccount")}</h3>
         <p className="mt-1 text-[12px] text-ink-secondary">{view.kind === "reauth" ? t("pro.reauthShort") : line}</p></div>
     </div>
-    <button type="button" className="ui-button" onClick={() => dispatch({ type: "toggleAppSettings", open: true, section: "cloudAccount" })}>{t("pro.openCloudSettings")}</button>
+    <Button onClick={() => dispatch({ type: "toggleAppSettings", open: true, section: "cloudAccount" })}>{t("pro.openCloudSettings")}</Button>
   </section>;
 }
 
@@ -84,8 +85,8 @@ export function CloudPlanRow({ place, usage = null, upgrade }: { place: "account
             <button type="button" className="cursor-pointer text-[13px] text-ink-secondary hover:text-ink"
               onClick={() => dispatch({ type: "openCloudAdd", source: "app_settings", signIn: true })}>{t("cloudAccount.signIn")}</button>
           )}
-          <button type="button" data-cloud-offer={trial ? "trial" : "plans"} className="ui-button ui-button-primary"
-            onClick={() => dispatch({ type: "openCloudAdd", source: "app_settings" })}>{t(trial ? "cloudIntro.start" : "cloudAccount.upgrade")}</button>
+          <Button variant="primary" data-cloud-offer={trial ? "trial" : "plans"}
+            onClick={() => dispatch({ type: "openCloudAdd", source: "app_settings" })}>{t(trial ? "cloudIntro.start" : "cloudAccount.upgrade")}</Button>
         </div>
       </SettingRow>
     );
@@ -95,8 +96,8 @@ export function CloudPlanRow({ place, usage = null, upgrade }: { place: "account
   return (
     <SettingRow title={t("pro.name")} subtitle={line}>
       {place === "account" ? (
-        <button type="button" data-cloud-plan={plan.view.kind} className="ui-button"
-          onClick={() => dispatch({ type: "toggleAppSettings", open: true, section: "cloudAccount" })}>{t("settings.simple.account.manage")}</button>
+        <Button data-cloud-plan={plan.view.kind}
+          onClick={() => dispatch({ type: "toggleAppSettings", open: true, section: "cloudAccount" })}>{t("settings.simple.account.manage")}</Button>
       ) : usage && upgrade ? <UpgradeButton usage={usage} upgrade={upgrade} /> : null}
     </SettingRow>
   );

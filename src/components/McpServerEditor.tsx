@@ -9,6 +9,7 @@ import { McpResultBudgetField, withResultBudget, type McpMessage } from "./McpRe
 import { McpSecretRows } from "./McpSecretRows";
 import { Select } from "./Select";
 import { draftBody, draftFor, draftFromPaste, emptyDraft, isRemoteMcpListing, soleKey, type McpDraft, type McpServerListing } from "./mcp-draft";
+import { Button } from "./ui/Button";
 
 export interface McpServerSubmission {
   name: string;
@@ -223,11 +224,11 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
       )}
       {error && <p role="alert" className="mt-3 text-[12px] text-danger-text">{t(error.key, error.params)}</p>}
       <div className="mt-4 flex justify-end gap-2">
-        <button type="button" onClick={onCancel} className="rounded-lg px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised">{t("mcp.cancel")}</button>
-        <button type="button" disabled={busy || !drafts.length} onClick={submit}
-          className="flex items-center gap-1.5 rounded-lg bg-accent px-3.5 py-2 text-[13px] font-medium text-white disabled:opacity-50">
+        <Button variant="ghost" size="lg" onClick={onCancel} className="px-3 font-normal">{t("mcp.cancel")}</Button>
+        <Button variant="primary" size="lg" disabled={busy || !drafts.length} onClick={submit}
+          className="flex gap-1.5">
           {busy && <Loader2 size={13} className="animate-spin" />} {t(adding ? "mcp.add" : "mcp.save")}
-        </button>
+        </Button>
       </div>
     </div>
   );

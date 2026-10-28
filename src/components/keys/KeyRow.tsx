@@ -8,6 +8,7 @@ import { keyRemoved, keySaved, keySaveFailure, savedKeyResult } from "@/lib/prod
 import { InstanceProviderMark } from "../ProviderIcons";
 import { keyEntry, keyForInstance, looksLikeOtherKey, savedState, type KeyEntry, type KeyId, type SavedState } from "./key-catalog";
 import { checkKey, cleanKey, looksLikeKey, saveKey } from "./key-save";
+import { Button } from "../ui/Button";
 
 export const KEY_FIELD = "h-8 w-full min-w-0 rounded-lg border border-hairline bg-inset px-3 font-mono text-[13px] leading-8 text-ink placeholder:text-ink-tertiary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus/60 disabled:opacity-60";
 export const KEY_ROW = "group flex scroll-mt-24 flex-col gap-2 rounded-[10px] px-4 py-2.5 transition-[background-color,box-shadow] duration-500 data-[key-highlight]:bg-accent/10 data-[key-highlight]:ring-1 data-[key-highlight]:ring-accent/40 motion-reduce:transition-none";
@@ -293,10 +294,10 @@ export function KeyRow({
         </button>
       </div>
       <span className="flex shrink-0 items-center gap-2">
-        <button type="button" data-key-save className="ui-button ui-button-primary" disabled={!draft.trim() || busy !== null} onClick={() => void save(draft)}>
+        <Button variant="primary" data-key-save disabled={!draft.trim() || busy !== null} onClick={() => void save(draft)}>
           {t("common.save")}
-        </button>
-        {replacing && <button type="button" className="ui-button" onClick={cancelReplace}>{t("common.cancel")}</button>}
+        </Button>
+        {replacing && <Button onClick={cancelReplace}>{t("common.cancel")}</Button>}
       </span>
     </div>
   );
@@ -305,8 +306,8 @@ export function KeyRow({
     <div className="flex flex-wrap items-center gap-2">
       <MaskedKey saved={saved} label={label} />
       <span className="flex shrink-0 items-center gap-2">
-        <button ref={replaceRef} type="button" data-key-replace className="ui-button" disabled={busy !== null} onClick={startReplace}>{t("keys.row.replace")}</button>
-        {!pointer && <button type="button" data-key-remove className="ui-button" disabled={busy !== null} onClick={() => void remove()}>{t("keys.row.remove")}</button>}
+        <Button ref={replaceRef} data-key-replace disabled={busy !== null} onClick={startReplace}>{t("keys.row.replace")}</Button>
+        {!pointer && <Button data-key-remove disabled={busy !== null} onClick={() => void remove()}>{t("keys.row.remove")}</Button>}
       </span>
     </div>
   );
@@ -327,7 +328,7 @@ export function KeyRow({
       <div className={cn("flex flex-col gap-2", !bare && "pl-8")}>
         {fieldShown ? field : saved.configured ? masked : (
           <div>
-            <button type="button" data-key-own className="ui-button" onClick={() => { setOwnKey(true); focusAfter.current = "input"; }}>{t("keys.row.useOwn")}</button>
+            <Button data-key-own onClick={() => { setOwnKey(true); focusAfter.current = "input"; }}>{t("keys.row.useOwn")}</Button>
           </div>
         )}
         {(notice || failure || other || warning || note || verdict || (fieldShown && target.href) || (!fieldShown && saved.configured && target.test)) && (

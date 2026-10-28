@@ -99,6 +99,7 @@ import { RoomBulletin } from "./RoomBulletin";
 import { RoomHeader } from "./RoomHeader";
 import { useChatFindRequests } from "@/lib/chat-find";
 import { simpleRoomHeader } from "@/lib/room-panel";
+import { Button } from "./ui/Button";
 
 export function RoomToolChip({ message, roomId, live = false }: { message: Message; roomId?: string; live?: boolean }) {
   const { state, dispatch } = useStore();
@@ -868,14 +869,14 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
           >
             {t("room.setup.skip")}
           </button>
-          <button
+          <Button variant="primary" size="lg"
             type="submit"
             disabled={saving}
-            className="flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-50"
+            className="flex gap-2 rounded-xl min-h-10"
           >
             {saving && <Loader2 size={14} className="animate-spin" />}
             {t("room.setup.save")}
-          </button>
+          </Button>
         </div>
       </form>
     </section>

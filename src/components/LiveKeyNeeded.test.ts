@@ -8,6 +8,7 @@ vi.mock("@/state/store", () => ({ useStore: () => ({ state: { config: { cloudHom
 vi.mock("@/lib/live-call-media", () => ({ dismissLiveNotice: f.dismiss }));
 import { LiveKeyNeeded } from "./LiveKeyNeeded";
 import { finishKeyFocus, useKeyFocus } from "./keys/key-focus";
+import { isButton } from "@/testing/ui-elements";
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -30,7 +31,7 @@ it("says one plain thing, names OpenAI, and offers only the way to Settings → 
 });
 
 it("opens Settings at the OpenAI key in Voice and calls, and puts the prompt away", () => {
-  const button = nodes(LiveKeyNeeded()).find((node) => node.type === "button");
+  const button = nodes(LiveKeyNeeded()).find((node) => isButton(node));
   expect(button).toBeTruthy();
   button!.props.onClick!();
   expect(f.dispatch).toHaveBeenCalledExactlyOnceWith({ type: "toggleAppSettings", open: true, section: "connections" });

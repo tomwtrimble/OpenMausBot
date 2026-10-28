@@ -12,6 +12,7 @@ import { noteAppCopySwitch } from "@/state/engine-install";
 import { keyEntry, keyForInstance, type KeyId } from "./keys/key-catalog";
 import { openKeySettings } from "./keys/key-focus";
 import { KeyRow, SavedKeyLine } from "./keys/KeyRow";
+import { Button } from "./ui/Button";
 
 type Platform = "darwin" | "win32" | "linux";
 
@@ -86,27 +87,25 @@ export function CommandRow({
         <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-ink-secondary" title={command}>
           {command}
         </code>
-        <button
-          type="button"
+        <Button variant="ghost" size="sm"
           onClick={() => void copy()}
           aria-label={t("engineSetup.copyCommand")}
           title={t("engineSetup.copyCommand")}
-          className="flex shrink-0 items-center gap-1 rounded-md px-1.5 py-1 text-[11px] font-medium text-ink-secondary hover:bg-control hover:text-ink"
+          className="flex shrink-0 gap-1 text-[11px]"
         >
           {copyIcon(12)}
           {t(status === "copied" ? "engineSetup.copied" : status === "failed" ? "common.copyFailed" : "engineSetup.copy")}
-        </button>
+        </Button>
         {canOpen && (
-          <button
-            type="button"
+          <Button variant="primary" size="sm"
             onClick={() => void openTerminal()}
             aria-label={actionLabel}
             title={actionLabel}
-            className="flex shrink-0 items-center gap-1 rounded-md bg-accent px-2 py-1 text-[11px] font-semibold text-white hover:brightness-110"
+            className="flex shrink-0 gap-1 text-[11px]"
           >
             {status === "opened" ? <Check size={12} /> : <TerminalSquare size={12} />}
             {status === "opened" ? t("engineSetup.opened") : t("engineSetup.terminal")}
-          </button>
+          </Button>
         )}
         <span aria-live="polite" className="sr-only">
           {status === "opened" ? t("engineSetup.openedHint") : ""}
@@ -122,42 +121,39 @@ export function CommandRow({
           {command}
         </code>
         {canOpen && (
-          <button
-            type="button"
+          <Button variant="ghost" size="md"
             onClick={() => void copy()}
             aria-label={t("engineSetup.copyCommand")}
             title={t("engineSetup.copyCommand")}
-            className="flex shrink-0 items-center gap-1 rounded-md px-1.5 py-1 text-[12px] font-medium text-ink-secondary hover:bg-control hover:text-ink"
+            className="flex shrink-0 gap-1 px-1.5 text-[12px]"
           >
             {copyIcon(12)}
             {t(status === "copied" ? "engineSetup.copied" : status === "failed" ? "common.copyFailed" : "engineSetup.copy")}
-          </button>
+          </Button>
         )}
       </div>
 
       {canOpen ? (
         <>
-          <button
-            type="button"
+          <Button variant="primary" size="lg"
             onClick={() => void openTerminal()}
-            className="mt-2 flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110"
+            className="mt-2 flex w-full gap-2 whitespace-nowrap px-3"
           >
             {status === "opened" ? <Check size={14} /> : <TerminalSquare size={14} />}
             {status === "opened" ? t("engineSetup.terminalOpened") : actionLabel}
-          </button>
+          </Button>
           <p aria-live="polite" className="mt-1.5 text-center text-[11px] text-ink-tertiary">
             {status === "opened" ? t("engineSetup.pasteHint") : t("engineSetup.copyOnOpenHint")}
           </p>
         </>
       ) : (
-        <button
-          type="button"
+        <Button size="lg"
           onClick={() => void copy()}
-          className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-control px-3 py-2 text-[13px] font-semibold text-ink hover:bg-raised-hover"
+          className="mt-2 flex w-full gap-2 px-3"
         >
           {copyIcon(14)}
           {t(status === "copied" ? "engineSetup.commandCopied" : status === "failed" ? "common.copyFailed" : "engineSetup.copyCommand")}
-        </button>
+        </Button>
       )}
     </div>
   );
@@ -196,18 +192,18 @@ function ServerEngineInstall({ instance, mode, command, quiet = false }: { insta
 
   return (
     <div className="mt-3 space-y-2">
-      <button
-        type="button"
+      <Button
+        variant={quiet ? "secondary" : "primary"}
+        size="lg"
         disabled={busy}
         onClick={() => void run()}
-        className={cn("flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-[13px] font-semibold disabled:cursor-wait disabled:opacity-70",
-          quiet ? "bg-control text-ink hover:bg-raised-hover" : "ui-button-primary bg-accent text-white hover:brightness-110")}
+        className="flex w-full gap-2 px-3 disabled:cursor-wait"
       >
         {busy ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
         {busy
           ? t("engineSetup.serverInstalling")
           : t(mode === "update" ? "engineSetup.serverUpdate" : "engineSetup.serverInstall", { name: instance.displayName })}
-      </button>
+      </Button>
       {standalone && mode === "install" && !busy && !done && (
         <p className="text-center text-[11px] text-ink-tertiary">
           {/* Decimal megabytes, as macOS and Windows show file sizes. */}
@@ -343,15 +339,14 @@ function ManagedEngineSetup({ instance, signInOnly }: { instance: InstanceInfo; 
   if (!signInOnly) {
     return (
       <div className="mt-3">
-        <button
-          type="button"
+        <Button variant="primary" size="lg"
           disabled={busy !== null}
           onClick={() => void install()}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:cursor-wait disabled:opacity-70"
+          className="flex w-full gap-2 px-3 disabled:cursor-wait"
         >
           {busy === "install" ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
           {busy === "install" ? t("engineSetup.installing") : managed.label}
-        </button>
+        </Button>
         <p className="mt-1.5 text-center text-[11px] text-ink-tertiary">
           {t("engineSetup.downloadNote", { mb: Math.ceil(managed.downloadBytes / 1024 / 1024) })}
         </p>
@@ -362,11 +357,10 @@ function ManagedEngineSetup({ instance, signInOnly }: { instance: InstanceInfo; 
 
   return (
     <div className="mt-3 space-y-2">
-      <button
-        type="button"
+      <Button variant="primary" size="lg"
         disabled={busy !== null}
         onClick={() => void signIn()}
-        className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:cursor-wait disabled:opacity-70"
+        className="flex w-full gap-2 px-3 disabled:cursor-wait"
       >
         {busy === "signin" ? <Loader2 size={14} className="animate-spin" /> : <LogIn size={14} />}
         {busy === "signin"
@@ -374,13 +368,13 @@ function ManagedEngineSetup({ instance, signInOnly }: { instance: InstanceInfo; 
           : flow
             ? t("engineSetup.openGoogleAgain")
             : t("engineSetup.signInGoogle")}
-      </button>
+      </Button>
       {busy === "signin" && <p role="status" className="text-[12px] text-ink-secondary">{t("engineSetup.antigravitySlow")}</p>}
       {flow && (
         <>
-          <button type="button" onClick={() => void check()} className="w-full rounded-lg bg-control px-3 py-2 text-[12px] font-semibold text-ink hover:bg-raised-hover">
+          <Button size="lg" onClick={() => void check()} className="w-full px-3 text-[12px]">
             {busy === "check" ? t("common.checking") : t("engineSetup.finishedSignIn")}
-          </button>
+          </Button>
           <details className="rounded-lg border border-hairline bg-app px-2.5 py-2 text-[12px] text-ink-secondary">
             <summary className="cursor-pointer select-none">{t("engineSetup.otherComputer")}</summary>
             <p className="mt-2 leading-relaxed">{t("engineSetup.otherComputerHint")}</p>
@@ -391,14 +385,13 @@ function ManagedEngineSetup({ instance, signInOnly }: { instance: InstanceInfo; 
               placeholder="http://127.0.0.1:…/?code=…"
               className="mt-2 w-full rounded-md border border-edge bg-inset px-2 py-1.5 text-[11px] text-ink outline-none focus:border-accent"
             />
-            <button
-              type="button"
+            <Button
               disabled={!callbackUrl.trim() || busy !== null}
               onClick={() => void complete()}
-              className="mt-2 w-full rounded-md bg-control px-2 py-1.5 font-medium text-ink disabled:opacity-50"
+              className="mt-2 w-full px-2"
             >
               {busy === "complete" ? t("engineSetup.sending") : t("engineSetup.sendRedirect")}
-            </button>
+            </Button>
           </details>
         </>
       )}

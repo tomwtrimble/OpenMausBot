@@ -5,6 +5,7 @@ import { t } from "@/lib/i18n";
 import { openExternalLink } from "@/lib/app-links";
 import { engineSignedIn } from "@/lib/product-events";
 import { type DeviceSignInStatus } from "./DeviceSignIn";
+import { Button } from "./ui/Button";
 
 const SIGN_IN_HOSTS = ["claude.com", "claude.ai", "console.anthropic.com", "platform.claude.com"];
 
@@ -153,18 +154,18 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
               placeholder={t("accounts.claude.codePlaceholder")}
               className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink outline-none focus:border-accent-border"
             />
-            <button type="submit" disabled={busy !== null || code.trim().length < 8} className="flex shrink-0 items-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-50">
+            <Button variant="primary" size="lg" type="submit" disabled={busy !== null || code.trim().length < 8} className="flex shrink-0 gap-1.5 px-3">
               {busy === "finish" && <Loader2 size={13} className="animate-spin" />}
               {busy === "finish" ? t("engineSetup.claude.finishing") : t("accounts.claude.finish")}
-            </button>
+            </Button>
           </div>
         </div>
         {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
         <div className="flex items-center justify-between gap-3">
           <p className="text-[11px] leading-relaxed text-ink-secondary">{t("accounts.claude.security")}</p>
-          <button type="button" disabled={busy !== null} onClick={() => void cancel()} className="shrink-0 rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50">
+          <Button variant="ghost" disabled={busy !== null} onClick={() => void cancel()} className="shrink-0 text-[12px] font-normal">
             {t("common.cancel")}
-          </button>
+          </Button>
         </div>
       </form>
     );
@@ -176,17 +177,16 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
     <div className="mt-3 space-y-2" data-claude-sign-in>
       {outcome && <p role="status" className="text-[12px] text-ink-secondary">{outcome}</p>}
       <div className="flex flex-wrap items-center gap-2">
-        <button
-          type="button"
+        <Button variant="primary" size="lg"
           disabled={busy !== null}
           onClick={() => void start()}
-          className="flex items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-50"
+          className="flex gap-2 px-3"
         >
           {busy === "start" ? <Loader2 size={14} className="animate-spin" /> : <LogIn size={14} />}
           {busy === "start" ? t("engineSetup.claude.starting") : auth || error ? t("engineSetup.device.tryAgain") : t("engineSetup.claude.start")}
-        </button>
+        </Button>
         {onDone && (auth || error) && busy === null && (
-          <button type="button" onClick={() => onDone(false)} className="rounded-lg px-2.5 py-2 text-[12px] text-ink-secondary hover:bg-control hover:text-ink">{t("common.cancel")}</button>
+          <Button variant="ghost" size="lg" onClick={() => onDone(false)} className="px-2.5 text-[12px] font-normal">{t("common.cancel")}</Button>
         )}
       </div>
       {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}

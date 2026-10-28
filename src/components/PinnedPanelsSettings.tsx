@@ -5,6 +5,7 @@ import { setWebPanels, useWebPanels } from "@/lib/web-panel-preferences";
 import { MAX_WEB_PANELS, MAX_WEB_PANEL_NAME, newWebPanelId, validateWebPanel } from "@/lib/web-panels";
 
 import { Card } from "./SettingsPrimitives";
+import { Button } from "./ui/Button";
 
 const field = "min-w-0 rounded-lg border bg-inset px-3 py-2 text-[14px] text-ink focus:outline-none";
 
@@ -39,13 +40,12 @@ export function PinnedPanelsSettings() {
                   <p className="truncate text-[14px] font-medium text-ink">{panel.name}</p>
                   <p className="truncate text-[12px] text-ink-secondary" title={panel.url}>{panel.url}</p>
                 </div>
-                <button
-                  type="button"
-                  className="ui-button text-danger-text"
+                <Button
+                  className="text-danger-text"
                   onClick={() => setWebPanels(panels.filter((entry) => entry.id !== panel.id))}
                 >
                   {t("webPanels.settings.remove")}
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
@@ -73,9 +73,9 @@ export function PinnedPanelsSettings() {
             onKeyDown={(event) => { if (event.key === "Enter") add(); }}
             className={`${field} flex-1 ${error === "url" || error === "self" ? "border-danger/60" : "border-hairline focus:border-focus"}`}
           />
-          <button type="button" className="ui-button" disabled={full} onClick={add}>
+          <Button disabled={full} onClick={add}>
             {t("webPanels.settings.add")}
-          </button>
+          </Button>
         </div>
         {error && (
           <p role="alert" className="text-[12px] text-danger-text">

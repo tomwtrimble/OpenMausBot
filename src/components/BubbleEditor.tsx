@@ -6,6 +6,7 @@ import { useAdvancedMode } from "@/lib/interface-mode";
 import { sendsMessage, useSendKey } from "@/lib/send-key";
 import type { userBubbleStyle } from "@/lib/user-bubble-tone";
 import { SIMPLE_BUBBLE_MAX, SIMPLE_USER_BUBBLE } from "./chat-bubble";
+import { Button } from "./ui/Button";
 
 /** Edits one of your sent messages in place, in the bubble's own shape; the send key resubmits and Escape cancels. */
 export function BubbleEditor({
@@ -58,19 +59,19 @@ export function BubbleEditor({
         className={cn("w-full resize-none bg-transparent text-ink focus:outline-none", simple ? "leading-[22px]" : "text-[15px] leading-relaxed")}
       />
       <div className="mt-2 flex items-center justify-end gap-2">
-        <button
+        <Button variant="ghost" size="md"
           onClick={onCancel}
-          className="rounded-full px-3 py-1 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink"
+          className="rounded-full font-normal"
         >
           {t("common.cancel")}
-        </button>
-        <button
+        </Button>
+        <Button variant="primary" size="md"
           onClick={submit}
           disabled={!draft.trim()}
-          className="rounded-full bg-accent px-3 py-1 text-[13px] font-medium text-white disabled:opacity-40"
+          className="rounded-full"
         >
           {t("chat.send")}
-        </button>
+        </Button>
       </div>
     </div>
   );

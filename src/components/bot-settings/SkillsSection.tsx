@@ -10,6 +10,7 @@ import { inputCls } from "./field";
 import { OrgSkillsCard } from "./OrgSkillsCard";
 import { WriteCommandCard } from "./WriteCommandCard";
 import { Select } from "../Select";
+import { Button } from "../ui/Button";
 
 export interface ManagedSkill {
   name: string;
@@ -242,22 +243,18 @@ export function SkillReviewDialog({
         </pre>
         {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
         <div className="mt-4 flex justify-end gap-2">
-          <button
-            type="button"
+          <Button variant="ghost" size="lg"
             disabled={working}
             onClick={onCancel}
-            className="rounded-lg px-4 py-2 text-[13px] font-medium text-ink-secondary hover:bg-raised disabled:opacity-40"
           >
             Cancel
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button variant="primary" size="lg"
             disabled={working}
             onClick={onEnable}
-            className="rounded-lg bg-accent px-4 py-2 text-[13px] font-semibold text-white disabled:opacity-40"
           >
             Enable reviewed skill
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -406,14 +403,13 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                     <option key={skill.name} value={skill.name}>{skill.name}</option>
                   ))}
                 </Select>
-                <button
-                  type="button"
+                <Button size="lg"
                   disabled={!addFromLibrary || Boolean(working)}
                   onClick={() => void addToBot()}
-                  className="shrink-0 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                  className="shrink-0 px-3 font-normal"
                 >
                   {t("common.add")}
-                </button>
+                </Button>
               </div>
             ) : (
               <div className="text-[12px] text-ink-secondary">{t("skills.library.allAssigned")}</div>
@@ -436,13 +432,13 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                 value={source}
                 onChange={(e) => setSource(e.target.value)}
               />
-              <button
+              <Button size="lg"
                 type="submit"
                 disabled={importing || !source.trim()}
-                className="shrink-0 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                className="shrink-0 px-3 font-normal"
               >
                 {importing ? t("skills.import.importing") : t("skills.import.button")}
-              </button>
+              </Button>
             </form>
             {importMessage && <div className="mt-1 text-[12px] text-ink-secondary">{importMessage}</div>}
           </>
@@ -537,13 +533,12 @@ export function SkillsSection({ bot }: { bot: Bot }) {
           <div className="flex max-h-[min(760px,90vh)] w-full max-w-2xl flex-col rounded-2xl bg-card p-5 shadow-2xl">
             <div className="flex items-center justify-between gap-3">
               <div id="skill-view-title" className="text-[16px] font-semibold text-ink">{viewing.name}</div>
-              <button
-                type="button"
+              <Button variant="ghost" size="md"
                 onClick={() => setViewing(null)}
-                className="rounded-md px-2 py-1 text-[13px] text-ink-secondary hover:bg-control hover:text-ink"
+                className="font-normal"
               >
                 Close
-              </button>
+              </Button>
             </div>
             <pre
               tabIndex={0}

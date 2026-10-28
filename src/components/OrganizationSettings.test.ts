@@ -31,6 +31,7 @@ vi.mock("@/state/store", async (original) => ({ ...await original<typeof import(
 }));
 import { OrganizationSettings } from "./OrganizationSettings";
 import { CompanyModels } from "./CompanyModels";
+import { isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; disabled?: boolean; value?: string; onChange?: (event: unknown) => void; onSubmit?: (event: unknown) => void; onClick?: () => void }>;
 function nodes(value: ReactNode): Node[] {
@@ -48,7 +49,7 @@ function render() {
   return { html, nodes: nodes(tree) };
 }
 const flush = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
-const button = (label: string) => render().nodes.find(node => node.type === "button" && node.props.children === label)!;
+const button = (label: string) => render().nodes.find(node => isButton(node) && node.props.children === label)!;
 const connected: ManagedDesktopState = {
   status: "connected", organization: { id: "fixture-org", name: "Fixture Company" }, email: "employee@example.test",
   providers: [{ id: "anthropic", configured: true, models: ["model-a", "model-b"] }, { id: "openai", configured: false, models: [] }],
@@ -114,7 +115,7 @@ describe("optional desktop Organisation settings", () => {
     expect(view.html).toContain("personal and local models");
     expect(view.html).toContain("does not upload your chat history");
     expect(bridge.begin).not.toHaveBeenCalled();
-    const signIn = () => view.nodes.find(node => node.type === "button" && node.props.children === "Sign in with your organization")!.props.onClick!();
+    const signIn = () => view.nodes.find(node => isButton(node) && node.props.children === "Sign in with your organization")!.props.onClick!();
     signIn(); signIn(); await flush();
     expect(bridge.begin).toHaveBeenCalledExactlyOnceWith({ portalOrigin: "https://admin.openmausbot.com" });
     expect(fetch).not.toHaveBeenCalled();

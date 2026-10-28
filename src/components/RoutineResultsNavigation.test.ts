@@ -3,6 +3,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { AppState, Bot, Group } from "@/state/store";
 import type { Routine, RoutineRun } from "@/lib/routines";
+import { isButton } from "@/testing/ui-elements";
+import { Button } from "./ui/Button";
 
 const fixture = vi.hoisted(() => {
   vi.stubGlobal("window", {});
@@ -67,7 +69,7 @@ function buttonsFrom(render: () => ReactNode): Map<string, Button> {
   function visit(node: ReactNode) {
     Children.forEach(node, (child) => {
       if (!isValidElement<Button>(child)) return;
-      if (child.type === "button") buttons.set(textOf(child.props.children), child.props);
+      if (isButton(child)) buttons.set(textOf(child.props.children), child.props);
       visit(child.props.children);
     });
   }

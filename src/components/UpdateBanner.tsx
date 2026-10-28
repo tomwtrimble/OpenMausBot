@@ -4,6 +4,7 @@ import { useUpdaterState } from "@/lib/updater";
 import { t } from "@/lib/i18n";
 import { productName } from "../lib/brand";
 import { NoticeToast } from "./NoticeCard";
+import { Button } from "./ui/Button";
 
 const primaryAction =
   "flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent py-1.5 text-[13px] font-medium text-white transition-colors disabled:cursor-default disabled:bg-control disabled:text-ink-secondary";
@@ -136,7 +137,8 @@ export function UpdateBanner({ sidebarIndicator = false }: UpdateBannerProps) {
       {!installing && (
         <div className="mt-2.5 flex gap-2">
           {s.status === "downloaded" && (
-            <button
+            <Button
+              variant="primary"
               onClick={() => {
                 setPending("install");
                 void updater.install();
@@ -157,7 +159,7 @@ export function UpdateBanner({ sidebarIndicator = false }: UpdateBannerProps) {
                   <RefreshCw size={13} /> Restart to update
                 </>
               )}
-            </button>
+            </Button>
           )}
           {s.status === "error" && s.retryable !== false && (
             <button
@@ -177,13 +179,13 @@ export function UpdateBanner({ sidebarIndicator = false }: UpdateBannerProps) {
               )}
             </button>
           )}
-          <button
+          <Button variant="ghost"
             onClick={() => setDismissed(key)}
             disabled={pending !== null}
-            className="rounded-lg px-3 py-1.5 text-[13px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50 disabled:hover:bg-transparent"
+            className="disabled:hover:bg-transparent font-normal"
           >
             {s.status === "handed-off" || s.retryable === false ? "Dismiss" : "Later"}
-          </button>
+          </Button>
         </div>
       )}
     </div>

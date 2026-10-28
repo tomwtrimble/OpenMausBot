@@ -11,6 +11,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { useStore, type Message } from "@/state/store";
 import type { GroupGoalRunCardData } from "../../shared/group-goal-run";
+import { Button } from "./ui/Button";
 
 const DETAIL_LIMIT = 280;
 
@@ -94,13 +95,12 @@ export function GoalRunCard({ message, solo = false, onStop }: { message: Messag
           </p>
         </div>
         {onStop && run.status === "working" && (
-          <button
-            type="button"
+          <Button variant="ghost" size="md"
             onClick={onStop}
-            className="shrink-0 rounded-lg border border-hairline px-2.5 py-1 text-[12px] font-medium text-ink-secondary hover:bg-raised hover:text-ink"
+            className="shrink-0 border border-hairline text-[12px]"
           >
             {t("chat.stop")}
-          </button>
+          </Button>
         )}
       </div>
     </section>

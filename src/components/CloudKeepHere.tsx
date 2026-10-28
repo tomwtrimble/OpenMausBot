@@ -4,6 +4,7 @@ import { ipcErrorText } from "@/lib/cloud-send";
 import { t } from "@/lib/i18n";
 import { useAdvancedMode } from "@/lib/interface-mode";
 import { Switch } from "./SettingsPrimitives";
+import { Button } from "./ui/Button";
 
 /**
  * Settings → MausBot Cloud, in Advanced mode only, for someone with a Cloud of their own the move applies to: "Keep this
@@ -50,8 +51,8 @@ function KeepHereSwitch({ bridge, read, write }: { bridge: CloudSendPageBridge; 
       <p className="text-[13px] font-medium text-ink">{t("cloudAccount.keepHere.confirmTitle")}</p>
       <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("cloudAccount.keepHere.confirm")}</p>
       <div className="mt-3 flex flex-wrap gap-2">
-        <button type="button" autoFocus className="ui-button" onClick={() => setConfirm(false)}>{t("common.cancel")}</button>
-        <button type="button" className="ui-button ui-button-primary" onClick={() => set(true)}>{t("cloudAccount.keepHere.bringBack")}</button>
+        <Button autoFocus onClick={() => setConfirm(false)}>{t("common.cancel")}</Button>
+        <Button variant="primary" onClick={() => set(true)}>{t("cloudAccount.keepHere.bringBack")}</Button>
       </div>
     </div>}
     {failed && <p role="alert" className="mt-3 text-[13px] text-danger-text">{failed}</p>}

@@ -5,6 +5,7 @@ import { t } from "@/lib/i18n";
 import { lastSeen, minutesLeft } from "@/lib/pairing-time";
 import { api } from "@/state/store";
 import { Card } from "./SettingsPrimitives";
+import { Button } from "./ui/Button";
 
 export const TEAM_PHONE_PAIRING = "/api/team/phone-pairing";
 export const TEAM_PHONES = "/api/team/phones";
@@ -81,9 +82,9 @@ export function TeamPhoneCard({ team }: { team: string }) {
   return (
     <Card title={t("teamPhone.title")} subtitle={t("teamPhone.subtitle", { team })}>
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        <button type="button" data-phone-pairing-action onClick={() => void create()} disabled={busy} className="ui-button ui-button-primary">
+        <Button variant="primary" data-phone-pairing-action onClick={() => void create()} disabled={busy}>
           {busy ? t("remote.serverPairing.creating") : t("remote.serverPairing.create")}
-        </button>
+        </Button>
       </div>
       {offer ? (
         <div data-team-phone-code className="mt-4 rounded-lg border border-hairline bg-inset p-4">
@@ -122,9 +123,9 @@ export function TeamPhoneCard({ team }: { team: string }) {
                     </span>
                   </span>
                   {phone.id === current ? null : (
-                    <button type="button" data-team-phone-remove onClick={() => void remove(phone.id)} className="ui-button">
+                    <Button data-team-phone-remove onClick={() => void remove(phone.id)}>
                       {t("teamPhone.remove")}
-                    </button>
+                    </Button>
                   )}
                 </li>
               ))}

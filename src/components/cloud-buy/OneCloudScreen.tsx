@@ -2,7 +2,8 @@
 import { Loader2 } from "lucide-react";
 import type { CloudColor } from "../../../electron/cloud-buy.mjs";
 import { t } from "@/lib/i18n";
-import { ACTIONS, CloudTile, Heading, PRIMARY, QUIET, SCREEN } from "./parts";
+import { ACTIONS, CloudTile, Heading, SCREEN } from "./parts";
+import { Button } from "../ui/Button";
 
 export function OneCloudScreen({ name, color, busy, interest, openFailed, onInterest, onOpen }: {
   name: string; color: CloudColor; busy: boolean; interest: "sent" | "failed" | null; openFailed: boolean; onInterest: () => void; onOpen: () => void;
@@ -13,8 +14,8 @@ export function OneCloudScreen({ name, color, busy, interest, openFailed, onInte
       <Heading title={t("cloudBuy.one.title")} sub={t("cloudBuy.one.sub", { name })} />
     </div>
     <div className={ACTIONS}>
-      {interest !== "sent" && <button type="button" className={QUIET} disabled={busy} onClick={onInterest}>{t("cloudBuy.one.email")}</button>}
-      <button type="button" className={PRIMARY} disabled={busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</button>
+      {interest !== "sent" && <Button pill disabled={busy} onClick={onInterest}>{t("cloudBuy.one.email")}</Button>}
+      <Button variant="primary" pill disabled={busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</Button>
     </div>
     <div aria-live="polite" className="text-[13px] leading-[18px] empty:-mt-5">
       {interest === "sent" && <p className="text-ink-secondary">{t("cloudBuy.one.thanks")}</p>}
@@ -31,8 +32,8 @@ export function StatusScreen({ kind, line, onRetry, onClose }: { kind: string; l
     {line ? <p role="alert" className="text-[14px] leading-5 text-ink">{line}</p>
       : <p role="status" className="flex items-center gap-2 text-[13px] leading-[18px] text-ink-secondary"><Loader2 size={14} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />{t("cloudAdd.checking")}</p>}
     <div className={ACTIONS}>
-      <button type="button" className={QUIET} onClick={onClose}>{t("cloudAdd.close")}</button>
-      {onRetry && <button type="button" className={PRIMARY} onClick={onRetry}>{t("cloudAdd.tryAgain")}</button>}
+      <Button pill onClick={onClose}>{t("cloudAdd.close")}</Button>
+      {onRetry && <Button variant="primary" pill onClick={onRetry}>{t("cloudAdd.tryAgain")}</Button>}
     </div>
   </div>;
 }

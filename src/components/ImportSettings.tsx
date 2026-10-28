@@ -12,6 +12,7 @@ import { detectionCount, detectionSources, type SetupDetection, type SetupImport
 import { GrokBotMark } from "./GrokBotMark";
 import { GrokImportFlow } from "./GrokImportFlow";
 import { ClaudeMark, CodexMark, CursorMark, PresetProviderMark } from "./ProviderIcons";
+import { Button } from "./ui/Button";
 
 function SourceMarks({ sources }: { sources: readonly SetupSource[] }) {
   const marks = [...new Set(sources.map((source) => (source === "claudeDesktop" ? "claudeCode" : source)))];
@@ -62,7 +63,7 @@ export function ImportRow({ icon, label, summary, hint, sources, checked, disabl
   );
 }
 
-const buttonClass = "inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-accent-ink disabled:opacity-40";
+const buttonClass = "gap-2 px-3";
 
 export interface AiAppsImportViewProps {
   local: boolean;
@@ -112,10 +113,10 @@ export function AiAppsImportView({ local, detection, chosen, status, result, onC
           )}
         </div>
         {status === "failed" && <p role="alert" className="mt-3 text-[13px] text-danger-text">{t("onboarding.import.error")}</p>}
-        <button onClick={onBring} disabled={working || !(chosen.skills || chosen.tools)} className={cn(buttonClass, "mt-3")}>
+        <Button variant="primary" size="lg" onClick={onBring} disabled={working || !(chosen.skills || chosen.tools)} className={cn(buttonClass, "mt-3")}>
           {working && <Loader2 size={14} className="animate-spin" />}
           {working ? t("onboarding.import.bringing") : t("onboarding.import.bring")}
-        </button>
+        </Button>
       </>
     );
   }

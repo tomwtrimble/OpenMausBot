@@ -17,6 +17,7 @@ import { ConfirmDialog } from "./ConfirmDialog";
 import { Select } from "./Select";
 import { SettingsDisclosureRow, SettingsGroup, SettingsRows } from "./SettingsPrimitives";
 import { InstanceProviderMark } from "./ProviderIcons";
+import { Button } from "./ui/Button";
 
 interface ProbeResult {
   ok: boolean;
@@ -406,9 +407,9 @@ function SimpleEngines({ rows, isReady, renderEngine, more }: {
                       <span className="truncate text-[13px] leading-[18px] text-ink-secondary">{simpleStatus(instance, ready)}</span>
                     </span>
                   </span>
-                  <button type="button" aria-expanded={open} className="ui-button ml-auto shrink-0" onClick={() => setOpened(open ? null : instance.instanceId)}>
+                  <Button aria-expanded={open} className="ml-auto shrink-0" onClick={() => setOpened(open ? null : instance.instanceId)}>
                     {t(open ? "common.done" : ready ? "settings.simple.ai.manage" : "settings.simple.ai.setUp")}
-                  </button>
+                  </Button>
                 </div>
                 {open && <div className="px-4 pb-3">{renderEngine(instance, true)}</div>}
               </div>

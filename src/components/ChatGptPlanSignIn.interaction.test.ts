@@ -1,5 +1,6 @@
 import { Children, isValidElement, type ReactElement, type ReactNode } from "react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
+import { isButton } from "@/testing/ui-elements";
 
 const fixture = vi.hoisted(() => ({
   values: [] as unknown[], index: 0, effects: [] as (() => (() => void) | undefined)[],
@@ -32,7 +33,7 @@ function render() {
   fixture.effects = [];
   return nodes(DeviceSignIn({ instanceId: "chatgpt", browserPkce: true }));
 }
-function click() { render().find((node) => node.type === "button")!.props.onClick!(); }
+function click() { render().find((node) => isButton(node))!.props.onClick!(); }
 const flush = async () => { for (let i = 0; i < 15; i++) await Promise.resolve(); };
 const waiting = {
   phase: "waiting", flowId: "flow-one", authorizationUrl: "https://auth.openai.com/api/accounts/authorize?state=fixture",
@@ -87,7 +88,7 @@ it.each([undefined, "google-original"])("adds a named account, then hands its id
     ...(antigravityInstanceId ? { extra: { sourceInstanceId: antigravityInstanceId } } : {}) };
   fixture.api.mockResolvedValueOnce({ instanceId: "chatgpt-second", instances: accounts });
   fixture.index = 0;
-  nodes(AddAccount(props)).find((node) => node.type === "button")!.props.onClick!();
+  nodes(AddAccount(props)).find((node) => isButton(node))!.props.onClick!();
   fixture.index = 0;
   const input = nodes(AddAccount(props)).find((node) => node.type === "input") as ReactElement<{ onChange: (event: { target: { value: string } }) => void }>;
   input.props.onChange({ target: { value: " Work " } });

@@ -6,6 +6,7 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { useStore, type Bot } from "@/state/store";
 import { Select } from "../Select";
+import { Button } from "../ui/Button";
 
 export type SetUpKind = "schedule" | "webhook" | "app";
 
@@ -64,8 +65,8 @@ export function NewAutomation({ initialText = "", onClose, onSetUpYourself }: {
               {choice("webhook", t("automations.newBox.whenApp"), Share2)}
             </div>
             <div className="mt-5 flex items-center justify-between gap-2">
-              <button type="button" onClick={() => setYourself(false)} className="rounded-lg px-2 py-1.5 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink">{t("automations.newBox.back")}</button>
-              <button type="button" onClick={() => onSetUpYourself(kind, bot?.id ?? "")} className="rounded-xl bg-accent px-4 py-2 text-[13px] font-medium text-accent-ink hover:brightness-110">{t("automations.newBox.continue")}</button>
+              <Button variant="ghost" onClick={() => setYourself(false)} className="px-2 font-normal">{t("automations.newBox.back")}</Button>
+              <Button variant="primary" size="lg" onClick={() => onSetUpYourself(kind, bot?.id ?? "")} className="rounded-xl">{t("automations.newBox.continue")}</Button>
             </div>
           </>
         ) : (
@@ -84,7 +85,7 @@ export function NewAutomation({ initialText = "", onClose, onSetUpYourself }: {
             )}
             <div className="mt-4 flex items-center justify-between gap-2">
               <button type="button" onClick={() => setYourself(true)} className="rounded-lg px-2 py-1.5 text-[13px] text-ink-secondary underline-offset-2 hover:text-ink hover:underline">{t("automations.newBox.yourself")}</button>
-              <button type="button" disabled={!text.trim() || !bot} onClick={send} className="flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-[13px] font-medium text-accent-ink hover:brightness-110 disabled:opacity-40"><Send size={14} />{t("automations.newBox.send")}</button>
+              <Button variant="primary" size="lg" disabled={!text.trim() || !bot} onClick={send} className="flex gap-2 rounded-xl"><Send size={14} />{t("automations.newBox.send")}</Button>
             </div>
           </>
         )}

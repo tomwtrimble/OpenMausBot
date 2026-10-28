@@ -12,6 +12,7 @@ import {
   type OrgLibraryPackage,
 } from "@/lib/org-library";
 import { ORG_GLYPHS } from "@/lib/team-glyphs";
+import { Button } from "./ui/Button";
 
 export function OrgLibraryTab({
   listing,
@@ -82,15 +83,15 @@ function OrgPackageCard({
       </div>
       <div className="flex shrink-0 flex-col items-end gap-1.5">
         {action === "add" && (
-          <button
+          <Button variant="primary" size="lg"
             onClick={() => onAdd(entry)}
             disabled={busy !== null}
             aria-label={t("orgLibrary.addAria", { name: entry.name })}
-            className="flex min-w-[72px] items-center justify-center gap-1.5 rounded-full bg-accent px-3.5 py-2 text-[13px] font-medium text-white hover:bg-accent/90 disabled:opacity-40"
+            className="flex min-w-[72px] gap-1.5 rounded-full"
           >
             {adding && <Loader2 size={13} className="animate-spin" />}
             {adding ? t("orgLibrary.adding") : t("orgLibrary.add")}
-          </button>
+          </Button>
         )}
         {action === "added" && (
           <span className="flex items-center gap-1 rounded-full bg-raised px-3 py-1.5 text-[12px] text-ink-secondary">
@@ -101,14 +102,14 @@ function OrgPackageCard({
         {action === "notReady" && <span className="text-[12px] text-ink-secondary">{t("orgLibrary.notReady")}</span>}
         {action === "noRelease" && <span className="text-[12px] text-ink-secondary">{t("orgLibrary.noRelease")}</span>}
         {entry.blob === "ready" && (
-          <button
+          <Button variant="ghost" size="md"
             onClick={() => onDetails(entry)}
             disabled={busy !== null}
             aria-label={t("orgLibrary.detailsAria", { name: entry.name })}
-            className="rounded-full px-2.5 py-1 text-[12px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-40"
+            className="rounded-full text-[12px] font-normal"
           >
             {t("orgLibrary.details")}
-          </button>
+          </Button>
         )}
       </div>
     </article>

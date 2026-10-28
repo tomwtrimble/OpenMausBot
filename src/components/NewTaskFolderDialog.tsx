@@ -4,6 +4,7 @@ import { FolderOpen } from "lucide-react";
 import { useStore, type Bot } from "@/state/store";
 import { t } from "@/lib/i18n";
 import { useModalDialog } from "@/hooks/use-modal-dialog";
+import { Button } from "./ui/Button";
 
 /** A pin is chosen while creating a thread, never by moving the working directory of an existing provider session. */
 export function NewTaskFolderDialog({ bot, onClose, onReturnFocus }: { bot: Bot; onClose: () => void; onReturnFocus?: () => void }) {
@@ -49,8 +50,8 @@ export function NewTaskFolderDialog({ bot, onClose, onReturnFocus }: { bot: Bot;
         </label>
         {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
         <div className="mt-5 flex justify-end gap-2">
-          <button type="button" disabled={saving} onClick={close} className="rounded-lg px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised disabled:opacity-40">{t("common.cancel")}</button>
-          <button type="submit" disabled={saving || !cwd.trim()} className="rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-white disabled:opacity-40">{t(saving ? "task.folder.creating" : "task.newShort")}</button>
+          <Button variant="ghost" size="lg" disabled={saving} onClick={close} className="px-3 font-normal">{t("common.cancel")}</Button>
+          <Button variant="primary" size="lg" type="submit" disabled={saving || !cwd.trim()} className="px-3">{t(saving ? "task.folder.creating" : "task.newShort")}</Button>
         </div>
       </form>
     </div>

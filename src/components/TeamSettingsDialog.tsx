@@ -25,6 +25,7 @@ import { approvalModeOptions } from "./ApprovalModeSelector";
 import { LocalComputerAutoWarning } from "./LocalComputerAutoWarning";
 import { effortLabel } from "./ModelPicker";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 type Tab = "approval" | "model";
 const KEEP = "";
@@ -114,7 +115,7 @@ export function TeamSettingsDialog({ team, onClose }: { team: string; onClose: (
             </p>
             <TeamSettingsRows rows={results} />
             <div className="mt-4 flex justify-end">
-              <button type="button" onClick={onClose} className="rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white">{t("teamSettings.done")}</button>
+              <Button variant="primary" size="lg" onClick={onClose}>{t("teamSettings.done")}</Button>
             </div>
           </>
         ) : (
@@ -165,11 +166,11 @@ export function TeamSettingsDialog({ team, onClose }: { team: string; onClose: (
             )}
             <div className="mt-4 flex items-center justify-end gap-2">
               {running && <span role="status" className="mr-auto text-[12px] text-ink-secondary">{t("teamSettings.progress", { done: progress, count: plan.length })}</span>}
-              <button type="button" disabled={running} onClick={close} className="rounded-lg px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised">{t("common.cancel")}</button>
-              <button type="button" disabled={running || !applying} onClick={apply}
-                className="rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white disabled:opacity-40">
+              <Button variant="ghost" size="lg" disabled={running} onClick={close} className="px-3 font-normal">{t("common.cancel")}</Button>
+              <Button variant="primary" size="lg" disabled={running || !applying} onClick={apply}
+                >
                 {t(applying === 1 ? "teamSettings.applyOne" : "teamSettings.applyMany", { count: applying })}
-              </button>
+              </Button>
             </div>
           </>
         )}

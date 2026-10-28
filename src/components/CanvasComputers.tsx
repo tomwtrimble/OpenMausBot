@@ -7,6 +7,7 @@ import { ConfirmDialog } from "./ConfirmDialog";
 import { Select } from "./Select";
 import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
+import { Button } from "./ui/Button";
 
 const control = "rounded-lg px-3 py-2 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40";
 const field = "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[12px] text-ink outline-none focus:border-accent";
@@ -218,11 +219,11 @@ export function CanvasComputers({ open, createRequest, drop, sections, onClose, 
           <p className="text-[11px] leading-relaxed text-ink-secondary">{t("canvasComputers.createHint")}</p>
           <div className="flex justify-end gap-1">
             <button type="button" className={control} disabled={busy !== null} onClick={() => setCreating(false)}>{t("common.cancel")}</button>
-            <button type="submit" className="flex items-center gap-2 rounded-lg bg-accent px-3 py-2 text-[12px] font-medium text-white disabled:opacity-40" disabled={!inventory?.configured || !name.trim() || busy !== null}>
+            <Button variant="primary" size="lg" type="submit" className="flex gap-2 px-3 text-[12px]" disabled={!inventory?.configured || !name.trim() || busy !== null}>
               {busy === "create" && <Loader2 size={13} className="animate-spin" />}{t("canvasComputers.create")}
-            </button>
+            </Button>
           </div>
-        </form> : <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-hairline px-3 py-3 text-[12px] text-ink-secondary hover:bg-control hover:text-ink" disabled={busy !== null} onClick={() => setCreating(true)}><Plus size={14} /> {t("canvasComputers.newCloud")}</button>}
+        </form> : <Button variant="ghost" size="lg" className="flex w-full gap-2 rounded-xl border border-dashed border-hairline px-3 text-[12px] min-h-11 font-normal" disabled={busy !== null} onClick={() => setCreating(true)}><Plus size={14} /> {t("canvasComputers.newCloud")}</Button>}
         {inventory?.computers.map((computer) => {
           const ready = ["idle", "ready", "running"].includes(computer.state);
           const starting = ["init", "provisioning", "provisioned", "cloning", "starting"].includes(computer.state);

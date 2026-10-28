@@ -7,6 +7,7 @@ import { useStore, type Bot } from "@/state/store";
 import { useBotEditor } from "./bot-settings/BotEditorContext";
 import { inputCls } from "./bot-settings/field";
 import { t } from "@/lib/i18n";
+import { Button } from "./ui/Button";
 
 type SoulRead = { soul: string; revision: string; bytes: number; limit: number; file: string; drift: boolean; fileText?: string };
 
@@ -89,12 +90,12 @@ export function SoulField({
           </div>
           <pre className="mt-2 max-h-40 overflow-auto whitespace-pre-wrap rounded bg-control p-2 text-[12px]">{info.fileText}</pre>
           <div className="mt-2 flex gap-2">
-            <button type="button" disabled={resolving} onClick={() => void resolve("apply-file")} className="rounded-lg bg-accent px-3 py-1.5 text-[12px] font-medium text-white hover:brightness-110 disabled:opacity-50">
+            <Button variant="primary" disabled={resolving} onClick={() => void resolve("apply-file")} className="text-[12px]">
               {t("botIdentity.soul.useFile")}
-            </button>
-            <button type="button" disabled={resolving} onClick={() => void resolve("discard-file")} className="rounded-lg bg-control px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover disabled:opacity-50">
+            </Button>
+            <Button disabled={resolving} onClick={() => void resolve("discard-file")} className="text-[12px] font-normal">
               {t("botIdentity.soul.keepSaved")}
-            </button>
+            </Button>
           </div>
         </div>
       )}

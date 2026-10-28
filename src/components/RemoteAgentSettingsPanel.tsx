@@ -10,6 +10,7 @@ import { BotAvatar } from "./Avatar";
 import { imageAttachmentFromFile } from "@/lib/composer-attachments";
 import { botAvatarUrlFromStoredPath } from "../../shared/bot-avatar";
 import { BOT_PROFILE_LIMITS } from "../../shared/bot-profile";
+import { Button } from "./ui/Button";
 
 type RemoteProfilePatch = Partial<
   Pick<Bot, "name" | "title" | "description" | "avatarUrl" | "avatarCrop" | "voice" | "speakReplies" | "notifications">
@@ -104,9 +105,9 @@ export function RemoteAgentSettingsPanel({ bot, overlay = false }: {
               <BotAvatar bot={bot} state="idle" size={64} motion="none" motionKey={0} animated={false} />
               <div className="flex gap-2">
                 <input ref={avatarInput} type="file" accept="image/png,image/jpeg,image/gif,image/webp" className="sr-only" onChange={(event) => void uploadAvatar(event.target.files?.[0])} />
-                <button type="button" disabled={uploading || saving} onClick={() => avatarInput.current?.click()} className="flex items-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50">
+                <Button size="lg" disabled={uploading || saving} onClick={() => avatarInput.current?.click()} className="flex gap-1.5 px-3 font-normal">
                   {uploading ? <Loader2 size={14} className="animate-spin" /> : <ImagePlus size={14} />} Avatar
-                </button>
+                </Button>
                 {bot.avatarUrl && <button type="button" disabled={saving} onClick={() => void patch({ avatarUrl: null, avatarCrop: "mascot" })} aria-label="Remove custom avatar" className="flex size-9 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-danger-text"><Trash2 size={14} /></button>}
               </div>
             </div>

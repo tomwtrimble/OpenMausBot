@@ -7,6 +7,7 @@ import { useStore } from "@/state/store";
 import { Card, Switch } from "./SettingsPrimitives";
 import type { SkillsLibrarySkillWire } from "../../shared/wire";
 import { Select } from "./Select";
+import { Button } from "./ui/Button";
 
 export function filterLibrarySkills(
   skills: readonly SkillsLibrarySkillWire[],
@@ -323,14 +324,13 @@ export function SkillsSection() {
                           <option key={bot.id} value={bot.id}>{bot.name}</option>
                         ))}
                       </Select>
-                      <button
-                        type="button"
+                      <Button size="md"
                         disabled={!assignBot || Boolean(working || importing)}
                         onClick={() => void assign(skill)}
-                        className="rounded-lg bg-control px-2.5 py-1 text-[12px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                        className="text-[12px] font-normal"
                       >
                         {t("skills.library.assign")}
-                      </button>
+                      </Button>
                     </div>
                   )}
                 </div>
@@ -358,13 +358,13 @@ export function SkillsSection() {
           />
           <div className="flex items-center justify-between gap-2">
             {importMessage ? <div className="text-[12px] text-ink-secondary">{importMessage}</div> : <span />}
-            <button
+            <Button size="lg"
               type="submit"
               disabled={importing || Boolean(working) || !importText.trim()}
-              className="shrink-0 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+              className="shrink-0 px-3 font-normal"
             >
               {importing ? t("skills.library.importing") : t("skills.library.importButton")}
-            </button>
+            </Button>
           </div>
         </form>
       </Card>
@@ -395,14 +395,13 @@ function SkillSourceDialog({ viewing, error, working, onClose, onEnable }: {
           <div className="flex max-h-[min(760px,90vh)] w-full max-w-2xl flex-col rounded-2xl bg-card p-5 shadow-2xl">
             <div className="flex items-center justify-between gap-3">
               <div id="skills-library-view-title" className="text-[16px] font-semibold text-ink">{viewing.review ? `Review ${viewing.skill.name} before enabling` : viewing.skill.name}</div>
-              <button
-                type="button"
+              <Button variant="ghost" size="md"
                 disabled={working}
                 onClick={onClose}
-                className="rounded-md px-2 py-1 text-[13px] text-ink-secondary hover:bg-control hover:text-ink"
+                className="font-normal"
               >
                 {t("skills.library.close")}
-              </button>
+              </Button>
             </div>
             {viewing.review && <LibrarySkillMeta skill={viewing.skill} />}
             {viewing.skill.warnings.length > 0 && <div className="mt-2 text-[12px] text-warning-text">{viewing.skill.warnings.join(" · ")}</div>}
@@ -414,7 +413,7 @@ function SkillSourceDialog({ viewing, error, working, onClose, onEnable }: {
               {viewing.text}
             </pre>
             {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
-            {viewing.review && <button type="button" disabled={working} onClick={onEnable} className="mt-4 self-end rounded-lg bg-accent px-4 py-2 text-[13px] font-semibold text-white disabled:opacity-40">Enable reviewed skill</button>}
+            {viewing.review && <Button variant="primary" size="lg" disabled={working} onClick={onEnable} className="mt-4 self-end">Enable reviewed skill</Button>}
           </div>
         </div>
   );

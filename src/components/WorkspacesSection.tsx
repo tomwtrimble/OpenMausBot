@@ -7,6 +7,7 @@ import { formatUsd, hasFiniteCost } from "@/lib/usage";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { CopyLink } from "./PeopleSection";
 import { Card } from "./SettingsPrimitives";
+import { Button } from "./ui/Button";
 
 export interface FleetWorkspaceView {
   slug: string;
@@ -133,9 +134,9 @@ function NewWorkspaceForm({ domain, onCreated, disabled }: { domain: string; onC
       <p className="text-[12px] leading-relaxed text-ink-secondary">{t("workspaces.createHint")}</p>
       {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       <div className="flex justify-end">
-        <button type="submit" disabled={disabled || saving} className="ui-button ui-button-primary">
+        <Button variant="primary" type="submit" disabled={disabled || saving}>
           {saving ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />}{saving ? t("workspaces.creating") : t("workspaces.create")}
-        </button>
+        </Button>
       </div>
     </form>
   );

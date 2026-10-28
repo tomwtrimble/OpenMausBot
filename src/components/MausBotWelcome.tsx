@@ -18,6 +18,7 @@ import { BotAvatar } from "./Avatar";
 import { useAvatarImage } from "./avatar-editing";
 import { MausBotCustomize } from "./MausBotCustomize";
 import { usePrefersReducedMotion } from "./mascot-clock";
+import { Button } from "./ui/Button";
 
 const LOOK = ["name", "color", "mascotBody", "avatarUrl", "avatarCrop", "avatarZoom", "avatarFocusX", "avatarFocusY"] as const;
 export type WelcomeDraft = Pick<Bot, (typeof LOOK)[number]>;
@@ -198,14 +199,14 @@ export function MausBotWelcomeCard({ bot, onClose }: { bot: Bot; onClose: () => 
         </div>
 
         <div className={cn("mt-4 flex flex-col-reverse gap-2 sm:flex-row sm:items-center", advanced ? "sm:justify-between" : "sm:justify-end")}>
-          <button type="button" data-mausbot-welcome-later="" onClick={() => choose(false)} title={t("mausbotWelcome.notNowHint", { name })}
-            className={advanced ? "rounded-full px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised-hover hover:text-ink" : "ui-button ui-button-pill"}>
+          <Button variant={advanced ? "ghost" : "secondary"} size={advanced ? "lg" : undefined} pill={!advanced} data-mausbot-welcome-later="" onClick={() => choose(false)} title={t("mausbotWelcome.notNowHint", { name })}
+            className={advanced ? "rounded-full px-3 font-normal" : undefined}>
             {t("mausbotWelcome.notNow")}
-          </button>
-          <button type="button" data-mausbot-welcome-add="" onClick={() => choose(true)}
-            className={advanced ? "rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-accent-ink hover:brightness-110" : "ui-button ui-button-pill ui-button-primary"}>
+          </Button>
+          <Button variant="primary" pill data-mausbot-welcome-add="" onClick={() => choose(true)}
+            className={advanced ? "min-h-10 px-5 font-medium" : undefined}>
             {t("mausbotWelcome.add", { name })}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

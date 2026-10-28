@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { AppState, Bot } from "@/state/store";
 import type { Routine, RoutineRun } from "@/lib/routines";
+import { isButton } from "@/testing/ui-elements";
 
 // Hook-by-call-order harness: the page's own state survives between captures, so a click then a fresh capture shows
 // what renders next. Effects never run.
@@ -91,7 +92,7 @@ const page = () => capture(() => RoutinesPage({ onBack: vi.fn(), onOpenRoom: vi.
 function buttons(tree: Node[]): Map<string, Node["props"]> {
   const map = new Map<string, Node["props"]>();
   for (const node of tree) {
-    if (node.type !== "button") continue;
+    if (!isButton(node)) continue;
     const props = node.props as { "aria-label"?: string; title?: string; children?: ReactNode };
     map.set(props["aria-label"] ?? props.title ?? textOf(props.children), node.props);
   }
@@ -196,7 +197,7 @@ describe("Automations page", () => {
     const other = { ...bot, id: "other", name: "Other" };
     fixture.values = [];
     const tree = capture(() => WebhookEditor({ bots: [bot, other], initialBotId: "other", onClose: vi.fn(), onCredential: vi.fn() }));
-    const picked = tree.filter((node) => node.type === "button" && String(node.props.className).includes("border-accent/70")).map((node) => textOf(node.props.children));
+    const picked = tree.filter((node) => isButton(node) && String(node.props.className).includes("border-accent/70")).map((node) => textOf(node.props.children));
     expect(picked).toContain("Other");
     expect(picked).not.toContain(bot.name);
   });

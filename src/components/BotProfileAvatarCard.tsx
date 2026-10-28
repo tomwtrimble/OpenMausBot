@@ -19,6 +19,7 @@ import { AvatarImageGenerator } from "./AvatarImageGenerator";
 import { AvatarFraming, OrganizationAvatarIcons, RESET_MASCOT_PATCH, useAvatarImage, type AvatarPatch } from "./avatar-editing";
 import { t } from "@/lib/i18n";
 import { MascotFaceColorPicker } from "./MascotFaceColorPicker";
+import { Button } from "./ui/Button";
 
 export function BotProfileAvatarCard({
   bot,
@@ -37,13 +38,13 @@ export function BotProfileAvatarCard({
     <div className="overflow-hidden rounded-xl border border-hairline bg-card">
       <div className="flex items-center justify-between border-b border-hairline px-3 py-2.5">
         <span className="rounded-lg bg-control px-3 py-1.5 text-[14px] font-medium text-ink">{t("botIdentity.avatar")}</span>
-        <button
+        <Button variant="ghost"
           disabled={busy}
           onClick={() => onPatch(RESET_MASCOT_PATCH)}
-          className="rounded-md px-2 py-1.5 text-[13px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50"
+          className="px-2 font-normal"
         >
           {t("botIdentity.resetMascot")}
-        </button>
+        </Button>
       </div>
 
       <div className="p-3">

@@ -31,7 +31,7 @@ describe("an empty key row", () => {
     expect(html).toMatch(/<input[^>]*type="password"[^>]*placeholder="sk-ant-…"[^>]*aria-label="Anthropic API key"[^>]*value=""/);
     expect(html).toContain('aria-label="Show key"');
     expect(html.match(/data-key-save=/g)).toHaveLength(1);
-    expect(html).toMatch(/data-key-save="true"[^>]*disabled=""/);
+    expect(html).toMatch(/<button(?=[^>]*data-key-save="true")[^>]*disabled=""/);
     expect(html).toMatch(/<a href="https:\/\/console\.anthropic\.com\/settings\/keys"[^>]*>Get a key/);
     expect(html).not.toContain("Connected");
     expect(html).not.toContain("data-key-masked");

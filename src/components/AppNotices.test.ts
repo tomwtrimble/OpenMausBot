@@ -20,6 +20,8 @@ vi.mock("react", async original => ({ ...await original<typeof import("react")>(
   useState: (initial: unknown) => { const index = f.index++; if (!(index in f.values)) f.values[index] = typeof initial === "function" ? initial() : initial;
     return [f.values[index], (next: unknown) => { f.values[index] = typeof next === "function" ? (next as (value: unknown) => unknown)(f.values[index]) : next; }]; },
   useEffect: (effect: EffectCallback) => { f.effects.push(effect); },
+  // The dialog keeps its node and its focus target in refs.
+  useRef: (initial: unknown) => ({ current: initial }),
   useSyncExternalStore: (_subscribe: unknown, snapshot: () => unknown) => snapshot(),
 }));
 vi.mock("@/state/store", () => ({ useStore: () => ({ state: f.state, dispatch: f.dispatch }), api: vi.fn().mockResolvedValue({}),
@@ -38,6 +40,7 @@ import { identifyEmail, track } from "@/lib/analytics";
 import { ADVANCED_MODE_KEY, setAdvancedMode } from "@/lib/interface-mode";
 import { SIMPLE_MODE_PROMPT_KEY } from "@/lib/simple-mode-prompt";
 import { api } from "@/state/store";
+import { isButton } from "@/testing/ui-elements";
 
 const DAY = 86_400_000, NOW = new Date(2026, 9, 9, 12).getTime();
 const plans = [
@@ -120,7 +123,7 @@ const nodes = (value: ReactNode): Node[] => {
 };
 const tree = () => { f.index = 0; f.effects = []; return nodes(AppNotices({ viewer, now: () => now })); };
 const press = (label: string) => {
-  const button = tree().find(node => node.type === "button" && (renderToStaticMarkup(node).includes(`>${label}<`) || node.props["aria-label"] === label));
+  const button = tree().find(node => isButton(node) && (renderToStaticMarkup(node).includes(`>${label}<`) || node.props["aria-label"] === label));
   expect(button, label).toBeTruthy(); button!.props.onClick();
 };
 /** A bot has answered once, in this launch: what a new install has after its first chat. */

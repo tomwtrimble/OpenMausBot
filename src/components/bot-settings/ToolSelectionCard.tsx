@@ -6,6 +6,7 @@ import { TOOL_SCOPE_SUPPORT } from "../../../shared/tool-scope-support";
 import { useBotEditor } from "./BotEditorContext";
 import { inputCls } from "./field";
 import { Select } from "../Select";
+import { Button } from "../ui/Button";
 
 type Draft = { custom: boolean; onlyListed: boolean; allow: string; deny: string };
 const lines = (text: string) => text.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
@@ -90,10 +91,10 @@ export function ToolSelectionCard({ bot, engineKind }: { bot: Bot; engineKind?: 
     {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     {bot.busy && <p className="mt-2 text-[12px] text-ink-secondary">{t("botAccess.tools.busy")}</p>}
     <div className="mt-3 flex flex-wrap items-center gap-3">
-      <button type="button" disabled={saving || !!bot.busy || !draft || !parsed.ok} onClick={() => void save()}
-        className="rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50">
+      <Button size="lg" disabled={saving || !!bot.busy || !draft || !parsed.ok} onClick={() => void save()}
+        className="px-3 font-normal">
         {t(saving ? "botAccess.tools.saving" : "botAccess.tools.save")}
-      </button>
+      </Button>
       <a href="https://github.com/milind-soni/OpenMausBot/blob/main/docs/tool-selection.md" target="_blank" rel="noreferrer" className="text-[12px] text-ink-secondary underline">{t("botAccess.tools.examples")}</a>
     </div>
   </div>;

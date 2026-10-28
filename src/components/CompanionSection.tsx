@@ -26,6 +26,7 @@ import { ConnectionDetail } from "./ConnectionDetail";
 import { Card, Switch } from "./SettingsPrimitives";
 import { productName } from "../lib/brand";
 import { useStore } from "@/state/store";
+import { Button } from "./ui/Button";
 
 export {
   companionAccountActionError,
@@ -378,13 +379,13 @@ export function CompanionSection({ profileEmail = "", focusRequest = 0 }: { prof
                 </div>
               </div>
               {(c.account?.status === "ready" || c.account?.status === "connecting" || c.account?.status === "error") && (
-                <button
+                <Button variant="ghost"
                   disabled={c.accountBusy}
                   onClick={() => void c.accountAct((remote) => remote.signOut())}
-                  className="flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40"
+                  className="flex shrink-0 gap-1.5 border border-hairline text-[12px] font-normal"
                 >
                   <LogOut size={12} /> {t("remote.account.signOut")}
-                </button>
+                </Button>
               )}
             </div>
             {c.account?.status === "error" && (

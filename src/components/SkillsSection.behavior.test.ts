@@ -25,6 +25,7 @@ vi.mock("./bot-settings/BotEditorContext", () => ({ useBotEditor: () => ({ reque
 import { SkillsSection } from "./SkillsSection";
 import { SkillsSection as BotSkillsSection } from "./bot-settings/SkillsSection";
 import type { Bot } from "@/state/store";
+import { isButton } from "@/testing/ui-elements";
 
 type Props = { children?: ReactNode; onClick?: () => void; disabled?: boolean; [key: string]: unknown };
 function nodes(value: ReactNode): ReactElement<Props>[] {
@@ -38,7 +39,7 @@ function render(bot = false) {
   return nodes(bot ? BotSkillsSection({ bot: { id: "bot" } as Bot }) : SkillsSection());
 }
 const named = (tree: ReactElement<Props>[], label: string) => tree.find((node) => node.props["aria-label"] === label)!;
-const button = (tree: ReactElement<Props>[], text: string) => tree.find((node) => node.type === "button" && node.props.children === text)!;
+const button = (tree: ReactElement<Props>[], text: string) => tree.find((node) => isButton(node) && node.props.children === text)!;
 const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
 
 beforeEach(() => {
@@ -96,7 +97,7 @@ describe("Skills library review and assignment controls", () => {
       }
       return response({ skills: rows }) as Response;
     }).mockImplementationOnce(() => delayed);
-    const buttons = render().filter((node) => node.type === "button" && node.props.children === "Assign");
+    const buttons = render().filter((node) => isButton(node) && node.props.children === "Assign");
     buttons[0]!.props.onClick!();
     buttons[1]!.props.onClick!();
     expect(fetch).toHaveBeenCalledTimes(1);
@@ -104,7 +105,7 @@ describe("Skills library review and assignment controls", () => {
     unblock(response({ skills: rows }) as Response);
     await flush();
     expect(writes).toEqual([["alpha"]]);
-    render().filter((node) => node.type === "button" && node.props.children === "Assign")[1]!.props.onClick!();
+    render().filter((node) => isButton(node) && node.props.children === "Assign")[1]!.props.onClick!();
     await flush();
     expect(writes).toEqual([["alpha"], ["alpha", "beta"]]);
   });

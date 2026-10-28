@@ -4,6 +4,7 @@ import { Card } from "./SettingsPrimitives";
 import { useStore } from "@/state/store";
 import { sharedComputersEnabled } from "@/lib/feature-flags";
 import { LendingActivityList } from "./LendingActivity";
+import { Button } from "./ui/Button";
 
 /** Security: grants are edited locally and confirmed by a native dialog, never by the hosted page. */
 export function ComputerSharingSettings({ workspace, onClose }: { workspace: { id: string; name: string; origin: string }; onClose: () => void }) {
@@ -72,10 +73,10 @@ export function ComputerSharingSettings({ workspace, onClose }: { workspace: { i
       </fieldset>
       {(error || state?.error) && <p role="alert" className="text-[12px] text-danger-text">{error || state?.error}</p>}
       <div className="flex flex-wrap gap-2">
-        <button type="button" disabled={busy || !state || (!folders.length && !terminal && !computer)} onClick={() => void perform(async () => {
+        <Button variant="primary" size="lg" disabled={busy || !state || (!folders.length && !terminal && !computer)} onClick={() => void perform(async () => {
           const next = await bridge.save(workspace.id, { folders, terminal, computer });
           if (mounted.current && next) apply(next);
-        })} className="rounded-lg bg-accent px-3 py-2 font-medium text-accent-ink disabled:opacity-50">{state?.enabled ? "Save access" : "Share selected access"}</button>
+        })} className="px-3">{state?.enabled ? "Save access" : "Share selected access"}</Button>
         {state?.enabled && <button type="button" disabled={busy} onClick={() => void perform(async () => {
           const next = await bridge.revoke(workspace.id); if (mounted.current) apply(next);
         })} className="rounded-lg border border-hairline px-3 py-2 text-danger-text disabled:opacity-50">Stop sharing</button>}

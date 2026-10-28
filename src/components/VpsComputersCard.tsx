@@ -9,6 +9,7 @@ import {
   vpsComputerShortId,
   type VpsComputerInventoryInstance,
 } from "./LocalComputerSection";
+import { Button } from "./ui/Button";
 
 /** Settings' list of OpenMaus-managed VPS computers, across every server in play. */
 export function VpsComputersCard({
@@ -45,15 +46,14 @@ export function VpsComputersCard({
               ? <>{t("vm.vps.needsAlias")} <KeysLink id="vps" /></>
               : t("vm.vps.refreshHint")}
         </div>
-        <button
-          type="button"
+        <Button variant="ghost"
           onClick={onRefresh}
           disabled={loading || removingName !== null}
           aria-label={t("vm.vps.refreshAria")}
-          className="flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40"
+          className="flex shrink-0 gap-1.5 border border-hairline text-[12px] font-normal"
         >
           <RefreshCw size={12} className={cn(loading && "animate-spin")} /> {t("vm.refresh")}
-        </button>
+        </Button>
       </div>
 
       {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{error}</div>}

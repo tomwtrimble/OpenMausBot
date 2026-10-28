@@ -6,7 +6,8 @@ import { CLOUD_COLOR_LABEL, CLOUD_COLORS, CLOUD_NAME_MAX, cloudColorFill } from 
 import { cloudPlanLabel, usd, type CloudStarted } from "@/lib/cloud-plan";
 import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
-import { ACTIONS, Badge, Checklist, CloudTile, FIELD, Heading, PRIMARY, ProgressBar, QUIET, SCREEN } from "./parts";
+import { ACTIONS, Badge, Checklist, CloudTile, FIELD, Heading, ProgressBar, SCREEN } from "./parts";
+import { Button } from "../ui/Button";
 
 const STEPS = [["reserving", "cloudHome.step.reserving"], ["storage", "cloudHome.step.storage"], ["starting", "cloudBuy.step.starting"], ["checking", "cloudHome.step.checking"]] as const satisfies
   ReadonlyArray<readonly [CloudSetupStep, LocaleKey]>;
@@ -80,8 +81,8 @@ export function SetupScreen({ started, received, step, slow, ready, sleeps = fal
     {ready && counting === null && <p className="text-[13px] leading-[18px] text-ink-tertiary">{t("cloudBuy.ready.hint", { name })}</p>}
     <div className={ACTIONS}>
       {counting !== null && <span role="status" className="me-1 text-[13px] text-ink-secondary">{t("cloudBuy.setup.openingIn", { seconds: counting })}</span>}
-      {counting !== null && <button type="button" className={QUIET} onClick={onNotNow}>{t("notice.notNow")}</button>}
-      <button type="button" className={PRIMARY} disabled={!ready || busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</button>
+      {counting !== null && <Button pill onClick={onNotNow}>{t("notice.notNow")}</Button>}
+      <Button variant="primary" pill disabled={!ready || busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</Button>
     </div>
     {openFailed && <p role="alert" className="-mt-2 text-end text-[13px] leading-[18px] text-danger-text">{t("cloudBuy.openFailed", { name })}</p>}
   </div>;
@@ -109,7 +110,7 @@ export function TeamReadyScreen({ name, busy, openFailed, onOpen }: { name: stri
     <Heading title={t("cloudBuy.team.readyTitle")} sub={t("cloudBuy.team.readySub", { name })} />
     <p className="text-[13px] leading-[18px] text-ink-tertiary">{t("cloudBuy.ready.hint", { name })}</p>
     <div className={ACTIONS}>
-      <button type="button" data-autofocus className={PRIMARY} disabled={busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</button>
+      <Button variant="primary" pill data-autofocus disabled={busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</Button>
     </div>
     {openFailed && <p role="alert" className="-mt-2 text-end text-[13px] leading-[18px] text-danger-text">{t("cloudBuy.openFailed", { name })}</p>}
   </div>;

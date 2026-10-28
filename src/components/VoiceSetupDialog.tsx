@@ -10,6 +10,7 @@ import { BotAvatar } from "./Avatar";
 import { VoiceSettings } from "./VoiceSettings";
 import { useBotSettingsDerived } from "./bot-settings/useBotSettingsDerived";
 import { openBotSettings } from "./bot-panel/panel-link";
+import { Button } from "./ui/Button";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
@@ -152,15 +153,14 @@ export function VoiceSetupDialog({
               <span className="min-w-0 flex-1 text-[13px] font-medium text-ink">
                 {t("call.voiceSetup.ready", { name: callName })}
               </span>
-              <button
-                type="button"
+              <Button variant="primary" size="lg"
                 data-voice-setup-start
                 onClick={onStartCall}
-                className="flex shrink-0 items-center gap-1.5 rounded-xl bg-accent px-3.5 py-2 text-[13px] font-medium text-accent-ink hover:brightness-110"
+                className="flex shrink-0 gap-1.5 rounded-xl"
               >
                 <Phone size={14} aria-hidden="true" />
                 {t("call.voiceSetup.startCall")}
-              </button>
+              </Button>
             </div>
           )}
         </div>

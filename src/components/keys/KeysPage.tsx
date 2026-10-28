@@ -9,6 +9,7 @@ import { KEY_CATALOG, KEY_SECTIONS, keyMatches, savedState, type KeyEntry, type 
 import { finishKeyFocus, useKeyFocus, type KeyFocusRequest } from "./key-focus";
 import { AnthropicEveryClaudeBot, OpenAiCompatUrl, OpenCodeProviderKeys, VpsConnection } from "./KeyPanels";
 import { KEY_ROW, KeyRow, MaskedKey, RowHeading, type KeyStatus } from "./KeyRow";
+import { Button } from "../ui/Button";
 
 const CARD = "rounded-xl bg-card in-data-[settings-look=simple]:rounded-[12px] in-data-[settings-look=simple]:border-[0.5px] in-data-[settings-look=simple]:border-(--settings-edge) in-data-[settings-look=simple]:bg-menu";
 const HIGHLIGHT_MS = 1600;
@@ -57,9 +58,9 @@ function ElsewhereRow({ entry }: { entry: KeyEntry }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           {entry.whereKey && <span className="min-w-0 flex-1 text-[12px] leading-4 text-ink-secondary">{t(entry.whereKey)}</span>}
           {opens && (
-            <button type="button" data-key-open className="ui-button shrink-0" onClick={() => dispatch({ type: "toggleAppSettings", open: true, section: opens })}>
+            <Button data-key-open className="shrink-0" onClick={() => dispatch({ type: "toggleAppSettings", open: true, section: opens })}>
               {t("keys.row.open")}
-            </button>
+            </Button>
           )}
         </div>
       </div>

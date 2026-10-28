@@ -4,7 +4,8 @@ import { Check, ExternalLink, Loader2 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { CloudSignInPhase, CloudSignInProblem } from "@/lib/cloud-plan";
 import { t } from "@/lib/i18n";
-import { ACTIONS, BackLink, FIELD, Heading, LINK, PRIMARY, PRIMARY_WIDE, QUIET, SCREEN } from "./parts";
+import { ACTIONS, BackLink, FIELD, Heading, LINK, SCREEN } from "./parts";
+import { Button } from "../ui/Button";
 
 const DIGITS = 8;
 const BROWSER_PROBLEMS: ReadonlySet<CloudSignInProblem> = new Set(["sso", "two-factor", "browser"]);
@@ -69,9 +70,9 @@ export function SignInScreen({ phase, email, code, profileEmail, busy, now, onBa
       <input id="cloud-add-email" data-autofocus type="email" autoComplete="email" inputMode="email" spellCheck={false} value={email} disabled={busy}
         aria-invalid={problem === "invalid-email" || undefined} aria-describedby={problem ? "cloud-add-problem" : undefined}
         onChange={event => onEmail(event.target.value)} className={FIELD} />
-      <button type="submit" className={`${PRIMARY_WIDE} mt-2`} disabled={busy || !email.trim()}>
+      <Button type="submit" variant="primary" pill size="lg" className="mt-2 w-full" disabled={busy || !email.trim()}>
         {busy && <Loader2 size={16} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />}{t("cloudBuy.signIn.send")}
-      </button>
+      </Button>
       {profileEmail && email.trim().toLowerCase() === profileEmail.trim().toLowerCase() && <p className="text-[13px] leading-[18px] text-ink-tertiary">{t("cloudBuy.signIn.fromProfile")}</p>}
     </form>}
     {phase.step === "code" && <div className="flex flex-col gap-2.5">
@@ -100,8 +101,8 @@ export function SignInScreen({ phase, email, code, profileEmail, busy, now, onBa
     </p>}
     {problem && <div id="cloud-add-problem" role="alert" className="flex flex-col items-start gap-3 rounded-[12px] bg-ink/[0.04] px-4 py-3 text-[13px] leading-[18px] text-ink">
       <p>{problemLine(problem, phase.step === "code" ? phase.triesLeft : null)}</p>
-      {browser && <button type="button" className={PRIMARY} onClick={onBrowser}>{t("cloudBuy.signIn.continueBrowser")}<ExternalLink size={14} aria-hidden="true" /></button>}
-      {problem === "expired" && phase.step === "code" && <button type="button" className={QUIET} disabled={busy} onClick={onResend}>{t("cloudBuy.signIn.newCode")}</button>}
+      {browser && <Button variant="primary" pill onClick={onBrowser}>{t("cloudBuy.signIn.continueBrowser")}<ExternalLink size={14} aria-hidden="true" /></Button>}
+      {problem === "expired" && phase.step === "code" && <Button pill disabled={busy} onClick={onResend}>{t("cloudBuy.signIn.newCode")}</Button>}
     </div>}
     {phase.step !== "done" && !browser && <p className="text-[13px] leading-[18px] text-ink-tertiary">{t("cloudBuy.signIn.ssoHint")}{" "}
       <button type="button" className={LINK} onClick={onBrowser}>{t("cloudBuy.signIn.continueBrowser")}</button></p>}
@@ -120,8 +121,8 @@ export function BrowserSignInScreen({ code, checkout, trial, busy, onReopen, onC
       <li>{t(!checkout ? "cloudAdd.signInStep3Connect" : trial ? "cloudAdd.signInStep3Trial" : "cloudAdd.signInStep3")}</li>
     </ol> : <p role="status" className="flex items-center gap-2 text-[13px] text-ink-secondary"><Loader2 size={14} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />{t("cloudAdd.opening")}</p>}
     <div className={ACTIONS}>
-      <button type="button" className={QUIET} disabled={busy} onClick={onCancel}>{t("cloudAdd.cancel")}</button>
-      <button type="button" className={PRIMARY} disabled={busy || !code} onClick={onReopen}>{t("cloudAdd.reopenBrowser")}<ExternalLink size={14} aria-hidden="true" /></button>
+      <Button pill disabled={busy} onClick={onCancel}>{t("cloudAdd.cancel")}</Button>
+      <Button variant="primary" pill disabled={busy || !code} onClick={onReopen}>{t("cloudAdd.reopenBrowser")}<ExternalLink size={14} aria-hidden="true" /></Button>
     </div>
   </div>;
 }

@@ -3,6 +3,7 @@ import { t } from "@/lib/i18n";
 import { Laptop, Loader2, Unplug } from "lucide-react";
 import { Select } from "./Select";
 import { Card } from "./SettingsPrimitives";
+import { Button } from "./ui/Button";
 
 const inputClass =
   "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
@@ -207,14 +208,14 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
             </>
           )}
           {error ? <p role="alert" className="text-[13px] text-danger-text">{error}</p> : null}
-          <button
+          <Button variant="primary" size="lg"
             type="submit"
             disabled={busy || (serverMode ? !serverLink.trim() : endpoint.trim() === "" || code.length !== 6)}
-            className="flex w-fit items-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+            className="flex w-fit gap-2 px-3"
           >
             {busy ? <Loader2 size={14} className="animate-spin" /> : <Laptop size={14} />}
             {serverMode ? t("remote.client.server.connect") : t("remote.client.pair")}
-          </button>
+          </Button>
           <p className="text-[12px] leading-relaxed text-ink-secondary">
             {serverMode ? t("remote.client.server.switchNote") : t("remote.client.restartNote")}
           </p>

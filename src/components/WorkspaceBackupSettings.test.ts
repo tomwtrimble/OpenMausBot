@@ -14,6 +14,7 @@ vi.mock("react", async (original) => ({ ...await original<typeof import("react")
 }));
 vi.mock("@/state/store", () => ({ api: fixture.api }));
 import { WorkspaceBackupRecovery, WorkspaceBackupRestartNotice, WorkspaceBackupSettings, WorkspaceBackupSummaryView } from "./WorkspaceBackupSettings";
+import { isButton } from "@/testing/ui-elements";
 
 type Node = ReactElement<{ children?: ReactNode; type?: string; disabled?: boolean; value?: string; onChange?: (event: unknown) => void; onSubmit?: (event: unknown) => void; onClick?: () => void }>;
 function nodes(value: ReactNode): Node[] {
@@ -89,7 +90,7 @@ describe("Settings full backups", () => {
     expect(fixture.api.mock.calls[1]).toEqual(["/api/workspace-backup/upload", { method: "POST", headers: { "content-type": "application/octet-stream" }, body: file }]);
     expect(JSON.parse(fixture.api.mock.calls[2][1].body)).toEqual({ id: "upload-id", password: "correct horse battery" });
     view = render();
-    const replace = () => render().nodes.find((node) => node.type === "button" && node.props.children === "Replace installation")!;
+    const replace = () => render().nodes.find((node) => isButton(node) && node.props.children === "Replace installation")!;
     expect(replace().props.disabled).toBe(true);
     const confirm = view.nodes.filter((node) => node.type === "input" && !node.props.type)[0];
     change(confirm, "replace"); expect(replace().props.disabled).toBe(true);
@@ -123,7 +124,7 @@ describe("Settings full backups", () => {
     await validate();
     change(render().nodes.find((node) => node.type === "input" && !node.props.type)!, "REPLACE");
     fixture.api.mockRejectedValueOnce(expired);
-    render().nodes.find((node) => node.type === "button" && node.props.children === "Replace installation")!.props.onClick!(); await flush();
+    render().nodes.find((node) => isButton(node) && node.props.children === "Replace installation")!.props.onClick!(); await flush();
     expect(render().html).not.toContain("Validated backup");
     fixture.api.mockResolvedValueOnce({ id: "upload-final" }).mockResolvedValueOnce({ id: "stage-final", summary });
     await validate();
@@ -155,10 +156,10 @@ describe("Settings full backups", () => {
     expect(render(true).html).toContain("Restart and restore");
     expect(render(true).html).not.toContain(">Retry<");
     fixture.values = [];
-    const restart = render("restart").nodes.find(node => node.type === "button")!;
+    const restart = render("restart").nodes.find(node => isButton(node))!;
     restart.props.onClick!(); restart.props.onClick!(); await flush();
     expect(relaunch).toHaveBeenCalledOnce();
-    expect(render("restart").nodes.find(node => node.type === "button")!.props.disabled).toBe(true);
+    expect(render("restart").nodes.find(node => isButton(node))!.props.disabled).toBe(true);
     expect(storage.get("omb-pending-workspace-restore")).toBe("stage-id");
     expect(storage.get("omb-drafts")).toBe("keep");
     expect(window.location.reload).not.toHaveBeenCalled();
@@ -168,10 +169,10 @@ describe("Settings full backups", () => {
     const relaunch = result === false ? vi.fn().mockResolvedValue(false) : vi.fn().mockRejectedValue(result);
     vi.stubGlobal("window", { ...window, ogb: { relaunch } });
     storage.set("omb-pending-workspace-restore", "stage-id");
-    render("restart").nodes.find(node => node.type === "button")!.props.onClick!(); await flush();
+    render("restart").nodes.find(node => isButton(node))!.props.onClick!(); await flush();
     const view = render("restart");
     expect(view.html).toContain("Could not restart MausBot");
-    expect(view.nodes.find(node => node.type === "button")!.props.disabled).toBe(false);
+    expect(view.nodes.find(node => isButton(node))!.props.disabled).toBe(false);
     expect(storage.get("omb-pending-workspace-restore")).toBe("stage-id");
     expect(window.location.reload).not.toHaveBeenCalled();
   });
@@ -181,7 +182,7 @@ describe("Settings full backups", () => {
     const view = render("restart");
     expect(view.html).toContain("restart the server process");
     expect(view.html).not.toContain("Restart and restore");
-    expect(view.nodes.filter(node => node.type === "button")).toHaveLength(0);
+    expect(view.nodes.filter(node => isButton(node))).toHaveLength(0);
   });
 
   it("retains the server-status retry for browser recovery", async () => {
@@ -225,7 +226,7 @@ describe("Settings full backups", () => {
     expect(view.html).toContain("Retry"); expect(view.html).toContain("This does not undo the installation restore.");
     expect(view.html).not.toContain("Normal app");
     expect(storage).toEqual(before); expect(window.location.reload).not.toHaveBeenCalled();
-    view.nodes.find((node) => node.type === "button" && node.props.children === "Continue without restoring drafts")!.props.onClick!();
+    view.nodes.find((node) => isButton(node) && node.props.children === "Continue without restoring drafts")!.props.onClick!();
     before.delete("omb-pending-workspace-restore");
     expect(storage).toEqual(before);
     expect(window.location.reload).toHaveBeenCalledOnce();
@@ -238,7 +239,7 @@ describe("Settings full backups", () => {
     fixture.api.mockRejectedValueOnce(new Error("Sign-in required"));
     render(true); fixture.effects[0](); await flush();
     vi.spyOn(localStorage, "removeItem").mockImplementation(() => { throw new Error("Storage unavailable"); });
-    render(true).nodes.find((node) => node.type === "button" && node.props.children === "Continue without restoring drafts")!.props.onClick!();
+    render(true).nodes.find((node) => isButton(node) && node.props.children === "Continue without restoring drafts")!.props.onClick!();
     expect(render(true).html).toContain("Storage unavailable"); expect(render(true).html).not.toContain("Normal app");
     expect(storage.get("omb-drafts")).toBe("keep"); expect(storage.get("omb-pending-workspace-restore")).toBe("stage-id");
     expect(window.location.reload).not.toHaveBeenCalled();

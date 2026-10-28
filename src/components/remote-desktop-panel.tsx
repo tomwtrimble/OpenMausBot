@@ -14,6 +14,7 @@ import { RoutineEditor } from "./RoutinesPage";
 import { BrowserPanel, type BrowserSignIn } from "./BrowserPanel";
 import { SignInBanner } from "./SignInRequestCard";
 import { productName } from "@/lib/brand";
+import { Button } from "./ui/Button";
 
 function viewerAddress(raw: unknown): string {
   if (typeof raw !== "string" || !raw) throw new Error("The host did not return a live desktop link");
@@ -289,15 +290,14 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
             The host creates a temporary, encrypted viewer relay. VPS SSH and VNC credentials stay on the host computer.
           </p>
         </div>
-        <button
-          type="button"
+        <Button variant="primary" size="lg"
           onClick={() => void open()}
           disabled={pending}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-50"
+          className="flex w-full gap-2 min-h-10"
         >
           {pending ? <Loader2 size={15} className="animate-spin" /> : <Monitor size={15} />}
           {pending ? "Opening…" : "Take control"}
-        </button>
+        </Button>
         {error && (
           <div role="alert" className="w-full rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-left text-[12px] text-danger-text">
             {error}
@@ -353,23 +353,21 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
             </div>
           )}
           <div className="mt-3 flex gap-2">
-            <button
-              type="button"
+            <Button variant="primary" size="lg"
               onClick={() => setCreatingRoutine(true)}
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent py-2 text-[13px] font-medium text-white hover:brightness-110"
+              className="flex flex-1 gap-1.5"
             >
               <Plus size={14} />
               Create schedule
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button size="lg"
               onClick={() => dispatch({ type: "showRoutines" })}
-              className="flex items-center justify-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover"
+              className="flex gap-1.5 px-3 font-normal"
               title="Open schedules"
             >
               <CalendarDays size={14} />
               Schedules
-            </button>
+            </Button>
           </div>
         </div>
       </div>

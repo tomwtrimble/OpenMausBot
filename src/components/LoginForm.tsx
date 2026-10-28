@@ -5,6 +5,7 @@ import type { LoginBots } from "../../shared/logins";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import type { LoginFieldsInput } from "@/lib/logins";
+import { Button } from "./ui/Button";
 
 // Security: the browser is asked not to fill or remember these fields, what was typed is dropped once saved, and a
 // saved password is never shown.
@@ -92,11 +93,11 @@ export function LoginForm({
       {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       <div className="flex flex-wrap justify-end gap-2">
         {onCancel && (
-          <button type="button" onClick={onCancel} disabled={pending} className="ui-button ui-button-md">{t("logins.cancel")}</button>
+          <Button size="md" onClick={onCancel} disabled={pending}>{t("logins.cancel")}</Button>
         )}
-        <button type="submit" disabled={pending} className="ui-button ui-button-md ui-button-primary inline-flex items-center gap-1.5">
+        <Button size="md" variant="primary" type="submit" disabled={pending} className="inline-flex items-center gap-1.5">
           {pending && <Loader2 size={13} className="animate-spin" />}{submitLabel}
-        </button>
+        </Button>
       </div>
     </form>
   );

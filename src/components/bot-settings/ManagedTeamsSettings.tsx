@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { t } from "@/lib/i18n";
+import { Button } from "../ui/Button";
 
 export function ManagedTeamsSettings({
   name, ownTeam, teams, allowed, onSave,
@@ -31,10 +32,10 @@ export function ManagedTeamsSettings({
         ))}
         {!choices.length && <p className="text-[13px] text-ink-secondary">{t("botAccess.teams.empty")}</p>}
       </fieldset>
-      <button type="button" disabled={!changed} onClick={() => onSave(selected)}
-        className="mt-3 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-white disabled:opacity-40">
+      <Button variant="primary" disabled={!changed} onClick={() => onSave(selected)}
+        className="mt-3">
         {t("botAccess.teams.save")}
-      </button>
+      </Button>
     </details>
   );
 }

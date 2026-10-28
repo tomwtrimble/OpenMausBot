@@ -11,6 +11,7 @@ import { takeImportName } from "../../shared/import-name";
 import { GrokFinishSetup, grokSetupLeft } from "./GrokFinishSetup";
 import { GrokImportBox } from "./GrokImportBox";
 import { TeamImportDetails } from "./TeamImportDetails";
+import { Button } from "./ui/Button";
 
 const errorText = (cause: unknown) => (cause instanceof Error ? cause.message : String(cause));
 
@@ -78,14 +79,14 @@ export function GrokImportFlow({ link = null, onPreview, onAdded, bare }: {
           >
             {t("templates.back")}
           </button>
-          <button
+          <Button variant="primary" size="lg"
             onClick={() => void add()}
             disabled={adding}
-            className="flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-white hover:bg-accent/90 disabled:opacity-60"
+            className="flex gap-2 rounded-full px-5 text-[14px] min-h-10"
           >
             {adding && <Loader2 size={15} className="animate-spin" />}
             {adding ? t("templates.importing") : t("templates.addTeam")}
-          </button>
+          </Button>
         </div>
       </div>
     );

@@ -133,6 +133,7 @@ import { pendingApprovals } from "./PendingApproval";
 import { TranscriptAnnouncer } from "./TranscriptAnnouncer";
 import { JumpToLatestButton } from "./JumpToLatestButton";
 import { isBotTextRow, joinedCorners, needsStamp, quietRow, simpleRowLayout, SIMPLE_BOT_BUBBLE, SIMPLE_BUBBLE_MAX, SIMPLE_BUBBLE_TEXT, SIMPLE_STACKED, SIMPLE_USER_BUBBLE, type BubbleJoin } from "./chat-bubble";
+import { Button } from "./ui/Button";
 
 const USER_COLLAPSE_CHARS = 600;
 const USER_COLLAPSE_LINES = 8;
@@ -230,22 +231,21 @@ export function ErrorRow({
           <EngineSetup instance={setupInstance} className="mt-2 text-ink-secondary" />
         ) : action !== undefined ? (
           action && (
-            <button
-              type="button"
+            <Button size="md"
               onClick={action.onClick}
-              className="ui-button ui-button-md mt-1.5 rounded-full border-danger/30 bg-transparent text-danger-text hover:bg-danger/15"
+              className="mt-1.5 rounded-full border-danger/30 bg-transparent text-danger-text hover:bg-danger/15"
             >
               {action.label}
-            </button>
+            </Button>
           )
         ) : (
           onRetry && (
-            <button
+            <Button size="md"
               onClick={onRetry}
-              className="ui-button ui-button-md mt-1.5 rounded-full border-danger/30 bg-transparent text-danger-text hover:bg-danger/15"
+              className="mt-1.5 rounded-full border-danger/30 bg-transparent text-danger-text hover:bg-danger/15"
             >
               <RefreshCw size={12} /> {t("chat.retry")}
-            </button>
+            </Button>
           )
         )}
       </div>

@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { cn } from "@/lib/cn";
 import type { MausMotion, MausState } from "@/lib/mascot";
+import { Button } from "../../ui/Button";
 
 export interface BeatProps {
   onNext: () => void;
@@ -22,16 +23,15 @@ export function PrimaryButton({
   ...rest
 }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <button
+    <Button
+      variant="primary"
+      size="lg"
       data-primary=""
       {...rest}
-      className={cn(
-        "w-full shrink-0 rounded-lg bg-accent py-2.5 text-[15px] font-medium text-white transition-[transform,opacity] duration-150 active:scale-[0.98] disabled:opacity-40",
-        className,
-      )}
+      className={cn("min-h-10 w-full shrink-0 text-[15px] transition-[transform,opacity] duration-150 active:scale-[0.98]", className)}
     >
       {children}
-    </button>
+    </Button>
   );
 }
 

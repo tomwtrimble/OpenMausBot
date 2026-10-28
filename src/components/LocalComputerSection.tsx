@@ -21,6 +21,7 @@ import { Select } from "./Select";
 import { cn } from "@/lib/cn";
 import { useStore } from "@/state/store";
 import { VpsComputersCard } from "./VpsComputersCard"; import { KeysLink } from "./keys/KeysLink";
+import { Button } from "./ui/Button";
 
 type Action = "pull" | "run" | "start" | "stop" | "remove" | "recreate";
 
@@ -383,15 +384,14 @@ export function CloudComputersCard({
               ? <>{t("vm.cloud.needsKey")} <KeysLink id="box" /></>
               : t("vm.cloud.refreshHint")}
         </div>
-        <button
-          type="button"
+        <Button variant="ghost"
           onClick={onRefresh}
           disabled={loading || pending !== null}
           aria-label={t("vm.cloud.refreshAria")}
-          className="flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40"
+          className="flex shrink-0 gap-1.5 border border-hairline text-[12px] font-normal"
         >
           <RefreshCw size={12} className={cn(loading && "animate-spin")} /> {t("vm.refresh")}
-        </button>
+        </Button>
       </div>
 
       {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{error}</div>}
@@ -466,17 +466,16 @@ export function CloudComputersCard({
                 )}
               </div>
               <div className="flex shrink-0 items-center gap-1.5">
-                <button
-                  type="button"
+                <Button variant="ghost"
                   onClick={() => onSleep(instance)}
                   disabled={loading || instance.inUse || pending !== null || !canSleep}
                   aria-busy={isPending && pending?.action === "sleep" ? true : undefined}
                   title={canSleep ? t("vm.cloud.sleepTitle") : t("vm.cloud.sleepBlocked", { state: state.toLowerCase() })}
-                  className="flex items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex gap-1.5 border border-hairline text-[12px] font-normal"
                 >
                   {isPending && pending?.action === "sleep" ? <Loader2 size={12} className="animate-spin" /> : <Moon size={12} />}
                   {t("vm.cloud.sleep")}
-                </button>
+                </Button>
                 <button
                   type="button"
                   onClick={() => onDelete(instance)}
@@ -529,15 +528,14 @@ export function LocalVmInventoryCard({
         <div className="text-[12px] text-ink-secondary">
           {t("vm.perBot.deleteHint")}
         </div>
-        <button
-          type="button"
+        <Button variant="ghost"
           onClick={onRefresh}
           disabled={loading || deletingBotId !== null}
           aria-label={t("vm.perBot.refreshAria")}
-          className="flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40"
+          className="flex shrink-0 gap-1.5 border border-hairline text-[12px] font-normal"
         >
           <RefreshCw size={12} className={cn(loading && "animate-spin")} /> {t("vm.refresh")}
-        </button>
+        </Button>
       </div>
 
       {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{error}</div>}
@@ -667,18 +665,16 @@ function ActionButton({
   danger?: boolean;
 }) {
   return (
-    <button
+    <Button
+      variant={danger ? "secondary" : "primary"}
       onClick={onClick}
       aria-busy={pending === action}
       disabled={pending !== null}
-      className={cn(
-        "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] font-medium disabled:opacity-50",
-        danger ? "bg-danger/15 text-danger-text hover:bg-danger/20" : "bg-accent text-white hover:brightness-110",
-      )}
+      className={cn("flex gap-1.5", danger && "border-transparent bg-danger/15 text-danger-text enabled:hover:bg-danger/20")}
     >
       {pending === action && <Loader2 size={13} className="animate-spin" />}
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -1261,17 +1257,17 @@ export function LocalComputerSection() {
                     ? t("vm.main.ready")
                     : (status?.problem ?? t("vm.main.notReady"))}
           </span>
-          <button
+          <Button variant="ghost" size="md"
             onClick={() => {
               setLoading(true);
               setRefreshKey((key) => key + 1);
               setInventoryRefreshKey((key) => key + 1);
             }}
             disabled={loading || pending !== null}
-            className="flex items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1 text-[13px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40"
+            className="flex gap-1.5 border border-hairline font-normal"
           >
             <RefreshCw size={12} /> {t("vm.main.recheck")}
-          </button>
+          </Button>
           {ready && !perBot && (
             <a
               href={status?.viewer_url ?? c?.view}

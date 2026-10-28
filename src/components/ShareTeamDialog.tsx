@@ -22,6 +22,7 @@ import {
 } from "@/lib/team-share";
 import { api, useStore } from "@/state/store";
 import type { NewBotDefaults } from "../../shared/new-bot-defaults";
+import { Button } from "./ui/Button";
 
 export function ShareTeamContents({ preview, includeMemory, localSkips }: {
   preview: ShareResponse;
@@ -312,15 +313,15 @@ export function ShareTeamDialog({ team, onClose }: { team: string; onClose: () =
         {error && <p role="alert" className="mx-6 mb-2 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</p>}
         <footer className="flex justify-end gap-2 border-t border-hairline px-6 py-3">
           {saved ? (
-            <button onClick={onClose} className="rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white">{t("teamShare.done")}</button>
+            <Button variant="primary" size="lg" onClick={onClose}>{t("teamShare.done")}</Button>
           ) : (
             <>
-              <button disabled={saving} onClick={onClose} className="rounded-lg px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised">{t("common.cancel")}</button>
-              <button disabled={saving || !preview || !name.trim()} onClick={() => void save()}
-                className="flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white disabled:opacity-40">
+              <Button variant="ghost" size="lg" disabled={saving} onClick={onClose} className="px-3 font-normal">{t("common.cancel")}</Button>
+              <Button variant="primary" size="lg" disabled={saving || !preview || !name.trim()} onClick={() => void save()}
+                className="flex gap-2">
                 {saving && <Loader2 size={14} className="animate-spin" />}
                 {saving ? t("teamShare.saving") : t("teamShare.save")}
-              </button>
+              </Button>
             </>
           )}
         </footer>
