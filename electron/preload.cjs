@@ -281,7 +281,7 @@ const bridge = {
   copyText: (text) => ipcRenderer.invoke("clipboard:write-text", text),
   /** Unlike window.open, this still works after an asynchronous API request. */
   openExternal: (url) => ipcRenderer.invoke("desktop:open-external", url),
-  applySkin: (skin) => ipcRenderer.invoke("desktop:skin", skin),
+  applySkin: (skin, choice) => ipcRenderer.invoke("desktop:skin", skin, choice),
   windowControls: {
     minimize: () => ipcRenderer.invoke("window:minimize"),
     toggleMaximize: () => ipcRenderer.invoke("window:toggle-maximize"),

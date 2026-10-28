@@ -75,7 +75,8 @@ import {
   withDesktopCompanionAccess,
   withoutDesktopCompanionAccess,
 } from "./desktop-companion-client.mjs";
-import { isKnownSkin, skinChrome } from "./skin-overlay.cjs";
+import { isKnownSkin, launchGround, skinChrome } from "./skin-overlay.cjs";
+import { createSkinChoiceStore, showWhenSkinned } from "./skin-choice.mjs";
 import { readSecureCredentials } from "./secure-credentials.mjs";
 import { createControlPlaneClient } from "./control-plane-client.mjs";
 import {
@@ -160,6 +161,8 @@ let unreadCount = 0;
 let unreadOverlayIcon = null;
 
 const windowStateFile = createWindowStateFile({ file: () => path.join(app.getPath("userData"), "window-state.json"), log: message => slog(message) });
+
+const skinChoice = createSkinChoiceStore({ file: () => path.join(app.getPath("userData"), "skin.json"), log: slog });
 
 function applyUnreadBadge(win = mainWindow) {
   const count = normalizeUnreadCount(unreadCount);
@@ -2030,7 +2033,7 @@ function createWindow({ deferNavigation = false } = {}) {
     minHeight: MIN_BOUNDS.height,
     show: !waitsForSkinSync && !startupScreen,
     icon: APP_ICON,
-    backgroundColor: windowBackground(nativeTheme.shouldUseDarkColors),
+    backgroundColor: launchGround(skinChoice.read(), nativeTheme.shouldUseDarkColors),
     autoHideMenuBar: process.platform !== "darwin",
     ...windowChromeOptions(process.platform),
     webPreferences: {
@@ -2058,15 +2061,7 @@ function createWindow({ deferNavigation = false } = {}) {
   });
   attachUpdaterWindow(win);
   if (startupScreen) startupScreen.attach(win, { maximized: restored.maximized });
-  else if (waitsForSkinSync) {
-    const skinSyncFallback = setTimeout(() => {
-      if (!win.isDestroyed() && !win.isVisible()) win.show();
-    }, 5_000);
-    skinSyncFallback.unref?.();
-    const clearSkinSyncFallback = () => clearTimeout(skinSyncFallback);
-    win.once("show", clearSkinSyncFallback);
-    win.once("closed", clearSkinSyncFallback);
-  }
+  else if (waitsForSkinSync) showWhenSkinned(win);
   windowStateFile.install(win);
   applyUnreadBadge(win);
   if (restored.maximized && !startupScreen) win.maximize();
@@ -2340,9 +2335,10 @@ ipcMain.handle("desktop:reveal-file", localOnly("desktop:reveal-file", async (_e
   return revealInFolder(rawPath, { reveal: (target) => shell.showItemInFolder(target) });
 }));
 ipcMain.handle("desktop:open-logs", localOrHome("desktop:open-logs", () => openLogsFolder(LOG_DIR, { open: (folder) => shell.openPath(folder) })));
-ipcMain.handle("desktop:skin", (event, skin) => {
+ipcMain.handle("desktop:skin", (event, skin, choice) => {
   if (!isKnownSkin(skin)) return false;
   if (chromeRail.owns(event)) return true;
+  skinChoice.remember(choice);
   try {
     talk.skin(skin); const { color } = skinChrome(skin);
     const win = BrowserWindow.fromWebContents(event.sender) ?? mainWindow;

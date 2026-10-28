@@ -100,12 +100,13 @@ export function subscribeSkin(listener: () => void): () => void {
   };
 }
 
-function paintSkin(id: SkinId): void {
+function paintSkin(id: SkinId, choice: SkinChoice): void {
   document.documentElement.dataset.skin = id;
   for (const listener of listeners) listener();
-  // On Windows the caption buttons sit in a native overlay the main process paints, out of CSS's reach.
+  // On Windows the caption buttons sit in a native overlay the main process paints, out of CSS's reach. The main
+  // process also keeps the choice, to open the next window on its ground.
   try {
-    void window.ogb?.applySkin?.(id)?.catch(() => undefined);
+    void window.ogb?.applySkin?.(id, choice)?.catch(() => undefined);
   } catch {
   }
 }
@@ -118,7 +119,7 @@ function followSystem(follow: boolean): void {
   if (!follow || followingSystem || typeof matchMedia !== "function") return;
   try {
     const query = matchMedia(DARK_QUERY);
-    const onChange = () => paintSkin(resolveSkin("system", query.matches));
+    const onChange = () => paintSkin(resolveSkin("system", query.matches), "system");
     query.addEventListener("change", onChange);
     followingSystem = { query, onChange };
   } catch {
@@ -139,7 +140,7 @@ export function applySkinChoice(choice: SkinChoice): void {
   } catch {
   }
   followSystem(choice === "system");
-  paintSkin(resolveSkin(choice));
+  paintSkin(resolveSkin(choice), choice);
 }
 
 export function applySkin(id: SkinId): void {

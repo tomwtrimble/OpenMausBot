@@ -5,7 +5,7 @@ import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 
 const require = createRequire(import.meta.url);
-const { SKIN_CHROME, DEFAULT_SKIN, skinChrome, isKnownSkin, skinIsLight } = require("./skin-overlay.cjs");
+const { SKIN_CHROME, DEFAULT_SKIN, SYSTEM_SKIN, THEME_SKINS, skinChrome, isKnownSkin, skinIsLight, isSkinChoice, parseSkinChoice, launchGround } = require("./skin-overlay.cjs");
 
 const here = dirname(fileURLToPath(import.meta.url));
 const css = readFileSync(join(here, "../src/styles.css"), "utf8");
@@ -67,5 +67,35 @@ describe("skin overlay chrome", () => {
   it("paints Halloween's plum ground behind the caption buttons", () => {
     expect(skinChrome("halloween")).toEqual({ color: "#110d16", symbolColor: "#c2b3cc" });
     expect(isKnownSkin("halloween")).toBe(true);
+  });
+});
+
+describe("the ground a window opens on", () => {
+  it("is the chosen skin's own --color-app", () => {
+    for (const skin of Object.keys(SKIN_CHROME)) {
+      for (const dark of [false, true]) expect(launchGround(skin, dark)).toBe(cssToken(skin, "--color-app"));
+    }
+  });
+
+  it("follows the system for the system choice, and when nothing is stored yet", () => {
+    for (const choice of [SYSTEM_SKIN, null, "does-not-exist"]) {
+      expect(launchGround(choice, false)).toBe(cssToken("daylight", "--color-app"));
+      expect(launchGround(choice, true)).toBe(cssToken("midnight", "--color-app"));
+    }
+  });
+
+  it("names the system choice and its pair as the renderer does", () => {
+    expect(skinIds).toContain(`export type SkinChoice = SkinId | "${SYSTEM_SKIN}";`);
+    expect(skinIds).toContain(`export const THEME_SKINS = { light: "${THEME_SKINS.light}", dark: "${THEME_SKINS.dark}" }`);
+  });
+
+  it("reads back only a choice the renderer can make", () => {
+    expect(parseSkinChoice(JSON.stringify({ choice: "system" }))).toBe("system");
+    expect(parseSkinChoice(JSON.stringify({ choice: "atelier" }))).toBe("atelier");
+    expect(parseSkinChoice(JSON.stringify({ choice: "nope" }))).toBe(null);
+    expect(parseSkinChoice("{")).toBe(null);
+    expect(parseSkinChoice("null")).toBe(null);
+    expect(isSkinChoice("system")).toBe(true);
+    expect(isSkinChoice(undefined)).toBe(false);
   });
 });

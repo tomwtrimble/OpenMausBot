@@ -19,6 +19,9 @@ const SKIN_CHROME = Object.freeze({
 });
 
 const DEFAULT_SKIN = "midnight";
+/** The "system" choice (src/lib/skins.ts): its light or dark skin follows the system appearance. */
+const SYSTEM_SKIN = "system";
+const THEME_SKINS = Object.freeze({ light: "daylight", dark: "midnight" });
 
 function skinChrome(skin) {
   return Object.hasOwn(SKIN_CHROME, skin) ? SKIN_CHROME[skin] : SKIN_CHROME[DEFAULT_SKIN];
@@ -35,4 +38,25 @@ function skinIsLight(skin) {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b > 127.5;
 }
 
-module.exports = { SKIN_CHROME, DEFAULT_SKIN, skinChrome, isKnownSkin, skinIsLight };
+function isSkinChoice(choice) {
+  return choice === SYSTEM_SKIN || isKnownSkin(choice);
+}
+
+/** The stored choice from skin.json, or null when there is none or it is not one. */
+function parseSkinChoice(raw) {
+  try {
+    const choice = JSON.parse(raw)?.choice;
+    return isSkinChoice(choice) ? choice : null;
+  } catch {
+    return null;
+  }
+}
+
+/** The colour a window paints before its page has loaded: the chosen skin's ground. With no choice stored yet, or the
+ * system choice, it is Daylight's or Midnight's as the system appearance says, the default for a new install. */
+function launchGround(choice, prefersDark) {
+  const skin = isKnownSkin(choice) ? choice : THEME_SKINS[prefersDark ? "dark" : "light"];
+  return SKIN_CHROME[skin].color;
+}
+
+module.exports = { SKIN_CHROME, DEFAULT_SKIN, SYSTEM_SKIN, THEME_SKINS, skinChrome, isKnownSkin, skinIsLight, isSkinChoice, parseSkinChoice, launchGround };
