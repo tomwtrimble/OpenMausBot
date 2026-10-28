@@ -6,6 +6,7 @@ import { useMenuMotion } from "./MenuMotion";
 import { popoverClosesOnKey, usePopoverDismiss } from "@/hooks/use-popover-dismiss";
 import { submenuIntent, type Point, type SubmenuIntent } from "@/lib/submenu-intent";
 import { MENU_HEADING, MENU_ITEM_SEPARATOR, MENU_SHEET, nextMenuIndex } from "./menu-recipe";
+import { useTypeahead } from "./ui/Menu";
 
 export { nextMenuIndex };
 
@@ -201,6 +202,7 @@ export function SidebarPopoverMenu({
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuId = useId();
   const motion = useMenuMotion(open);
+  const typeahead = useTypeahead();
   const anchored = placement === "above";
   const reportOpen = useRef(onOpenChange);
   reportOpen.current = onOpenChange;
@@ -320,6 +322,8 @@ export function SidebarPopoverMenu({
     } else if (event.key === "Tab" && anchored) {
       event.preventDefault();
       close(true);
+    } else {
+      typeahead(event, list, current);
     }
   };
 

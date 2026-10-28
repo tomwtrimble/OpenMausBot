@@ -143,4 +143,37 @@ describe("Menu", () => {
     await act(async () => { document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true })); });
     expect(sheet()).toBeNull();
   });
+
+  it("owns Escape while open, even with focus left on its trigger, before a dialog around it sees the key", async () => {
+    trigger().focus();
+    const outer = vi.fn();
+    window.addEventListener("keydown", outer);
+    await act(async () => { trigger().dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); });
+    window.removeEventListener("keydown", outer);
+    expect(sheet()).toBeNull();
+    expect(outer).not.toHaveBeenCalled();
+  });
+});
+
+describe("Menu with a field inside", () => {
+  it("leaves a field's own keys alone", async () => {
+    document.documentElement.dataset.reducedMotion = "true";
+    const host = document.createElement("div");
+    document.body.append(host);
+    const root = createRoot(host);
+    await act(async () => {
+      root.render(createElement(Menu, { open: true, onClose: () => {}, anchor: { x: 10, y: 10 }, label: "Room" },
+        createElement("input", { "aria-label": "Name" }),
+        createElement(MenuItem, null, "Archive")));
+    });
+    const field = document.querySelector("input")!;
+    field.focus();
+    const event = new KeyboardEvent("keydown", { key: "a", bubbles: true, cancelable: true });
+    await act(async () => { field.dispatchEvent(event); });
+    expect(event.defaultPrevented).toBe(false);
+    expect(document.activeElement).toBe(field);
+    await act(async () => root.unmount());
+    host.remove();
+    delete document.documentElement.dataset.reducedMotion;
+  });
 });

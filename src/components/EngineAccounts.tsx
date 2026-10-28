@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { Check, Loader2, MoreHorizontal, Plus } from "lucide-react";
 import { api, useStore, type InstanceInfo } from "@/state/store";
 import { t } from "@/lib/i18n";
@@ -10,8 +10,9 @@ import { DeviceSignIn, deviceSignInProvider } from "./DeviceSignIn";
 import { ChatGptPlanStatus } from "./ChatGptPlanStatus";
 import { EngineCard, engineReady, providerName, type EngineCardSummary } from "./EngineLibrary";
 import { CommandRow, EngineSetup, EngineUpdateNotice, EngineWarningNotice } from "./EngineSetup";
-import { MENU_SHEET } from "./menu-recipe";
 import { Button } from "./ui/Button";
+import { IconButton } from "./ui/IconButton";
+import { Menu, MenuItem } from "./ui/Menu";
 
 /** Providers whose accounts are listed together on one card, each signed in on its own. */
 export type AccountGroup = "claude" | "chatgpt";
@@ -71,23 +72,10 @@ function AccountMenu({ group, instance, onRename }: { group: AccountGroup; insta
   const [confirm, setConfirm] = useState<"signOut" | "remove" | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const keyboardOpen = useRef(false);
   const { signOut: canSignOut, remove: canRemove } = accountActions(group, instance);
   const usedBy = state.bots.filter((bot) => bot.modelSelection.instanceId === instance.instanceId).length;
-
-  useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") { event.stopPropagation(); setOpen(false); } };
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.target instanceof Node && !menuRef.current?.contains(event.target)) setOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown, true);
-    window.addEventListener("pointerdown", onPointerDown);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown, true);
-      window.removeEventListener("pointerdown", onPointerDown);
-    };
-  }, [open]);
 
   const run = async (action: "signOut" | "remove") => {
     setConfirm(null);
@@ -106,26 +94,24 @@ function AccountMenu({ group, instance, onRename }: { group: AccountGroup; insta
     }
   };
 
-  const item = "ui-menu-row w-full text-left disabled:cursor-not-allowed disabled:opacity-50";
   return (
-    <div ref={menuRef} className="relative flex items-center gap-1">
+    <div className="relative flex items-center gap-1">
       {canRemove && <button type="button" disabled={busy || usedBy > 0} onClick={() => setConfirm("remove")}
         title={usedBy > 0 ? t("accounts.inUse", { count: String(usedBy) }) : undefined}
         className="rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-danger-text hover:bg-danger/10 disabled:cursor-not-allowed disabled:opacity-50">
         {t("accounts.remove")}
       </button>}
-      <button type="button" onClick={() => setOpen((value) => !value)} disabled={busy} aria-haspopup="menu" aria-expanded={open}
-        aria-label={t("accounts.menu", { name: instance.displayName })}
+      <IconButton ref={triggerRef} label={t("accounts.menu", { name: instance.displayName })}
+        onClick={(event) => { keyboardOpen.current = event.detail === 0; setOpen((value) => !value); }} disabled={busy} aria-haspopup="menu" aria-expanded={open}
         className="flex size-8 items-center justify-center rounded-lg text-ink-secondary outline-none hover:bg-control hover:text-ink focus-visible:ring-2 focus-visible:ring-focus disabled:opacity-50">
         {busy ? <Loader2 size={14} className="animate-spin" /> : <MoreHorizontal size={16} />}
-      </button>
-      {open && (
-        <div role="menu" className={cn("absolute right-0 top-full z-40 mt-1 w-[220px] overflow-hidden text-[13px]", MENU_SHEET)}>
-          <button type="button" role="menuitem" className={cn(item, "text-ink")} onClick={() => { setOpen(false); onRename(); }}>{t("accounts.rename")}</button>
-          {canSignOut && <button type="button" role="menuitem" className={cn(item, "text-ink")} onClick={() => { setOpen(false); setConfirm("signOut"); }}>{t("accounts.signOut")}</button>}
-          {canRemove && usedBy > 0 && <p className="px-3 pb-1 pt-0.5 text-[11px] leading-snug text-ink-secondary">{t("accounts.inUse", { count: String(usedBy) })}</p>}
-        </div>
-      )}
+      </IconButton>
+      <Menu open={open} onClose={() => setOpen(false)} anchor={triggerRef} placement="below-end" autoFocus={keyboardOpen.current}
+        label={t("accounts.menu", { name: instance.displayName })} className="w-[220px] overflow-hidden">
+        <MenuItem onSelect={onRename}>{t("accounts.rename")}</MenuItem>
+        {canSignOut && <MenuItem onSelect={() => setConfirm("signOut")}>{t("accounts.signOut")}</MenuItem>}
+        {canRemove && usedBy > 0 && <p className="px-3 pb-1 pt-0.5 text-[11px] leading-snug text-ink-secondary">{t("accounts.inUse", { count: String(usedBy) })}</p>}
+      </Menu>
       {error && <p role="alert" className="popover-surface absolute right-0 top-full z-30 mt-1 w-[260px] rounded-lg bg-menu p-2 text-[12px] text-danger-text shadow-lg">{error}</p>}
       <ConfirmDialog
         open={confirm === "signOut"}

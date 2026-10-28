@@ -15,7 +15,7 @@ import {
 import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/cn";
-import { popoverClosesOnKey, usePopoverDismiss } from "@/hooks/use-popover-dismiss";
+import { popoverClosesOnKey } from "@/hooks/use-popover-dismiss";
 import { useMenuMotion } from "../MenuMotion";
 import { MENU_HEADING, MENU_ITEM, MENU_ITEM_SEPARATOR, MENU_SHEET, nextMenuIndex } from "../menu-recipe";
 
@@ -59,6 +59,22 @@ export function typeaheadIndex(labels: readonly string[], prefix: string, curren
   return null;
 }
 
+/** Type-ahead for a menu's keydown: a printable key joins the search and focus jumps to the item it lands on.
+ * Returns whether the key was taken. */
+export function useTypeahead(): (event: { key: string; ctrlKey: boolean; metaKey: boolean; altKey: boolean; preventDefault(): void }, list: HTMLElement[], current: number) => boolean {
+  const typed = useRef({ text: "", at: 0 });
+  return (event, list, current) => {
+    if (event.key.length !== 1 || event.ctrlKey || event.metaKey || event.altKey || !/\S/.test(event.key)) return false;
+    const now = Date.now();
+    typed.current = { text: (now - typed.current.at < TYPEAHEAD_MS ? typed.current.text : "") + event.key, at: now };
+    const index = typeaheadIndex(list.map((item) => item.textContent ?? ""), typed.current.text, current);
+    if (index == null) return false;
+    event.preventDefault();
+    list[index]?.focus();
+    return true;
+  };
+}
+
 const items = (menu: HTMLElement | null) =>
   menu ? [...menu.querySelectorAll<HTMLElement>('[role^="menuitem"]')].filter((item) => !item.hasAttribute("disabled") && item.getAttribute("aria-disabled") !== "true" && item.closest('[role="menu"]') === menu) : [];
 
@@ -88,18 +104,39 @@ export function Menu({ open, onClose, anchor, label, placement = "below-start", 
   const motion = useMenuMotion(open);
   const sheetRef = useRef<HTMLDivElement | null>(null);
   const [position, setPosition] = useState<{ left: number; top: number } | null>(null);
-  const typed = useRef({ text: "", at: 0 });
+  const typeahead = useTypeahead();
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
-  const anchorElement = () => ("current" in anchor ? anchor.current : null);
+  const anchorRef = "current" in anchor ? anchor : null;
+  const anchorElement = () => anchorRef?.current ?? null;
 
   const close = (refocus = false) => {
     onCloseRef.current(refocus);
     if (refocus) anchorElement()?.focus();
   };
-  const inside = useRef<{ contains: (target: unknown) => boolean } | null>(null);
-  inside.current = { contains: (target) => [sheetRef.current, anchorElement()].some((node) => node?.contains(target as Node)) };
-  usePopoverDismiss(open, inside, () => close(false));
+  const closeRef = useRef(close);
+  closeRef.current = close;
+  // While open the menu owns Escape wherever focus is (its trigger, after a pointer open), before a dialog or panel
+  // around it can take the key; a press outside the menu and its trigger dismisses it.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (!popoverClosesOnKey(event)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      closeRef.current(true);
+    };
+    const onDown = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      if (![sheetRef.current, anchorRef?.current].some((node) => node?.contains(target))) closeRef.current(false);
+    };
+    window.addEventListener("keydown", onKey, true);
+    window.addEventListener("pointerdown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey, true);
+      window.removeEventListener("pointerdown", onDown);
+    };
+  }, [open, anchorRef]);
 
   const pointKey = "x" in anchor ? `${anchor.x},${anchor.y}` : "";
   useLayoutEffect(() => {
@@ -133,6 +170,8 @@ export function Menu({ open, onClose, anchor, label, placement = "below-start", 
   const onKey = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     onKeyDown?.(event);
     if (event.defaultPrevented) return;
+    // A field inside the menu (a rename box) keeps its own keys.
+    if ((event.target as HTMLElement).closest?.("input, textarea, select, [contenteditable]")) return;
     const list = items(event.currentTarget);
     const current = list.indexOf(document.activeElement as HTMLElement);
     const next = nextMenuIndex(event.key, current, list.length);
@@ -141,27 +180,12 @@ export function Menu({ open, onClose, anchor, label, placement = "below-start", 
       list[next]?.focus();
       return;
     }
-    if (popoverClosesOnKey({ key: event.key, defaultPrevented: false, isComposing: event.nativeEvent.isComposing })) {
-      // The menu, not the dialog or panel around it, owns this Escape.
-      event.preventDefault();
-      event.stopPropagation();
-      close(true);
-      return;
-    }
     if (event.key === "Tab") {
       event.preventDefault();
       close(true);
       return;
     }
-    if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey && /\S/.test(event.key)) {
-      const now = Date.now();
-      typed.current = { text: (now - typed.current.at < TYPEAHEAD_MS ? typed.current.text : "") + event.key, at: now };
-      const index = typeaheadIndex(list.map((item) => item.textContent ?? ""), typed.current.text, current);
-      if (index != null) {
-        event.preventDefault();
-        list[index]?.focus();
-      }
-    }
+    typeahead(event, list, current);
   };
 
   const setRef = (node: HTMLDivElement | null) => {

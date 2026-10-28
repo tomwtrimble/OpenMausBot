@@ -128,6 +128,14 @@ describe("the anchored menu in a document", () => {
     expect(document.activeElement).toBe(rows[0]);
   });
 
+  it("jumps to an item by the letter it starts with", async () => {
+    await key(trigger(), "ArrowUp");
+    await flush();
+    const rows = [...sheet()!.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+    await key(rows[0]!, "s");
+    expect(document.activeElement).toBe(rows[2]);
+  });
+
   it("opens the submenu with the inline end arrow and closes only it with Escape", async () => {
     await act(async () => trigger().click());
     const support = [...sheet()!.querySelectorAll<HTMLElement>('[role="menuitem"]')][1]!;

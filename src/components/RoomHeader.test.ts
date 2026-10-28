@@ -58,7 +58,7 @@ const CONTROLS = {
   export: 'aria-label="Export conversation"',
   turnLimit: 'data-testid="conversation-turn-limit"',
   usage: 'data-testid="group-usage-chip"',
-  folder: 'title="Group working folder"',
+  folder: 'aria-label="Group working folder"',
   responder: 'aria-label="Default responder"',
   members: 'aria-label="Manage members: 9 bots in this group"',
 };

@@ -115,7 +115,8 @@ describe("Shared with the Cloud", () => {
     expect(Array.from(document.querySelectorAll('[role="menuitem"]')).map((node) => node.textContent)).toEqual(["Open on this computer", "Stop sharing"]);
     await click("Open on this computer");
     expect(bridge.open).toHaveBeenCalledWith({ folderId: "f-synced" });
-    expect(document.querySelector('[role="menu"]')).toBeNull();
+    // closed: gone, or fading out inert
+    expect(document.querySelector('[role="menu"]:not([aria-hidden="true"])')).toBeNull();
     await click("More for Folder synced");
     await act(async () => (document.querySelector('[role="menuitem"]:last-child') as HTMLElement).click());
     expect(dialog()?.textContent).toContain("Stop sharing “Folder synced”?");

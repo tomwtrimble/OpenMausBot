@@ -10,7 +10,8 @@ import { ConfirmDialog } from "./ConfirmDialog";
 import { useCaptionChrome } from "./DesktopCapabilities";
 import { Switch } from "./SettingsPrimitives";
 import { Dialog } from "./ui/Dialog";
-import { MENU_SHEET } from "./menu-recipe";
+import { IconButton } from "./ui/IconButton";
+import { Menu, MenuItem } from "./ui/Menu";
 import { Button } from "./ui/Button";
 
 const REFUSAL: Record<string, LocaleKey> = {
@@ -199,24 +200,15 @@ function FolderRow({ folder, bridge, busy, run, onStop }: { folder: SharedFolder
 
 function FolderMenu({ name, busy, onOpen, onStop }: { name: string; busy: boolean; onOpen: () => void; onStop: () => void }) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") { event.stopPropagation(); setOpen(false); } };
-    const onDown = (event: PointerEvent) => { if (event.target instanceof Node && !ref.current?.contains(event.target)) setOpen(false); };
-    window.addEventListener("keydown", onKey, true);
-    window.addEventListener("pointerdown", onDown);
-    return () => { window.removeEventListener("keydown", onKey, true); window.removeEventListener("pointerdown", onDown); };
-  }, [open]);
-  const item = (label: string, action: () => void, danger = false) => <button type="button" role="menuitem" disabled={busy}
-    className={cn("ui-menu-row w-full text-left", danger ? "text-danger-text" : "text-ink")} onClick={() => { setOpen(false); action(); }}>{label}</button>;
-  return <div ref={ref} className="relative shrink-0">
-    <button type="button" aria-haspopup="menu" aria-expanded={open} aria-label={t("files.more", { name })}
-      className="ui-icon-button hover:bg-control hover:text-ink" onClick={() => setOpen((value) => !value)}><MoreHorizontal size={16} /></button>
-    {open && <div role="menu" className={cn("absolute right-0 top-full z-40 mt-1 w-[220px] overflow-hidden text-[13px]", MENU_SHEET)}>
-      {item(t("files.openHere"), onOpen)}
-      {item(t("files.stop"), onStop, true)}
-    </div>}
+  const trigger = useRef<HTMLButtonElement>(null);
+  const keyboard = useRef(false);
+  return <div className="relative shrink-0">
+    <IconButton ref={trigger} label={t("files.more", { name })} aria-haspopup="menu" aria-expanded={open}
+      className="ui-icon-button hover:bg-control hover:text-ink" onClick={(event) => { keyboard.current = event.detail === 0; setOpen((value) => !value); }}><MoreHorizontal size={16} /></IconButton>
+    <Menu open={open} onClose={() => setOpen(false)} anchor={trigger} placement="below-end" autoFocus={keyboard.current} label={t("files.more", { name })} className="w-[220px] overflow-hidden">
+      <MenuItem disabled={busy} onSelect={onOpen}>{t("files.openHere")}</MenuItem>
+      <MenuItem disabled={busy} onSelect={onStop} className="text-danger-text">{t("files.stop")}</MenuItem>
+    </Menu>
   </div>;
 }
 
