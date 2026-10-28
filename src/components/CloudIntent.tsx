@@ -179,7 +179,6 @@ export function CloudIntent() {
             <IconButton label={t("cloudIntent.send")} tooltip={`${t("cloudIntent.send")} (${sendKeyLabel(sendKey)})`}
               onClick={submit}
               disabled={!filled}
-
               className={cn(
                 "absolute bottom-3 right-3 flex size-8 items-center justify-center rounded-full transition-[background-color,color,transform] duration-150 ease-out active:scale-95",
                 filled ? "bg-accent text-white" : "bg-raised text-ink-secondary",

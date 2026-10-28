@@ -643,7 +643,6 @@ export function MemoryFileRows({
               </button>
               <IconButton label={t("memory.deleteFile", { name: file.name })} tooltip={t("memory.delete")}
                 onClick={() => onDelete(file)}
-
                 className="shrink-0 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-danger-text"
               >
                 <Trash2 size={14} />

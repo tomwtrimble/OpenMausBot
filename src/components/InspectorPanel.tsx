@@ -151,7 +151,6 @@ export function InspectorPanel({ bot }: { bot: Bot }) {
         </span>
         <IconButton label="Close the Inspector"
           onClick={() => dispatch({ type: "toggleInspector", open: false })}
-
           className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink"
         >
           <X size={18} />

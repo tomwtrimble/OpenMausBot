@@ -39,7 +39,6 @@ export function SidebarAttentionPanel({ entries, density, onUnpin, onJump, colla
         )}
         <IconButton label={t("attention.unpin")}
           onClick={onUnpin}
-
           className="flex size-5 shrink-0 items-center justify-center rounded text-ink-secondary hover:bg-raised hover:text-ink"
         >
           <PinOff size={compact ? 11 : 12} aria-hidden="true" />

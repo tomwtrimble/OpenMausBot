@@ -297,7 +297,6 @@ export function SkillsSection() {
                         <span key={bot.id} className="flex items-center gap-1 rounded-full bg-control px-2 py-0.5">
                           <span className="max-w-40 truncate">{bot.name}</span>
                           <IconButton label={t("skills.library.removeAssignment", { bot: bot.name })}
-
                             disabled={Boolean(working || importing)}
                             onClick={() => void unassign(skill, bot.id)}
                             className="flex size-4 items-center justify-center rounded-full text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40"

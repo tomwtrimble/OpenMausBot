@@ -1252,7 +1252,6 @@ export function ComputerPanel({
               dispatch({ type: "toggleComputer", open: false });
             }}
             className="absolute right-0 top-1/2 -translate-y-1/2 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-ink"
-
           >
             <X size={18} />
           </IconButton>

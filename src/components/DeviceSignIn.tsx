@@ -9,6 +9,7 @@ import type { LocaleKey } from "@/locales";
 import { deviceSignInLink, isDeviceSignInCode, type DeviceSignInProvider } from "../../shared/device-sign-in";
 import { CodexMark } from "./ProviderIcons";
 import { Button } from "./ui/Button";
+import { buttonClass } from "./ui/Button";
 
 export interface DeviceSignInStatus {
   phase: "waiting" | "succeeded" | "failed" | "expired" | "cancelled";
@@ -107,7 +108,7 @@ export function DeviceSignInProgress({ auth, browserPkce = false, provider = "co
       </div></>}
       <a href={link} target="_blank" rel="noopener noreferrer" onClick={(event) => {
         if (window.ogb?.openExternal) { event.preventDefault(); void openExternalLink(link); }
-      }} className={browserPkce ? chatgptButton : "flex items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110"}>
+      }} className={browserPkce ? chatgptButton : buttonClass({ variant: "primary", size: "lg", className: "flex gap-2 px-3" })}>
         {browserPkce && <CodexMark size={16} className="fill-current" />}
         {t(browserPkce ? "engineSetup.chatgpt.start" : copy.open)} <ExternalLink size={13} />
       </a>
@@ -228,7 +229,7 @@ export function DeviceSignIn({ instanceId, browserPkce = false, provider = "code
           {busy ? t("engineSetup.device.cancelling") : t("engineSetup.device.cancel")}
         </Button>
       ) : auth?.phase !== "succeeded" && (
-        <button type="button" disabled={busy} onClick={() => void start()} className={browserPkce ? chatgptButton : "flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-50"}>
+        <button type="button" disabled={busy} onClick={() => void start()} className={browserPkce ? chatgptButton : buttonClass({ variant: "primary", size: "lg", className: "flex w-full gap-2 px-3" })}>
           {busy ? <Loader2 size={14} className="animate-spin" /> : browserPkce ? <CodexMark size={16} className="fill-current" /> : <LogIn size={14} />}
           {startLabel}
         </button>

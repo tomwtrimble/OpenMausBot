@@ -168,7 +168,6 @@ export function ModelEngineRail({ instances, selectedInstance, claudeInstance, o
         <IconButton label={apiKeysLabel(instances)}
           data-rail-add-api-key
           onClick={onAddApiKeys}
-
           className="flex size-9 shrink-0 items-center justify-center rounded-[8px] border border-dashed border-ink/20 text-ink-tertiary hover:bg-ink/[0.06] hover:text-ink"
         >
           <Plus size={16} strokeWidth={MENU_STROKE} aria-hidden="true" />

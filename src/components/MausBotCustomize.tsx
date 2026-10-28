@@ -67,7 +67,6 @@ export function MausBotCustomize({ preview, name, nameRef, image, onName, onPatc
             <IconButton label={MASCOT_BODIES[id].name}
               key={id}
               aria-pressed={!picture && (preview.mascotBody ?? "cursor") === id}
-
               data-mausbot-welcome-body={id}
               onClick={() => shape({ mascotBody: id })}
               className={cn("flex h-11 items-center justify-center rounded-xl", !picture && (preview.mascotBody ?? "cursor") === id ? "bg-ink/[0.08] ring-[1.5px] ring-inset ring-ink/25" : "hover:bg-ink/[0.05]")}

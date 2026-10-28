@@ -243,7 +243,6 @@ export function TrashButton({ label, onClick, disabled, ...rest }: {
   return (
     <IconButton label={label}
       {...rest}
-
       disabled={disabled}
       onClick={onClick}
       className="flex size-7 shrink-0 items-center justify-center rounded-lg text-ink-tertiary hover:bg-ink/[0.05] hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"

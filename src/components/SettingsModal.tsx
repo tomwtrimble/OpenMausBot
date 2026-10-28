@@ -535,7 +535,6 @@ export function SettingsModal() {
             </header>
             <IconButton label={t("settings.close")} tooltip={`${t("settings.close")} (${shortcutLabel("close-panel")})`}
               onClick={close}
-
               className="absolute right-3 top-3 flex size-8 cursor-pointer items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink motion-reduce:transition-none"
             >
               <X size={16} aria-hidden="true" />
@@ -646,7 +645,6 @@ export function SettingsModal() {
             </span>
             <IconButton label={t("settings.close")} tooltip={`${t("settings.close")} (${shortcutLabel("close-panel")})`}
               onClick={close}
-
               className="ui-icon-button cursor-pointer shrink-0 max-md:size-9 max-md:rounded-full max-md:border max-md:border-edge max-md:bg-card"
             >
               <X size={18} />

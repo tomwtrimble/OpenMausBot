@@ -109,13 +109,11 @@ export function ActivityPanel({ bot }: { bot: Bot }) {
           <IconButton label={t("activity.panel.reload")}
             onClick={() => void load()}
             className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink"
-
           >
             <RefreshCw size={14} />
           </IconButton>
           <IconButton label={t("activity.panel.close")}
             onClick={() => dispatch({ type: "toggleActivity", open: false })}
-
             className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink"
           >
             <X size={18} />

@@ -41,21 +41,18 @@ export function WindowCaptionButtons({ visible }: { visible: boolean }) {
       className="absolute right-0 top-0 z-40 flex items-stretch"
     >
       <IconButton label={t("window.minimize")}
-
         className={captionButton}
         onClick={() => void controls?.minimize()}
       >
         <Minus size={14} />
       </IconButton>
       <IconButton label={maximized ? t("window.restore") : t("window.maximize")}
-
         className={captionButton}
         onClick={() => void controls?.toggleMaximize()}
       >
         {maximized ? <Copy size={11} /> : <Square size={11} />}
       </IconButton>
       <IconButton label={t("window.close")}
-
         className={cn(captionButton, "hover:bg-danger/25 hover:text-danger-text")}
         onClick={() => void controls?.close()}
       >

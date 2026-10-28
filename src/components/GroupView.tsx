@@ -1078,7 +1078,6 @@ export function GroupView({ group }: { group: Group }) {
               </button>
               <IconButton label={t("chat.unpinMessage")} tooltip={t("chat.unpin")}
                 onClick={() => dispatch({ type: "patchGroup", groupId: group.id, patch: { pinnedMessageId: "" } })}
-
                 className={cn("shrink-0 rounded p-0.5 text-ink-secondary hover:bg-raised hover:text-ink", remoteClient && "hidden")}
               >
                 <X size={13} />

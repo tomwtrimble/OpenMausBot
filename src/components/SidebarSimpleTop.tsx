@@ -104,7 +104,6 @@ export function SidebarSearchPill({ query, onQuery, onClose }: { query: string; 
         />
         <IconButton label={t("sidebar.searchClose")}
           onClick={onClose}
-
           className="flex size-6 shrink-0 items-center justify-center rounded-full text-ink-tertiary hover:bg-raised hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus"
         >
           <X size={14} aria-hidden="true" />

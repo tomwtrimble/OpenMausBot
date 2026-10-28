@@ -124,7 +124,6 @@ export function BotConversations({ bot }: { bot: Bot }) {
         {listed && (
           <IconButton label={t("botPanel.conversations.search")}
             data-conversations-search
-
             aria-pressed={searching}
             onClick={() => (searching ? stopSearching() : setSearching(true))}
             className={cn("flex size-9 shrink-0 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink", searching && "bg-ink/[0.06] text-ink")}

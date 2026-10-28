@@ -358,7 +358,6 @@ function ConversationTaskPicker({
                   {onPin && renaming !== task.threadId && (
                     <IconButton label={task.pinned === true ? t("sidebar.bot.unpin") : t("sidebar.bot.pin")}
                       onClick={() => onPin(task.threadId, task.pinned !== true)}
-
                       className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-70"
                     >
                       {task.pinned === true ? <PinOff size={14} /> : <Pin size={14} />}
@@ -367,7 +366,6 @@ function ConversationTaskPicker({
                   {renaming !== task.threadId && (
                     <IconButton label={t("task.renameNamed", { title: task.title })} tooltip={t("task.renameTitle")}
                       onClick={() => startRename(task)}
-
                       className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-70"
                     >
                       <SquarePen size={14} />
@@ -385,7 +383,6 @@ function ConversationTaskPicker({
                   <IconButton label={t("task.deleteAria")} tooltip={t("task.deleteTitle")}
                     onClick={() => onDelete(task.threadId)}
                     disabled={Boolean(task.busy) || busy && active}
-
                     className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-danger-text focus-visible:opacity-100 group-hover:opacity-100 disabled:opacity-20 touch:opacity-70 touch:disabled:opacity-20"
                   >
                     <Trash2 size={14} />

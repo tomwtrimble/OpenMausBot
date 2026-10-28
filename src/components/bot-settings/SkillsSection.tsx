@@ -481,7 +481,6 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                   )}
                   {skill.origin !== "imported" && skill.origin !== "native" && (
                     <IconButton label={`Remove ${skill.name}`} tooltip="Remove skill"
-
                       disabled={Boolean(working)}
                       onClick={() => void remove(skill)}
                       className="flex size-8 shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40"

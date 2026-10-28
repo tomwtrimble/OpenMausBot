@@ -61,7 +61,6 @@ function AdvancedHelperIntro({ botId, threadId, message, answered }: IntroProps)
           <IconButton label={t("helperIntro.dismiss")}
             data-helper-dismiss=""
             onClick={() => dispatch({ type: "dismissCard", botId, threadId, messageId: message.id })}
-
             className="flex size-7 items-center justify-center rounded-full text-ink-tertiary hover:bg-raised-hover hover:text-ink"
           >
             <X size={14} />

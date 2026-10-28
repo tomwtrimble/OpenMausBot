@@ -57,7 +57,6 @@ export function VerifyCard({
         <IconButton label={toggleLabel}
           onClick={() => setCollapsed((current) => !current)}
           aria-expanded={!collapsed}
-
           className={ICON_BUTTON}
         >
           {collapsed ? <ChevronUp size={14} aria-hidden="true" /> : <ChevronDown size={14} aria-hidden="true" />}

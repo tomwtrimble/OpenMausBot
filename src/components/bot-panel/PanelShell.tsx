@@ -102,7 +102,6 @@ export function BotPanel({ bot, derived, headerClassName, linkedSection, onClose
         <ChatShareMenu bot={bot} className={roundButtonCls} />
         <IconButton label={t("botPanel.page.settings")}
           data-panel-gear
-
           aria-current={page === "settings" ? "page" : undefined}
           onClick={() => go({ tab: "details", page: "settings" })}
           className={roundButtonCls}

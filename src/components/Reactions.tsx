@@ -114,7 +114,6 @@ export function ReactAction({ threadId, message }: { threadId: string; message: 
       <IconButton label={t("chat.react")}
         ref={buttonRef}
         onClick={() => setOpen((value) => !value)}
-
         aria-expanded={open}
         aria-controls={open ? id : undefined}
         className={cn(messageActionClass, open && "bg-ink/10 text-ink")}

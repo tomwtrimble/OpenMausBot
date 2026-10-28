@@ -37,7 +37,6 @@ export function LiveCallPill({ onOpen, currentBotId, iconOnly = false }: {
   const hangUpChord = liveCallChord("hangUp", isMac);
   const mute = (
     <IconButton label={muteLabel} tooltip={`${muteLabel} (${muteChord.text})`}
-
       aria-pressed={media.muted}
       aria-keyshortcuts={muteChord.aria}
       onClick={() => setLiveMuted(!media.muted)}

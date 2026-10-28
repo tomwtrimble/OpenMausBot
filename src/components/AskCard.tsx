@@ -74,7 +74,6 @@ export function AskCard({
         {onDismiss && dismissLabel && (
           <IconButton label={dismissLabel}
             onClick={onDismiss}
-
             className={cn(
               "-me-1.5 flex size-7 shrink-0 items-center justify-center rounded-full text-ink-tertiary hover:bg-ink/[0.07] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus pointer-coarse:size-9",
               header ? "-mt-7" : "-mt-0.5",

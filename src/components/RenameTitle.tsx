@@ -110,7 +110,6 @@ export function RenameTitle({
         )}
         <IconButton label={t("rename.named", { name: value })} tooltip={t("rename.agent")}
           onClick={startRename}
-
           className={cn("flex size-10 shrink-0 items-center justify-center rounded text-ink-secondary opacity-70 hover:bg-raised hover:text-ink hover:opacity-100", editButtonClassName)}
         >
           <Pencil size={12} />

@@ -40,7 +40,6 @@ export function PinnedBanner({
         </button>
         {onUnpin && <IconButton label={t("chat.unpinMessage")} tooltip={t("chat.unpin")}
           onClick={onUnpin}
-
           className="shrink-0 rounded p-0.5 text-ink-secondary hover:bg-raised hover:text-ink"
         >
           <X size={13} />

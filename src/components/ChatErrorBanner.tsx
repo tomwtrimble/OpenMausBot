@@ -33,7 +33,6 @@ export function ChatErrorBanner({ message, onDismiss }: { message: string | null
         </div>
         <IconButton label={t("chat.error.dismiss")}
           onClick={onDismiss}
-
           className="shrink-0 rounded p-0.5 hover:bg-danger/10"
         >
           <X size={13} />

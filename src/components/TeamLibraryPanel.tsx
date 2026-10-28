@@ -930,7 +930,6 @@ export function TeamLibraryPanel({
                                 </label>
                                 <IconButton label={t("templates.openDirectory", { name: candidate.name })} tooltip={t("templates.readBeforeAdding")}
                                   onClick={() => void openExternal(candidate.detailUrl)}
-
                                   className="rounded-lg p-1.5 text-ink-secondary hover:bg-raised hover:text-ink"
                                 >
                                   <ExternalLink size={14} />

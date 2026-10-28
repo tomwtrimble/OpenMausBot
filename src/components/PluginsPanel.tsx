@@ -537,7 +537,6 @@ export function PluginsPanel() {
                 onClick={() => { setWhopRefresh((value) => value + 1); void loadConnectionInventory(true); }}
                 disabled={refreshing}
                 className="flex size-8 items-center justify-center rounded-full text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-50"
-
               >
                 <RefreshCw size={16} className={cn(refreshing && "animate-spin")} />
               </IconButton>

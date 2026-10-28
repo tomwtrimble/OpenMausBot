@@ -47,7 +47,6 @@ export function AppHeader({
       </div>
       <div className="-me-1.5 mt-0.5 flex shrink-0 items-center gap-0.5">
         <IconButton label={t("app.info")}
-
           aria-expanded={infoOpen}
           aria-controls={infoId}
           onClick={onInfo}

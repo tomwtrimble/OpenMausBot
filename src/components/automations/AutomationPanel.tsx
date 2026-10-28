@@ -10,6 +10,7 @@ import { useStore } from "@/state/store";
 import { AppEventsSection } from "./AppEventsSection";
 import { useAllAutomationActions } from "./app-actions";
 import { FixButton, StatusMark } from "./parts";
+import { Button } from "../ui/Button";
 
 const RECENT = 5;
 const BUTTON = "flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-[13px] font-medium disabled:opacity-50";
@@ -66,10 +67,10 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
         {webhook && (
           <section className="rounded-xl border border-hairline bg-inset/50 p-3.5">
             <h3 className="text-[13px] font-medium text-ink">{t("automations.address.title")}</h3>
-            <button type="button" disabled={Boolean(actions.busy) || !receiving} onClick={() => void actions.copyAddress(webhook.id)} className={cn(BUTTON, "mt-2.5 bg-accent text-accent-ink hover:brightness-110")}>
+            <Button variant="primary" size="lg" disabled={Boolean(actions.busy) || !receiving} onClick={() => void actions.copyAddress(webhook.id)} className="mt-2.5 gap-1.5 px-3">
               {actions.copied === webhook.id ? <Check size={14} /> : <Copy size={14} />}
               {actions.copied === webhook.id ? t("automations.address.copied") : t("automations.address.copy")}
-            </button>
+            </Button>
             {(!receiving || !state.config?.cloudHome) && <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{receiving ? t("automations.address.keepOpen") : t("automations.address.unavailable")}</p>}
             <details className="mt-2.5 text-[12px] text-ink-secondary">
               <summary className="cursor-pointer select-none font-medium text-ink-secondary hover:text-ink">{t("automations.more")}</summary>
@@ -138,7 +139,7 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
       </div>
 
       <div className="grid grid-cols-2 gap-2 border-t border-hairline px-5 py-3.5">
-        <button type="button" disabled={Boolean(actions.busy)} onClick={() => void actions.runNow(automation)} className={cn(BUTTON, "bg-accent text-accent-ink hover:brightness-110")}><Play size={14} />{actions.busy === `run:${automation.id}` ? t("automations.starting") : t("automations.runNow")}</button>
+        <Button variant="primary" size="lg" disabled={Boolean(actions.busy)} onClick={() => void actions.runNow(automation)} className="gap-1.5 px-3"><Play size={14} />{actions.busy === `run:${automation.id}` ? t("automations.starting") : t("automations.runNow")}</Button>
         {status.state !== "done" && <button type="button" disabled={Boolean(actions.busy)} onClick={() => void actions.toggle(automation)} className={cn(BUTTON, "border border-hairline bg-control text-ink hover:bg-raised-hover")}>{automation.enabled ? <Pause size={14} /> : <Play size={14} />}{automation.enabled ? t("automations.pause") : t("automations.resume")}</button>}
         <button type="button" onClick={onEdit} className={cn(BUTTON, "text-ink hover:bg-raised")}><Pencil size={14} />{t("automations.edit")}</button>
         <button type="button" disabled={Boolean(actions.busy)} onClick={() => void actions.remove(automation, t("automations.deleteConfirm", { sentence })).then((gone) => { if (gone) onDeleted(); })} className={cn(BUTTON, "text-danger-text hover:bg-danger/10")}><Trash2 size={14} />{t("automations.delete")}</button>

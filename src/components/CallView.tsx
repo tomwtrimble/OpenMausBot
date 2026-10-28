@@ -298,7 +298,6 @@ export function CallTargetButton({
           aria-haspopup="menu"
           aria-expanded={menuOpen}
           aria-controls={menuOpen ? menuId : undefined}
-
           className={cn(
               "grid place-content-center",
               "bg-control w-8 hover:bg-raised-hover text-ink-secondary hover:text-ink disabled:opacity-40 transition-colors",

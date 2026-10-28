@@ -132,7 +132,6 @@ export function QueuedComposerMessages({
             {onEdit && (
               <IconButton label={t("composer.queued.editAria", { index: index + 1, count: items.length })} tooltip={t("composer.queued.editTitle")}
                 onClick={() => onEdit(item.queueId)}
-
                 className="flex size-7 shrink-0 items-center justify-center rounded-lg text-ink-secondary outline-none hover:bg-raised-hover hover:text-ink focus-visible:ring-2 focus-visible:ring-focus/60"
               >
                 <Pencil size={14} aria-hidden="true" />
@@ -140,7 +139,6 @@ export function QueuedComposerMessages({
             )}
             <IconButton label={t("composer.queued.deleteAria", { index: index + 1, count: items.length })} tooltip={t("composer.queued.deleteTitle")}
               onClick={() => onCancel(item.queueId)}
-
               className="flex size-7 shrink-0 items-center justify-center rounded-lg text-ink-secondary outline-none hover:bg-raised-hover hover:text-ink focus-visible:ring-2 focus-visible:ring-focus/60"
             >
               <Trash2 size={14} aria-hidden="true" />

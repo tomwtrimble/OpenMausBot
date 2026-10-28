@@ -164,7 +164,6 @@ export function CommandAllowlistDialog({ botId, botName, threadId, onClose }: {
                   <p className="mt-0.5 break-all font-mono text-[11px] text-ink-secondary">{rule.cwd}</p>
                 </div>
                 <IconButton label={t("commandAllowlist.removeAria", { command: rule.command })} tooltip={t(saving === rule.id ? "commandAllowlist.removing" : "commandAllowlist.remove")} disabled={Boolean(saving)} onClick={() => void save(rule)}
-
                   className="shrink-0 rounded-md p-1.5 text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40">
                   {saving === rule.id ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
                 </IconButton>

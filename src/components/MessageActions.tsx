@@ -177,7 +177,6 @@ export function MessageActions({
         <IconButton label={t("chat.messageActions")}
           ref={moreRef}
           onClick={() => setMenuOpen((value) => !value)}
-
           aria-haspopup="menu"
           aria-expanded={menuOpen}
           aria-controls={menuOpen ? menuId : undefined}

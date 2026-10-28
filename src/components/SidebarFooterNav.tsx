@@ -72,7 +72,6 @@ export function SidebarAppsButton() {
       data-tour="nav-apps"
       data-sidebar-nav="apps"
       onClick={() => dispatch({ type: "togglePlugins", open: true })}
-
       aria-pressed={state.pluginsOpen}
       className={cn(
         "flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors",

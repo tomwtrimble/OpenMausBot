@@ -1038,7 +1038,6 @@ export function ChatView({ bot: profile }: { bot: Bot }) {
               <IconButton label={t("chat.openProfileAria", { name: bot.name })} tooltip={t("chat.openProfile")}
                 onClick={() => dispatch({ type: "toggleSettings", open: true })}
                 className="flex shrink-0 items-center justify-center rounded-full"
-
               >
                 <BotAvatar
                   bot={bot}

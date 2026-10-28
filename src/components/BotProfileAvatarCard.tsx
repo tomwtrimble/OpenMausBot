@@ -84,7 +84,6 @@ export function BotProfileAvatarCard({
             <IconButton label={t("botIdentity.removeAvatar")} tooltip={t("botIdentity.removeImage")}
               onClick={removeImage}
               disabled={busy}
-
               className="flex size-10 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"
             >
               <Trash2 size={14} />
@@ -132,7 +131,6 @@ export function BotProfileAvatarCard({
                     "flex h-[58px] items-center justify-center rounded-xl bg-inset transition-colors hover:bg-control disabled:opacity-50",
                     activeState === expression && "ring-2 ring-accent-border",
                   )}
-
                 >
                   <MausAvatar color={bot.color} faceColor={bot.mascotFaceColor} bodyId={bot.mascotBody ?? undefined} state={expression} size={42} animated={false} />
                 </IconButton>

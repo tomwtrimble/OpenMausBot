@@ -110,7 +110,6 @@ export function VoiceNoteBubble({
         <IconButton label={playing ? t("chat.voiceNote.pause") : onLiveCall ? t("chat.voiceNote.onLiveCall") : t("chat.voiceNote.play")}
           onClick={toggle}
           disabled={onLiveCall && !playing}
-
           className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent text-white transition-opacity hover:opacity-90 disabled:opacity-40"
         >
           {playing ? <Pause size={13} className="fill-current" /> : <Play size={13} className="translate-x-px fill-current" />}

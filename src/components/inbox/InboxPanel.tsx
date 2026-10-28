@@ -1,9 +1,10 @@
 // On a Team Cloud: the person's whole inbox in the right panel, one tab per kind of line (what needs them, news, done),
 // each line a dense row that reads in full in the panel. At phone width it is a sheet over the chat.
-import { useEffect, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import type { InboxRow, InboxTab } from "../../../shared/inbox";
+import { useModalDialog } from "@/hooks/use-modal-dialog";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
@@ -27,11 +28,12 @@ export function InboxPanel() {
     const timer = setInterval(() => setNow(Date.now()), 30_000);
     return () => clearInterval(timer);
   }, []);
+  // Escape steps back from a line to the list, then closes the inbox.
+  const back = () => { if (panel.reading) readInboxLine(null); else closeInbox(); };
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key !== "Escape" || event.defaultPrevented) return;
     event.preventDefault();
-    if (panel.reading) readInboxLine(null);
-    else closeInbox();
+    back();
   };
   const counts = tabCounts(view);
   const reading = panel.reading ? view?.rows.find((row) => row.id === panel.reading) : undefined;
@@ -70,21 +72,26 @@ export function InboxPanel() {
       )}
     </>
   );
-  if (phone) {
-    return createPortal(
-      <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/40" onMouseDown={(event) => { if (event.target === event.currentTarget) closeInbox(); }}>
-        <section role="dialog" aria-modal="true" aria-label={t("inbox.panel.title")} data-inbox-panel="sheet" onKeyDown={onKeyDown}
-          className="animate-pop-in motion-reduce:animate-none flex max-h-[85dvh] min-h-[50dvh] flex-col overflow-hidden rounded-t-2xl border-t border-hairline bg-panel pb-[env(safe-area-inset-bottom)]">
-          {body}
-        </section>
-      </div>,
-      document.body,
-    );
-  }
+  if (phone) return <InboxSheet onBack={back}>{body}</InboxSheet>;
   return (
     <aside aria-label={t("inbox.panel.title")} data-inbox-panel="side" onKeyDown={onKeyDown}
       className="animate-panel-in motion-reduce:animate-none flex h-full w-[380px] max-w-full shrink-0 flex-col border-l border-hairline bg-panel max-md:absolute max-md:inset-y-0 max-md:right-0 max-md:z-30">
       {body}
     </aside>
+  );
+}
+
+/** At phone width the inbox is a modal sheet over the chat: Tab stays in it, and focus goes back to the opener after. */
+function InboxSheet({ onBack, children }: { onBack: () => void; children: ReactNode }) {
+  const sheet = useRef<HTMLElement>(null);
+  useModalDialog(sheet, onBack);
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/40" onMouseDown={(event) => { if (event.target === event.currentTarget) closeInbox(); }}>
+      <section ref={sheet} role="dialog" aria-modal="true" aria-label={t("inbox.panel.title")} data-inbox-panel="sheet" tabIndex={-1}
+        className="animate-pop-in motion-reduce:animate-none flex max-h-[85dvh] min-h-[50dvh] flex-col overflow-hidden rounded-t-2xl border-t border-hairline bg-panel pb-[env(safe-area-inset-bottom)] outline-none">
+        {children}
+      </section>
+    </div>,
+    document.body,
   );
 }

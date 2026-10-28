@@ -736,7 +736,6 @@ export function Composer({
             </button>
             <IconButton label={t("composer.failed.dismissAria")} tooltip={t("composer.failed.dismiss")}
               onClick={() => forgetFailedComposerSend(draftId, failed.id)}
-
               className="flex size-5 shrink-0 items-center justify-center rounded hover:bg-danger/10"
             >
               <X size={13} strokeWidth={2.5} />
@@ -831,7 +830,6 @@ export function Composer({
               {simpleDock && <ComposerPlusMenu onAttach={() => fileInput.current?.click()} goal={goal} teach={canLearn ? teachTask : undefined} />}
               {advanced && <IconButton label={t("composer.attach")}
                 onClick={() => fileInput.current?.click()}
-
                 className="flex size-8 shrink-0 items-center justify-center rounded-full text-ink-secondary hover:bg-control hover:text-ink"
               >
                 <Paperclip size={16} strokeWidth={1.75} absoluteStrokeWidth />

@@ -221,7 +221,6 @@ export function PlanUsage() {
         <IconButton label={t("planUsage.refresh")}
           onClick={() => void load(true)}
           disabled={loading}
-
           className="rounded-md p-2 text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}

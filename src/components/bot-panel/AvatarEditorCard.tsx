@@ -76,7 +76,6 @@ export function AvatarEditorCard({ bot, activeState, onPatch, onClose }: {
       key={id}
       disabled={busy}
       aria-pressed={!showsImage && body === id}
-
       onClick={() => pickMascot({ mascotBody: id })}
       className={cn(
         "flex h-[58px] items-center justify-center rounded-xl disabled:opacity-50",
@@ -250,7 +249,6 @@ export function AvatarEditorCard({ bot, activeState, onPatch, onClose }: {
                 <IconButton label="Remove custom avatar image" tooltip={t("botPanel.avatar.remove")}
                   onClick={removeImage}
                   disabled={busy}
-
                   className="flex size-8 shrink-0 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-50"
                 >
                   <Trash2 size={14} />

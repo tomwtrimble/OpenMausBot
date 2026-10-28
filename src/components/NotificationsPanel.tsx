@@ -156,7 +156,6 @@ export function NotificationsPanel() {
         </IconButton>
         <IconButton label={t("notifications.close")}
           onClick={() => dispatch({ type: "toggleNotifications", open: false })}
-
           className="flex size-[26px] shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-raised hover:text-ink"
         >
           <X size={14} />

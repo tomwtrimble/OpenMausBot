@@ -160,7 +160,6 @@ export function SidebarNewChatPanel({
         />
         <IconButton label={t("common.close")}
           onClick={onClose}
-
           className="-me-2 flex size-7 shrink-0 items-center justify-center rounded-full text-ink-secondary outline-none hover:bg-raised hover:text-ink focus-visible:bg-raised"
         >
           <X size={16} />

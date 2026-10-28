@@ -91,7 +91,6 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
           <IconButton label={t("apiInstances.refreshModels", { name: server.displayName })}
             onClick={() => run("other", () => api(`/api/instances/${encodeURIComponent(server.instanceId)}/refresh-models`, { method: "POST" }))}
             disabled={busy !== null}
-
             className={ICON_BUTTON}
           >
             <RotateCw size={13} aria-hidden="true" />
@@ -99,7 +98,6 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
           <IconButton label={t("apiInstances.remove", { name: server.displayName })}
             onClick={() => run("other", () => api(`/api/instances/${encodeURIComponent(server.instanceId)}`, { method: "DELETE" }))}
             disabled={busy !== null}
-
             className={`${ICON_BUTTON} hover:bg-danger/10 hover:text-danger-text`}
           >
             <Trash2 size={13} aria-hidden="true" />

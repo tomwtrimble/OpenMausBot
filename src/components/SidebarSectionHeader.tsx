@@ -113,7 +113,6 @@ export function SidebarSectionHeader({
         )}
         {onMenu && (
           <IconButton label={t("team.actions", { name })}
-
             aria-haspopup="menu"
             aria-expanded={menuOpen}
             onClick={(event) => onMenu(event.currentTarget)}
@@ -156,7 +155,6 @@ export function SidebarSectionHeader({
       {onDelete && (
         <IconButton label={t("sidebar.section.deleteAria", { name })}
           onClick={onDelete}
-
           className="flex size-6 shrink-0 items-center justify-center rounded text-ink-secondary hover:bg-danger/10 hover:text-danger-text"
         >
           <Trash2 size={13} aria-hidden="true" />
