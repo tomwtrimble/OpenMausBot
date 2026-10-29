@@ -149,10 +149,10 @@ export function CloudIntent() {
         <div className="animate-rise flex justify-center" style={staggerIndex(0)}>
           <MausAvatar color="green" state={face} motion={motion.kind} motionKey={motion.key} size={64} label={productName()} />
         </div>
-        <h1 className="animate-rise mt-5 text-center text-[24px] font-semibold tracking-[-0.015em] text-ink [text-wrap:balance]" style={staggerIndex(1)}>
+        <h1 className="animate-rise mt-5 text-center text-display font-semibold tracking-[-0.015em] text-ink [text-wrap:balance]" style={staggerIndex(1)}>
           {t("cloudIntent.title")}
         </h1>
-        <p className="animate-rise mx-auto mt-2 max-w-[460px] text-center text-[14px] leading-relaxed text-ink-secondary [text-wrap:pretty]" style={staggerIndex(2)}>
+        <p className="animate-rise mx-auto mt-2 max-w-[460px] text-center text-label leading-relaxed text-ink-secondary [text-wrap:pretty]" style={staggerIndex(2)}>
           {t("cloudIntent.intro")}
         </p>
 
@@ -161,7 +161,7 @@ export function CloudIntent() {
             className="relative rounded-2xl bg-composer py-3.5 pl-4 pr-14 shadow-[0_22px_50px_-30px_color-mix(in_srgb,var(--color-shadow)_65%,transparent)] ring-1 ring-composer-ring transition-[box-shadow] duration-200 ease-out focus-within:ring-focus/30"
             style={{ viewTransitionName: "cloud-intent" }}
           >
-            <span ref={token} aria-hidden="true" className="absolute left-4 top-[15px] inline-flex h-[22px] items-center rounded-md bg-accent/[0.14] px-1.5 text-[13px] font-semibold text-accent-text">
+            <span ref={token} aria-hidden="true" className="absolute left-4 top-[15px] inline-flex h-[22px] items-center rounded-md bg-accent/[0.14] px-1.5 text-ui font-semibold text-accent-text">
               /setup
             </span>
             <textarea
@@ -173,7 +173,7 @@ export function CloudIntent() {
               onKeyDown={onKeyDown}
               placeholder={peek ?? t("cloudIntent.placeholder")}
               aria-label={t("cloudIntent.title")}
-              className="block min-h-12 w-full resize-none bg-transparent text-[15px] leading-6 text-ink outline-none placeholder:text-ink-tertiary"
+              className="block min-h-12 w-full resize-none bg-transparent text-body leading-6 text-ink outline-none placeholder:text-ink-tertiary"
               style={{ textIndent: indent }}
             />
             <IconButton label={t("cloudIntent.send")} tooltip={`${t("cloudIntent.send")} (${sendKeyLabel(sendKey)})`}
@@ -206,7 +206,7 @@ export function CloudIntent() {
                 onFocus={() => setPeek(text)}
                 onBlur={() => setPeek(null)}
                 className={cn(
-                  "animate-rise inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[13px] transition-[background-color,border-color,color,transform] duration-150 ease-out active:scale-[0.97]",
+                  "animate-rise inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-ui transition-[background-color,border-color,color,transform] duration-150 ease-out active:scale-[0.97]",
                   chosen ? "border-accent/45 bg-accent/10 text-ink" : "border-hairline bg-card/40 text-ink-secondary hover:border-edge hover:bg-card hover:text-ink",
                 )}
                 style={staggerIndex(4 + index)}
@@ -218,12 +218,12 @@ export function CloudIntent() {
           })}
         </div>
 
-        <p className="animate-rise mt-10 text-center text-[13px] leading-relaxed text-ink-secondary" style={staggerIndex(8)}>
+        <p className="animate-rise mt-10 text-center text-ui leading-relaxed text-ink-secondary" style={staggerIndex(8)}>
           {t("cloudIntent.notSure")}{" "}
           <button type="button" onClick={skip} className="rounded font-medium text-ink underline decoration-ink-secondary/40 underline-offset-[3px] transition-colors hover:decoration-ink">
             {t("cloudIntent.skip")}
           </button>
-          <kbd className="ml-1.5 rounded border border-hairline px-1 py-px font-sans text-[11px] text-ink-secondary">Esc</kbd>
+          <kbd className="ml-1.5 rounded border border-hairline px-1 py-px font-sans text-caption text-ink-secondary">Esc</kbd>
           <br />
           {t("cloudIntent.later")}
         </p>

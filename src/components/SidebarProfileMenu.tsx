@@ -513,7 +513,7 @@ export function profileMenuItems({
     label: updateTop.label,
     subtitle: undefined,
     attention: false,
-    trailing: <span className="flex h-6 shrink-0 items-center rounded-full bg-ink px-2.5 text-[12px] font-medium text-app">{updateTop.action}</span>,
+    trailing: <span className="flex h-6 shrink-0 items-center rounded-full bg-ink px-2.5 text-small font-medium text-app">{updateTop.action}</span>,
   } : null;
   const groups = [
     move,
@@ -671,7 +671,7 @@ export function SidebarProfileMenu({ iconOnly = false, rail = false, circle = fa
               {moveDot && <span aria-hidden data-account-dot={moveDot} className={cn("absolute -right-0.5 -top-0.5 size-2 rounded-full ring-2 ring-app", DOT_COLOR[moveDot])} />}
             </span>
             <span className="flex min-w-0 flex-1 flex-col">
-              <span className="truncate text-[14px] font-medium leading-5 text-ink">{name}</span>
+              <span className="truncate text-label font-medium leading-5 text-ink">{name}</span>
               <AccountMoveStatus kind={move.kind} />
             </span>
             {noteworthy && (

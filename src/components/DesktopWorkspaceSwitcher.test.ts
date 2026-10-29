@@ -46,7 +46,7 @@ it("names whose Cloud a browser signed in to under My Cloud, quietly", () => {
   const browser = renderToStaticMarkup(createElement(DesktopWorkspaceSwitcher, { cloudHome: true, owner: "ada@example.test" }));
   expect(visibleText(browser)).toBe("My Cloudada@example.test’s Cloud");
   expect(browser).toContain('title="My Cloud · ada@example.test’s Cloud"');
-  expect(browser).toContain('<span class="block truncate text-[12px] font-normal text-ink-secondary">ada@example.test’s Cloud</span>');
+  expect(browser).toContain('<span class="block truncate text-small font-normal text-ink-secondary">ada@example.test’s Cloud</span>');
   const compact = renderToStaticMarkup(createElement(DesktopWorkspaceSwitcher, { cloudHome: true, owner: "ada@example.test", compact: true }));
   expect(compact).toContain('<span class="sr-only">My Cloud · ada@example.test’s Cloud</span>');
   expect(renderToStaticMarkup(createElement(DesktopWorkspaceSwitcher, { owner: "ada@example.test" }))).toBe("");
@@ -76,14 +76,14 @@ it("is the Show me how tip's anchor, and opens the menu as reached from the tip 
 it("draws Simple mode's switcher as a rounded pill that names the server in full, swapping to the laptop icon only when the row is too narrow", () => {
   vi.stubGlobal("window", { ogb: { workspaces: { state: () => new Promise(() => {}), menu: () => Promise.resolve() } } });
   const pill = renderToStaticMarkup(createElement(DesktopWorkspaceSwitcher, { inline: true, pill: true }));
-  expect(pill).toMatch(/aria-label="Switch server: Servers" aria-haspopup="menu" aria-expanded="false"[^>]*class="[^"]*\bh-8\b[^"]*\brounded-full\b[^"]*\bbg-raised\/50\b[^"]*\btext-\[13px\][^"]*\bfont-medium\b/);
+  expect(pill).toMatch(/aria-label="Switch server: Servers" aria-haspopup="menu" aria-expanded="false"[^>]*class="[^"]*\bh-8\b[^"]*\brounded-full\b[^"]*\bbg-raised\/50\b[^"]*\btext-ui[^"]*\bfont-medium\b/);
   expect(pill).toContain('<span class="min-w-0 truncate @max-[124px]/sidebar-top:hidden">Servers</span>');
   expect(pill).toContain("lucide-chevron-down");
   expect(pill).toContain('class="lucide lucide-laptop hidden shrink-0 text-ink-secondary @max-[124px]/sidebar-top:block"');
   expect(pill).not.toContain("@max-[96px]");
   const inline = renderToStaticMarkup(createElement(DesktopWorkspaceSwitcher, { inline: true }));
   expect(inline).toContain("lucide-laptop");
-  expect(inline).toMatch(/class="[^"]*\bh-7\b[^"]*\brounded-md\b[^"]*\btext-\[13px\]/);
+  expect(inline).toMatch(/class="[^"]*\bh-7\b[^"]*\brounded-md\b[^"]*\btext-ui/);
   expect(inline).not.toContain("rounded-full");
 
   vi.stubGlobal("window", {});

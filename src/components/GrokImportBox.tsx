@@ -46,7 +46,7 @@ export interface GrokImportViewProps {
   onCursorSignOut: () => void;
 }
 
-const chip = "flex items-center gap-1.5 rounded-full bg-raised px-3.5 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50";
+const chip = "flex items-center gap-1.5 rounded-full bg-raised px-3.5 py-2 text-ui text-ink hover:bg-raised-hover disabled:opacity-50";
 
 function CursorLine({ cursor, card, onSignIn, onSignOut }: {
   cursor: CursorStatus | null; card: GrokCardAnswer | null; onSignIn: () => void; onSignOut: () => void;
@@ -54,7 +54,7 @@ function CursorLine({ cursor, card, onSignIn, onSignOut }: {
   if (!cursor) return null;
   const note = card?.exportNote || cursor.error;
   return (
-    <div className="mt-3 text-[12px] text-ink-secondary">
+    <div className="mt-3 text-small text-ink-secondary">
       {cursor.signedIn ? (
         <span className="flex items-center gap-1.5">
           <Check size={13} className="text-success" />
@@ -77,8 +77,8 @@ export function GrokImportView(props: GrokImportViewProps) {
   return (
     <section className={bare ? "" : "mt-5 rounded-2xl bg-raised/25 px-6 py-5"} aria-label={t("grokImport.title")}>
       {!bare && <GrokBotMark size={25} />}
-      {!bare && <h3 className="mt-3 text-[14px] font-medium text-ink">{t("grokImport.title")}</h3>}
-      <p className={cn("text-[13px] leading-relaxed text-ink-secondary", !bare && "mt-1")}>{t("grokImport.hint")}</p>
+      {!bare && <h3 className="mt-3 text-label font-medium text-ink">{t("grokImport.title")}</h3>}
+      <p className={cn("text-ui leading-relaxed text-ink-secondary", !bare && "mt-1")}>{t("grokImport.hint")}</p>
       <div className="mt-4 flex gap-2">
         <input
           value={url}
@@ -86,7 +86,7 @@ export function GrokImportView(props: GrokImportViewProps) {
           onKeyDown={(event) => event.key === "Enter" && props.onLoad()}
           placeholder={t("grokImport.linkPlaceholder")}
           aria-label={t("grokImport.linkLabel")}
-          className="min-w-0 flex-1 rounded-xl bg-raised/80 px-3 py-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
+          className="min-w-0 flex-1 rounded-xl bg-raised/80 px-3 py-2.5 text-ui text-ink placeholder:text-ink-secondary focus:outline-none"
         />
         <Button variant="primary" size="lg"
           onClick={props.onLoad}
@@ -100,15 +100,15 @@ export function GrokImportView(props: GrokImportViewProps) {
       {!card && <CursorLine cursor={props.cursor} card={null} onSignIn={props.onCursorSignIn} onSignOut={props.onCursorSignOut} />}
       {card && (
         <article className="mt-4 rounded-xl border border-edge px-4 py-3">
-          <div className="flex items-center gap-2 text-[14px] font-medium text-ink"><GrokBotMark size={15} />{card.name}</div>
-          {card.creator && <div className="text-[12px] text-ink-secondary">{t("grokImport.by", { name: card.creator })}</div>}
-          {card.description && <p className="mt-1.5 text-[13px] leading-relaxed text-ink-secondary">{card.description}</p>}
+          <div className="flex items-center gap-2 text-label font-medium text-ink"><GrokBotMark size={15} />{card.name}</div>
+          {card.creator && <div className="text-small text-ink-secondary">{t("grokImport.by", { name: card.creator })}</div>}
+          {card.description && <p className="mt-1.5 text-ui leading-relaxed text-ink-secondary">{card.description}</p>}
           <CursorLine cursor={props.cursor} card={card} onSignIn={props.onCursorSignIn} onSignOut={props.onCursorSignOut} />
           <button onClick={props.onStarter} className={`mt-3 ${chip}`}>
             <Sparkles size={13} />
             {t("grokImport.starter")}
           </button>
-          <p className="mt-1.5 text-[12px] text-ink-tertiary">{t("grokImport.starterHint")}</p>
+          <p className="mt-1.5 text-small text-ink-tertiary">{t("grokImport.starterHint")}</p>
         </article>
       )}
       <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -116,7 +116,7 @@ export function GrokImportView(props: GrokImportViewProps) {
           {copyState === "copied" ? <Check size={13} className="text-success" /> : <Copy size={13} />}
           {copyState === "copied" ? t("grokImport.copied") : copyState === "failed" ? t("grokImport.copyFailed") : t("grokImport.copyPrompt")}
         </button>
-        <span className="text-[13px] text-ink-secondary">{t("grokImport.promptHint")}</span>
+        <span className="text-ui text-ink-secondary">{t("grokImport.promptHint")}</span>
       </div>
       <textarea
         value={reply}
@@ -124,7 +124,7 @@ export function GrokImportView(props: GrokImportViewProps) {
         placeholder={t("grokImport.replyPlaceholder")}
         aria-label={t("grokImport.replyLabel")}
         rows={4}
-        className="mt-3 w-full resize-y rounded-xl bg-raised/80 px-3 py-2.5 font-mono text-[12px] text-ink placeholder:text-ink-secondary focus:outline-none"
+        className="mt-3 w-full resize-y rounded-xl bg-raised/80 px-3 py-2.5 font-mono text-small text-ink placeholder:text-ink-secondary focus:outline-none"
       />
       <div className="mt-2 flex justify-end">
         <Button variant="primary" size="lg"
@@ -135,7 +135,7 @@ export function GrokImportView(props: GrokImportViewProps) {
           {t("grokImport.preview")}
         </Button>
       </div>
-      {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
+      {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-ui text-danger-text">{error}</div>}
     </section>
   );
 }

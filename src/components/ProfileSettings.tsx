@@ -124,18 +124,18 @@ function ProfilePhoto() {
                 <img src={draft.previewUrl} alt="" className="size-full object-cover" style={{ transform: `scale(${draft.zoom})` }} />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-[12px] font-medium text-ink">{t("settings.profile.avatar.cropTitle")}</div>
-                <div className="text-[11px] text-ink-secondary">{draft.width} × {draft.height}px</div>
-                <label className="mt-1 block text-[11px] text-ink-secondary">{t("settings.profile.avatar.zoom")}
+                <div className="text-small font-medium text-ink">{t("settings.profile.avatar.cropTitle")}</div>
+                <div className="text-caption text-ink-secondary">{draft.width} × {draft.height}px</div>
+                <label className="mt-1 block text-caption text-ink-secondary">{t("settings.profile.avatar.zoom")}
                   <input aria-label={t("settings.profile.avatar.zoom")} type="range" min="1" max="2.5" step="0.05" value={draft.zoom} onChange={(event) => replaceDraft({ ...draft, zoom: Number(event.target.value) })} className="ml-2 w-28 align-middle accent-accent" />
                 </label>
               </div>
-              <Button variant="ghost" size="md" className="text-[12px] font-normal" onClick={() => replaceDraft(null)}>{t("settings.profile.avatar.cancel")}</Button>
-              <Button size="md" className="text-[12px] font-normal" disabled={busy} onClick={() => save(draft)}>{t("settings.profile.avatar.save")}</Button>
+              <Button variant="ghost" size="md" className="text-small font-normal" onClick={() => replaceDraft(null)}>{t("settings.profile.avatar.cancel")}</Button>
+              <Button size="md" className="text-small font-normal" disabled={busy} onClick={() => save(draft)}>{t("settings.profile.avatar.save")}</Button>
             </div>
           </div>
         ) : avatarUrl ? <img src={avatarUrl} alt="" className="size-12 rounded-full object-cover" /> : <div className="size-12 rounded-full bg-raised" />}
-        <label className="cursor-pointer rounded-lg bg-control px-3 py-2 text-[12px] text-ink hover:bg-raised-hover">
+        <label className="cursor-pointer rounded-lg bg-control px-3 py-2 text-small text-ink hover:bg-raised-hover">
           {busy ? t("settings.profile.avatar.uploading") : t("settings.profile.avatar.choose")}
           <input type="file" accept="image/png,image/jpeg,image/gif,image/webp" className="sr-only" disabled={busy} onChange={(event) => {
             const file = event.target.files?.[0];
@@ -143,9 +143,9 @@ function ProfilePhoto() {
             pick(file);
           }} />
         </label>
-        {avatarUrl && !draft && <button type="button" className="text-[12px] text-ink-secondary underline" onClick={remove}>{t("settings.profile.avatar.remove")}</button>}
+        {avatarUrl && !draft && <button type="button" className="text-small text-ink-secondary underline" onClick={remove}>{t("settings.profile.avatar.remove")}</button>}
       </div>
-      {error && <div role="alert" className="text-[12px] text-danger-text">{error}</div>}
+      {error && <div role="alert" className="text-small text-danger-text">{error}</div>}
     </>
   );
 }
@@ -180,7 +180,7 @@ export function ProfileFields() {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
+    "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-label text-ink placeholder:text-ink-secondary focus:outline-none";
   return (
     <div className="flex flex-col gap-3">
       <ProfilePhoto />
@@ -205,7 +205,7 @@ function ProfileAvatar({ profile }: { profile?: { name?: string; email?: string;
   const initials = profileInitials(profile);
   const photo = profile?.avatarUrl && failed !== profile.avatarUrl ? profile.avatarUrl : null;
   return (
-    <span className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ink/[0.06] text-[15px] font-medium text-ink-secondary">
+    <span className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ink/[0.06] text-body font-medium text-ink-secondary">
       {photo ? <img src={photo} alt="" onError={() => setFailed(photo)} className="size-full object-cover" />
         : initials !== "?" ? initials : <User size={20} aria-hidden="true" />}
     </span>
@@ -229,9 +229,9 @@ export function ProfileSummaryRow() {
         <ProfileAvatar profile={profile} />
         <div className="min-w-0 flex-1">
           {name || email ? <>
-            <div className="truncate text-[14px] leading-5 text-ink">{name || email}</div>
-            {name && email && <div className="truncate text-[13px] leading-[18px] text-ink-secondary">{email}</div>}
-          </> : <div className="truncate text-[14px] leading-5 text-ink-secondary">{t("settings.simple.account.noName")}</div>}
+            <div className="truncate text-label leading-5 text-ink">{name || email}</div>
+            {name && email && <div className="truncate text-ui leading-[18px] text-ink-secondary">{email}</div>}
+          </> : <div className="truncate text-label leading-5 text-ink-secondary">{t("settings.simple.account.noName")}</div>}
         </div>
         <Button aria-expanded={editing} aria-controls={fieldsId} className="shrink-0" onClick={() => setEditing(!editing)}>
           {editing ? t("common.done") : t(name || email ? "settings.simple.account.edit" : "settings.simple.account.add")}

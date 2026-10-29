@@ -38,15 +38,15 @@ export function PublishedPageCard({ message }: { message: Message }) {
   };
   const usage = usageLine(card);
   return (
-    <div data-published-page={card.pageId ?? "limit"} className="w-full max-w-md overflow-hidden rounded-xl border border-hairline bg-panel px-3 py-2.5 text-sm">
+    <div data-published-page={card.pageId ?? "limit"} className="w-full max-w-md overflow-hidden rounded-xl border border-hairline bg-panel px-3 py-2.5 text-label">
       <div className="flex min-w-0 items-center gap-2">
         <Globe size={16} className="shrink-0 text-ink-tertiary" aria-hidden="true" />
         <span dir="auto" className="min-w-0 truncate font-medium text-ink" title={card.title}>{card.title}</span>
-        {usage && <span className="ms-auto shrink-0 text-xs text-ink-tertiary">{usage}</span>}
+        {usage && <span className="ms-auto shrink-0 text-small text-ink-tertiary">{usage}</span>}
       </div>
       {card.state === "live" && card.url && <>
         <a href={card.url} dir="ltr" onClick={(event) => { event.preventDefault(); openPage(card.url!); }}
-          className="mt-1 block truncate text-[13px] text-accent-text hover:underline">{card.url}</a>
+          className="mt-1 block truncate text-ui text-accent-text hover:underline">{card.url}</a>
         <div className="mt-2 flex flex-wrap gap-1.5">
           <button type="button" onClick={copy} className={cn(ASK_CHIP, ASK_CHIP_IDLE)}>
             {copied === "copied" ? <Check size={14} /> : <Copy size={14} />}
@@ -59,11 +59,11 @@ export function PublishedPageCard({ message }: { message: Message }) {
             {busy ? <Loader2 size={14} className="animate-spin" /> : <X size={14} />}{t("chat.page.unpublish")}
           </button>
         </div>
-        {failed && <p role="alert" className="mt-1.5 text-[12px] text-danger-text">{t("chat.page.unpublishFailed")}</p>}
+        {failed && <p role="alert" className="mt-1.5 text-small text-danger-text">{t("chat.page.unpublishFailed")}</p>}
       </>}
-      {card.state === "unpublished" && <p className="mt-1 text-[13px] text-ink-secondary">{t("chat.page.unpublished")}</p>}
+      {card.state === "unpublished" && <p className="mt-1 text-ui text-ink-secondary">{t("chat.page.unpublished")}</p>}
       {card.state === "limit" && <>
-        <p dir="auto" className="mt-1 text-[13px] leading-snug text-ink-secondary">{limitLine(card)}</p>
+        <p dir="auto" className="mt-1 text-ui leading-snug text-ink-secondary">{limitLine(card)}</p>
         {card.upgrade && bridge && <button type="button" className={cn(ASK_PRIMARY_BUTTON, "mt-2")}
           onClick={() => dispatch({ type: "openCloudAdd", source: "app_pages" })}>{t("chat.page.morePages")}</button>}
       </>}

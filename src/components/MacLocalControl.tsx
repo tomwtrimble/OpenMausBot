@@ -64,13 +64,13 @@ export function MacLocalControl() {
       <div className="flex items-start gap-3">
         <Shield size={16} className="mt-0.5 shrink-0 text-warning-text" />
         <div className="min-w-0 flex-1">
-          <div className="text-[14px] font-medium text-ink">Allow control of this computer</div>
-          <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">
+          <div className="text-label font-medium text-ink">Allow control of this computer</div>
+          <p className="mt-1 text-ui leading-relaxed text-ink-secondary">
             {permissionMessage ?? t("computer.mac.permission.generic")}
           </p>
-          {reason && <details className="mt-2 text-[12px] text-ink-secondary"><summary className="cursor-pointer">{t("computer.mac.permission.driverDetail")}</summary><p className="mt-1 break-words">{reason}</p></details>}
+          {reason && <details className="mt-2 text-small text-ink-secondary"><summary className="cursor-pointer">{t("computer.mac.permission.driverDetail")}</summary><p className="mt-1 break-words">{reason}</p></details>}
           {error && (
-            <div className="mt-2 flex gap-1.5 text-[12px] text-danger-text">
+            <div className="mt-2 flex gap-1.5 text-small text-danger-text">
               <AlertTriangle size={13} className="mt-0.5 shrink-0" />
               <span>{error}</span>
             </div>
@@ -90,7 +90,7 @@ export function MacLocalControl() {
               type="button"
               onClick={() => void retry()}
               disabled={pending}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-hairline px-3 py-1.5 text-[13px] font-medium text-ink hover:bg-raised disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-hairline px-3 py-1.5 text-ui font-medium text-ink hover:bg-raised disabled:opacity-50"
             >
               {pending && <Loader2 size={13} className="animate-spin" />}
               Retry

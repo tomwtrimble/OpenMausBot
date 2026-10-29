@@ -54,17 +54,17 @@ export function LinuxLocalControl() {
     <section className="mt-4 rounded-xl bg-card p-4" aria-labelledby="linux-local-control-title">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <div id="linux-local-control-title" className="flex items-center gap-2 text-[15px] font-medium text-ink">
+          <div id="linux-local-control-title" className="flex items-center gap-2 text-body font-medium text-ink">
             <MonitorCog size={16} className={ready ? "text-success" : "text-ink-secondary"} />
             {t("computer.linux.title")}
           </div>
-          <div className="mt-1 text-[12px] leading-relaxed text-ink-secondary">
+          <div className="mt-1 text-small leading-relaxed text-ink-secondary">
             {t("computer.linux.meta", { session: wayland ? "Wayland" : "Xorg" })}
           </div>
         </div>
         <span
           className={cn(
-            "shrink-0 rounded-full px-2 py-1 text-[10px] font-medium",
+            "shrink-0 rounded-full px-2 py-1 text-caption font-medium",
             ready
               ? "bg-success/10 text-success"
               : waylandSafetyBlocked
@@ -86,7 +86,7 @@ export function LinuxLocalControl() {
 
       {waylandSafetyBlocked ? (
         <div className="mt-3 rounded-lg border border-danger/20 bg-danger/5 p-3">
-          <div className="flex gap-2 text-[12px] leading-relaxed text-ink-secondary">
+          <div className="flex gap-2 text-small leading-relaxed text-ink-secondary">
             <AlertTriangle size={15} className="mt-0.5 shrink-0 text-danger-text" />
             <span>
               {t("computer.linux.waylandBefore")}{" "}
@@ -97,7 +97,7 @@ export function LinuxLocalControl() {
         </div>
       ) : !local.enabled ? (
         <div className="mt-3 rounded-lg border border-warning/20 bg-warning/5 p-3">
-          <div className="flex gap-2 text-[12px] leading-relaxed text-ink-secondary">
+          <div className="flex gap-2 text-small leading-relaxed text-ink-secondary">
             <AlertTriangle size={15} className="mt-0.5 shrink-0 text-warning-text" />
             <span>
               {t("computer.linux.enableBefore")}{" "}
@@ -108,7 +108,7 @@ export function LinuxLocalControl() {
           </div>
         </div>
       ) : (
-        <div className="mt-3 rounded-lg bg-panel p-3 text-[12px] text-ink-secondary">
+        <div className="mt-3 rounded-lg bg-panel p-3 text-small text-ink-secondary">
           <div className="flex items-start gap-2">
             {ready ? (
               <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-success" />
@@ -124,7 +124,7 @@ export function LinuxLocalControl() {
             </span>
           </div>
           {local.driverPath && (
-            <div className="mt-2 break-all font-mono text-[10px] text-ink-tertiary" title={local.driverPath}>
+            <div className="mt-2 break-all font-mono text-caption text-ink-tertiary" title={local.driverPath}>
               {bundledDriver ? t("computer.linux.bundledDriver") : local.driverPath}
               {local.driverVersion ? ` · ${local.driverVersion}` : ""}
             </div>
@@ -132,7 +132,7 @@ export function LinuxLocalControl() {
         </div>
       )}
 
-      {error && <div className="mt-2 text-[12px] text-danger-text">{typeof error === "string" ? error : t(error.key)}</div>}
+      {error && <div className="mt-2 text-small text-danger-text">{typeof error === "string" ? error : t(error.key)}</div>}
 
       {!waylandSafetyBlocked && <div className="mt-3 flex gap-2">
         {!local.enabled ? (
@@ -151,7 +151,7 @@ export function LinuxLocalControl() {
                 type="button"
                 disabled={busy}
                 onClick={() => void run("retry")}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-raised py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-raised py-2 text-ui text-ink hover:bg-raised-hover disabled:opacity-50"
               >
                 {pending === "retry" ? <Loader2 size={14} className="animate-spin" /> : <RotateCcw size={14} />}
                 {t("computer.linux.tryAgain")}
@@ -161,7 +161,7 @@ export function LinuxLocalControl() {
               type="button"
               disabled={pending !== null}
               onClick={() => void run("disable")}
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-raised py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-raised py-2 text-ui text-ink hover:bg-raised-hover disabled:opacity-50"
             >
               {pending === "disable" ? <Loader2 size={14} className="animate-spin" /> : <Power size={14} />}
               {t("computer.linux.disable")}
@@ -173,7 +173,7 @@ export function LinuxLocalControl() {
       <button
         type="button"
         onClick={() => window.open(LINUX_GUIDE_URL, "_blank", "noopener,noreferrer")}
-        className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 text-[11px] text-ink-secondary hover:bg-raised hover:text-ink"
+        className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 text-caption text-ink-secondary hover:bg-raised hover:text-ink"
       >
         {capabilities.host.packaged ? t("computer.linux.guide") : t("computer.linux.driverSetup")}{" "}
         <ExternalLink size={11} />

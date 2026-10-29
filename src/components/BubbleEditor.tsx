@@ -56,7 +56,7 @@ export function BubbleEditor({
           if (e.key === "Escape") onCancel();
         }}
         rows={Math.min(10, Math.max(2, draft.split("\n").length))}
-        className={cn("w-full resize-none bg-transparent text-ink focus:outline-none", simple ? "leading-[22px]" : "text-[15px] leading-relaxed")}
+        className={cn("w-full resize-none bg-transparent text-ink focus:outline-none", simple ? "leading-[22px]" : "text-body leading-relaxed")}
       />
       <div className="mt-2 flex items-center justify-end gap-2">
         <Button variant="ghost" size="md"

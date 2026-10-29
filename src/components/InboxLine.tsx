@@ -47,7 +47,7 @@ export function InboxCaption({ message }: { message: Message }) {
   const who = item.assistant ? t("inbox.assistantOf", { name: item.from.name }) : t("inbox.from", { name: item.from.name });
   const origin = item.origin;
   return (
-    <div data-inbox-line={item.kind} className="-mb-2 flex min-w-0 items-center gap-1.5 pl-0.5 text-[11px] text-ink-tertiary">
+    <div data-inbox-line={item.kind} className="-mb-2 flex min-w-0 items-center gap-1.5 pl-0.5 text-caption text-ink-tertiary">
       <InboxSender from={item.from} />
       <span className="truncate font-medium text-ink-secondary">{who}</span>
       {item.via && <span className="shrink-0">· {t("inbox.via", { name: item.via.name })}</span>}
@@ -67,10 +67,10 @@ export function InboxAnswers({ message }: { message: Message }) {
   const answers = message.inbox?.answers?.filter((answer) => answer.by === "assistant") ?? [];
   if (!answers.length) return null;
   return (
-    <div data-inbox-answer className="-mt-1 flex max-w-[min(38rem,100%)] flex-col gap-0.5 rounded-xl border border-hairline bg-panel px-3 py-1.5 text-[13px] text-ink-secondary">
-      <span className="text-[11px] font-medium text-ink-tertiary" title={t("inbox.assistantHint")}>{t("inbox.assistantAnswered")}</span>
+    <div data-inbox-answer className="-mt-1 flex max-w-[min(38rem,100%)] flex-col gap-0.5 rounded-xl border border-hairline bg-panel px-3 py-1.5 text-ui text-ink-secondary">
+      <span className="text-caption font-medium text-ink-tertiary" title={t("inbox.assistantHint")}>{t("inbox.assistantAnswered")}</span>
       {answers.map((answer) => <p key={answer.at} className="whitespace-pre-wrap break-words">{answer.text}</p>)}
-      <span className="text-[11px] text-ink-tertiary">{t("inbox.assistantHint")}</span>
+      <span className="text-caption text-ink-tertiary">{t("inbox.assistantHint")}</span>
     </div>
   );
 }
@@ -82,7 +82,7 @@ export function RelayLabel({ message }: { message: Message }) {
   return (
     <div className="mb-1 flex items-center gap-1.5 pl-0.5" data-relay={relay.kind}>
       <PersonFace person={face(relay)} size={16} />
-      <span className="text-[11px] font-medium text-ink-secondary">{t(relay.kind === "assistant" ? "relay.assistant" : "relay.reply", { name: relay.name })}</span>
+      <span className="text-caption font-medium text-ink-secondary">{t(relay.kind === "assistant" ? "relay.assistant" : "relay.reply", { name: relay.name })}</span>
     </div>
   );
 }

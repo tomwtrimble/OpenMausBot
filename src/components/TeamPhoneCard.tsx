@@ -88,7 +88,7 @@ export function TeamPhoneCard({ team }: { team: string }) {
       </div>
       {offer ? (
         <div data-team-phone-code className="mt-4 rounded-lg border border-hairline bg-inset p-4">
-          {expired ? <p className="text-[13px] text-ink-secondary">{t("remote.serverPairing.expired")}</p> : (
+          {expired ? <p className="text-ui text-ink-secondary">{t("remote.serverPairing.expired")}</p> : (
             <div className="flex flex-wrap items-start gap-5">
               {offer.url ? (
                 <div className="rounded-md bg-white p-2">
@@ -96,24 +96,24 @@ export function TeamPhoneCard({ team }: { team: string }) {
                 </div>
               ) : null}
               <div className="min-w-[200px] flex-1">
-                <div className="font-mono text-[18px] tracking-[0.14em] text-ink">{offer.code}</div>
-                <div className="mt-1 text-[13px] text-ink-secondary">{t("remote.serverPairing.expires", { minutes: minutesLeft(offer.expiresAt, now) })}</div>
-                {offer.url ? null : <p className="mt-3 text-[13px] text-ink-secondary">{offer.hint ?? t("remote.serverPairing.noLink")}</p>}
+                <div className="font-mono text-title tracking-[0.14em] text-ink">{offer.code}</div>
+                <div className="mt-1 text-ui text-ink-secondary">{t("remote.serverPairing.expires", { minutes: minutesLeft(offer.expiresAt, now) })}</div>
+                {offer.url ? null : <p className="mt-3 text-ui text-ink-secondary">{offer.hint ?? t("remote.serverPairing.noLink")}</p>}
               </div>
             </div>
           )}
         </div>
       ) : null}
-      <p className="mt-3 text-[13px] text-ink-secondary">{t("teamPhone.stays", { team })}</p>
+      <p className="mt-3 text-ui text-ink-secondary">{t("teamPhone.stays", { team })}</p>
       {phones ? (
         <div data-team-phones>
-          <div className="mt-5 text-[13px] font-medium text-ink">{t("remote.serverPairing.devices")}</div>
+          <div className="mt-5 text-ui font-medium text-ink">{t("remote.serverPairing.devices")}</div>
           {phones.length === 0 ? (
-            <p className="mt-1 text-[13px] text-ink-secondary">{t("remote.serverPairing.noDevices")}</p>
+            <p className="mt-1 text-ui text-ink-secondary">{t("remote.serverPairing.noDevices")}</p>
           ) : (
             <ul className="mt-1 divide-y divide-hairline">
               {phones.map((phone) => (
-                <li key={phone.id} data-team-phone={phone.id} className="flex flex-wrap items-center justify-between gap-2 py-2 text-[13px]">
+                <li key={phone.id} data-team-phone={phone.id} className="flex flex-wrap items-center justify-between gap-2 py-2 text-ui">
                   <span className="text-ink">
                     {phoneRow(phone)}
                     <span className="text-ink-secondary">
@@ -133,7 +133,7 @@ export function TeamPhoneCard({ team }: { team: string }) {
           )}
         </div>
       ) : null}
-      {error ? <p className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
+      {error ? <p className="mt-3 text-ui text-danger-text">{error}</p> : null}
     </Card>
   );
 }

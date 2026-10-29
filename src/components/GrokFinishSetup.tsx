@@ -54,11 +54,11 @@ export function GrokFinishSetup({ notes, imported, onDone, className = "min-h-0 
   };
   return (
     <div className={className}>
-      <div className="flex items-center gap-2 text-[15px] font-medium text-ink">
+      <div className="flex items-center gap-2 text-body font-medium text-ink">
         <Check size={17} className="text-success" />
         {t("grokFinish.added", { name: imported.name })}
       </div>
-      <ul className="mt-3 list-disc pl-5 text-[13px] leading-relaxed text-ink-secondary">
+      <ul className="mt-3 list-disc pl-5 text-ui leading-relaxed text-ink-secondary">
         {notes.apps.length > 0 && <li>{t("grokFinish.apps", { apps: notes.apps.map((app) => app.label).join(", ") })}</li>}
         {notes.unmatched.length > 0 && <li>{t("grokFinish.unmatched", { tools: notes.unmatched.join(", ") })}</li>}
         {routines > 0 && <li>{t("grokFinish.routines", { count: routines })}</li>}
@@ -67,16 +67,16 @@ export function GrokFinishSetup({ notes, imported, onDone, className = "min-h-0 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <Button variant="primary" size="lg"
           onClick={open}
-          className="flex gap-2 rounded-full px-5 text-[14px] min-h-10"
+          className="flex gap-2 rounded-full px-5 text-label min-h-10"
         >
           {helper.chief ? <Crown size={15} /> : <MessageSquare size={15} />}
           {helper.chief ? t("grokFinish.askChief") : t("grokFinish.askBot", { name: imported.name })}
         </Button>
-        <button onClick={onDone} className="rounded-full bg-raised px-4 py-2.5 text-[13px] text-ink hover:bg-raised-hover">
+        <button onClick={onDone} className="rounded-full bg-raised px-4 py-2.5 text-ui text-ink hover:bg-raised-hover">
           {t("grokFinish.later")}
         </button>
       </div>
-      <p className="mt-2 text-[12px] text-ink-tertiary">{t("grokFinish.hint")}</p>
+      <p className="mt-2 text-small text-ink-tertiary">{t("grokFinish.hint")}</p>
     </div>
   );
 }

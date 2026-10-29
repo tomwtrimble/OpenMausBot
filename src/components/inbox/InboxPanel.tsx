@@ -42,7 +42,7 @@ export function InboxPanel() {
   const body = (
     <>
       <div className="flex items-center gap-1.5 border-b border-hairline px-3.5 py-2.5">
-        <h2 className="flex-1 text-[14px] font-semibold text-ink">{t("inbox.panel.title")}</h2>
+        <h2 className="flex-1 text-label font-semibold text-ink">{t("inbox.panel.title")}</h2>
         <button type="button" onClick={closeInbox} aria-label={t("common.close")} title={t("common.close")}
           className="flex size-[26px] shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-raised hover:text-ink">
           <X size={14} />
@@ -54,18 +54,18 @@ export function InboxPanel() {
             {INBOX_TABS.map((tab) => (
               <button key={tab} type="button" role="tab" aria-selected={panel.tab === tab} data-inbox-tab={tab} onClick={() => showInboxTab(tab)}
                 aria-label={tab === "needs-you" ? t("needsYou.count", { count: counts[tab] }) : t(TAB_LABEL[tab])}
-                className={cn("-mb-px flex items-center gap-1.5 border-b-2 px-2.5 py-2 text-[13px] font-medium",
+                className={cn("-mb-px flex items-center gap-1.5 border-b-2 px-2.5 py-2 text-ui font-medium",
                   panel.tab === tab ? "border-accent text-ink" : "border-transparent text-ink-secondary hover:text-ink")}>
                 {t(TAB_LABEL[tab])}
                 {tab !== "done" && counts[tab] > 0 && (
-                  <span aria-hidden="true" className={cn("rounded-full px-1.5 text-[11px] font-semibold tabular-nums", tab === "needs-you" ? "bg-warning text-warning-ink" : "bg-raised text-ink-secondary")}>{counts[tab]}</span>
+                  <span aria-hidden="true" className={cn("rounded-full px-1.5 text-caption font-semibold tabular-nums", tab === "needs-you" ? "bg-warning text-warning-ink" : "bg-raised text-ink-secondary")}>{counts[tab]}</span>
                 )}
               </button>
             ))}
           </div>
           <div role="tabpanel" aria-label={t(TAB_LABEL[panel.tab])} className="min-h-0 flex-1 overflow-y-auto">
             {rows.length === 0
-              ? <p className="px-4 py-8 text-center text-[13px] text-ink-secondary">{t(EMPTY[panel.tab])}</p>
+              ? <p className="px-4 py-8 text-center text-ui text-ink-secondary">{t(EMPTY[panel.tab])}</p>
               : rows.map((row) => <InboxRowItem key={row.id} row={row} now={now} onOpen={open} onAction={run} />)}
           </div>
         </>

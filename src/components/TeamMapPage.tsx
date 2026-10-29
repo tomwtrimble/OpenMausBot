@@ -46,14 +46,14 @@ export function EdgeRow({ edge, bots }: { edge: TeamMapEdge; bots: Bot[] }) {
       className="flex w-full items-center gap-3 rounded-xl border border-hairline bg-card px-3 py-2.5 text-left transition hover:bg-raised/50"
     >
       <div className="flex min-w-0 flex-1 items-center gap-2">
-        <span className="truncate text-[13px] font-medium text-ink">{source.name}</span>
+        <span className="truncate text-ui font-medium text-ink">{source.name}</span>
         <ArrowRight size={13} className={cn("shrink-0", live ? "text-accent-text" : "text-ink-secondary")} />
-        <span className="truncate text-[13px] font-medium text-ink">{target.name}</span>
+        <span className="truncate text-ui font-medium text-ink">{target.name}</span>
       </div>
-      {edge.reason && <span className="max-w-[220px] truncate text-[12px] text-ink-secondary">{edge.reason}</span>}
+      {edge.reason && <span className="max-w-[220px] truncate text-small text-ink-secondary">{edge.reason}</span>}
       <span
         className={cn(
-          "rounded-full px-2 py-0.5 text-[11px] font-medium",
+          "rounded-full px-2 py-0.5 text-caption font-medium",
           edge.state === "running"
             ? "bg-success/15 text-success"
             : edge.state === "queued"
@@ -198,11 +198,11 @@ function SectionContextDialog({ section, label, onClose }: { section: string; la
           <div>
             <div className="flex items-center gap-2">
               <BookOpen size={19} className="text-accent-text" />
-              <h2 id="section-context-title" className="text-[20px] font-semibold tracking-[-0.01em] text-ink">
+              <h2 id="section-context-title" className="text-display font-semibold tracking-[-0.01em] text-ink">
                 {t("team.instructionsTitle", { name: label })}
               </h2>
             </div>
-            <p className="mt-1.5 max-w-[520px] text-[13px] leading-relaxed text-ink-secondary">
+            <p className="mt-1.5 max-w-[520px] text-ui leading-relaxed text-ink-secondary">
               {t("team.instructionsHint")}
             </p>
           </div>
@@ -229,9 +229,9 @@ function SectionContextDialog({ section, label, onClose }: { section: string; la
                 onChange={(event) => setText(event.target.value)}
                 placeholder={t("team.instructionsPlaceholder")}
                 aria-label={t("team.instructionsTitle", { name: label })}
-                className="min-h-[280px] w-full resize-y rounded-xl border border-hairline bg-inset px-4 py-3 font-mono text-[13px] leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/50"
+                className="min-h-[280px] w-full resize-y rounded-xl border border-hairline bg-inset px-4 py-3 font-mono text-ui leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/50"
               />
-              <div className="mt-2 flex items-start justify-between gap-4 text-[12px] text-ink-secondary">
+              <div className="mt-2 flex items-start justify-between gap-4 text-small text-ink-secondary">
                 <span>
                   {t("team.instructionsFactHint")} {updatedAt ? ` ${t("team.instructionsLastSaved", { time: new Date(updatedAt).toLocaleString() })}` : ""}
                 </span>
@@ -241,7 +241,7 @@ function SectionContextDialog({ section, label, onClose }: { section: string; la
               </div>
             </>
           )}
-          {error && <div className="mt-3 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{error}</div>}
+          {error && <div className="mt-3 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-small text-danger-text">{error}</div>}
         </div>
 
         <footer className="flex items-center justify-end gap-2 border-t border-hairline px-6 py-4 sm:px-8">
@@ -356,15 +356,15 @@ export function TeamMapPage() {
         <div>
           <div className="flex items-center gap-2.5">
             <UsersRound size={18} className="text-ink-secondary" />
-            <h1 className="text-[17px] font-semibold">{t("canvas.title")}</h1>
-            <span className="ml-1 text-[11px] text-ink-secondary">{teamMapBotCount(bots.length)}</span>
+            <h1 className="text-title font-semibold">{t("canvas.title")}</h1>
+            <span className="ml-1 text-caption text-ink-secondary">{teamMapBotCount(bots.length)}</span>
           </div>
-          <p className="mt-1 text-[12px] text-ink-secondary">{t("canvas.description")}</p>
+          <p className="mt-1 text-small text-ink-secondary">{t("canvas.description")}</p>
         </div>
         {teamPeople && <MapModeToggle />}
         {!remoteClient && <div className="flex items-center gap-2">
           <button onClick={() => setShowComputers(!showComputers)} aria-pressed={showComputers} title={t("canvas.showComputersHint")}
-            className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-[12px] font-medium transition-colors", showComputers ? "border-accent/40 bg-accent/10 text-ink" : "border-hairline bg-panel text-ink-secondary hover:bg-control hover:text-ink")}>
+            className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-small font-medium transition-colors", showComputers ? "border-accent/40 bg-accent/10 text-ink" : "border-hairline bg-panel text-ink-secondary hover:bg-control hover:text-ink")}>
             <span aria-hidden className={cn("relative h-4 w-7 shrink-0 rounded-full transition-colors", showComputers ? "bg-accent" : "bg-control")}>
               <span className={cn("absolute top-0.5 size-3 rounded-full bg-white shadow-sm transition-[left]", showComputers ? "left-3.5" : "left-0.5")} />
             </span>
@@ -374,18 +374,18 @@ export function TeamMapPage() {
           <details className="relative" onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.removeAttribute("open"); }} onKeyDown={(event) => {
             if (event.key === "Escape") { event.currentTarget.removeAttribute("open"); event.currentTarget.querySelector("summary")?.focus(); }
           }}>
-            <summary aria-label={t("canvas.addToMap")} className="flex cursor-pointer list-none items-center gap-1.5 rounded-lg border border-hairline bg-panel px-3 py-2 text-[12px] font-medium hover:bg-control [&::-webkit-details-marker]:hidden"><Plus size={14} /> {t("common.add")}</summary>
+            <summary aria-label={t("canvas.addToMap")} className="flex cursor-pointer list-none items-center gap-1.5 rounded-lg border border-hairline bg-panel px-3 py-2 text-small font-medium hover:bg-control [&::-webkit-details-marker]:hidden"><Plus size={14} /> {t("common.add")}</summary>
             <div className="popover-surface absolute right-0 top-full z-40 mt-2 w-52 rounded-xl border border-hairline bg-menu p-1.5 shadow-xl" onClick={(event) => {
               const details = event.currentTarget.closest("details"); details?.querySelector("summary")?.focus(); details?.removeAttribute("open");
             }}>
-              <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-[12px] hover:bg-control" onClick={() => setTeamEditor({})}><Users size={14} />{t("team.create")}</button>
-              <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-[12px] hover:bg-control" onClick={() => { setComputersOpen(true); setCreateComputerRequest((value) => value + 1); }}><Box size={14} />{t("canvas.cloudComputer")}</button>
-              {placeOffered("vm", state.config) && <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-[12px] hover:bg-control" onClick={() => dispatch({ type: "toggleAppSettings", section: "computer", open: true })}><Monitor size={14} />{t("canvas.localVm")}</button>}
+              <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-small hover:bg-control" onClick={() => setTeamEditor({})}><Users size={14} />{t("team.create")}</button>
+              <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-small hover:bg-control" onClick={() => { setComputersOpen(true); setCreateComputerRequest((value) => value + 1); }}><Box size={14} />{t("canvas.cloudComputer")}</button>
+              {placeOffered("vm", state.config) && <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-small hover:bg-control" onClick={() => dispatch({ type: "toggleAppSettings", section: "computer", open: true })}><Monitor size={14} />{t("canvas.localVm")}</button>}
             </div>
           </details>
         </div>}
       </header>
-      {(error || refreshError) && <div role="alert" className="flex shrink-0 items-center justify-between gap-3 border-b border-danger/20 bg-danger/10 px-6 py-2 text-[12px] text-danger-text">
+      {(error || refreshError) && <div role="alert" className="flex shrink-0 items-center justify-between gap-3 border-b border-danger/20 bg-danger/10 px-6 py-2 text-small text-danger-text">
         {error || refreshError}
         <button aria-label={t("common.close")} className="rounded p-1 hover:bg-danger/10" onClick={() => { setError(null); setRefreshError(null); }}><X size={14} /></button>
       </div>}
@@ -410,7 +410,7 @@ export function TeamMapPage() {
         onClose={() => setComputersOpen(false)} onDropHandled={clearComputerDrop} onChange={setComputers} />}
       </div>
       {edges.length > 0 && <details className="shrink-0 border-t border-hairline bg-panel px-6 py-3">
-        <summary className="cursor-pointer text-[12px] text-ink-secondary">{t("canvas.handoffs")} · {edges.length}</summary>
+        <summary className="cursor-pointer text-small text-ink-secondary">{t("canvas.handoffs")} · {edges.length}</summary>
         <div className="mt-3 max-h-48 space-y-2 overflow-y-auto">{edges.slice(0, 12).map((edge) => <EdgeRow key={`${edge.sourceBotId}:${edge.targetBotId}`} edge={edge} bots={bots} />)}</div>
       </details>}
       {contextEditor && (

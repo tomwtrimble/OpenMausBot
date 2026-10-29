@@ -32,11 +32,11 @@ const noop = () => {};
 
 function SidebarMock({ usage }: { usage: CloudUsage }) {
   const view = usageCardView({ usage, teamHome: false, dismissed: null });
-  const row = (Icon: typeof Bot, label: string, active = false) => <div key={label} className={`flex min-h-9 items-center gap-3 rounded-xl px-3 py-1.5 text-[14px] font-medium ${active ? "bg-raised text-ink" : "text-ink"}`}><Icon size={18} className="text-ink-secondary" />{label}</div>;
+  const row = (Icon: typeof Bot, label: string, active = false) => <div key={label} className={`flex min-h-9 items-center gap-3 rounded-xl px-3 py-1.5 text-label font-medium ${active ? "bg-raised text-ink" : "text-ink"}`}><Icon size={18} className="text-ink-secondary" />{label}</div>;
   return <div className="flex h-full bg-app text-ink">
     <aside className="flex w-[260px] shrink-0 flex-col border-e border-hairline bg-panel">
       <div className="flex gap-[7px] px-3.5 pb-1.5 pt-3.5">{[0, 1, 2].map(dot => <i key={dot} className="block size-[11px] rounded-full bg-raised" />)}</div>
-      <div className="mx-3 my-2 flex items-center gap-2 rounded-xl bg-card px-3 py-2 text-[13px] text-ink-secondary"><Search size={15} />Search</div>
+      <div className="mx-3 my-2 flex items-center gap-2 rounded-xl bg-card px-3 py-2 text-ui text-ink-secondary"><Search size={15} />Search</div>
       <div className="px-3">{row(MessageSquare, "Chief", true)}{row(Bot, "Research")}{row(Bot, "Inbox")}{row(Plus, "New bot")}</div>
       <div className="flex-1" />
       <div className="px-3 pb-3 pt-2">
@@ -44,7 +44,7 @@ function SidebarMock({ usage }: { usage: CloudUsage }) {
         <div className="mt-3">
           {view && <CloudUsageCardView usage={usage} meters={view.meters} band={view.band} upgrade={{ busy: null, note: null, onUpgrade: noop }} onHide={noop} onSeeAll={noop} />}
         </div>
-        <div className="flex min-h-[46px] items-center gap-3 rounded-xl px-3 py-2"><InitialsAvatar initials="MS" size={28} /><span className="truncate text-[14px] font-medium">Maya Shah</span></div>
+        <div className="flex min-h-[46px] items-center gap-3 rounded-xl px-3 py-2"><InitialsAvatar initials="MS" size={28} /><span className="truncate text-label font-medium">Maya Shah</span></div>
       </div>
     </aside>
     <main className="flex flex-1 flex-col gap-3.5 p-10 opacity-60">
@@ -56,14 +56,14 @@ function SidebarMock({ usage }: { usage: CloudUsage }) {
 function SettingsMock({ usage }: { usage: CloudUsage }) {
   return <div className="flex h-full justify-center bg-black/40 p-8">
     <div className="flex w-full max-w-[920px] overflow-hidden rounded-2xl border border-hairline bg-panel text-ink shadow-2xl">
-      <nav className="w-[220px] shrink-0 border-e border-hairline p-3 text-[14px]">
+      <nav className="w-[220px] shrink-0 border-e border-hairline p-3 text-label">
         {["General", "Appearance", "MausBot Cloud", "AI & keys", "Usage", "Apps"].map((label, index) => <div key={label} className={`rounded-lg px-3 py-2 ${index === 0 ? "bg-raised font-medium" : "text-ink-secondary"}`}>{label}</div>)}
       </nav>
       <div className="flex min-w-0 flex-1 flex-col gap-4 overflow-y-auto p-6">
-        <h1 className="text-[20px] font-semibold">General</h1>
+        <h1 className="text-display font-semibold">General</h1>
         <section className="flex items-center justify-between gap-3 rounded-xl border border-hairline p-3">
-          <div className="flex items-center gap-3"><Gauge size={18} className="text-ink-secondary" /><div><h3 className="text-[14px] font-semibold">MausBot Cloud</h3>
-            <p className="mt-1 text-[12px] text-ink-secondary">{t("cloudAccount.pro", { plan: cloudPlanLabel(usage.tier) })}</p></div></div>
+          <div className="flex items-center gap-3"><Gauge size={18} className="text-ink-secondary" /><div><h3 className="text-label font-semibold">MausBot Cloud</h3>
+            <p className="mt-1 text-small text-ink-secondary">{t("cloudAccount.pro", { plan: cloudPlanLabel(usage.tier) })}</p></div></div>
           <span className="ui-button">{t("pro.openCloudSettings")}</span>
         </section>
         <CloudUsageSettingsView usage={usage} upgrade={{ busy: null, note: null, onUpgrade: noop }} />

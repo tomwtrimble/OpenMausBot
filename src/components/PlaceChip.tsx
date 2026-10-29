@@ -159,8 +159,8 @@ export function PlaceChip({ bot, task, live, disabled = false, onPin }: {
             >
               <PlaceIcon place={botDefault} size={16} className="mt-px shrink-0 text-ink-secondary" aria-hidden="true" />
               <span className="min-w-0 flex-1">
-                <span className="block text-[14px] leading-[18px] text-ink">{followsAuto ? t("place.auto") : t("place.followBot")}</span>
-                <span className="block text-[12px] leading-4 text-ink-secondary">
+                <span className="block text-label leading-[18px] text-ink">{followsAuto ? t("place.auto") : t("place.followBot")}</span>
+                <span className="block text-small leading-4 text-ink-secondary">
                   {followsAuto ? t("place.autoDetail") : t("place.followBotDetail", { place: t(placeLabelKey(botDefault)) })}
                 </span>
               </span>
@@ -183,8 +183,8 @@ export function PlaceChip({ bot, task, live, disabled = false, onPin }: {
                 >
                   <PlaceIcon place={place} size={16} className="mt-px shrink-0 text-ink-secondary" aria-hidden="true" />
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[14px] leading-[18px] text-ink">{t(placeLabelKey(place))}</span>
-                    <span className="block text-[12px] leading-4 text-ink-secondary">{detail}</span>
+                    <span className="block text-label leading-[18px] text-ink">{t(placeLabelKey(place))}</span>
+                    <span className="block text-small leading-4 text-ink-secondary">{detail}</span>
                   </span>
                   {selected && <Check size={14} className="mt-0.5 shrink-0 text-accent-text" aria-hidden="true" />}
                 </button>

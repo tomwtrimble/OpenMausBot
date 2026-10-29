@@ -24,11 +24,11 @@ export function BrowserSignInPage({ credential, owner }: { credential: string; o
   return (
     <main className="flex min-h-screen items-center justify-center bg-app px-6 text-ink">
       <div className="w-full max-w-[420px]">
-        <h1 className="text-[20px] font-semibold">Signing in to {owner}’s Cloud</h1>
-        <p className="mt-1.5 text-[14px] text-ink-secondary">Not your email? Close this tab.</p>
-        {error ? <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
+        <h1 className="text-display font-semibold">Signing in to {owner}’s Cloud</h1>
+        <p className="mt-1.5 text-label text-ink-secondary">Not your email? Close this tab.</p>
+        {error ? <p role="alert" className="mt-3 text-ui text-danger-text">{error}</p> : null}
         <Button variant="primary" size="lg" onClick={() => void continueSignIn()} disabled={busy}
-          className="mt-5 w-full text-[14px]">
+          className="mt-5 w-full text-label">
           {busy ? "Signing in…" : "Continue"}
         </Button>
       </div>

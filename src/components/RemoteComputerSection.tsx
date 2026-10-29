@@ -6,7 +6,7 @@ import { Card } from "./SettingsPrimitives";
 import { Button } from "./ui/Button";
 
 const inputClass =
-  "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
+  "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-label text-ink placeholder:text-ink-secondary focus:outline-none";
 
 function errorText(error: unknown): string {
   return String((error as { message?: string })?.message ?? error).replace(
@@ -105,26 +105,26 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
       subtitle={t("remote.client.subtitle")}
     >
       {!bridge && !environments ? (
-        <p className="text-[13px] text-ink-secondary">{t("remote.client.desktopOnly")}</p>
+        <p className="text-ui text-ink-secondary">{t("remote.client.desktopOnly")}</p>
       ) : state.active ? (
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3 rounded-lg border border-success/25 bg-success/10 px-3 py-3">
             <Laptop size={18} className="mt-0.5 shrink-0 text-success" />
             <div className="min-w-0">
-              <div className="text-[14px] font-medium text-ink">
+              <div className="text-label font-medium text-ink">
                 {t("remote.client.connected", { name: state.serverName || t("remote.client.fallbackName") })}
               </div>
-              <div className="mt-1 break-all text-[12px] text-ink-secondary">{state.endpoint}</div>
+              <div className="mt-1 break-all text-small text-ink-secondary">{state.endpoint}</div>
             </div>
           </div>
-          <p className="text-[13px] leading-relaxed text-ink-secondary">
+          <p className="text-ui leading-relaxed text-ink-secondary">
             {t("remote.client.mode")}
           </p>
           <button
             type="button"
             disabled={busy}
             onClick={() => void disconnect()}
-            className="flex w-fit items-center gap-2 rounded-lg border border-danger/30 px-3 py-2 text-[13px] text-danger-text hover:bg-danger/10 disabled:opacity-50"
+            className="flex w-fit items-center gap-2 rounded-lg border border-danger/30 px-3 py-2 text-ui text-danger-text hover:bg-danger/10 disabled:opacity-50"
           >
             {busy ? <Loader2 size={14} className="animate-spin" /> : <Unplug size={14} />}
             {t("remote.client.disconnect")}
@@ -133,7 +133,7 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
       ) : (
         <form className="flex flex-col gap-3" onSubmit={(event) => { event.preventDefault(); void pair(); }}>
           {environments && bridge ? (
-            <label className="flex flex-col gap-1.5 text-[12px] text-ink-secondary">
+            <label className="flex flex-col gap-1.5 text-small text-ink-secondary">
               {t("remote.client.connectionType")}
               <Select
                 value={connection}
@@ -151,13 +151,13 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
           ) : null}
           {serverMode ? (
             <>
-              <p className="text-[13px] leading-relaxed text-ink-secondary">
+              <p className="text-ui leading-relaxed text-ink-secondary">
                 {t("remote.client.server.hint")}
               </p>
-              <code className="select-all rounded-lg bg-inset px-3 py-2 text-[12px] text-ink">
+              <code className="select-all rounded-lg bg-inset px-3 py-2 text-small text-ink">
                 npx openmausbot pair --client
               </code>
-              <label className="flex flex-col gap-1.5 text-[12px] text-ink-secondary">
+              <label className="flex flex-col gap-1.5 text-small text-ink-secondary">
                 {t("remote.client.server.pairingLink")}
                 <input
                   value={serverLink}
@@ -171,16 +171,16 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
                   className={inputClass}
                 />
               </label>
-              <p className="text-[12px] leading-relaxed text-ink-secondary">
+              <p className="text-small leading-relaxed text-ink-secondary">
                 {t("remote.client.server.domainHint")}
               </p>
             </>
           ) : (
             <>
-              <p className="text-[13px] leading-relaxed text-ink-secondary">
+              <p className="text-ui leading-relaxed text-ink-secondary">
                 {t("remote.client.companion.hint")}
               </p>
-              <label className="flex flex-col gap-1.5 text-[12px] text-ink-secondary">
+              <label className="flex flex-col gap-1.5 text-small text-ink-secondary">
                 {t("remote.client.companion.address")}
                 <input
                   value={endpoint}
@@ -193,7 +193,7 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
                   className={inputClass}
                 />
               </label>
-              <label className="flex flex-col gap-1.5 text-[12px] text-ink-secondary">
+              <label className="flex flex-col gap-1.5 text-small text-ink-secondary">
                 {t("remote.client.companion.code")}
                 <input
                   value={code}
@@ -207,7 +207,7 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
               </label>
             </>
           )}
-          {error ? <p role="alert" className="text-[13px] text-danger-text">{error}</p> : null}
+          {error ? <p role="alert" className="text-ui text-danger-text">{error}</p> : null}
           <Button variant="primary" size="lg"
             type="submit"
             disabled={busy || (serverMode ? !serverLink.trim() : endpoint.trim() === "" || code.length !== 6)}
@@ -216,12 +216,12 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
             {busy ? <Loader2 size={14} className="animate-spin" /> : <Laptop size={14} />}
             {serverMode ? t("remote.client.server.connect") : t("remote.client.pair")}
           </Button>
-          <p className="text-[12px] leading-relaxed text-ink-secondary">
+          <p className="text-small leading-relaxed text-ink-secondary">
             {serverMode ? t("remote.client.server.switchNote") : t("remote.client.restartNote")}
           </p>
         </form>
       )}
-      {state.active && error ? <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
+      {state.active && error ? <p role="alert" className="mt-3 text-ui text-danger-text">{error}</p> : null}
     </Card>
   );
 }

@@ -13,7 +13,7 @@ import { FixButton, StatusMark } from "./parts";
 import { Button } from "../ui/Button";
 
 const RECENT = 5;
-const BUTTON = "flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-[13px] font-medium disabled:opacity-50";
+const BUTTON = "flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-ui font-medium disabled:opacity-50";
 
 /** One automation, simply: its sentence, its status, the last five runs, and what can be done to it. */
 export function AutomationPanel({ automation, sentence, onClose, onEdit, onDeleted }: {
@@ -50,14 +50,14 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
     <aside aria-label={t("automations.panel.label")} className="flex h-full w-[min(380px,100vw)] shrink-0 flex-col border-l border-hairline bg-panel">
       <div className="flex items-start gap-3 border-b border-hairline px-5 py-4">
         <div className="min-w-0 flex-1">
-          <h2 className="text-[16px] font-semibold leading-snug text-ink">{name || sentence}</h2>
-          {name && <p className="mt-0.5 text-[13px] text-ink-secondary">{automationSubtitle(automation, botName)}</p>}
+          <h2 className="text-title font-semibold leading-snug text-ink">{name || sentence}</h2>
+          {name && <p className="mt-0.5 text-ui text-ink-secondary">{automationSubtitle(automation, botName)}</p>}
         </div>
         <button type="button" onClick={onClose} className="rounded-full p-1.5 text-ink-secondary hover:bg-raised hover:text-ink" aria-label={t("automations.panel.close")}><X size={16} /></button>
       </div>
 
       <div className="min-h-0 flex-1 space-y-5 overflow-y-auto px-5 py-4">
-        <div className="flex flex-wrap items-center gap-2 text-[13px]" data-automation-status={status.state}>
+        <div className="flex flex-wrap items-center gap-2 text-ui" data-automation-status={status.state}>
           <StatusMark status={status} />
           <span className={cn("font-medium", status.state === "needs-you" ? "text-warning-text" : "text-ink")}>{statusWord}</span>
           {reason && <span className="min-w-0 text-ink-secondary">{reason}</span>}
@@ -66,20 +66,20 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
 
         {webhook && (
           <section className="rounded-xl border border-hairline bg-inset/50 p-3.5">
-            <h3 className="text-[13px] font-medium text-ink">{t("automations.address.title")}</h3>
+            <h3 className="text-ui font-medium text-ink">{t("automations.address.title")}</h3>
             <Button variant="primary" size="lg" disabled={Boolean(actions.busy) || !receiving} onClick={() => void actions.copyAddress(webhook.id)} className="mt-2.5 gap-1.5 px-3">
               {actions.copied === webhook.id ? <Check size={14} /> : <Copy size={14} />}
               {actions.copied === webhook.id ? t("automations.address.copied") : t("automations.address.copy")}
             </Button>
-            {(!receiving || !state.config?.cloudHome) && <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{receiving ? t("automations.address.keepOpen") : t("automations.address.unavailable")}</p>}
-            <details className="mt-2.5 text-[12px] text-ink-secondary">
+            {(!receiving || !state.config?.cloudHome) && <p className="mt-2 text-small leading-relaxed text-ink-secondary">{receiving ? t("automations.address.keepOpen") : t("automations.address.unavailable")}</p>}
+            <details className="mt-2.5 text-small text-ink-secondary">
               <summary className="cursor-pointer select-none font-medium text-ink-secondary hover:text-ink">{t("automations.more")}</summary>
               <div className="mt-2 space-y-2 leading-relaxed">
                 {received && (
                   <section aria-label={t("automations.received.title")}>
                     <p className="font-medium text-ink">{t("automations.received.title")} · {lastWhen(received.at)}</p>
                     <p className="mt-0.5">{t("automations.received.help")}</p>
-                    <pre className="mt-1.5 max-h-40 overflow-auto whitespace-pre-wrap break-all rounded-lg bg-inset px-2.5 py-2 font-mono text-[11px] text-ink">{received.preview.slice(0, 1_000)}</pre>
+                    <pre className="mt-1.5 max-h-40 overflow-auto whitespace-pre-wrap break-all rounded-lg bg-inset px-2.5 py-2 font-mono text-caption text-ink">{received.preview.slice(0, 1_000)}</pre>
                   </section>
                 )}
                 <section aria-label={t("automations.calls.title")}>
@@ -92,7 +92,7 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
                           <span className={cn("shrink-0 font-semibold", call.ok ? "text-success" : "text-danger-text")}>{call.ok ? "✓" : "✗"}</span>
                           <span className="min-w-0 truncate text-ink">{call.reason}</span>
                         </button>
-                        {openCall === call.id && <pre className="mx-1.5 mb-1 whitespace-pre-wrap break-all rounded-md bg-inset px-2 py-1.5 font-mono text-[11px] text-ink">{call.preview || t("automations.calls.empty")}</pre>}
+                        {openCall === call.id && <pre className="mx-1.5 mb-1 whitespace-pre-wrap break-all rounded-md bg-inset px-2 py-1.5 font-mono text-caption text-ink">{call.preview || t("automations.calls.empty")}</pre>}
                       </li>
                     ))}</ul>
                   )}
@@ -100,11 +100,11 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
                 <p className="font-medium text-ink">{t("automations.address.showSecret")}</p>
                 {credential ? (
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1" data-secret={secretShown ? "shown" : "masked"}>
-                    <span className="min-w-0 break-all font-mono text-[11px]">{t("automations.address.secret", { secret: secretShown ? credential.secret : "••••••••" })}</span>
+                    <span className="min-w-0 break-all font-mono text-caption">{t("automations.address.secret", { secret: secretShown ? credential.secret : "••••••••" })}</span>
                     <button type="button" aria-label={t(secretShown ? "automations.address.hideSecretLabel" : "automations.address.showSecretLabel")} onClick={() => setSecretShown((shown) => !shown)} className="rounded-md px-1.5 py-0.5 font-medium text-ink hover:bg-raised">{t(secretShown ? "automations.address.hideSecret" : "automations.address.revealSecret")}</button>
                     <button type="button" aria-label={t("automations.address.copySecretLabel")} onClick={() => void copySecret(credential.secret)} className="rounded-md px-1.5 py-0.5 font-medium text-ink hover:bg-raised">{secretCopied ? t("automations.address.copied") : t("automations.address.copySecret")}</button>
                   </div>
-                ) : <p className="break-all font-mono text-[11px]">{t("automations.address.secretUnknown")}</p>}
+                ) : <p className="break-all font-mono text-caption">{t("automations.address.secretUnknown")}</p>}
                 <p>{t("automations.address.header")}</p>
                 {webhook.eventTypes?.length ? <p>{t("automations.address.events", { events: webhook.eventTypes.join(", ") })}</p> : null}
                 <button type="button" disabled={Boolean(actions.busy)} onClick={() => { if (window.confirm(t("automations.address.replaceConfirm"))) void actions.copyAddress(webhook.id, true); }} className="flex items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1.5 text-ink hover:bg-raised"><RotateCw size={12} />{t("automations.address.replace")}</button>
@@ -113,20 +113,20 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
           </section>
         )}
 
-        {name && instructions && <p data-testid="automation-instructions" className="whitespace-pre-wrap break-words text-[13px] leading-relaxed text-ink">{instructions}</p>}
+        {name && instructions && <p data-testid="automation-instructions" className="whitespace-pre-wrap break-words text-ui leading-relaxed text-ink">{instructions}</p>}
 
         {automation.appTrigger && <AppEventsSection trigger={automation.appTrigger} />}
 
         <section>
-          <h3 className="mb-2 text-[12px] font-semibold uppercase tracking-wider text-ink-tertiary">{t("automations.panel.recent")}</h3>
+          <h3 className="mb-2 text-small font-semibold uppercase tracking-wider text-ink-tertiary">{t("automations.panel.recent")}</h3>
           {automation.runs.length === 0
-            ? <p className="text-[13px] text-ink-secondary">{t("automations.panel.noRuns")}</p>
+            ? <p className="text-ui text-ink-secondary">{t("automations.panel.noRuns")}</p>
             : <ul className="space-y-1">{automation.runs.slice(0, RECENT).map((run) => {
               const line = runLine(run);
               return (
                 <li key={run.id}>
                   <button type="button" disabled={!run.threadId} onClick={() => actions.openRun(automation, run)} title={run.threadId ? t("automations.panel.open") : undefined}
-                    className="flex w-full items-baseline gap-2 rounded-lg px-2 py-1.5 text-left text-[13px] hover:bg-raised disabled:hover:bg-transparent">
+                    className="flex w-full items-baseline gap-2 rounded-lg px-2 py-1.5 text-left text-ui hover:bg-raised disabled:hover:bg-transparent">
                     <span className="shrink-0 text-ink-secondary">{line.when}</span>
                     <span className={cn("shrink-0 font-semibold", line.mark === "✓" ? "text-success" : line.mark === "✗" ? "text-danger-text" : "text-warning-text")}>{line.mark}</span>
                     <span className="min-w-0 truncate text-ink">{line.text}</span>
@@ -135,7 +135,7 @@ export function AutomationPanel({ automation, sentence, onClose, onEdit, onDelet
               );
             })}</ul>}
         </section>
-        {actions.error && <p role="alert" className="rounded-lg bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{actions.error}</p>}
+        {actions.error && <p role="alert" className="rounded-lg bg-danger/10 px-3 py-2 text-small text-danger-text">{actions.error}</p>}
       </div>
 
       <div className="grid grid-cols-2 gap-2 border-t border-hairline px-5 py-3.5">

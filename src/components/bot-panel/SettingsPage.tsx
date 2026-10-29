@@ -133,7 +133,7 @@ export function SettingsPage({ bot, derived, onOpen, editingInstructions = false
           </div>
           {approval.choice && (
             <div data-panel-row="thread-approval" className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 pl-[38px]">
-              <span className="text-[13px] text-ink-secondary">{t("botPanel.thisConversation")}</span>
+              <span className="text-ui text-ink-secondary">{t("botPanel.thisConversation")}</span>
               <span className="ms-auto flex">
                 <ApprovalChip choice={approval.choice} />
               </span>
@@ -164,7 +164,7 @@ export function SettingsPage({ bot, derived, onOpen, editingInstructions = false
         />
         <label data-panel-row="job" className={cn(rowCls, "cursor-text")}>
           <RowIcon icon={Tag} />
-          <span className="shrink-0 text-[14px] font-medium text-ink">{t("botSettings.simple.job")}</span>
+          <span className="shrink-0 text-label font-medium text-ink">{t("botSettings.simple.job")}</span>
           <input
             data-panel-job
             value={jobDraft ?? bot.title}
@@ -183,7 +183,7 @@ export function SettingsPage({ bot, derived, onOpen, editingInstructions = false
                 setJobDraft(null);
               }
             }}
-            className="min-w-0 flex-1 bg-transparent text-right text-[13px] text-ink-secondary outline-none placeholder:text-ink-tertiary focus:text-ink"
+            className="min-w-0 flex-1 bg-transparent text-right text-ui text-ink-secondary outline-none placeholder:text-ink-tertiary focus:text-ink"
           />
         </label>
       </Card>

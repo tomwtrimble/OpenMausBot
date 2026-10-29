@@ -41,9 +41,9 @@ export function DataFilter({ columns, value, onChange }: { columns: DataColumn[]
     <button ref={trigger} type="button" aria-label={t("data.filter.button")} aria-haspopup="dialog" aria-expanded={open} aria-controls={open ? id : undefined}
       title={active ? `${selected}: ${value.text}` : t("data.filter.button")} data-active={active}
       onClick={() => { setChoosing(!active); setSearch(""); setOpen(!open); }}
-      className={`flex max-w-full items-center gap-1.5 rounded-md border px-2 py-1 text-xs ${active ? "border-accent/40 bg-accent/10 text-accent-text" : "border-hairline text-ink-secondary hover:bg-inset hover:text-ink"}`}>
+      className={`flex max-w-full items-center gap-1.5 rounded-md border px-2 py-1 text-small ${active ? "border-accent/40 bg-accent/10 text-accent-text" : "border-hairline text-ink-secondary hover:bg-inset hover:text-ink"}`}>
       <ListFilter size={14} aria-hidden="true" /><span>{t("data.filter.button")}</span>
-      {active && <span className="max-w-40 truncate text-[11px]">· {selected}</span>}
+      {active && <span className="max-w-40 truncate text-caption">· {selected}</span>}
     </button>
     {open && <div id={id} role="dialog" aria-label={t("data.grid.filter")} data-testid="data-filter-popover" onKeyDown={onKeyDown}
       className="popover-surface absolute left-0 top-full z-40 mt-1 flex max-h-[min(20rem,calc(100cqh-5.5rem))] w-64 max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-xl border border-hairline bg-menu text-ink shadow-xl">
@@ -51,32 +51,32 @@ export function DataFilter({ columns, value, onChange }: { columns: DataColumn[]
         <label className="flex shrink-0 items-center gap-2 border-b border-hairline px-3 py-2 text-ink-secondary">
           <Search size={14} aria-hidden="true" />
           <input ref={input} value={search} onChange={(event) => setSearch(event.target.value)} aria-label={t("data.filter.searchColumns")} placeholder={t("data.filter.searchColumns")}
-            className="min-w-0 flex-1 bg-transparent text-xs text-ink outline-none placeholder:text-ink-tertiary" />
+            className="min-w-0 flex-1 bg-transparent text-small text-ink outline-none placeholder:text-ink-tertiary" />
         </label>
         <div className="min-h-0 overflow-y-auto p-1">
-          <button type="button" data-filter-option className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-xs hover:bg-inset focus-visible:bg-inset focus-visible:outline-none" onClick={() => choose()}>
+          <button type="button" data-filter-option className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-small hover:bg-inset focus-visible:bg-inset focus-visible:outline-none" onClick={() => choose()}>
             <Columns3 size={14} className="text-ink-tertiary" aria-hidden="true" /><span className="flex-1">{t("data.filter.allColumns")}</span>{value.column === undefined && <Check size={13} aria-hidden="true" />}
           </button>
           {matches.map((column) => {
             const Icon = isNumericType(column.type) ? Hash : isTemporalType(column.type) ? CalendarDays : /^BOOLEAN$/i.test(column.type) ? ToggleLeft : Type;
             return <button key={column.name} type="button" data-filter-option aria-label={column.name} title={`${column.name} · ${column.type}`} onClick={() => choose(column.name)}
-              className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-xs hover:bg-inset focus-visible:bg-inset focus-visible:outline-none">
+              className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-small hover:bg-inset focus-visible:bg-inset focus-visible:outline-none">
               <Icon size={14} className="shrink-0 text-ink-tertiary" aria-hidden="true" /><span className="min-w-0 flex-1 truncate">{column.name}</span>{value.column === column.name && <Check size={13} aria-hidden="true" />}
             </button>;
           })}
-          {matches.length === 0 && <p className="px-2 py-2 text-xs text-ink-tertiary">{t("data.filter.noColumns")}</p>}
+          {matches.length === 0 && <p className="px-2 py-2 text-small text-ink-tertiary">{t("data.filter.noColumns")}</p>}
         </div>
       </> : <>
         <div className="flex shrink-0 items-center gap-2 border-b border-hairline px-2 py-1.5">
           <IconButton label={t("data.filter.chooseColumn")} className="rounded-md p-1 text-ink-secondary hover:bg-inset" onClick={() => { setChoosing(true); setSearch(""); }}><ArrowLeft size={14} aria-hidden="true" /></IconButton>
-          <span className="truncate text-xs" title={selected}>{selected}</span>
+          <span className="truncate text-small" title={selected}>{selected}</span>
         </div>
         <div className="min-h-0 overflow-y-auto p-3">
-          <label className="flex flex-col gap-1.5 text-[11px] text-ink-secondary">{t("data.filter.contains")}
+          <label className="flex flex-col gap-1.5 text-caption text-ink-secondary">{t("data.filter.contains")}
             <input ref={input} value={value.text} onChange={(event) => onChange({ ...value, text: event.target.value })} aria-label={t("data.filter.value")} placeholder={t("data.filter.value")}
-              className="w-full rounded-md border border-hairline bg-inset px-2 py-1.5 text-xs text-ink outline-none focus-visible:ring-1 focus-visible:ring-focus" />
+              className="w-full rounded-md border border-hairline bg-inset px-2 py-1.5 text-small text-ink outline-none focus-visible:ring-1 focus-visible:ring-focus" />
           </label>
-          <button type="button" disabled={!value.text && value.column === undefined} className="mt-2 rounded-md px-1 py-1 text-xs text-ink-secondary hover:text-ink disabled:opacity-40" onClick={() => { onChange({ text: "" }); setChoosing(true); setSearch(""); }}>{t("data.filter.clear")}</button>
+          <button type="button" disabled={!value.text && value.column === undefined} className="mt-2 rounded-md px-1 py-1 text-small text-ink-secondary hover:text-ink disabled:opacity-40" onClick={() => { onChange({ text: "" }); setChoosing(true); setSearch(""); }}>{t("data.filter.clear")}</button>
         </div>
       </>}
     </div>}

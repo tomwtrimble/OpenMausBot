@@ -17,7 +17,7 @@ export function OneCloudScreen({ name, color, busy, interest, openFailed, onInte
       {interest !== "sent" && <Button pill disabled={busy} onClick={onInterest}>{t("cloudBuy.one.email")}</Button>}
       <Button variant="primary" pill disabled={busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</Button>
     </div>
-    <div aria-live="polite" className="text-[13px] leading-[18px] empty:-mt-5">
+    <div aria-live="polite" className="text-ui leading-[18px] empty:-mt-5">
       {interest === "sent" && <p className="text-ink-secondary">{t("cloudBuy.one.thanks")}</p>}
       {interest === "failed" && <p role="alert" className="text-danger-text">{t("cloudBuy.one.failed")}</p>}
       {openFailed && <p role="alert" className="text-danger-text">{t("cloudBuy.openFailed", { name })}</p>}
@@ -29,8 +29,8 @@ export function OneCloudScreen({ name, color, busy, interest, openFailed, onInte
 export function StatusScreen({ kind, line, onRetry, onClose }: { kind: string; line: string | null; onRetry?: () => void; onClose: () => void }) {
   return <div data-cloud-add={kind} className={SCREEN}>
     <Heading title={t("cloudAdd.title")} />
-    {line ? <p role="alert" className="text-[14px] leading-5 text-ink">{line}</p>
-      : <p role="status" className="flex items-center gap-2 text-[13px] leading-[18px] text-ink-secondary"><Loader2 size={14} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />{t("cloudAdd.checking")}</p>}
+    {line ? <p role="alert" className="text-label leading-5 text-ink">{line}</p>
+      : <p role="status" className="flex items-center gap-2 text-ui leading-[18px] text-ink-secondary"><Loader2 size={14} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />{t("cloudAdd.checking")}</p>}
     <div className={ACTIONS}>
       <Button pill onClick={onClose}>{t("cloudAdd.close")}</Button>
       {onRetry && <Button variant="primary" pill onClick={onRetry}>{t("cloudAdd.tryAgain")}</Button>}

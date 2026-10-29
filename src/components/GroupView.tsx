@@ -204,7 +204,7 @@ function RoomTextMessage({
   );
   return (
     <div {...{ [MESSAGE_ROW]: "" }} className={cn("group flex w-full flex-col", user ? "items-end" : "items-start")}>
-      {speaker && <div className="mb-0.5 px-1 text-[12px] font-medium text-ink-secondary">{speaker}</div>}
+      {speaker && <div className="mb-0.5 px-1 text-small font-medium text-ink-secondary">{speaker}</div>}
       <div className={cn("flex w-full items-end gap-1.5", user ? "justify-end" : "justify-start")}>
         {user && (
           <MessageActions side="user" menu={userMessageMenu({ messageId: m.id, pin })}>
@@ -216,7 +216,7 @@ function RoomTextMessage({
           data-chat-bubble={simple ? "simple" : ""}
           className={cn(
             tabled ? "w-full" : "w-fit",
-            simple ? cn(!tabled && SIMPLE_BUBBLE_MAX, SIMPLE_BUBBLE_TEXT) : "max-w-[min(var(--chat-bubble-max),var(--chat-bubble-pct))] rounded-2xl text-[15px] leading-relaxed",
+            simple ? cn(!tabled && SIMPLE_BUBBLE_MAX, SIMPLE_BUBBLE_TEXT) : "max-w-[min(var(--chat-bubble-max),var(--chat-bubble-pct))] rounded-2xl text-body leading-relaxed",
             !user && emerging && "turn-answer",
             tabled || (!user && !m.text?.trim() && !m.replyToId && m.attachments?.length)
               ? "text-ink"
@@ -264,15 +264,15 @@ function RoomTextMessage({
                 }}
               />}
               {m.via === "api" && (
-                <div className="mt-1 text-[11px] text-ink-secondary">Sent through the API, not typed here</div>
+                <div className="mt-1 text-caption text-ink-secondary">Sent through the API, not typed here</div>
               )}
               {collapsible && (
-                <button type="button" onClick={() => setExpanded(true)} className="mt-1 text-[13px] text-ink-secondary hover:text-ink">
+                <button type="button" onClick={() => setExpanded(true)} className="mt-1 text-ui text-ink-secondary hover:text-ink">
                   {t("chat.showFull")}
                 </button>
               )}
               {expanded && (
-                <button type="button" onClick={() => setExpanded(false)} className="mt-1 text-[13px] text-ink-secondary hover:text-ink">
+                <button type="button" onClick={() => setExpanded(false)} className="mt-1 text-ui text-ink-secondary hover:text-ink">
                   {t("chat.showLess")}
                 </button>
               )}
@@ -300,7 +300,7 @@ function RoomTextMessage({
           )}
         </div>
         {!tabled && botActions}
-        <span className="self-end pb-1 text-[11px] tabular-nums text-ink-tertiary opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="self-end pb-1 text-caption tabular-nums text-ink-tertiary opacity-0 transition-opacity group-hover:opacity-100">
           {formatTime(m.at)}
         </span>
       </div>
@@ -392,7 +392,7 @@ export const Transcript = memo(function Transcript({
           return (
             <div key={item.id} className="contents">
               {newDay && (
-                <div className="py-3 text-center text-[13px] text-ink-secondary">
+                <div className="py-3 text-center text-ui text-ink-secondary">
                   {dayLabel(first.at)} {formatTime(first.at)}
                 </div>
               )}
@@ -488,7 +488,7 @@ export const Transcript = memo(function Transcript({
         return (
           <div key={m.id} className="contents" data-mid={m.id}>
             {newDay && (
-              <div className="py-3 text-center text-[13px] text-ink-secondary">
+              <div className="py-3 text-center text-ui text-ink-secondary">
                 {dayLabel(m.at)} {formatTime(m.at)}
               </div>
             )}
@@ -623,10 +623,10 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
     >
       <div className="rounded-t-3xl border-b border-hairline bg-panel/70 px-5 py-5 sm:px-7">
         <div className="flex items-start gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent text-sm font-bold text-white">1</span>
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent text-label font-bold text-white">1</span>
           <div>
-            <h1 id="room-setup-title" className="text-xl font-semibold tracking-tight text-ink">{t("room.setup.title", { name: group.name })}</h1>
-            <p className="mt-1 max-w-[560px] text-[14px] leading-relaxed text-ink-secondary">
+            <h1 id="room-setup-title" className="text-display font-semibold tracking-tight text-ink">{t("room.setup.title", { name: group.name })}</h1>
+            <p className="mt-1 max-w-[560px] text-label leading-relaxed text-ink-secondary">
               {t("room.setup.detail")}
             </p>
           </div>
@@ -640,21 +640,21 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
         }}
       >
         <label className="block">
-          <span className="text-[13px] font-semibold text-ink">{t("room.folder.title")}</span>
-          <span className="mt-1 block text-[12px] text-ink-secondary">{t("room.setup.folderDetail")}</span>
+          <span className="text-ui font-semibold text-ink">{t("room.folder.title")}</span>
+          <span className="mt-1 block text-small text-ink-secondary">{t("room.setup.folderDetail")}</span>
           <div className="mt-2 flex gap-2">
             <input
               value={folder}
               onChange={(event) => setFolder(event.target.value)}
               placeholder={t("room.folder.own")}
-              className="min-w-0 flex-1 rounded-xl border border-hairline bg-inset px-3 py-2.5 font-mono text-[13px] text-ink placeholder:text-ink-secondary focus:border-accent focus:outline-none"
+              className="min-w-0 flex-1 rounded-xl border border-hairline bg-inset px-3 py-2.5 font-mono text-ui text-ink placeholder:text-ink-secondary focus:border-accent focus:outline-none"
             />
             {window.ogb?.pickFolder && (
               <button
                 type="button"
                 onClick={() => void pickFolder()}
                 disabled={saving}
-                className="flex shrink-0 items-center gap-1.5 rounded-xl border border-hairline bg-raised px-3 py-2 text-[13px] font-medium text-ink hover:bg-raised-hover disabled:opacity-50"
+                className="flex shrink-0 items-center gap-1.5 rounded-xl border border-hairline bg-raised px-3 py-2 text-ui font-medium text-ink hover:bg-raised-hover disabled:opacity-50"
               >
                 <FolderOpen size={14} /> Choose
               </button>
@@ -663,8 +663,8 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
         </label>
 
         <fieldset className="block">
-          <legend className="text-[13px] font-semibold text-ink">{t("room.responder.aria")}</legend>
-          <p className="mt-1 text-[12px] text-ink-secondary">{t("room.setup.responderDetail")}</p>
+          <legend className="text-ui font-semibold text-ink">{t("room.responder.aria")}</legend>
+          <p className="mt-1 text-small text-ink-secondary">{t("room.setup.responderDetail")}</p>
           <div role="radiogroup" aria-label={t("room.responder.aria")} className="mt-2 grid gap-2 sm:grid-cols-2">
             <button
               type="button"
@@ -682,7 +682,7 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                   : "border-hairline bg-inset text-ink-secondary hover:border-edge hover:bg-raised",
               )}
             >
-              <span className="flex items-center gap-2 text-[13px] font-semibold">
+              <span className="flex items-center gap-2 text-ui font-semibold">
                 <span
                   className={cn(
                     "flex size-4 shrink-0 items-center justify-center rounded-full border",
@@ -693,7 +693,7 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                 </span>
                 {jevOn ? t("room.responder.autoOption") : t("room.responder.autoOptionOff")}
               </span>
-              <span className="ml-6 mt-2 text-[12px] text-ink-secondary">
+              <span className="ml-6 mt-2 text-small text-ink-secondary">
                 {jevOn ? t("room.setup.autoDetail") : t("room.setup.autoDetailOff")}
               </span>
             </button>
@@ -718,7 +718,7 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                 )}
               >
                 <span className="flex w-full items-center justify-between gap-2">
-                  <span className="flex items-center gap-2 text-[13px] font-semibold">
+                  <span className="flex items-center gap-2 text-ui font-semibold">
                     <span
                       className={cn(
                         "flex size-4 shrink-0 items-center justify-center rounded-full border",
@@ -735,7 +735,7 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                     className={cn("shrink-0 text-ink-secondary transition-transform", leadPickerOpen && "rotate-180")}
                   />
                 </span>
-                <span className="ml-6 mt-2 truncate text-[12px] text-ink-secondary">
+                <span className="ml-6 mt-2 truncate text-small text-ink-secondary">
                   {selectedLead?.name ?? t("room.behavior.chooseTeammate")}
                 </span>
               </button>
@@ -746,8 +746,8 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                   className={cn("popover-surface absolute left-0 top-full z-30 mt-2 w-72 max-w-[calc(100vw-3rem)] overflow-hidden rounded-2xl border border-hairline bg-menu shadow-2xl shadow-shadow/20", leadMotion.className)} {...leadMotion.exitProps}
                 >
                   <div className="border-b border-hairline px-3 py-2.5">
-                    <div className="text-[13px] font-semibold text-ink">{t("room.behavior.chooseLead")}</div>
-                    <div className="mt-0.5 text-[12px] text-ink-secondary">{t("room.behavior.chooseLeadDetail")}</div>
+                    <div className="text-ui font-semibold text-ink">{t("room.behavior.chooseLead")}</div>
+                    <div className="mt-0.5 text-small text-ink-secondary">{t("room.behavior.chooseLeadDetail")}</div>
                   </div>
                   <div className="max-h-48 overflow-y-auto p-1.5">
                     {members.map((member) => {
@@ -774,8 +774,8 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                             animated={false}
                           />
                           <span className="min-w-0 flex-1">
-                            <span className="block truncate text-[13px] font-medium text-ink">{member.name}</span>
-                            <span className="block truncate text-[11px] text-ink-secondary">{member.title}</span>
+                            <span className="block truncate text-ui font-medium text-ink">{member.name}</span>
+                            <span className="block truncate text-caption text-ink-secondary">{member.title}</span>
                           </span>
                           {selected && <Check size={15} className="shrink-0 text-accent-text" />}
                         </button>
@@ -802,7 +802,7 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                   : "border-hairline bg-inset text-ink-secondary hover:border-edge hover:bg-raised",
               )}
             >
-              <span className="flex items-center gap-2 text-[13px] font-semibold">
+              <span className="flex items-center gap-2 text-ui font-semibold">
                 <span
                   className={cn(
                     "flex size-4 shrink-0 items-center justify-center rounded-full border",
@@ -813,7 +813,7 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                 </span>
                 {t("room.responder.everyoneOption")}
               </span>
-              <span className="ml-6 mt-2 text-[12px] text-ink-secondary">{t("room.setup.allMembers")}</span>
+              <span className="ml-6 mt-2 text-small text-ink-secondary">{t("room.setup.allMembers")}</span>
             </button>
 
             <button
@@ -832,7 +832,7 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                   : "border-hairline bg-inset text-ink-secondary hover:border-edge hover:bg-raised",
               )}
             >
-              <span className="flex items-center gap-2 text-[13px] font-semibold">
+              <span className="flex items-center gap-2 text-ui font-semibold">
                 <span
                   className={cn(
                     "flex size-4 shrink-0 items-center justify-center rounded-full border",
@@ -843,30 +843,30 @@ function RoomSetup({ group, members }: { group: Group; members: Bot[] }) {
                 </span>
                 {t("room.responder.mentionsOption")}
               </span>
-              <span className="ml-6 mt-2 text-[12px] text-ink-secondary">{t("room.setup.onlyMentioned")}</span>
+              <span className="ml-6 mt-2 text-small text-ink-secondary">{t("room.setup.onlyMentioned")}</span>
             </button>
           </div>
         </fieldset>
 
         <label className="block">
-          <span className="text-[13px] font-semibold text-ink">{t("room.setup.instructions")}</span>
-          <span className="mt-1 block text-[12px] text-ink-secondary">{t("room.setup.instructionsDetail")}</span>
+          <span className="text-ui font-semibold text-ink">{t("room.setup.instructions")}</span>
+          <span className="mt-1 block text-small text-ink-secondary">{t("room.setup.instructionsDetail")}</span>
           <textarea
             value={instructions}
             onChange={(event) => setInstructions(event.target.value)}
             rows={5}
             placeholder={t("room.setup.instructionsPlaceholder")}
-            className="mt-2 w-full resize-y rounded-xl border border-hairline bg-inset px-3 py-2.5 text-[13px] leading-relaxed text-ink placeholder:text-ink-secondary focus:border-accent focus:outline-none"
+            className="mt-2 w-full resize-y rounded-xl border border-hairline bg-inset px-3 py-2.5 text-ui leading-relaxed text-ink placeholder:text-ink-secondary focus:border-accent focus:outline-none"
           />
         </label>
 
-        {error && <div role="alert" className="rounded-xl border border-danger/30 bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
+        {error && <div role="alert" className="rounded-xl border border-danger/30 bg-danger/10 px-3 py-2 text-ui text-danger-text">{error}</div>}
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
           <button
             type="button"
             onClick={() => void finish("skip")}
             disabled={saving}
-            className="rounded-xl px-3 py-2 text-left text-[13px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-50"
+            className="rounded-xl px-3 py-2 text-left text-ui text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-50"
           >
             {t("room.setup.skip")}
           </button>
@@ -1034,7 +1034,7 @@ export function GroupView({ group }: { group: Group }) {
 
       {!setupPending && !group.dm && !remoteClient && state.config && group.defaultResponder.kind === "auto" && !jevRoomRoutingOn(state.config) && (
         <div className="w-full px-5">
-          <p data-testid="room-jev-off" className="mb-1 px-2 text-[12px] text-ink-secondary">
+          <p data-testid="room-jev-off" className="mb-1 px-2 text-small text-ink-secondary">
             {t("room.responder.jevOffHint", { name: defaultResponderName(group, members) ?? t("room.responder.leadFallback") })}{" "}
             <button
               type="button"
@@ -1073,8 +1073,8 @@ export function GroupView({ group }: { group: Group }) {
                 className="flex min-w-0 flex-1 items-baseline gap-2 text-left"
                 title={t("chat.pinnedJump")}
               >
-                <span className="shrink-0 text-[12px] font-medium text-accent-text">{sender}</span>
-                <span dir="auto" className="truncate text-[13px] text-ink-secondary">{text}</span>
+                <span className="shrink-0 text-small font-medium text-accent-text">{sender}</span>
+                <span dir="auto" className="truncate text-ui text-ink-secondary">{text}</span>
               </button>
               <IconButton label={t("chat.unpinMessage")} tooltip={t("chat.unpin")}
                 onClick={() => dispatch({ type: "patchGroup", groupId: group.id, patch: { pinnedMessageId: "" } })}
@@ -1121,14 +1121,14 @@ export function GroupView({ group }: { group: Group }) {
                   />
                 ))}
               </div>
-              <div className="text-[17px] font-semibold text-ink">{group.name}</div>
-              <div className="max-w-[380px] text-[14px] text-ink-secondary">
+              <div className="text-title font-semibold text-ink">{group.name}</div>
+              <div className="max-w-[380px] text-label text-ink-secondary">
                 {groupResponseHint(group, members, { jevOn: jevRoomRoutingOn(state.config) })}
               </div>
             </div>
           )}
           {olderPending ? (
-            <div className="flex items-center justify-center gap-2 py-3 text-xs text-ink-secondary">
+            <div className="flex items-center justify-center gap-2 py-3 text-small text-ink-secondary">
               <span className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-accent border-t-transparent" />
               <span>{t("chat.loadingEarlier")}</span>
             </div>
@@ -1150,7 +1150,7 @@ export function GroupView({ group }: { group: Group }) {
             <div className="flex justify-center">
               <button
                 onClick={showLater}
-                className="rounded-full border border-hairline bg-panel px-3 py-1 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink"
+                className="rounded-full border border-hairline bg-panel px-3 py-1 text-ui text-ink-secondary hover:bg-raised hover:text-ink"
               >
                 {t("chat.showLater", { count: laterCount })}
               </button>

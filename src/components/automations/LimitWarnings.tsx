@@ -39,7 +39,7 @@ export function LimitWarnings({ botFilter = "all" }: { botFilter?: string }) {
         const due = dueBeforeReset(routines, botEngine, limit);
         return (
           <div key={limit.engine} data-limit-warning={limit.engine} role="status"
-            className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 rounded-xl border border-warning/40 bg-warning/10 px-3.5 py-2.5 text-[13px] text-ink">
+            className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 rounded-xl border border-warning/40 bg-warning/10 px-3.5 py-2.5 text-ui text-ink">
             <Hourglass size={15} className="shrink-0 text-warning-text" aria-hidden="true" />
             <span className="font-medium tabular-nums">{limitLine(limit)}</span>
             {due.length > 0 ? (
@@ -54,7 +54,7 @@ export function LimitWarnings({ botFilter = "all" }: { botFilter?: string }) {
           </div>
         );
       })}
-      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
     </section>
   );
 }

@@ -224,7 +224,7 @@ describe("header name", () => {
       const role = identity.match(/<span data-chathead-role="true" class="([^"]*)"><span title="Research" class="([^"]*)">Research<\/span><\/span>/);
       expect(role, `advanced ${advanced}`).toBeTruthy();
       expect(role![1].split(" ")).toEqual(expect.arrayContaining(["min-w-0", "max-w-fit", "grow", "basis-0"]));
-      expect(role![2].split(" ")).toEqual(expect.arrayContaining(["truncate", "text-[13px]", "text-ink-secondary"]));
+      expect(role![2].split(" ")).toEqual(expect.arrayContaining(["truncate", "text-ui", "text-ink-secondary"]));
       expect(identity.indexOf("data-chathead-role")).toBeGreaterThan(identity.indexOf("Rename Pepper"));
       expect(renderToStaticMarkup(createElement(ChatView, { bot }))).not.toContain("data-chathead-role");
     }
@@ -398,8 +398,10 @@ describe("thread control placement", () => {
     const retry = renderToStaticMarkup(createElement(ErrorRow, { message: "Network timeout", onRetry: () => {} }));
     const action = renderToStaticMarkup(createElement(ErrorRow, { message: "Network timeout", action: { label: "Open", onClick: () => {} } }));
     for (const markup of [retry, action]) {
-      expect(markup).toContain('class="ui-button ui-button-md ');
-      expect(markup).not.toContain("text-[13px]");
+      const button = /class="(ui-button ui-button-md [^"]*)"/.exec(markup)?.[1];
+      expect(button).toBeDefined();
+      // the md step sets the label's size; the button adds none of its own
+      expect(button).not.toMatch(/(?:^|\s)text-(?:\[\d+px\]|caption|small|ui|label|body|title|display)(?:\s|$)/);
     }
   });
   it("directs ChatGPT plan limits to usage settings rather than repeatedly retrying", () => {

@@ -163,7 +163,7 @@ export function ProviderMark({ driverKind, size, className }: IconProps & { driv
       return <CopilotMark size={size} className={className} />;
     default:
       return (
-        <span className={cn("flex size-full items-center justify-center text-[10px] font-semibold tracking-tight text-ink-secondary", className)}>
+        <span className={cn("flex size-full items-center justify-center text-caption font-semibold tracking-tight text-ink-secondary", className)}>
           {(driverKind.replace(/Agent$/i, "").slice(0, 1) || "?").toUpperCase()}
         </span>
       );

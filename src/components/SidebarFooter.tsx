@@ -19,8 +19,8 @@ export function useSimplePlace(): WorkspacePlace {
 }
 
 export function SidebarPlaceStatus({ place, className }: { place: WorkspacePlace; className?: string }) {
-  if (place.error) return <p role="alert" className={cn("text-[12px] text-danger-text", className)}>{place.error}</p>;
-  if (place.waking) return <p role="status" data-cloud-waking className={cn("text-[12px] text-ink-secondary", className)}>{place.waking}</p>;
+  if (place.error) return <p role="alert" className={cn("text-small text-danger-text", className)}>{place.error}</p>;
+  if (place.waking) return <p role="status" data-cloud-waking className={cn("text-small text-ink-secondary", className)}>{place.waking}</p>;
   return null;
 }
 

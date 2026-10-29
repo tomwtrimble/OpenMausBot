@@ -43,7 +43,7 @@ function Preview() {
   const cloudPage = params.get("view") === "cloud";
   return <div className="flex min-h-screen justify-center bg-app p-6 text-ink sm:p-10">
     <div className="flex w-full max-w-[680px] flex-col gap-4">
-      <h1 className="text-[20px] font-semibold">{cloudPage ? "Settings · on the Cloud" : "Settings · Usage & billing"}</h1>
+      <h1 className="text-display font-semibold">{cloudPage ? "Settings · on the Cloud" : "Settings · Usage & billing"}</h1>
       {cloudPage ? <CloudPlanOnCloud bridge={plan} /> : <CloudAccountSettings />}
     </div>
   </div>;

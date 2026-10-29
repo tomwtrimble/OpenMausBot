@@ -57,29 +57,29 @@ export function InboxReading({ view, row, now }: { view: InboxView; row: InboxRo
         <span className="mt-0.5 shrink-0" aria-hidden="true"><InboxSender from={row.from} size={28} /></span>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2">
-            <span className="min-w-0 truncate text-[14px] font-semibold text-ink">{row.from.name}</span>
-            <span className="ml-auto shrink-0 text-[11px] tabular-nums text-ink-tertiary">{threadUpdatedLabel(row.at, now)}</span>
+            <span className="min-w-0 truncate text-label font-semibold text-ink">{row.from.name}</span>
+            <span className="ml-auto shrink-0 text-caption tabular-nums text-ink-tertiary">{threadUpdatedLabel(row.at, now)}</span>
           </div>
-          <div className="truncate text-[13px] text-ink">{subjectOf(row)}</div>
+          <div className="truncate text-ui text-ink">{subjectOf(row)}</div>
           {(row.origin || row.via) && (
-            <div className="truncate text-[12px] text-ink-tertiary">
+            <div className="truncate text-small text-ink-tertiary">
               {row.via && t("inbox.via", { name: row.via.name })}{row.via && row.origin && " · "}{row.origin && t("inbox.in", { title: row.origin.title })}
             </div>
           )}
         </div>
       </header>
       <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3">
-        {!ask && <p className="whitespace-pre-wrap break-words text-[14px] leading-6 text-ink">{row.text}</p>}
+        {!ask && <p className="whitespace-pre-wrap break-words text-label leading-6 text-ink">{row.text}</p>}
         {row.answers?.map((given) => (
-          <p key={given.at} className="rounded-xl bg-ink/[0.045] px-3 py-2 text-[13px] text-ink-secondary">
-            <span className="block text-[11px] font-medium text-ink-tertiary">{t(given.by === "assistant" ? "inbox.assistantAnswered" : "inbox.youReplied")}</span>
+          <p key={given.at} className="rounded-xl bg-ink/[0.045] px-3 py-2 text-ui text-ink-secondary">
+            <span className="block text-caption font-medium text-ink-tertiary">{t(given.by === "assistant" ? "inbox.assistantAnswered" : "inbox.youReplied")}</span>
             <span className="whitespace-pre-wrap break-words">{given.text}</span>
           </p>
         ))}
         {row.tab === "done" && (
           <>
-            {row.kind === "ask" && <p className="whitespace-pre-wrap break-words text-[14px] leading-6 text-ink">{row.card?.subtitle ?? row.text}</p>}
-            <p className="flex items-center gap-1.5 text-[13px] text-ink-secondary"><Check size={14} aria-hidden="true" />{settledLabel(row)}</p>
+            {row.kind === "ask" && <p className="whitespace-pre-wrap break-words text-label leading-6 text-ink">{row.card?.subtitle ?? row.text}</p>}
+            <p className="flex items-center gap-1.5 text-ui text-ink-secondary"><Check size={14} aria-hidden="true" />{settledLabel(row)}</p>
           </>
         )}
         {ask === "question" && view.threadId && <QuestionCard threadId={view.threadId} asker={asker} message={asMessage(row)} />}
@@ -89,7 +89,7 @@ export function InboxReading({ view, row, now }: { view: InboxView; row: InboxRo
               actions={<PendingApprovalActions part="primary" tag="inbox" pending={approval} threadId={view.threadId} bot={asker} onCancelTurn={() => {}} />} />
           </div>
         )}
-        {ask === "review" && <p className="text-[13px] text-ink-secondary">{t("inbox.reviewInChat")}</p>}
+        {ask === "review" && <p className="text-ui text-ink-secondary">{t("inbox.reviewInChat")}</p>}
       </div>
       <footer className="space-y-2 border-t border-hairline px-3 py-2.5">
         {canReply && (

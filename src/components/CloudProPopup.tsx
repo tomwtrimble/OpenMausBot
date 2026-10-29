@@ -166,17 +166,17 @@ export function CloudProPopup({ view, onPrimary, onSeePlans, onNotNow, onClose }
       className={cn(SHEET, "group/sheet animate-pop-in relative max-h-full w-full max-w-[440px] overflow-y-auto px-6 pb-4 pt-5 outline-none")}>
       <div className="-mx-4 -mt-3">
         <NightCard small>
-          <h2 id={TITLE} tabIndex={-1} className="text-[17px] font-medium leading-6 tracking-[-0.008em] outline-none!">{t("cloudProPopup.title")}</h2>
+          <h2 id={TITLE} tabIndex={-1} className="text-title font-medium leading-6 tracking-[-0.008em] outline-none!">{t("cloudProPopup.title")}</h2>
           {view.badge && <Tag className={cn("mt-1.5 self-start", TAG_ON_NIGHT)}>{view.badge}</Tag>}
         </NightCard>
       </div>
       <div id="cloud-pro-popup-body" className="mt-4 flex flex-col gap-4">
-        <p className="text-[14px] leading-5 text-ink-secondary [text-wrap:pretty]">{t("cloudIntro.body")}</p>
-        <ul className="flex flex-col gap-2 text-[14px] leading-5">
+        <p className="text-label leading-5 text-ink-secondary [text-wrap:pretty]">{t("cloudIntro.body")}</p>
+        <ul className="flex flex-col gap-2 text-label leading-5">
           {view.points.map(point => <li key={point} className="flex items-start gap-2.5"><Check size={16} strokeWidth={1.5} className="mt-0.5 shrink-0 text-ink-tertiary" aria-hidden="true" />{point}</li>)}
         </ul>
-        {view.current && <p className="text-[14px] font-medium leading-5">{view.current}</p>}
-        {(view.price || view.moneyBack) && <p className="flex flex-col text-[13px] leading-[18px] text-ink-secondary">
+        {view.current && <p className="text-label font-medium leading-5">{view.current}</p>}
+        {(view.price || view.moneyBack) && <p className="flex flex-col text-ui leading-[18px] text-ink-secondary">
           {view.price && <span>{view.price}</span>}{view.moneyBack && <span>{view.moneyBack}</span>}
         </p>}
       </div>
@@ -185,7 +185,7 @@ export function CloudProPopup({ view, onPrimary, onSeePlans, onNotNow, onClose }
         {view.seePlans && <Button pill size="lg" onClick={onSeePlans}>{t("pro.seePlans")}</Button>}
       </div>
       <div className="mt-4 flex items-center justify-between gap-3 border-t-[0.5px] border-ink/10 pt-2">
-        <p className="min-w-0 flex-1 text-[12px] leading-4 text-ink-tertiary">{t("pro.disclaimer")}</p>
+        <p className="min-w-0 flex-1 text-small leading-4 text-ink-tertiary">{t("pro.disclaimer")}</p>
         <NotNowButton onClick={onNotNow} />
       </div>
       <button type="button" onClick={onClose} aria-label={t("cloudAdd.close")} className={cn(CLOSE, ON_NIGHT, "absolute end-4 top-4")}><X size={16} /></button>

@@ -81,13 +81,13 @@ export function GroupBars({ groupBy, groups }: { groupBy: UsageGroupBy; groups: 
   const value = (group: UsageGroup) => priced ? group.costUsd ?? 0 : headlineTokens(group);
   const top = [...groups].sort((a, b) => value(b) - value(a)).slice(0, 6);
   const max = Math.max(...top.map(value), 0);
-  if (!top.length || max <= 0) return <p className="text-[13px] text-ink-secondary">{t("usage.page.whereEmpty")}</p>;
+  if (!top.length || max <= 0) return <p className="text-ui text-ink-secondary">{t("usage.page.whereEmpty")}</p>;
   return (
     <ul className="flex flex-col gap-2.5">
       {top.map((group) => {
         const bot = groupBy === "bot" ? state.bots.find((item) => `bot:${item.id}` === group.key) : undefined;
         return (
-          <li key={group.key} className="grid grid-cols-[minmax(0,9rem)_1fr_auto] items-center gap-3 text-[13px]" title={t("usage.page.turns", { count: String(group.turns) })}>
+          <li key={group.key} className="grid grid-cols-[minmax(0,9rem)_1fr_auto] items-center gap-3 text-ui" title={t("usage.page.turns", { count: String(group.turns) })}>
             <span className="flex min-w-0 items-center gap-2 text-ink">
               {bot && <BotAvatar bot={bot} state="idle" size={18} animated={false} />}
               <span className="truncate">{groupBy === "model" ? modelName(group.label, state.instances) : usageGroupLabel(groupBy, group)}</span>
@@ -112,10 +112,10 @@ function WhereItWent({ range, version, onBudget }: { range: { from: string; to: 
   useEffect(() => { onBudget(byBot?.budget ?? null); }, [byBot, onBudget]);
   return (
     <section className="rounded-2xl border border-hairline bg-card p-5" aria-label={t("usage.page.where")}>
-      <h3 className="text-[15px] font-medium text-ink">{t("usage.page.where")}</h3>
+      <h3 className="text-body font-medium text-ink">{t("usage.page.where")}</h3>
       <div className="mt-4 grid gap-6 md:grid-cols-2">
         <div>
-          <div className="mb-3 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-secondary">{t(GROUP_LABEL_KEYS.bot)}</div>
+          <div className="mb-3 text-caption font-medium uppercase tracking-[0.08em] text-ink-secondary">{t(GROUP_LABEL_KEYS.bot)}</div>
           {byBot ? <GroupBars groupBy="bot" groups={byBot.groups} /> : <Loader2 size={14} className="animate-spin text-ink-secondary" />}
         </div>
         <div>
@@ -127,7 +127,7 @@ function WhereItWent({ range, version, onBudget }: { range: { from: string; to: 
                 role="tab"
                 aria-selected={other === option}
                 onClick={() => setOther(option)}
-                className={cn("rounded-md px-2 py-0.5 text-[11px] font-medium uppercase tracking-[0.06em]",
+                className={cn("rounded-md px-2 py-0.5 text-caption font-medium uppercase tracking-[0.06em]",
                   other === option ? "bg-accent/12 text-accent-text" : "text-ink-secondary hover:bg-raised/60 hover:text-ink")}
               >{t(GROUP_LABEL_KEYS[option])}</button>
             ))}
@@ -154,18 +154,18 @@ export function RunRow({ root, onOpen }: { root: TraceRootSummary; onOpen: () =>
             const bot = state.bots.find((item) => item.id === entry.id);
             return bot
               ? <span key={entry.id} className={cn("rounded-full ring-2 ring-card", index > 1 && "hidden sm:block")}><BotAvatar bot={bot} state="idle" size={22} animated={false} /></span>
-              : <span key={entry.id} className={cn("flex size-[22px] items-center justify-center rounded-full bg-raised text-[10px] font-semibold text-ink-secondary ring-2 ring-card", index > 1 && "hidden sm:flex")}>{entry.name.slice(0, 1).toUpperCase()}</span>;
+              : <span key={entry.id} className={cn("flex size-[22px] items-center justify-center rounded-full bg-raised text-caption font-semibold text-ink-secondary ring-2 ring-card", index > 1 && "hidden sm:flex")}>{entry.name.slice(0, 1).toUpperCase()}</span>;
           })}
         </span>
         <span className="min-w-0">
-          <span className="block truncate text-[14px] text-ink">{title}</span>
-          <span className="block truncate text-[12px] text-ink-tertiary">{startedLabel(root.startedAt)} · {root.bots.map((bot) => bot.name).join(", ")}</span>
+          <span className="block truncate text-label text-ink">{title}</span>
+          <span className="block truncate text-small text-ink-tertiary">{startedLabel(root.startedAt)} · {root.bots.map((bot) => bot.name).join(", ")}</span>
         </span>
-        <span className="flex items-center gap-3 text-[13px] tabular-nums text-ink-secondary">
+        <span className="flex items-center gap-3 text-ui tabular-nums text-ink-secondary">
           {root.running && <LiveBadge />}
-          {root.errors > 0 && <span className="rounded-md bg-danger/12 px-1.5 py-0.5 text-[12px] font-medium text-danger-text">{t("trace.groupErrors", { count: String(root.errors) })}</span>}
+          {root.errors > 0 && <span className="rounded-md bg-danger/12 px-1.5 py-0.5 text-small font-medium text-danger-text">{t("trace.groupErrors", { count: String(root.errors) })}</span>}
           {root.timed ? <span className="hidden min-w-[3.5rem] text-right sm:inline">{formatDuration(root.durationMs)}</span>
-            : <span className="hidden rounded bg-raised px-1.5 text-[11px] sm:inline">{t("trace.notTimed")}</span>}
+            : <span className="hidden rounded bg-raised px-1.5 text-caption sm:inline">{t("trace.notTimed")}</span>}
           <span className="min-w-[3.5rem] text-right text-ink">{formatCost(root.costUsd)}</span>
           <ChevronRight size={14} className="text-ink-tertiary" />
         </span>
@@ -213,17 +213,17 @@ export function UsageSection() {
   return (
     <div className="flex flex-col gap-4" data-testid="usage-page">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <p className="min-w-0 flex-1 text-[13px] leading-relaxed text-ink-secondary">{t("usage.page.subtitle")}</p>
+        <p className="min-w-0 flex-1 text-ui leading-relaxed text-ink-secondary">{t("usage.page.subtitle")}</p>
         <div className="flex items-center gap-2">
           <Select size="sm" value={period} onChange={(event) => { setPeriod(event.target.value as UsagePeriod); setOpen(null); }} aria-label={t("usage.history.period")}>
             {USAGE_PERIODS.map((option) => <option key={option} value={option}>{t(PERIOD_LABEL_KEYS[option])}</option>)}
           </Select>
-          <a href={usageExportHref(range)} download className="flex items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink">
+          <a href={usageExportHref(range)} download className="flex items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1 text-small text-ink-secondary hover:bg-raised/50 hover:text-ink">
             <Download size={13} />{t("usage.history.export")}
           </a>
         </div>
       </div>
-      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
       {open ? (
         <TraceView id={open.id} at={open.at} actions={(
           <Button variant="ghost" size="md" onClick={() => setOpen(null)} className="flex shrink-0 gap-1 font-normal">
@@ -234,22 +234,22 @@ export function UsageSection() {
         <>
           <section className="overflow-hidden rounded-2xl border border-hairline bg-card" data-testid="usage-totals">
             {list ? <StatStrip items={totalsStats(list.totals, t("trace.stat.time"))} />
-              : <div className="flex items-center gap-2 p-5 text-[13px] text-ink-secondary"><Loader2 size={14} className="animate-spin" />{t("common.checking")}</div>}
+              : <div className="flex items-center gap-2 p-5 text-ui text-ink-secondary"><Loader2 size={14} className="animate-spin" />{t("common.checking")}</div>}
           </section>
           <WhereItWent range={range} version={version} onBudget={setBudget} />
           <section className="rounded-2xl border border-hairline bg-card p-2" aria-label={t("usage.page.runs")}>
             <div className="px-3 pb-1 pt-3">
-              <h3 className="text-[15px] font-medium text-ink">{t("usage.page.runs")}</h3>
-              <p className="mt-0.5 text-[13px] text-ink-secondary">{t("usage.page.runsHint")}</p>
+              <h3 className="text-body font-medium text-ink">{t("usage.page.runs")}</h3>
+              <p className="mt-0.5 text-ui text-ink-secondary">{t("usage.page.runsHint")}</p>
             </div>
-            {list && !list.roots.length && <p className="px-3 py-3 text-[13px] text-ink-secondary">{t("usage.page.runsEmpty")}</p>}
+            {list && !list.roots.length && <p className="px-3 py-3 text-ui text-ink-secondary">{t("usage.page.runsEmpty")}</p>}
             <ul className="mt-1 flex flex-col">
               {list?.roots.map((root) => <RunRow key={root.id} root={root} onOpen={() => setOpen({ id: root.id, at: root.startedAt })} />)}
             </ul>
             {list?.next !== undefined && (
-              <button type="button" onClick={more} className="m-2 rounded-lg px-3 py-1.5 text-[13px] text-accent-text hover:bg-raised/50">{t("usage.page.more")}</button>
+              <button type="button" onClick={more} className="m-2 rounded-lg px-3 py-1.5 text-ui text-accent-text hover:bg-raised/50">{t("usage.page.more")}</button>
             )}
-            {untimed && <p className="px-3 pb-3 pt-1 text-[12px] text-ink-tertiary">{t("usage.page.untimedNote")}</p>}
+            {untimed && <p className="px-3 pb-3 pt-1 text-small text-ink-tertiary">{t("usage.page.untimedNote")}</p>}
           </section>
         </>
       )}

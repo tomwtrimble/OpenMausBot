@@ -18,14 +18,14 @@ export function ConnectionDetail({ label, value }: { label: string; value: strin
   return (
     <div className="flex items-center gap-3 rounded-lg bg-inset px-3 py-2">
       <div className="min-w-0 flex-1">
-        <div className="text-[11px] font-medium uppercase tracking-wide text-ink-secondary">{label}</div>
-        <div className="mt-0.5 truncate font-mono text-[12px] text-ink">
+        <div className="text-caption font-medium uppercase tracking-wide text-ink-secondary">{label}</div>
+        <div className="mt-0.5 truncate font-mono text-small text-ink">
           {revealed ? value : addressPreview(value)}
         </div>
       </div>
       <Button variant="ghost" size="sm"
         onClick={() => setRevealed((current) => !current)}
-        className="shrink-0 text-[11px] font-normal"
+        className="shrink-0 text-caption font-normal"
       >
         {revealed ? "Hide" : "Reveal"}
       </Button>

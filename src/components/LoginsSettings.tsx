@@ -19,7 +19,7 @@ const SOURCE_KEYS = {
   "1password": "settings.logins.source.1password",
 } as const;
 
-const ROW_BUTTON = "flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50";
+const ROW_BUTTON = "flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-small text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50";
 
 export function LoginsSettings() {
   const { state } = useStore();
@@ -78,9 +78,9 @@ export function LoginsSettings() {
   return (
     <Card title={t("settings.logins.title")} subtitle={t("settings.logins.subtitle")}>
       <div className="flex flex-col gap-3" aria-busy={logins === null || busy}>
-        {state.config?.cloudHome === true && <p className="text-[12px] leading-relaxed text-ink-secondary" data-logins-cloud-own>{t("settings.logins.cloudOwn")}</p>}
-        {logins === null && !error && <p className="text-[12px] text-ink-secondary">{t("settings.logins.loading")}</p>}
-        {logins?.length === 0 && !adding && <p className="text-[12px] leading-relaxed text-ink-secondary">{t("settings.logins.empty")}</p>}
+        {state.config?.cloudHome === true && <p className="text-small leading-relaxed text-ink-secondary" data-logins-cloud-own>{t("settings.logins.cloudOwn")}</p>}
+        {logins === null && !error && <p className="text-small text-ink-secondary">{t("settings.logins.loading")}</p>}
+        {logins?.length === 0 && !adding && <p className="text-small leading-relaxed text-ink-secondary">{t("settings.logins.empty")}</p>}
         {!!logins?.length && (
           <ul className="divide-y divide-hairline" data-logins-list>
             {logins.map((login) => (
@@ -89,16 +89,16 @@ export function LoginsSettings() {
                   <KeyRound size={14} aria-hidden="true" className="mt-[3px] shrink-0 text-ink-tertiary" />
                   <div className="min-w-0 flex-1">
                     <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5">
-                      <span dir="ltr" className="truncate text-[13px] font-medium text-ink" title={login.site}>{login.site}</span>
+                      <span dir="ltr" className="truncate text-ui font-medium text-ink" title={login.site}>{login.site}</span>
                       {login.hasTotp && (
-                        <span className="inline-flex items-center gap-0.5 rounded-full bg-ink/[0.07] px-1.5 text-[11px] text-ink-secondary">
+                        <span className="inline-flex items-center gap-0.5 rounded-full bg-ink/[0.07] px-1.5 text-caption text-ink-secondary">
                           <ShieldCheck size={11} aria-hidden="true" />{t("settings.logins.twoFactor")}
                         </span>
                       )}
                     </div>
-                    <div dir="auto" className="truncate text-[12px] text-ink-secondary">{login.username || t("settings.logins.noUsername")}</div>
-                    {signInHostsLine(login) && <div dir="ltr" className="truncate text-[12px] text-ink-tertiary" data-login-hosts>{signInHostsLine(login)}</div>}
-                    <div className="mt-0.5 text-[12px] leading-snug text-ink-tertiary">
+                    <div dir="auto" className="truncate text-small text-ink-secondary">{login.username || t("settings.logins.noUsername")}</div>
+                    {signInHostsLine(login) && <div dir="ltr" className="truncate text-small text-ink-tertiary" data-login-hosts>{signInHostsLine(login)}</div>}
+                    <div className="mt-0.5 text-small leading-snug text-ink-tertiary">
                       {[t(SOURCE_KEYS[login.source]), botNames(login.bots),
                         login.lastUsedAt ? t("settings.logins.used", { when: relativeTime(login.lastUsedAt) }) : t("settings.logins.neverUsed")].join(" · ")}
                     </div>
@@ -124,7 +124,7 @@ export function LoginsSettings() {
                         await load();
                       }}>
                       {login.hasTotp && (
-                        <label className="flex items-center gap-2 text-[13px] text-ink">
+                        <label className="flex items-center gap-2 text-ui text-ink">
                           <input type="checkbox" checked={removeTotp} onChange={(event) => setRemoveTotp(event.target.checked)} />
                           {t("settings.logins.removeTotp")}
                         </label>
@@ -161,8 +161,8 @@ export function LoginsSettings() {
             <Plus size={14} />{t("settings.logins.add")}
           </Button>
         )}
-        <p className="text-[12px] leading-relaxed text-ink-tertiary">{t("settings.logins.limits")}</p>
-        {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+        <p className="text-small leading-relaxed text-ink-tertiary">{t("settings.logins.limits")}</p>
+        {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
         <OnePasswordConnection status={onePassword} disabled={logins === null} bots={bots} botNames={botNames}
           onChange={async (next) => { setOnePassword(next); await load(); }} />
       </div>
@@ -179,7 +179,7 @@ function signInHostsLine(login: LoginSummary): string | null {
 
 function ExactHostChoice({ checked, onChange, label }: { checked: boolean; onChange: (checked: boolean) => void; label: string }) {
   return (
-    <label className="flex items-start gap-2 text-[13px] leading-snug text-ink">
+    <label className="flex items-start gap-2 text-ui leading-snug text-ink">
       <input type="checkbox" name="exactHost" className="mt-[2px]" checked={checked} onChange={(event) => onChange(event.target.checked)} />
       {label}
     </label>
@@ -208,8 +208,8 @@ function VaultAccess({ vault, bots, botNames, disabled, onChange }: {
     <li className="flex flex-col gap-2 py-2" data-vault={vault.title}>
       <div className="flex min-w-0 items-start gap-2">
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[13px] font-medium text-ink">{vault.title}</div>
-          <div className="text-[12px] text-ink-tertiary">{t("settings.logins.onePassword.vaultUse", { count: String(vault.items), who: botNames(vault.bots) })}</div>
+          <div className="truncate text-ui font-medium text-ink">{vault.title}</div>
+          <div className="text-small text-ink-tertiary">{t("settings.logins.onePassword.vaultUse", { count: String(vault.items), who: botNames(vault.bots) })}</div>
         </div>
         {!editing && (
           <button type="button" className={ROW_BUTTON} disabled={disabled || busy} onClick={() => { setValue(vault.bots); setEditing(true); }}
@@ -219,7 +219,7 @@ function VaultAccess({ vault, bots, botNames, disabled, onChange }: {
       {editing && (
         <div className="flex flex-col gap-2 rounded-lg bg-inset/60 p-3">
           <LoginBotPicker value={value} onChange={setValue} bots={bots} disabled={busy} />
-          {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+          {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
           <div className="flex flex-wrap justify-end gap-2">
             <Button size="md" disabled={busy} onClick={() => setEditing(false)}>{t("logins.cancel")}</Button>
             <Button size="md" variant="primary" disabled={busy} onClick={() => void save()}>{t("settings.logins.saveChange")}</Button>
@@ -254,13 +254,13 @@ function OnePasswordConnection({ status, disabled, bots, botNames, onChange }: {
   };
   return (
     <section className="mt-1 flex flex-col gap-2 border-t border-hairline pt-3" aria-label={t("settings.logins.onePassword.title")} data-onepassword>
-      <div className="text-[13px] font-medium text-ink">{t("settings.logins.onePassword.title")}</div>
+      <div className="text-ui font-medium text-ink">{t("settings.logins.onePassword.title")}</div>
       {status.connected ? (
         <>
-          <p className="text-[13px] leading-snug text-ink-secondary">
+          <p className="text-ui leading-snug text-ink-secondary">
             {t("settings.logins.onePassword.connected", { vaults: (status.vaults ?? []).map((vault) => vault.title).join(", ") || "—", count: String(status.items ?? 0) })}
           </p>
-          {status.error && <p role="alert" className="text-[12px] text-danger-text">{status.error}</p>}
+          {status.error && <p role="alert" className="text-small text-danger-text">{status.error}</p>}
           {!!status.vaults?.length && (
             <ul className="divide-y divide-hairline" aria-label={t("settings.logins.onePassword.vaults")}>
               {status.vaults.map((vault) => <VaultAccess key={vault.id} vault={vault} bots={bots} botNames={botNames} disabled={disabled} onChange={onChange} />)}
@@ -277,22 +277,22 @@ function OnePasswordConnection({ status, disabled, bots, botNames, onChange }: {
         </>
       ) : (
         <form className="flex flex-col gap-2" onSubmit={connect}>
-          <p className="text-[12px] leading-relaxed text-ink-secondary">{t("settings.logins.onePassword.guide")}</p>
+          <p className="text-small leading-relaxed text-ink-secondary">{t("settings.logins.onePassword.guide")}</p>
           <div className="flex flex-wrap gap-2">
             <input name="onePasswordToken" type="password" autoComplete="off" spellCheck={false} maxLength={8192} value={token}
               onChange={(event) => setToken(event.target.value)} disabled={disabled || busy !== null}
               aria-label={t("settings.logins.onePassword.token")} placeholder={t("settings.logins.onePassword.token")}
-              className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-3 py-1.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-60" />
+              className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-3 py-1.5 text-ui text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-60" />
             <Button size="md" variant="primary" type="submit" disabled={disabled || busy !== null || !token.trim()}>
               {busy === "connect" && <Loader2 size={13} className="animate-spin" />}{t("settings.logins.onePassword.connect")}
             </Button>
           </div>
         </form>
       )}
-      <p className="flex items-start gap-1 text-[12px] leading-snug text-ink-tertiary">
+      <p className="flex items-start gap-1 text-small leading-snug text-ink-tertiary">
         <LockKeyhole size={11} aria-hidden="true" className="mt-[3px] shrink-0" /> {t("settings.logins.onePassword.note")}
       </p>
-      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
     </section>
   );
 }

@@ -34,7 +34,7 @@ export function UserLineNote({ message }: { message: Message }) {
   if (message.pointed?.length) {
     const label = t("chat.preview.pointedAt", { parts: message.pointed.map((part) => part.label).join(", ") });
     return (
-      <span data-pointed-note className="mt-1 flex min-w-0 items-center gap-1 text-[11px] text-ink-tertiary" title={label}>
+      <span data-pointed-note className="mt-1 flex min-w-0 items-center gap-1 text-caption text-ink-tertiary" title={label}>
         <Crosshair aria-hidden="true" size={11} className="shrink-0" />
         <bdi dir="auto" className="min-w-0 truncate">{label}</bdi>
       </span>
@@ -43,12 +43,12 @@ export function UserLineNote({ message }: { message: Message }) {
   if (message.fromApp?.title) {
     const label = t("app.sentFrom", { title: message.fromApp.title });
     return (
-      <span data-sent-from-app={message.fromApp.messageId} className="mt-1 flex items-center gap-1 text-[11px] text-ink-tertiary" title={label}>
+      <span data-sent-from-app={message.fromApp.messageId} className="mt-1 flex items-center gap-1 text-caption text-ink-tertiary" title={label}>
         <AppWindow aria-hidden="true" size={11} className="shrink-0" />
         <bdi dir="auto" className="min-w-0 truncate">{label}</bdi>
       </span>
     );
   }
   if (message.via !== "call") return null;
-  return <span className="mt-1 text-[11px] text-ink-tertiary" title={t("chat.viaCall")}>{t("chat.viaCall")}</span>;
+  return <span className="mt-1 text-caption text-ink-tertiary" title={t("chat.viaCall")}>{t("chat.viaCall")}</span>;
 }

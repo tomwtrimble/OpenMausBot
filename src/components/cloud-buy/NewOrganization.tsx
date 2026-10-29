@@ -46,22 +46,22 @@ export function NewOrganization({ onBack, onClose }: { onBack: (() => void) | nu
   return <form data-place-add="organization" className="flex flex-col gap-4 px-[30px] pb-[26px] pt-7" onSubmit={(event) => { event.preventDefault(); void create(); }}>
     {onBack && <div><BackLink label={t("rail.back")} onClick={onBack} /></div>}
     <Heading title={t("rail.org")} sub={t("rail.orgLede")} />
-    <label className="flex flex-col gap-1.5 text-[13px] font-medium text-ink">{t("rail.orgName")}
+    <label className="flex flex-col gap-1.5 text-ui font-medium text-ink">{t("rail.orgName")}
       <input data-autofocus value={name} maxLength={CLOUD_LIST_NAME_LIMIT} placeholder={t("rail.orgPlaceholder")} disabled={busy} onChange={(event) => setName(event.target.value)} className={FIELD} />
     </label>
     <div className="flex flex-col gap-1.5">
-      <span aria-hidden="true" className="text-[13px] font-medium text-ink">{t("rail.orgColor")}</span>
+      <span aria-hidden="true" className="text-ui font-medium text-ink">{t("rail.orgColor")}</span>
       <SwatchRadios value={color} onChange={setColor} label={t("rail.orgColor")} disabled={busy} />
     </div>
     <div className="flex items-center gap-3 rounded-xl border border-edge bg-card/70 px-4 py-3">
-      <span aria-hidden="true" className={cn("grid size-10 shrink-0 place-items-center rounded-full text-[14px] font-semibold", color === "slate" ? "bg-raised text-ink" : "text-white")}
+      <span aria-hidden="true" className={cn("grid size-10 shrink-0 place-items-center rounded-full text-label font-semibold", color === "slate" ? "bg-raised text-ink" : "text-white")}
         style={color === "slate" ? undefined : { background: swatchFill(color) }}>{placeInitials(shown || t("rail.org"))}</span>
       <span className="min-w-0">
-        <span data-org-preview className="block truncate text-[14px] font-semibold text-ink">{shown || t("rail.org")}</span>
-        {facts && <span data-org-count className="block text-[13px] text-ink-secondary">{t("rail.orgCount", { count: Math.min(facts.count + 1, facts.max), max: facts.max })}</span>}
+        <span data-org-preview className="block truncate text-label font-semibold text-ink">{shown || t("rail.org")}</span>
+        {facts && <span data-org-count className="block text-ui text-ink-secondary">{t("rail.orgCount", { count: Math.min(facts.count + 1, facts.max), max: facts.max })}</span>}
       </span>
     </div>
-    {(blocked || problem) && <p role="alert" data-org-problem className="text-[13px] leading-relaxed text-danger-text">{t(blocked ?? problem!)}</p>}
+    {(blocked || problem) && <p role="alert" data-org-problem className="text-ui leading-relaxed text-danger-text">{t(blocked ?? problem!)}</p>}
     <Button variant="primary" pill size="lg" type="submit" className="w-full" disabled={busy || !shown || Boolean(blocked)}>
       {busy && <Loader2 size={15} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />}{t("rail.orgCreate")}
     </Button>

@@ -63,21 +63,21 @@ export function OrgSkillsCard({ bot, onAdded }: { bot: Bot; onAdded: () => void 
     <div className="rounded-xl bg-card p-4">
       <div className="flex items-center gap-2">
         <Building2 size={16} className="text-ink-secondary" />
-        <div className="text-[15px] font-medium text-ink">{t("orgLibrary.tab", { name: organization })}</div>
+        <div className="text-body font-medium text-ink">{t("orgLibrary.tab", { name: organization })}</div>
       </div>
-      <div className="mt-1 text-[12px] leading-relaxed text-ink-secondary">{t("orgLibrary.skillsHint")}</div>
+      <div className="mt-1 text-small leading-relaxed text-ink-secondary">{t("orgLibrary.skillsHint")}</div>
       <div className="mt-3 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
         {skills.map((skill) => (
           <div key={`${skill.installId}:${skill.name}`} className="flex items-center gap-2 px-3 py-2.5">
             <div className="min-w-0 flex-1">
-              <div className="truncate font-mono text-[13px] text-ink">{skill.name}</div>
-              <div className="mt-0.5 line-clamp-2 text-[12px] text-ink-secondary">{skill.description}</div>
-              <div className="mt-0.5 truncate text-[11px] text-ink-secondary">
+              <div className="truncate font-mono text-ui text-ink">{skill.name}</div>
+              <div className="mt-0.5 line-clamp-2 text-small text-ink-secondary">{skill.description}</div>
+              <div className="mt-0.5 truncate text-caption text-ink-secondary">
                 {t("orgLibrary.skillFrom", { package: skill.packageName, release: skill.release, publisher: skill.publisher })}
               </div>
             </div>
             {skill.added ? (
-              <span className="flex shrink-0 items-center gap-1 text-[12px] text-ink-secondary">
+              <span className="flex shrink-0 items-center gap-1 text-small text-ink-secondary">
                 <Check size={13} className="text-success" />{t("orgLibrary.added")}
               </span>
             ) : (
@@ -93,7 +93,7 @@ export function OrgSkillsCard({ bot, onAdded }: { bot: Bot; onAdded: () => void 
           </div>
         ))}
       </div>
-      {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
+      {error && <div role="alert" className="mt-2 text-small text-danger-text">{error}</div>}
     </div>
   );
 }

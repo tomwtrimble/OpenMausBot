@@ -32,11 +32,11 @@ export function WelcomeEngine({ name, headingRef, onFinish }: { name: string; he
   const others = { ...engines, choices: engines.choices.filter((choice) => choice.id !== "claude") };
   return <section aria-labelledby="cloud-welcome-step" data-welcome-step="engine" className="flex flex-col">
     <StepHeading headingRef={headingRef} title={t("cloudSetup.engine.title")} sub={t("cloudWelcome.engine.sub", { name })} />
-    {credit?.state === "active" && <p role="status" data-welcome-credit className="mt-5 flex items-start gap-2.5 rounded-xl bg-success/12 px-3.5 py-3 text-[13px] leading-relaxed text-ink">
+    {credit?.state === "active" && <p role="status" data-welcome-credit className="mt-5 flex items-start gap-2.5 rounded-xl bg-success/12 px-3.5 py-3 text-ui leading-relaxed text-ink">
       <Check size={16} strokeWidth={2.5} aria-hidden="true" className="mt-px shrink-0 text-success" />
       <span>{credit.left !== null ? t("cloudWelcome.engine.credit", { amount: usd(credit.left) }) : t("cloudWelcome.engine.creditPlain")}</span>
     </p>}
-    {credit && credit.state !== "active" && <p role="status" data-welcome-credit={credit.state} className="mt-5 flex items-start gap-2.5 rounded-xl bg-warning/10 px-3.5 py-3 text-[13px] leading-relaxed text-ink">
+    {credit && credit.state !== "active" && <p role="status" data-welcome-credit={credit.state} className="mt-5 flex items-start gap-2.5 rounded-xl bg-warning/10 px-3.5 py-3 text-ui leading-relaxed text-ink">
       <CircleAlert size={16} aria-hidden="true" className="mt-px shrink-0 text-warning-text" />
       <span>{t(credit.state === "used_up" ? "cloudSignIn.creditUsedUp" : "cloudSignIn.creditEnded")}</span>
     </p>}
@@ -46,7 +46,7 @@ export function WelcomeEngine({ name, headingRef, onFinish }: { name: string; he
         : <EngineSetup instance={claude} unframed description={plainSignIn(claude) ? t("onboarding.engines.signInHint", { name: claude.displayName }) : undefined} />}
     </div>}
     <button type="button" data-welcome-other-ways aria-expanded={more} onClick={() => setMore((value) => !value)}
-      className="mt-4 flex items-center gap-1.5 self-start rounded-md px-1.5 py-1 text-[13px] font-medium text-ink-secondary transition-colors hover:text-ink motion-reduce:transition-none">
+      className="mt-4 flex items-center gap-1.5 self-start rounded-md px-1.5 py-1 text-ui font-medium text-ink-secondary transition-colors hover:text-ink motion-reduce:transition-none">
       {t("onboarding.engines.otherWays")}
       <ChevronDown size={14} aria-hidden="true" className={cn("transition-transform duration-200 motion-reduce:transition-none", more && "rotate-180")} />
     </button>
@@ -69,8 +69,8 @@ export function WelcomeFiles({ name, headingRef, onFinish }: { name: string; hea
   const card = (id: string, icon: typeof Plug, title: string, body: string, action?: { label: string; run: () => void }) =>
     <div data-welcome-files={id} className={cn(CARD, CARD_IDLE)}>
       <CardIcon icon={icon} />
-      <span className="text-[15px] font-semibold text-ink">{title}</span>
-      <span className="text-[13px] leading-relaxed text-ink-secondary">{body}</span>
+      <span className="text-body font-semibold text-ink">{title}</span>
+      <span className="text-ui leading-relaxed text-ink-secondary">{body}</span>
       {action && <span className="mt-1"><button type="button" className={SECONDARY} onClick={action.run}>{action.label}</button></span>}
     </div>;
   return <section aria-labelledby="cloud-welcome-step" data-welcome-step="files" className="flex flex-col gap-5">

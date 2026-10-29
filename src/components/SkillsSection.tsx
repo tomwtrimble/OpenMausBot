@@ -25,7 +25,7 @@ export function filterLibrarySkills(
 
 export function LibrarySkillMeta({ skill }: { skill: SkillsLibrarySkillWire }) {
   return (
-    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-secondary">
+    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-caption text-ink-secondary">
       <span className="truncate" title={skill.source}>Source: {skill.source}</span>
       <span>{skill.version ? t("skills.library.version", { version: skill.version }) : t("skills.library.noVersion")}</span>
       <span>{t("skills.library.importedAt", { date: new Date(skill.importedAt).toLocaleDateString() })}</span>
@@ -205,7 +205,7 @@ export function SkillsSection() {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
+    "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-label text-ink placeholder:text-ink-secondary focus:outline-none";
 
   return (
     <div className="flex flex-col gap-4">
@@ -228,8 +228,8 @@ export function SkillsSection() {
                 onClick={() => setActiveTag(null)}
                 className={
                   activeTag === null
-                    ? "rounded-full bg-control px-2.5 py-1 text-[12px] font-medium text-ink"
-                    : "rounded-full px-2.5 py-1 text-[12px] text-ink-secondary hover:bg-control/50 hover:text-ink"
+                    ? "rounded-full bg-control px-2.5 py-1 text-small font-medium text-ink"
+                    : "rounded-full px-2.5 py-1 text-small text-ink-secondary hover:bg-control/50 hover:text-ink"
                 }
               >
                 {t("skills.library.allTags")}
@@ -241,8 +241,8 @@ export function SkillsSection() {
                   onClick={() => setActiveTag(activeTag === tag ? null : tag)}
                   className={
                     activeTag === tag
-                      ? "rounded-full bg-control px-2.5 py-1 font-mono text-[12px] font-medium text-ink"
-                      : "rounded-full px-2.5 py-1 font-mono text-[12px] text-ink-secondary hover:bg-control/50 hover:text-ink"
+                      ? "rounded-full bg-control px-2.5 py-1 font-mono text-small font-medium text-ink"
+                      : "rounded-full px-2.5 py-1 font-mono text-small text-ink-secondary hover:bg-control/50 hover:text-ink"
                   }
                 >
                   {tag}
@@ -252,9 +252,9 @@ export function SkillsSection() {
           )}
 
           {loading ? (
-            <div className="text-[12px] text-ink-secondary">{t("skills.library.loading")}</div>
+            <div className="text-small text-ink-secondary">{t("skills.library.loading")}</div>
           ) : visible.length === 0 ? (
-            <div className="rounded-lg bg-inset px-3 py-2 text-[12px] text-ink-secondary">
+            <div className="rounded-lg bg-inset px-3 py-2 text-small text-ink-secondary">
               {skills.length === 0 ? t("skills.library.empty") : t("skills.library.noMatches")}
             </div>
           ) : (
@@ -263,8 +263,8 @@ export function SkillsSection() {
                 <div key={skill.name} className="px-3 py-2.5">
                   <div className="flex items-center gap-2">
                     <button type="button" onClick={() => void view(skill)} className="min-w-0 flex-1 text-left" aria-label={t("skills.library.view", { skill: skill.name })}>
-                      <div className="truncate font-mono text-[13px] text-ink">{skill.name}</div>
-                      <div className="mt-0.5 line-clamp-2 text-[12px] text-ink-secondary">{skill.description}</div>
+                      <div className="truncate font-mono text-ui text-ink">{skill.name}</div>
+                      <div className="mt-0.5 line-clamp-2 text-small text-ink-secondary">{skill.description}</div>
                     </button>
                     <Switch
                       checked={skill.enabled}
@@ -276,8 +276,8 @@ export function SkillsSection() {
                   <LibrarySkillMeta skill={skill} />
                   <div className="mt-2 flex items-center justify-between gap-3 rounded-lg bg-inset px-2.5 py-2">
                     <div>
-                      <div className="text-[12px] font-medium text-ink">{t("skills.library.everyBot")}</div>
-                      <div className="text-[11px] text-ink-secondary">{t("skills.library.everyBotHint")}</div>
+                      <div className="text-small font-medium text-ink">{t("skills.library.everyBot")}</div>
+                      <div className="text-caption text-ink-secondary">{t("skills.library.everyBotHint")}</div>
                     </div>
                     <Switch
                       checked={skill.everyBot}
@@ -287,9 +287,9 @@ export function SkillsSection() {
                     />
                   </div>
                   {skill.warnings.length > 0 && (
-                    <div className="mt-1 text-[11px] text-warning-text">{skill.warnings.join(" · ")}</div>
+                    <div className="mt-1 text-caption text-warning-text">{skill.warnings.join(" · ")}</div>
                   )}
-                  <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-secondary">
+                  <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-caption text-ink-secondary">
                     {skill.assignedBots.length === 0 ? (
                       <span>{t("skills.library.notAssigned")}</span>
                     ) : (
@@ -325,7 +325,7 @@ export function SkillsSection() {
                       <Button size="md"
                         disabled={!assignBot || Boolean(working || importing)}
                         onClick={() => void assign(skill)}
-                        className="text-[12px] font-normal"
+                        className="text-small font-normal"
                       >
                         {t("skills.library.assign")}
                       </Button>
@@ -335,7 +335,7 @@ export function SkillsSection() {
               ))}
             </div>
           )}
-          {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
+          {error && <div role="alert" className="mt-2 text-small text-danger-text">{error}</div>}
         </div>
       </Card>
 
@@ -348,14 +348,14 @@ export function SkillsSection() {
           }}
         >
           <textarea
-            className={`${inputClass} min-h-32 font-mono text-[12px]`}
+            className={`${inputClass} min-h-32 font-mono text-small`}
             placeholder={t("skills.library.importPlaceholder")}
             aria-label={t("skills.library.importTitle")}
             value={importText}
             onChange={(e) => setImportText(e.target.value)}
           />
           <div className="flex items-center justify-between gap-2">
-            {importMessage ? <div className="text-[12px] text-ink-secondary">{importMessage}</div> : <span />}
+            {importMessage ? <div className="text-small text-ink-secondary">{importMessage}</div> : <span />}
             <Button size="lg"
               type="submit"
               disabled={importing || Boolean(working) || !importText.trim()}
@@ -392,7 +392,7 @@ function SkillSourceDialog({ viewing, error, working, onClose, onEnable }: {
         >
           <div className="flex max-h-[min(760px,90vh)] w-full max-w-2xl flex-col rounded-2xl bg-card p-5 shadow-2xl">
             <div className="flex items-center justify-between gap-3">
-              <div id="skills-library-view-title" className="text-[16px] font-semibold text-ink">{viewing.review ? `Review ${viewing.skill.name} before enabling` : viewing.skill.name}</div>
+              <div id="skills-library-view-title" className="text-title font-semibold text-ink">{viewing.review ? `Review ${viewing.skill.name} before enabling` : viewing.skill.name}</div>
               <Button variant="ghost" size="md"
                 disabled={working}
                 onClick={onClose}
@@ -402,15 +402,15 @@ function SkillSourceDialog({ viewing, error, working, onClose, onEnable }: {
               </Button>
             </div>
             {viewing.review && <LibrarySkillMeta skill={viewing.skill} />}
-            {viewing.skill.warnings.length > 0 && <div className="mt-2 text-[12px] text-warning-text">{viewing.skill.warnings.join(" · ")}</div>}
+            {viewing.skill.warnings.length > 0 && <div className="mt-2 text-small text-warning-text">{viewing.skill.warnings.join(" · ")}</div>}
             <pre
               tabIndex={0}
               aria-label={`${t("skills.library.view", { skill: viewing.skill.name })}`}
-              className="mt-3 min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-inset p-3 font-mono text-[12px] leading-relaxed text-ink"
+              className="mt-3 min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-inset p-3 font-mono text-small leading-relaxed text-ink"
             >
               {viewing.text}
             </pre>
-            {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
+            {error && <div role="alert" className="mt-2 text-small text-danger-text">{error}</div>}
             {viewing.review && <Button variant="primary" size="lg" disabled={working} onClick={onEnable} className="mt-4 self-end">Enable reviewed skill</Button>}
           </div>
         </div>

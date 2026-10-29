@@ -13,20 +13,20 @@ export const ON_NIGHT = "group-has-[[data-night-card]]/sheet:[color-scheme:var(-
 export const TAG_ON_NIGHT = "bg-white/12 text-(--cloud-night-ink-quiet)";
 export const CLOSE = "flex size-8 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink motion-reduce:transition-none";
 export const ACTIONS = "flex flex-wrap items-center justify-end gap-2";
-export const LINK = "rounded-sm text-[13px] font-medium text-ink underline decoration-ink/30 underline-offset-[3px] hover:decoration-ink disabled:opacity-50";
-export const FIELD = "h-9 w-full rounded-[10px] border border-ink/15 bg-transparent px-3 text-[14px] text-ink outline-none transition-[border-color] duration-150 placeholder:text-ink-tertiary disabled:opacity-60 motion-reduce:transition-none";
-const TAG = "inline-flex min-h-5 items-center gap-1 rounded-full bg-ink/[0.06] px-2 text-[12px] font-medium leading-4 text-ink-secondary";
+export const LINK = "rounded-sm text-ui font-medium text-ink underline decoration-ink/30 underline-offset-[3px] hover:decoration-ink disabled:opacity-50";
+export const FIELD = "h-9 w-full rounded-[10px] border border-ink/15 bg-transparent px-3 text-label text-ink outline-none transition-[border-color] duration-150 placeholder:text-ink-tertiary disabled:opacity-60 motion-reduce:transition-none";
+const TAG = "inline-flex min-h-5 items-center gap-1 rounded-full bg-ink/[0.06] px-2 text-small font-medium leading-4 text-ink-secondary";
 
 export function Heading({ title, sub }: { title: string; sub?: ReactNode }) {
   return <div className="flex flex-col gap-1 pe-10">
-    <h2 id="cloud-add-title" tabIndex={-1} className="text-[17px] font-medium leading-6 tracking-[-0.008em] text-ink outline-none! [text-wrap:balance]">{title}</h2>
-    {sub && <p className="text-[14px] leading-5 text-ink-secondary [text-wrap:pretty]">{sub}</p>}
+    <h2 id="cloud-add-title" tabIndex={-1} className="text-title font-medium leading-6 tracking-[-0.008em] text-ink outline-none! [text-wrap:balance]">{title}</h2>
+    {sub && <p className="text-label leading-5 text-ink-secondary [text-wrap:pretty]">{sub}</p>}
   </div>;
 }
 
 export function BackLink({ label, onClick }: { label: string; onClick: () => void }) {
   return <button type="button" onClick={onClick}
-    className="-ms-1.5 inline-flex items-center gap-0.5 self-start rounded-full py-1 pe-2.5 ps-1 text-[13px] leading-[18px] text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink motion-reduce:transition-none">
+    className="-ms-1.5 inline-flex items-center gap-0.5 self-start rounded-full py-1 pe-2.5 ps-1 text-ui leading-[18px] text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink motion-reduce:transition-none">
     <ChevronLeft size={16} strokeWidth={1.5} aria-hidden="true" className="rtl:-scale-x-100" />{label}
   </button>;
 }
@@ -49,8 +49,8 @@ export function Checklist({ items, label }: { label?: string; items: Array<{ key
       className={cn("grid grid-cols-[20px_minmax(0,1fr)] items-start gap-3 rounded-[12px] px-3 py-2.5", item.state === "now" && "bg-ink/[0.04]")}>
       <StepMark state={item.state} />
       <span className="min-w-0">
-        <span className={cn("block text-[14px] leading-5", item.state === "next" ? "text-ink-secondary" : "text-ink")}>{item.title}</span>
-        {item.detail && <span className="block break-words text-[13px] leading-[18px] text-ink-secondary">{item.detail}</span>}
+        <span className={cn("block text-label leading-5", item.state === "next" ? "text-ink-secondary" : "text-ink")}>{item.title}</span>
+        {item.detail && <span className="block break-words text-ui leading-[18px] text-ink-secondary">{item.detail}</span>}
       </span>
     </li>)}
   </ol>;
@@ -78,7 +78,7 @@ export function Badge({ children }: { children: ReactNode }) {
 /** On the staging Admin (OMB_CLOUD_STAGING=1) the sheet and Settings say so, so nobody takes it for the real one. */
 export function StagingMark({ className }: { className?: string }) {
   return <span data-cloud-staging title={t("cloudBuy.stagingHint")}
-    className={cn("inline-flex items-center rounded-full border border-warning/50 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-warning-text", className)}>
+    className={cn("inline-flex items-center rounded-full border border-warning/50 bg-warning/10 px-2 py-0.5 text-caption font-semibold uppercase tracking-[0.06em] text-warning-text", className)}>
     {t("cloudBuy.staging")}<span className="sr-only">: {t("cloudBuy.stagingHint")}</span>
   </span>;
 }

@@ -78,12 +78,12 @@ export function BotInstructionsDialog({ bot, onClose, inline = false }: { bot: B
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-accent-text">
                 <BookOpen size={15} />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.08em]">{t("botIdentity.dialog.title")}</span>
+                <span className="text-caption font-semibold uppercase tracking-[0.08em]">{t("botIdentity.dialog.title")}</span>
               </div>
-              <h2 id="bot-instructions-title" className="mt-0.5 truncate text-[20px] font-semibold tracking-[-0.01em] text-ink">
+              <h2 id="bot-instructions-title" className="mt-0.5 truncate text-display font-semibold tracking-[-0.01em] text-ink">
                 {bot.name}
               </h2>
-              {bot.title && <p className="mt-0.5 truncate text-[13px] text-ink-secondary">{bot.title}</p>}
+              {bot.title && <p className="mt-0.5 truncate text-ui text-ink-secondary">{bot.title}</p>}
             </div>
           </div>
           <button
@@ -98,19 +98,19 @@ export function BotInstructionsDialog({ bot, onClose, inline = false }: { bot: B
 
         <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5 sm:px-8 sm:py-6">
           {bot.description.trim() ? (
-            <div className="whitespace-pre-wrap break-words rounded-xl border border-hairline bg-inset px-4 py-4 text-[14px] leading-6 text-ink">
+            <div className="whitespace-pre-wrap break-words rounded-xl border border-hairline bg-inset px-4 py-4 text-label leading-6 text-ink">
               {bot.description}
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-edge bg-inset px-5 py-12 text-center">
               <BookOpen size={22} className="mx-auto text-ink-tertiary" />
-              <p className="mt-3 text-[13px] font-medium text-ink">{t("botIdentity.dialog.empty")}</p>
-              <p className="mt-1 text-[12px] text-ink-secondary">{t("botIdentity.dialog.emptyHelp")}</p>
+              <p className="mt-3 text-ui font-medium text-ink">{t("botIdentity.dialog.empty")}</p>
+              <p className="mt-1 text-small text-ink-secondary">{t("botIdentity.dialog.emptyHelp")}</p>
             </div>
           )}
         </div>
 
-        <footer className="flex items-center justify-between gap-4 border-t border-hairline px-6 py-4 text-[12px] text-ink-secondary sm:px-8">
+        <footer className="flex items-center justify-between gap-4 border-t border-hairline px-6 py-4 text-small text-ink-secondary sm:px-8">
           <span>{t("botIdentity.dialog.contextHelp")}</span>
           <Button size="lg" onClick={close}>
             {t("common.done")}

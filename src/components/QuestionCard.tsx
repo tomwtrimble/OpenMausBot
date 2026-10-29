@@ -170,7 +170,7 @@ export function QuestionCard({
         </button>
       ) : undefined}
     >
-      {card.questionRequest?.origin === "output" && <p className="-mt-1 mb-2 text-[12px] text-ink-secondary">{t("question.origin.badge")}</p>}
+      {card.questionRequest?.origin === "output" && <p className="-mt-1 mb-2 text-small text-ink-secondary">{t("question.origin.badge")}</p>}
       {questions.length > 1 && (
         <div role="tablist" aria-label={t("question.aria.tabs")} className="-mt-1 mb-3 flex flex-wrap items-center gap-1.5">
           {questions.map((question, index) => (
@@ -188,8 +188,8 @@ export function QuestionCard({
           ))}
         </div>
       )}
-      {!title && <ExpandableText text={current.question} className="mb-3 text-[15px] leading-[22px] text-ink" />}
-      {multi && <p className="-mt-1 mb-2 text-[12px] text-ink-tertiary">{t("question.multiHint")}</p>}
+      {!title && <ExpandableText text={current.question} className="mb-3 text-body leading-[22px] text-ink" />}
+      {multi && <p className="-mt-1 mb-2 text-small text-ink-tertiary">{t("question.multiHint")}</p>}
       {current.options.length > 0 && (
         <div data-quiet={typedPast || undefined}>
           <AskChoices
@@ -245,7 +245,7 @@ function SettledQuestion({ card, questions }: { card: NonNullable<Message["card"
         </button>
       ) : undefined}
       detail={open && full && (
-        <div dir="auto" className="ms-[22px] mt-1.5 whitespace-pre-wrap break-words rounded-xl bg-ink/[0.045] px-3 py-2 text-[13px] leading-5 text-ink-secondary">
+        <div dir="auto" className="ms-[22px] mt-1.5 whitespace-pre-wrap break-words rounded-xl bg-ink/[0.045] px-3 py-2 text-ui leading-5 text-ink-secondary">
           {full}
         </div>
       )}

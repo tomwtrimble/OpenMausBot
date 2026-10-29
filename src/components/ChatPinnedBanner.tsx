@@ -35,8 +35,8 @@ export function PinnedBanner({
           className="flex min-w-0 flex-1 items-baseline gap-2 text-left"
           title={t("chat.pinnedJump")}
         >
-          <span className="shrink-0 text-[12px] font-medium text-accent-text">{sender}</span>
-          <span dir="auto" className="truncate text-[13px] text-ink-secondary">{text}</span>
+          <span className="shrink-0 text-small font-medium text-accent-text">{sender}</span>
+          <span dir="auto" className="truncate text-ui text-ink-secondary">{text}</span>
         </button>
         {onUnpin && <IconButton label={t("chat.unpinMessage")} tooltip={t("chat.unpin")}
           onClick={onUnpin}

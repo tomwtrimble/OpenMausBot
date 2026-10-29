@@ -63,7 +63,7 @@ export function SelectPopup({ options, selectedIndex, anchor, bounds, onChoose, 
         tabIndex={0}
         onKeyDown={onKeyDown}
         onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) onClose(); }}
-        className="popover-surface absolute z-40 overflow-y-auto rounded-lg border border-hairline bg-menu py-1 text-[13px] text-ink shadow-xl outline-none"
+        className="popover-surface absolute z-40 overflow-y-auto rounded-lg border border-hairline bg-menu py-1 text-ui text-ink shadow-xl outline-none"
         style={{
           left,
           minWidth: Math.max(anchor.width, 160),
@@ -76,7 +76,7 @@ export function SelectPopup({ options, selectedIndex, anchor, bounds, onChoose, 
           group = option.group;
           return (
             <div key={index}>
-              {heading !== null ? <div className="px-3 pb-0.5 pt-1.5 text-[11px] font-medium text-ink-tertiary" role="presentation">{heading}</div> : null}
+              {heading !== null ? <div className="px-3 pb-0.5 pt-1.5 text-caption font-medium text-ink-tertiary" role="presentation">{heading}</div> : null}
               <div
                 id={`select-option-${index}`}
                 data-index={index}

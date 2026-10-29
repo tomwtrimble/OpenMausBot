@@ -10,7 +10,7 @@ const SETUP_STEPS = [
 /** The Admin's four setup steps, with the one it reports as current. */
 export function CloudSetupSteps({ step }: { step: CloudSetupStep }) {
   const at = SETUP_STEPS.findIndex(([key]) => key === step);
-  return <ol data-cloud-setup={step} className="flex flex-col gap-1 text-[13px]">
+  return <ol data-cloud-setup={step} className="flex flex-col gap-1 text-ui">
     {SETUP_STEPS.map(([key, label], index) => <li key={key} aria-current={index === at ? "step" : undefined}
       className={index === at ? "font-medium text-ink" : index < at ? "text-ink-secondary line-through decoration-ink-secondary/40" : "text-ink-secondary"}>{t(label)}</li>)}
   </ol>;

@@ -26,8 +26,8 @@ export function PhoneHero({ bot, selected, onOpen, onMenu }: { bot: Bot; selecte
             <Crown size={13} strokeWidth={2.25} className="text-accent-text" aria-hidden="true" />
           </span>
         </span>
-        <span className="text-[17px] font-semibold leading-6 text-ink">{bot.name}</span>
-        <span className="text-[13px] leading-4 text-ink-secondary">{t("sidebar.bot.chiefOfStaff")}</span>
+        <span className="text-title font-semibold leading-6 text-ink">{bot.name}</span>
+        <span className="text-ui leading-4 text-ink-secondary">{t("sidebar.bot.chiefOfStaff")}</span>
       </button>
       <IconButton label={t("sidebar.bot.actions", { name: bot.name })} data-bot-actions={bot.id} aria-haspopup="menu"
         onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); onMenu({ botId: bot.id, x: rect.left, y: rect.bottom }); }}

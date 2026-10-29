@@ -28,7 +28,7 @@ export function PasskeyNotice({ wall, botName, onDismiss }: { wall: PasskeyWall;
   const lent = useLentScreen(cloudHome);
   const provider = wall === "google" ? "Google" : "Microsoft";
   return (
-    <section role="status" aria-label={t("browser.passkey.title")} className="shrink-0 border-b border-hairline bg-inset/60 px-3 py-2.5 text-[12px] leading-relaxed text-ink-secondary">
+    <section role="status" aria-label={t("browser.passkey.title")} className="shrink-0 border-b border-hairline bg-inset/60 px-3 py-2.5 text-small leading-relaxed text-ink-secondary">
       <div className="flex items-start gap-2">
         <KeyRound size={14} className="mt-0.5 shrink-0 text-accent-text" aria-hidden="true" />
         <div className="min-w-0 flex-1">

@@ -49,8 +49,8 @@ export function VerifyCard({
       <div className="flex items-center gap-2 px-3 py-2">
         <ListChecks size={14} className="shrink-0 text-accent-text" aria-hidden="true" />
         <div className="flex min-w-0 flex-1 flex-col">
-          <span className="text-[13px] font-medium">{t("chat.verify.title")}</span>
-          <span role="status" aria-live="polite" aria-atomic="true" className="text-[12px] text-ink-secondary">
+          <span className="text-ui font-medium">{t("chat.verify.title")}</span>
+          <span role="status" aria-live="polite" aria-atomic="true" className="text-small text-ink-secondary">
             {runSummary(steps).label}
           </span>
         </div>
@@ -75,18 +75,18 @@ export function VerifyCard({
             {steps.map((step) => (
               <li key={step.id} className="flex min-w-0 items-center gap-2 py-1">
                 <StatusIcon status={step.status} />
-                <span className="shrink-0 text-[13px] font-medium">{step.label}</span>
+                <span className="shrink-0 text-ui font-medium">{step.label}</span>
                 {step.verified && (
-                  <span className="shrink-0 text-[11px] uppercase tracking-wide text-success">{t("chat.verify.verifiedTag")}</span>
+                  <span className="shrink-0 text-caption uppercase tracking-wide text-success">{t("chat.verify.verifiedTag")}</span>
                 )}
-                <code className="min-w-0 flex-1 truncate font-mono text-[12px] text-ink-secondary" title={step.command}>
+                <code className="min-w-0 flex-1 truncate font-mono text-small text-ink-secondary" title={step.command}>
                   {step.command}
                 </code>
               </li>
             ))}
           </ol>
           {skill ? (
-            <div className="border-t border-hairline px-3 py-2 text-[12px] text-ink-secondary">
+            <div className="border-t border-hairline px-3 py-2 text-small text-ink-secondary">
               {t(skill === "saved" ? "chat.verify.saved" : "chat.verify.staged")}
             </div>
           ) : canSave && (
@@ -98,7 +98,7 @@ export function VerifyCard({
                 <BookmarkPlus size={13} aria-hidden="true" />
                 {t("chat.verify.save")}
               </Button>
-              <span className="text-[12px] text-ink-secondary">{t("chat.verify.saveHint")}</span>
+              <span className="text-small text-ink-secondary">{t("chat.verify.saveHint")}</span>
             </div>
           )}
         </>

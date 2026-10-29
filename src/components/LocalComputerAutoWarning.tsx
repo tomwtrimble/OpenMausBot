@@ -27,10 +27,10 @@ export function LocalComputerAutoWarning({
       <div className="flex items-start gap-3">
         <AlertTriangle size={18} className="mt-0.5 shrink-0 text-warning-text" />
         <div>
-          <h2 id="local-auto-warning-title" className="text-[15px] font-semibold text-ink">
+          <h2 id="local-auto-warning-title" className="text-body font-semibold text-ink">
             {t("permissions.localAuto.title")}
           </h2>
-          <p id="local-auto-warning-body" className="mt-1.5 text-[13px] leading-relaxed text-ink-secondary">
+          <p id="local-auto-warning-body" className="mt-1.5 text-ui leading-relaxed text-ink-secondary">
             {t("permissions.localAuto.body")}
           </p>
         </div>

@@ -280,7 +280,7 @@ export function BotContextMenu({
           divider("leave"),
           ...leave,
         ]}
-        {readError?.botId === bot.id && <p role="alert" className="px-2 py-1.5 text-[12px] text-danger-text">{readError.message}</p>}
+        {readError?.botId === bot.id && <p role="alert" className="px-2 py-1.5 text-small text-danger-text">{readError.message}</p>}
       </div>,
       document.body,
     )}{moreOpen && createPortal(
@@ -390,7 +390,7 @@ export function BotContextMenu({
           <BotDeleteMenuItem key="delete" deleting={deleting} className={MENU_ITEM} onClick={() => { onClose(); onDelete(bot); }} />,
         ]),
       ]}
-      {readError?.botId === bot.id && <p role="alert" className="px-2 py-1.5 text-[12px] text-danger-text">{readError.message}</p>}
+      {readError?.botId === bot.id && <p role="alert" className="px-2 py-1.5 text-small text-danger-text">{readError.message}</p>}
     </div>,
     document.body,
   )}</>;

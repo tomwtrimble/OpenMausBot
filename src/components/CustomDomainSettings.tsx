@@ -32,7 +32,7 @@ export function customDomainDnsName(raw: string): string | null {
 
 export function CustomDomainDnsRecord({ domain, serverIpv4 }: { domain: string; serverIpv4?: string | null }) {
   const name = customDomainDnsName(domain);
-  if (!name) return <p className="text-[12px] text-ink-secondary">{t("settings.domain.enterDomain")}</p>;
+  if (!name) return <p className="text-small text-ink-secondary">{t("settings.domain.enterDomain")}</p>;
   const rows = [
     [t("settings.domain.recordType"), "A"],
     [t("settings.domain.recordName"), name],
@@ -40,19 +40,19 @@ export function CustomDomainDnsRecord({ domain, serverIpv4 }: { domain: string; 
   ] as const;
   return (
     <section aria-label={t("settings.domain.dnsRecord")} className="space-y-2 rounded-lg border border-hairline p-3">
-      <p className="text-[12px] font-medium text-ink">{t("settings.domain.dnsRecord")}</p>
+      <p className="text-small font-medium text-ink">{t("settings.domain.dnsRecord")}</p>
       <dl className="space-y-2">
         {rows.map(([label, value]) => (
           <div key={label} className="grid grid-cols-[80px_minmax(0,1fr)] items-center gap-2">
-            <dt className="text-[12px] text-ink-secondary">{label}</dt>
+            <dt className="text-small text-ink-secondary">{label}</dt>
             <dd className="min-w-0">{value
               ? <CommandLine key={value} command={value} copyLabel={t("settings.domain.copyField", { field: label })} />
-              : <p className="text-[12px] text-warning-text">{t("settings.domain.missingIp")}</p>}
+              : <p className="text-small text-warning-text">{t("settings.domain.missingIp")}</p>}
             </dd>
           </div>
         ))}
       </dl>
-      <p className="text-[12px] leading-relaxed text-ink-secondary">{t("settings.domain.recordHint")}</p>
+      <p className="text-small leading-relaxed text-ink-secondary">{t("settings.domain.recordHint")}</p>
     </section>
   );
 }
@@ -73,13 +73,13 @@ export function customDomainProxyExample(status: Pick<CustomDomainStatus, "appPo
 
 export function CustomDomainGuide({ status }: { status: CustomDomainStatus }) {
   return (
-    <details className="rounded-lg border border-hairline bg-inset px-3 py-2.5 text-[12px] text-ink-secondary">
+    <details className="rounded-lg border border-hairline bg-inset px-3 py-2.5 text-small text-ink-secondary">
       <summary className="cursor-pointer font-medium text-ink">{t("settings.domain.guide")}</summary>
       <ol className="mt-3 list-decimal space-y-3 pl-4 leading-relaxed">
         <li>{t("settings.domain.dns")}</li>
         <li>
           {t("settings.domain.proxy")}
-          <pre className="mt-2 overflow-x-auto rounded-md bg-app p-3 text-[11px] leading-relaxed text-ink"><code>{customDomainProxyExample(status)}</code></pre>
+          <pre className="mt-2 overflow-x-auto rounded-md bg-app p-3 text-caption leading-relaxed text-ink"><code>{customDomainProxyExample(status)}</code></pre>
           <p className="mt-2">{t("settings.domain.proxyHint")}</p>
         </li>
         <li>{t("settings.domain.verifyHint")}</li>
@@ -136,30 +136,30 @@ export function CustomDomainSettings() {
   return (
     <Card title={t("settings.domain.title")} subtitle={t("settings.domain.subtitle")}>
       <div className="space-y-3" data-custom-domain-settings>
-        {busy === "loading" && <p role="status" className="flex items-center gap-2 text-[13px] text-ink-secondary"><Loader2 size={14} className="animate-spin" />{t("settings.domain.loading")}</p>}
-        {status && !status.supported && <p className="text-[13px] leading-relaxed text-ink-secondary">{t("settings.domain.serverOnly")}</p>}
+        {busy === "loading" && <p role="status" className="flex items-center gap-2 text-ui text-ink-secondary"><Loader2 size={14} className="animate-spin" />{t("settings.domain.loading")}</p>}
+        {status && !status.supported && <p className="text-ui leading-relaxed text-ink-secondary">{t("settings.domain.serverOnly")}</p>}
         {status?.supported && (
           <>
             <form onSubmit={(event) => { event.preventDefault(); if (domain.trim() && !busy) void save(false); }} className="space-y-2">
-              <label htmlFor="custom-domain" className="block text-[13px] font-medium text-ink">{t("settings.domain.label")}</label>
-              <input id="custom-domain" type="text" value={domain} disabled={busy !== null} onChange={(event) => { setDomain(event.target.value); setNotice(null); setError(null); }} placeholder="bots.yourcompany.com" autoCapitalize="none" autoCorrect="off" spellCheck={false} className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:border-accent focus:outline-none disabled:opacity-50" />
+              <label htmlFor="custom-domain" className="block text-ui font-medium text-ink">{t("settings.domain.label")}</label>
+              <input id="custom-domain" type="text" value={domain} disabled={busy !== null} onChange={(event) => { setDomain(event.target.value); setNotice(null); setError(null); }} placeholder="bots.yourcompany.com" autoCapitalize="none" autoCorrect="off" spellCheck={false} className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-ui text-ink placeholder:text-ink-secondary focus:border-accent focus:outline-none disabled:opacity-50" />
               <CustomDomainDnsRecord domain={domain} serverIpv4={status.serverIpv4} />
-              <p className="text-[12px] leading-relaxed text-ink-secondary">{t("settings.domain.httpsNeeded")}</p>
+              <p className="text-small leading-relaxed text-ink-secondary">{t("settings.domain.httpsNeeded")}</p>
               <div className="flex flex-wrap gap-2 pt-1">
                 <Button variant="primary" type="submit" disabled={!domain.trim() || busy !== null}>
                   {busy === "saving" ? <Loader2 size={14} className="animate-spin" /> : <Globe size={14} />}
                   {busy === "saving" ? t("settings.domain.verifying") : t("settings.domain.verify")}
                 </Button>
-                {status.customDomain && <Button size="lg" disabled={busy !== null} onClick={() => void save(true)} className="px-3 text-[12px]">{busy === "removing" ? t("settings.domain.removing") : t("settings.domain.remove")}</Button>}
+                {status.customDomain && <Button size="lg" disabled={busy !== null} onClick={() => void save(true)} className="px-3 text-small">{busy === "removing" ? t("settings.domain.removing") : t("settings.domain.remove")}</Button>}
               </div>
             </form>
-            {status.publicUrl && <p className="break-all text-[12px] text-ink-secondary">{t("settings.domain.current")}: <span className="text-ink">{status.publicUrl}</span></p>}
-            {status.customDomain && <p className="text-[12px] leading-relaxed text-ink-secondary">{status.fallbackUrl ? t("settings.domain.fallback", { url: status.fallbackUrl }) : t("settings.domain.noFallback")}</p>}
+            {status.publicUrl && <p className="break-all text-small text-ink-secondary">{t("settings.domain.current")}: <span className="text-ink">{status.publicUrl}</span></p>}
+            {status.customDomain && <p className="text-small leading-relaxed text-ink-secondary">{status.fallbackUrl ? t("settings.domain.fallback", { url: status.fallbackUrl }) : t("settings.domain.noFallback")}</p>}
             <CustomDomainGuide status={status} />
           </>
         )}
-        {notice && <p role="status" className="flex items-start gap-1.5 text-[12px] leading-relaxed text-success"><Check size={14} className="mt-0.5 shrink-0" />{notice}</p>}
-        {error && <p role="alert" className="text-[12px] leading-relaxed text-danger-text">{error}</p>}
+        {notice && <p role="status" className="flex items-start gap-1.5 text-small leading-relaxed text-success"><Check size={14} className="mt-0.5 shrink-0" />{notice}</p>}
+        {error && <p role="alert" className="text-small leading-relaxed text-danger-text">{error}</p>}
       </div>
     </Card>
   );

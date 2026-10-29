@@ -224,25 +224,25 @@ export function SkillReviewDialog({
       className="fixed inset-0 z-[90] flex items-center justify-center bg-black/45 p-6"
     >
       <div className="flex max-h-[min(760px,90vh)] w-full max-w-2xl flex-col rounded-2xl bg-card p-5 shadow-2xl">
-        <div id="skill-review-title" className="text-[16px] font-semibold text-ink">
+        <div id="skill-review-title" className="text-title font-semibold text-ink">
           Review {skill.name} before enabling
         </div>
-        <div className="mt-1 break-all text-[12px] text-ink-secondary">
+        <div className="mt-1 break-all text-small text-ink-secondary">
           Source: {skill.source}
         </div>
         {skill.warnings.length > 0 && (
-          <div className="mt-2 rounded-lg bg-warning/10 px-3 py-2 text-[12px] text-warning-text">
+          <div className="mt-2 rounded-lg bg-warning/10 px-3 py-2 text-small text-warning-text">
             {skill.warnings.join(" · ")}
           </div>
         )}
         <pre
           tabIndex={0}
           aria-label={`Full SKILL.md for ${skill.name}`}
-          className="mt-3 min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-inset p-3 font-mono text-[12px] leading-relaxed text-ink"
+          className="mt-3 min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-inset p-3 font-mono text-small leading-relaxed text-ink"
         >
           {text}
         </pre>
-        {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
+        {error && <div role="alert" className="mt-2 text-small text-danger-text">{error}</div>}
         <div className="mt-4 flex justify-end gap-2">
           <Button variant="ghost" size="lg"
             disabled={working}
@@ -383,9 +383,9 @@ export function SkillsSection({ bot }: { bot: Bot }) {
       <div className="rounded-xl bg-card p-4">
         <div className="flex items-center gap-2">
           <BookOpen size={16} className="text-ink-secondary" />
-          <div className="text-[15px] font-medium text-ink">{t("skills.learned.title")}</div>
+          <div className="text-body font-medium text-ink">{t("skills.learned.title")}</div>
         </div>
-        <div className="mt-1 text-[12px] leading-relaxed text-ink-secondary">
+        <div className="mt-1 text-small leading-relaxed text-ink-secondary">
           {featureEnabled ? t("skills.learned.hintOn") : t("skills.learned.hintOff")}
         </div>
 
@@ -413,9 +413,9 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                 </Button>
               </div>
             ) : (
-              <div className="text-[12px] text-ink-secondary">{t("skills.library.allAssigned")}</div>
+              <div className="text-small text-ink-secondary">{t("skills.library.allAssigned")}</div>
             )}
-            <div className="text-[12px] text-ink-secondary">{t("skills.library.manageHint")}</div>
+            <div className="text-small text-ink-secondary">{t("skills.library.manageHint")}</div>
           </div>
         ) : (
           <>
@@ -441,14 +441,14 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                 {importing ? t("skills.import.importing") : t("skills.import.button")}
               </Button>
             </form>
-            {importMessage && <div className="mt-1 text-[12px] text-ink-secondary">{importMessage}</div>}
+            {importMessage && <div className="mt-1 text-small text-ink-secondary">{importMessage}</div>}
           </>
         )}
 
         {loading ? (
-          <div className="mt-3 text-[12px] text-ink-secondary">{t("skills.loading")}</div>
+          <div className="mt-3 text-small text-ink-secondary">{t("skills.loading")}</div>
         ) : skills.length === 0 ? (
-          <div className="mt-3 rounded-lg bg-inset px-3 py-2 text-[12px] text-ink-secondary">{t("skills.empty")}</div>
+          <div className="mt-3 rounded-lg bg-inset px-3 py-2 text-small text-ink-secondary">{t("skills.empty")}</div>
         ) : (
           <div className="mt-3 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
             {skills.map((skill) => (
@@ -459,17 +459,17 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                     onClick={() => void view(skill)}
                     className="min-w-0 flex-1 text-left"
                   >
-                    <div className="truncate font-mono text-[13px] text-ink">{skill.name}</div>
+                    <div className="truncate font-mono text-ui text-ink">{skill.name}</div>
                     {(libraryOn || skill.origin === "imported" || skill.origin === "native") && (
                       <span
-                        className="ml-1.5 rounded bg-control px-1 py-px font-mono text-[10px] uppercase tracking-wide text-ink-secondary"
+                        className="ml-1.5 rounded bg-control px-1 py-px font-mono text-caption uppercase tracking-wide text-ink-secondary"
                         title={skill.origin === "imported" ? t("skills.origin.importedHint") : skill.origin === "native" ? t("skills.origin.nativeHint") : undefined}
                       >
                         {skill.origin === "imported" ? t("skills.origin.imported") : skill.origin === "native" ? t("skills.origin.native") : skill.origin === "library" ? "library" : "private"}
                       </span>
                     )}
-                    <div className="mt-0.5 line-clamp-2 text-[12px] text-ink-secondary">{skill.description}</div>
-                    <div className="mt-0.5 text-[11px] text-ink-secondary">Used when the bot decides it's relevant</div>
+                    <div className="mt-0.5 line-clamp-2 text-small text-ink-secondary">{skill.description}</div>
+                    <div className="mt-0.5 text-caption text-ink-secondary">Used when the bot decides it's relevant</div>
                   </button>
                   {skill.origin !== "native" && (
                     <Switch
@@ -489,20 +489,20 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                     </IconButton>
                   )}
                 </div>
-                <div className="mt-1 truncate text-[11px] text-ink-secondary" title={skill.source}>Source: {skill.source}</div>
+                <div className="mt-1 truncate text-caption text-ink-secondary" title={skill.source}>Source: {skill.source}</div>
                 {skill.warnings.length > 0 && (
-                  <div className="mt-1 text-[11px] text-warning-text">{skill.warnings.join(" · ")}</div>
+                  <div className="mt-1 text-caption text-warning-text">{skill.warnings.join(" · ")}</div>
                 )}
               </div>
             ))}
           </div>
         )}
         {staged.length > 0 && (
-          <div className="mt-2 text-[12px] text-warning-text">
+          <div className="mt-2 text-small text-warning-text">
             {staged.length} proposal{staged.length === 1 ? " is" : "s are"} waiting for a decision in chat.
           </div>
         )}
-        {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
+        {error && <div role="alert" className="mt-2 text-small text-danger-text">{error}</div>}
       </div>
 
       <WriteCommandCard bot={bot} taken={skills.map((skill) => skill.name)} onSaved={() => void refresh()} />
@@ -531,7 +531,7 @@ export function SkillsSection({ bot }: { bot: Bot }) {
         >
           <div className="flex max-h-[min(760px,90vh)] w-full max-w-2xl flex-col rounded-2xl bg-card p-5 shadow-2xl">
             <div className="flex items-center justify-between gap-3">
-              <div id="skill-view-title" className="text-[16px] font-semibold text-ink">{viewing.name}</div>
+              <div id="skill-view-title" className="text-title font-semibold text-ink">{viewing.name}</div>
               <Button variant="ghost" size="md"
                 onClick={() => setViewing(null)}
                 className="font-normal"
@@ -542,7 +542,7 @@ export function SkillsSection({ bot }: { bot: Bot }) {
             <pre
               tabIndex={0}
               aria-label={`Full SKILL.md for ${viewing.name}`}
-              className="mt-3 min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-inset p-3 font-mono text-[12px] leading-relaxed text-ink"
+              className="mt-3 min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-inset p-3 font-mono text-small leading-relaxed text-ink"
             >
               {viewing.text}
             </pre>

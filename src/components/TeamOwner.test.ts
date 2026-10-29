@@ -115,7 +115,7 @@ describe("a teammate's face", () => {
       { item: { kind: "message", id: "n1", at: 1, botId: "fox", threadId: "fox-main", from: "Ada", text: "hi", ...item }, title: "Ada wrote to you" }));
     expect(from({ fromEmail: ADA.email })).toMatch(/<img src="\/api\/team\/people\/p_ada\/picture\?v=1"[^>]*>[^]*Ada wrote to you/);
     expect(from({ from: "Bob", fromEmail: BOB.email })).toMatch(/>B<\/span><span[^>]*>Ada wrote to you/);
-    expect(from({ from: "Scout" }), "a bot's line has no face").toBe('<span class="w-full truncate text-[13px] text-ink">Ada wrote to you</span>');
+    expect(from({ from: "Scout" }), "a bot's line has no face").toBe('<span class="w-full truncate text-ui text-ink">Ada wrote to you</span>');
   });
 });
 

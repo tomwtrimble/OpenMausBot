@@ -11,7 +11,7 @@ export function EngineGroupLabel({
   return (
     <div
       className={cn(
-        "text-[10px] font-medium uppercase tracking-[0.08em] text-ink-secondary",
+        "text-caption font-medium uppercase tracking-[0.08em] text-ink-secondary",
         className,
       )}
     >

@@ -10,8 +10,8 @@ import { looksLikeKey, saveCredential, tregVerdict } from "./keys/key-save";
 import { useCloudPlan } from "./ProIntroduction";
 
 const TREG_URL = "https://treg.to";
-const pill = "inline-flex h-7 min-w-[64px] shrink-0 items-center justify-center gap-2 rounded-full bg-control/80 px-3 text-[13px] font-medium leading-5 text-ink transition-colors hover:bg-raised-hover disabled:opacity-40";
-const field = "h-8 w-full min-w-0 rounded-lg bg-inset px-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus/50";
+const pill = "inline-flex h-7 min-w-[64px] shrink-0 items-center justify-center gap-2 rounded-full bg-control/80 px-3 text-ui font-medium leading-5 text-ink transition-colors hover:bg-raised-hover disabled:opacity-40";
+const field = "h-8 w-full min-w-0 rounded-lg bg-inset px-2.5 text-ui text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus/50";
 
 /** What the card's search box matches. */
 export const X_CARD_SEARCH = "x twitter treg tweets posts";
@@ -158,10 +158,10 @@ export function XCard({ refreshKey = 0, onConnection }: {
         <XIcon />
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 items-center gap-1.5">
-            <span className="truncate text-[14px] font-semibold leading-5 text-ink">{t("apps.x.title")}</span>
+            <span className="truncate text-label font-semibold leading-5 text-ink">{t("apps.x.title")}</span>
             {using !== null && <Check size={13} strokeWidth={2.5} className="shrink-0 text-success" aria-label={t("apps.connected")} />}
           </div>
-          <p className="truncate text-[13px] leading-[18px] text-ink-secondary" title={description}>{description}</p>
+          <p className="truncate text-ui leading-[18px] text-ink-secondary" title={description}>{description}</p>
         </div>
         {status === null ? (
           loadFailed
@@ -175,27 +175,27 @@ export function XCard({ refreshKey = 0, onConnection }: {
       </div>
       <div className="ps-[52px]">
         {using === "own" && (
-          <p className="mt-1 text-[12px] leading-relaxed text-ink-secondary">
+          <p className="mt-1 text-small leading-relaxed text-ink-secondary">
             {status?.included ? t("apps.x.ownFirst") : t("apps.x.ownBilled")}
           </p>
         )}
         {using === "included" && usage && (
-          <p data-x-usage className={usage.usedUp ? "mt-1 text-[12px] leading-relaxed text-warning-text" : "mt-1 text-[12px] leading-relaxed text-ink-secondary"}>{usage.line}</p>
+          <p data-x-usage className={usage.usedUp ? "mt-1 text-small leading-relaxed text-warning-text" : "mt-1 text-small leading-relaxed text-ink-secondary"}>{usage.line}</p>
         )}
         {using === "own" && (
-          <button type="button" disabled={busy !== null} onClick={() => void remove()} className="mt-1.5 inline-flex items-center gap-1.5 text-[12px] text-danger-text underline underline-offset-2 disabled:opacity-50">
+          <button type="button" disabled={busy !== null} onClick={() => void remove()} className="mt-1.5 inline-flex items-center gap-1.5 text-small text-danger-text underline underline-offset-2 disabled:opacity-50">
             {busy === "remove" && <Loader2 size={12} className="animate-spin" aria-hidden="true" />}
             {t("apps.x.remove")}
           </button>
         )}
         {using === "included" && !showForm && (
-          <button type="button" onClick={() => { setAddingOwn(true); setError(null); }} className="mt-1.5 inline-block text-[12px] text-accent-text underline underline-offset-2">
+          <button type="button" onClick={() => { setAddingOwn(true); setError(null); }} className="mt-1.5 inline-block text-small text-accent-text underline underline-offset-2">
             {t("apps.x.useOwnKey")}
           </button>
         )}
         {showForm && (
           <form data-x-key-form className="mt-2 flex flex-col gap-2" onSubmit={(event) => { event.preventDefault(); void save(); }}>
-            {using === null && <p className="text-[12px] leading-relaxed text-ink-secondary">{t("apps.x.addKeyHelp")}</p>}
+            {using === null && <p className="text-small leading-relaxed text-ink-secondary">{t("apps.x.addKeyHelp")}</p>}
             <div className="flex items-center gap-2">
               <input
                 type="password"
@@ -213,14 +213,14 @@ export function XCard({ refreshKey = 0, onConnection }: {
                 {busy === "save" ? <Loader2 size={14} className="animate-spin" /> : t("common.save")}
               </button>
             </div>
-            <a href={TREG_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[12px] font-medium text-accent-text hover:underline">
+            <a href={TREG_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-small font-medium text-accent-text hover:underline">
               {t("keys.treg.link")}
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </form>
         )}
-        {verdict && <p role="status" className="mt-1.5 text-[12px] text-ink-secondary">{verdict}</p>}
-        {error && <p role="alert" className="mt-1.5 text-[12px] text-danger-text">{error}</p>}
+        {verdict && <p role="status" className="mt-1.5 text-small text-ink-secondary">{verdict}</p>}
+        {error && <p role="alert" className="mt-1.5 text-small text-danger-text">{error}</p>}
       </div>
     </div>
   );

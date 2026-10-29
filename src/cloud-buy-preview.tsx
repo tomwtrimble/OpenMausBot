@@ -61,10 +61,10 @@ function MockApp() {
   return <div className="flex h-full bg-app text-ink">
     <aside className="flex w-[236px] shrink-0 flex-col border-e border-hairline bg-panel">
       <div className="flex gap-[7px] px-3.5 pb-1.5 pt-3.5">{[0, 1, 2].map(dot => <i key={dot} className="block size-[11px] rounded-full bg-raised" />)}</div>
-      <div className="mx-2.5 my-2 flex items-center gap-2 rounded-lg px-2 py-2 text-[13px] font-medium"><Cloud size={16} className="text-ink-secondary" />This computer</div>
+      <div className="mx-2.5 my-2 flex items-center gap-2 rounded-lg px-2 py-2 text-ui font-medium"><Cloud size={16} className="text-ink-secondary" />This computer</div>
       {[[MessageSquare, "Chats"], [Repeat, "Routines"], [FolderOpen, "Files"]].map(([Icon, label]) => {
         const Glyph = Icon as typeof Cloud;
-        return <div key={label as string} className="mx-2.5 flex items-center gap-2 rounded-lg px-2 py-1.5 text-[13px] text-ink-secondary"><Glyph size={15} />{label as string}</div>;
+        return <div key={label as string} className="mx-2.5 flex items-center gap-2 rounded-lg px-2 py-1.5 text-ui text-ink-secondary"><Glyph size={15} />{label as string}</div>;
       })}
     </aside>
     <main className="flex flex-1 flex-col gap-3.5 p-10 opacity-60">

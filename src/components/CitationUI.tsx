@@ -72,8 +72,8 @@ function CitationEditor({
       }}
     >
       <div className="mb-2 max-h-36 overflow-auto rounded-lg border border-hairline bg-inset px-3 py-2">
-        <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-ink-secondary">Quoted message</div>
-        <pre dir="auto" className="whitespace-pre-wrap break-words font-sans text-[12px] leading-relaxed">{citation.quote}</pre>
+        <div className="mb-1 text-caption font-semibold uppercase tracking-wide text-ink-secondary">Quoted message</div>
+        <pre dir="auto" className="whitespace-pre-wrap break-words font-sans text-small leading-relaxed">{citation.quote}</pre>
       </div>
       <textarea
         ref={inputRef}
@@ -90,12 +90,12 @@ function CitationEditor({
             if (!tooLong) onSave(withCitationComment(citation, comment));
           }
         }}
-        className="w-full resize-none rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] outline-none focus:border-accent"
+        className="w-full resize-none rounded-lg border border-hairline bg-inset px-3 py-2 text-ui outline-none focus:border-accent"
       />
-      {tooLong && <p role="status" className="mt-1 text-[11px] text-danger-text">Comments can contain up to {CITATION_MAX_COMMENT_LENGTH.toLocaleString()} characters.</p>}
+      {tooLong && <p role="status" className="mt-1 text-caption text-danger-text">Comments can contain up to {CITATION_MAX_COMMENT_LENGTH.toLocaleString()} characters.</p>}
       <div className="mt-2 flex justify-end gap-2">
-        <Button variant="ghost" onClick={onCancel} className="text-[12px] font-normal">Cancel</Button>
-        <Button variant="primary" disabled={tooLong} onClick={() => onSave(withCitationComment(citation, comment))} className="text-[12px]">Save</Button>
+        <Button variant="ghost" onClick={onCancel} className="text-small font-normal">Cancel</Button>
+        <Button variant="primary" disabled={tooLong} onClick={() => onSave(withCitationComment(citation, comment))} className="text-small">Save</Button>
       </div>
     </div>,
     document.body,
@@ -191,7 +191,7 @@ export function CitationSelectionToolbar({
       onKeyDown={(event) => {
         if (event.key === "Escape") { event.preventDefault(); setCaptured(null); }
       }}
-      className="fixed z-50 flex items-center gap-1.5 rounded-full border border-hairline bg-panel px-3 py-1.5 text-[12px] font-medium text-ink shadow-lg disabled:text-danger-text"
+      className="fixed z-50 flex items-center gap-1.5 rounded-full border border-hairline bg-panel px-3 py-1.5 text-small font-medium text-ink shadow-lg disabled:text-danger-text"
       style={captured.point}
     >
       <Quote size={13} aria-hidden="true" /> {tooLong ? "Shorten selection" : "Cite"}
@@ -250,7 +250,7 @@ export function CitationBadge({
         onClick={() => { setUnavailable(false); setOpen((value) => !value); }}
         aria-expanded={open}
         aria-label={`Open citation: ${citation.quote.slice(0, 80)}`}
-        className="inline-flex max-w-64 items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-[11px] text-accent-text hover:border-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60"
+        className="inline-flex max-w-64 items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-caption text-accent-text hover:border-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60"
       >
         <Quote size={11} className="shrink-0" aria-hidden="true" />
         <span className="truncate">{citation.quote.replace(/\s+/g, " ")}</span>
@@ -273,15 +273,15 @@ export function CitationBadge({
           }}
         >
           <div className="max-h-56 overflow-auto rounded-lg bg-inset px-3 py-2">
-            <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-ink-secondary">Quoted message</div>
-            <pre dir="auto" className="whitespace-pre-wrap break-words font-sans text-[12px] leading-relaxed">{citation.quote}</pre>
+            <div className="mb-1 text-caption font-semibold uppercase tracking-wide text-ink-secondary">Quoted message</div>
+            <pre dir="auto" className="whitespace-pre-wrap break-words font-sans text-small leading-relaxed">{citation.quote}</pre>
           </div>
-          {citation.comment && <div className="mt-2 text-[12px]"><span className="font-semibold">Comment:</span> <span className="whitespace-pre-wrap">{citation.comment}</span></div>}
-          {unavailable && <p role="status" className="mt-2 text-[11px] text-warning-text">Source unavailable or changed. The saved quote is still available.</p>}
+          {citation.comment && <div className="mt-2 text-small"><span className="font-semibold">Comment:</span> <span className="whitespace-pre-wrap">{citation.comment}</span></div>}
+          {unavailable && <p role="status" className="mt-2 text-caption text-warning-text">Source unavailable or changed. The saved quote is still available.</p>}
           <div className="mt-3 flex justify-end gap-2">
-            {onNavigate && <button type="button" onClick={() => { void onNavigate().then((found) => { setUnavailable(!found); if (found) setOpen(false); }); }} className="rounded-lg border border-hairline px-3 py-1.5 text-[12px] hover:bg-raised">Go to source</button>}
-            {onChange && <button type="button" onClick={() => { setOpen(false); setEditing(true); }} className="rounded-lg border border-hairline px-3 py-1.5 text-[12px] hover:bg-raised">Edit comment</button>}
-            <Button variant="primary" onClick={() => { setOpen(false); restoreTriggerFocus(); }} className="text-[12px]">Close</Button>
+            {onNavigate && <button type="button" onClick={() => { void onNavigate().then((found) => { setUnavailable(!found); if (found) setOpen(false); }); }} className="rounded-lg border border-hairline px-3 py-1.5 text-small hover:bg-raised">Go to source</button>}
+            {onChange && <button type="button" onClick={() => { setOpen(false); setEditing(true); }} className="rounded-lg border border-hairline px-3 py-1.5 text-small hover:bg-raised">Edit comment</button>}
+            <Button variant="primary" onClick={() => { setOpen(false); restoreTriggerFocus(); }} className="text-small">Close</Button>
           </div>
         </div>,
         document.body,

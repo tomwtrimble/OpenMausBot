@@ -9,8 +9,8 @@ import { Button } from "./ui/Button";
 export const UPDATES_CONSENT_POPUP = "[data-updates-consent-popup]";
 const TITLE = "updates-consent-title";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PRIMARY = "min-h-10 gap-1.5 text-[14px]";
-const SECONDARY = "min-h-10 px-3 text-[14px] font-normal";
+const PRIMARY = "min-h-10 gap-1.5 text-label";
+const SECONDARY = "min-h-10 px-3 text-label font-normal";
 
 export function updatesConsentBridge(): UpdatesConsentBridge | undefined {
   return window.ogb?.remoteClient?.active === true ? undefined : window.ogb?.updatesConsent;
@@ -58,17 +58,17 @@ export function UpdatesConsentDialog({ signedIn, onYes, onNo }: {
       className="relative max-h-full w-full max-w-[400px] overflow-y-auto rounded-2xl border border-hairline bg-panel p-6 text-ink shadow-2xl outline-none">
       <div className="flex items-center gap-2.5">
         <Mail size={18} className="shrink-0 text-accent-text" aria-hidden="true" />
-        <h2 ref={title} id={TITLE} tabIndex={-1} className="text-[17px] font-semibold outline-none">{t("updatesConsent.title")}</h2>
+        <h2 ref={title} id={TITLE} tabIndex={-1} className="text-title font-semibold outline-none">{t("updatesConsent.title")}</h2>
       </div>
-      <p id="updates-consent-body" className="mt-3 text-[14px] leading-relaxed text-ink-secondary">{t("updatesConsent.body")}</p>
-      {!signedIn && <label className="mt-4 flex flex-col gap-1.5 text-[13px] font-medium">
+      <p id="updates-consent-body" className="mt-3 text-label leading-relaxed text-ink-secondary">{t("updatesConsent.body")}</p>
+      {!signedIn && <label className="mt-4 flex flex-col gap-1.5 text-ui font-medium">
         {t("updatesConsent.email")}
         <input type="email" value={email} autoComplete="email" placeholder="you@example.com" disabled={busy} onChange={event => { setEmail(event.target.value); setError(null); }}
           onKeyDown={event => { if (event.key === "Enter") { event.preventDefault(); yes(); } }}
-          className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] font-normal text-ink placeholder:text-ink-secondary focus:outline-none" />
-        <span className="text-[12px] font-normal text-ink-secondary">{t("updatesConsent.emailHint")}</span>
+          className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-label font-normal text-ink placeholder:text-ink-secondary focus:outline-none" />
+        <span className="text-small font-normal text-ink-secondary">{t("updatesConsent.emailHint")}</span>
       </label>}
-      {error && <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="mt-3 text-ui text-danger-text">{error}</p>}
       <div className="mt-5 flex flex-wrap items-center justify-end gap-2">
         <Button variant="ghost" size="lg" className={SECONDARY} disabled={busy} onClick={onNo}>{t("updatesConsent.no")}</Button>
         <Button variant="primary" size="lg" className={PRIMARY} disabled={busy} onClick={yes}>{t("updatesConsent.yes")}</Button>

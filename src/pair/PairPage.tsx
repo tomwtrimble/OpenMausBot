@@ -17,9 +17,9 @@ import {
 import { pairedDestination } from "../lib/phone-pairing";
 import { Button } from "../components/ui/Button";
 
-const input = "mt-1 w-full rounded-md border border-hairline bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent-border";
-const button = "mt-5 w-full text-[14px]";
-const fieldLabel = "mt-4 block text-[12px] font-medium text-ink-secondary";
+const input = "mt-1 w-full rounded-md border border-hairline bg-inset px-3 py-2 text-label text-ink outline-none focus:border-accent-border";
+const button = "mt-5 w-full text-label";
+const fieldLabel = "mt-4 block text-small font-medium text-ink-secondary";
 
 /** Only the desktop app pairs from a link at once; a browser asks, so a sent link cannot sign it in unseen. */
 export function pairsAutomatically(initialCode: string | null, desktop = typeof window !== "undefined" && Boolean(window.ogb?.workspaces)): boolean {
@@ -117,18 +117,18 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
       <div className="absolute left-3 top-12 max-w-[280px]"><DesktopWorkspaceSwitcher /></div>
       <div className="w-full max-w-[420px]">
         {opening ? (
-          <p role="status" className="text-[20px] font-semibold">{cloudHome ? "Opening the Cloud…" : `Connecting to ${environment?.label ?? `this ${productName()}`}…`}</p>
+          <p role="status" className="text-display font-semibold">{cloudHome ? "Opening the Cloud…" : `Connecting to ${environment?.label ?? `this ${productName()}`}…`}</p>
         ) : <>
-        <h1 className="text-[20px] font-semibold">{cloudHome ? "My Cloud" : `${mode === "email" ? "Sign in to" : "Connect to"} ${environment?.label ?? `this ${productName()}`}`}</h1>
-        <p className="mt-1.5 text-[14px] leading-relaxed text-ink-secondary">
+        <h1 className="text-display font-semibold">{cloudHome ? "My Cloud" : `${mode === "email" ? "Sign in to" : "Connect to"} ${environment?.label ?? `this ${productName()}`}`}</h1>
+        <p className="mt-1.5 text-label leading-relaxed text-ink-secondary">
           {environment && !cloudHome ? `Version ${environment.version} on ${environment.platform}. ` : ""}
           {pairIntro({ mode, sent, email, cloudHome })}
         </p>
-        {reasonWorthShowing(reason) && !connected ? <p className="mt-3 text-[13px] text-ink-secondary">{reasonWorthShowing(reason)}</p> : null}
-        {error && cloudHome && initialCode ? <p className="mt-3 text-[13px] text-ink-secondary">This link has expired or was already used. In the {productName()} app on your computer, open Settings → MausBot Cloud and choose Open the Cloud.</p> : null}
+        {reasonWorthShowing(reason) && !connected ? <p className="mt-3 text-ui text-ink-secondary">{reasonWorthShowing(reason)}</p> : null}
+        {error && cloudHome && initialCode ? <p className="mt-3 text-ui text-ink-secondary">This link has expired or was already used. In the {productName()} app on your computer, open Settings → MausBot Cloud and choose Open the Cloud.</p> : null}
         </>}
         {opening ? null : connected ? (
-          <p className="mt-4 text-[14px]">
+          <p className="mt-4 text-label">
             This browser is already connected.{" "}
             <a href="/" className="text-accent-text underline">
               Open the app
@@ -166,7 +166,7 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
                   autoComplete="one-time-code"
                   inputMode="numeric"
                   spellCheck={false}
-                  className={`${input} font-mono text-[15px] tracking-[0.12em]`}
+                  className={`${input} font-mono text-body tracking-[0.12em]`}
                 />
                 <label className={fieldLabel} htmlFor="signin-label">
                   This device
@@ -174,16 +174,16 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
                 <input id="signin-label" value={label} onChange={(e) => setLabel(e.target.value)} maxLength={80} className={input} />
               </>
             ) : null}
-            {error ? <p className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
+            {error ? <p className="mt-3 text-ui text-danger-text">{error}</p> : null}
             <Button variant="primary" size="lg" type="submit" disabled={busy || !email.includes("@") || (sent && otp.replace(/\D/g, "").length < 8)} className={button}>
               {busy ? (sent ? "Signing in…" : "Sending…") : sent ? "Sign in" : "Send code"}
             </Button>
             {sent ? (
-              <button type="button" onClick={() => setSent(false)} className="mt-3 w-full text-[13px] text-ink-secondary underline">
+              <button type="button" onClick={() => setSent(false)} className="mt-3 w-full text-ui text-ink-secondary underline">
                 Send a new code
               </button>
             ) : null}
-            <button type="button" onClick={() => switchMode("code")} className="mt-3 w-full text-[13px] text-ink-secondary underline">
+            <button type="button" onClick={() => switchMode("code")} className="mt-3 w-full text-ui text-ink-secondary underline">
               Have a pairing code instead?
             </button>
           </form>
@@ -203,18 +203,18 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
               autoComplete="one-time-code"
               autoCapitalize="characters"
               spellCheck={false}
-              className={`${input} font-mono text-[15px] tracking-[0.12em]`}
+              className={`${input} font-mono text-body tracking-[0.12em]`}
             />
             <label className={fieldLabel} htmlFor="pair-label">
               This device
             </label>
             <input id="pair-label" value={label} onChange={(e) => setLabel(e.target.value)} maxLength={80} className={input} />
-            {error ? <p className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
+            {error ? <p className="mt-3 text-ui text-danger-text">{error}</p> : null}
             <button type="submit" disabled={busy || code.replace(/[^a-z0-9]/gi, "").length < 12} className={button}>
               {busy ? "Connecting…" : "Connect"}
             </button>
             {emailOffered ? (
-              <button type="button" onClick={() => switchMode("email")} className="mt-3 w-full text-[13px] text-ink-secondary underline">
+              <button type="button" onClick={() => switchMode("email")} className="mt-3 w-full text-ui text-ink-secondary underline">
                 Sign in with your email instead
               </button>
             ) : null}

@@ -41,7 +41,7 @@ function DemoComposer({ reduced, onTyping }: { reduced: boolean; onTyping: (typi
   return (
     <div aria-hidden="true" data-demo-composer=""
       className="absolute left-1/2 top-[calc(50%-14px)] flex min-h-[76px] w-[348px] max-w-[calc(100%-32px)] -translate-x-1/2 select-none flex-col gap-2.5 rounded-[20px] border-[0.5px] border-ink/10 bg-composer px-2 pb-2 pt-3 text-left [:root[data-skin=daylight]_&]:shadow-[0_2px_8px_-1px_color-mix(in_srgb,var(--color-shadow)_5%,transparent),0_1px_2px_color-mix(in_srgb,var(--color-shadow)_3%,transparent)]">
-      <div className="mx-2 whitespace-nowrap text-[14px] leading-5">
+      <div className="mx-2 whitespace-nowrap text-label leading-5">
         {waiting ? <span className="text-ink-tertiary">{t("onboarding.meet.placeholder", { app: productName() })}</span> : <span className="text-ink">{text}</span>}
         {!reduced && (waiting || typing) && <span className="animate-meet-caret ml-px inline-block h-[15px] w-[1.5px] translate-y-[2px] bg-ink align-[-2px]" />}
       </div>
@@ -92,13 +92,13 @@ export function MeetScreen({ hosted, onNext }: { hosted: boolean; onNext: () => 
       </span>
       <DemoComposer reduced={reduced} onTyping={setTyping} />
       {hosted && (
-        <p className="absolute left-1/2 top-[calc(50%+86px)] w-[420px] max-w-[calc(100%-32px)] -translate-x-1/2 text-[13px] leading-[18px] text-ink-secondary">
+        <p className="absolute left-1/2 top-[calc(50%+86px)] w-[420px] max-w-[calc(100%-32px)] -translate-x-1/2 text-ui leading-[18px] text-ink-secondary">
           {t("onboarding.hosted.intro")}
         </p>
       )}
       <div className="absolute left-1/2 top-[calc(50%+200px)] flex w-[320px] max-w-[calc(100%-32px)] -translate-x-1/2 flex-col items-center">
         {asking && ready && tested && (
-          <p role="status" data-ai-connected="" className="absolute -top-8 flex items-center gap-1.5 whitespace-nowrap text-[13px] leading-[18px] text-success">
+          <p role="status" data-ai-connected="" className="absolute -top-8 flex items-center gap-1.5 whitespace-nowrap text-ui leading-[18px] text-success">
             <Check size={14} strokeWidth={2.5} aria-hidden="true" />{t("onboarding.meet.connected", { name: tested.instance.displayName })}
           </p>
         )}
@@ -110,13 +110,13 @@ export function MeetScreen({ hosted, onNext }: { hosted: boolean; onNext: () => 
           </button>
         )}
         {signingIn && (
-          <p className="mt-3 text-[13px] leading-[18px] text-ink-secondary">
+          <p className="mt-3 text-ui leading-[18px] text-ink-secondary">
             <button type="button" onClick={() => setDialog(true)} className="rounded transition-colors hover:text-ink">{t("onboarding.meet.otherWays")}</button>
             <span aria-hidden="true"> · </span>
             <button type="button" data-welcome-later="" onClick={onNext} className="rounded transition-colors hover:text-ink">{t("onboarding.meet.setupLater")}</button>
           </p>
         )}
-        {signingIn && failure && <p role="alert" className="mt-2 text-[13px] leading-[18px] text-danger-text">{failure}</p>}
+        {signingIn && failure && <p role="alert" className="mt-2 text-ui leading-[18px] text-danger-text">{failure}</p>}
       </div>
       {dialog && <ConnectAiDialog hosted={hosted} tested={tested} onClose={() => setDialog(false)} />}
     </div>

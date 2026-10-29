@@ -62,14 +62,14 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
 
   return (
     <div data-api-keys-other>
-      <div className="mb-0.5 text-[13px] leading-[18px] text-ink">{t("apiInstances.title")}</div>
-      <p className="mb-2 text-[12px] leading-4 text-ink-secondary">{t("apiInstances.subtitle")}</p>
-      {servers.length === 0 && <p className="text-[12px] leading-4 text-ink-secondary">{t("apiInstances.empty")}</p>}
+      <div className="mb-0.5 text-ui leading-[18px] text-ink">{t("apiInstances.title")}</div>
+      <p className="mb-2 text-small leading-4 text-ink-secondary">{t("apiInstances.subtitle")}</p>
+      {servers.length === 0 && <p className="text-small leading-4 text-ink-secondary">{t("apiInstances.empty")}</p>}
       {servers.map((server) => (
         <div key={server.instanceId} className="mb-1.5 flex items-center justify-between gap-2 rounded-lg border border-hairline bg-inset px-3 py-1.5">
           <div className="min-w-0 flex-1">
-            <div className="truncate text-[12px] text-ink">{server.displayName}</div>
-            {server.url && <div className="truncate font-mono text-[11px] text-ink-secondary">{server.url}</div>}
+            <div className="truncate text-small text-ink">{server.displayName}</div>
+            {server.url && <div className="truncate font-mono text-caption text-ink-secondary">{server.url}</div>}
           </div>
           <Select
             size="sm"
@@ -113,7 +113,7 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
           autoComplete="off" disabled={busy !== null} className={cn(INPUT, "font-mono")} />
         <input value={models} onChange={(e) => setModels(e.target.value)} placeholder={t("apiInstances.models")} aria-label={t("apiInstances.models")}
           spellCheck={false} disabled={busy !== null} className={cn(INPUT, "font-mono")} />
-        <p className="text-[12px] leading-4 text-ink-secondary">{t("apiInstances.modelsHint")}</p>
+        <p className="text-small leading-4 text-ink-secondary">{t("apiInstances.modelsHint")}</p>
         <Button
           onClick={add}
           disabled={busy !== null || !ready}
@@ -123,7 +123,7 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
           {busy === "add" ? t("apiInstances.adding") : t("apiInstances.add")}
         </Button>
       </div>
-      {error && <div className="mt-1 text-[12px] text-danger-text">{error}</div>}
+      {error && <div className="mt-1 text-small text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -176,10 +176,10 @@ export function LmStudioServer({ heading = true }: { heading?: boolean } = {}) {
 
   return (
     <div className={cn(heading && "rounded-lg border border-hairline bg-inset px-3 py-2")}>
-      {heading && <div className="text-[13px] text-ink">{t("lmStudio.title")}</div>}
-      <p className={cn("text-[12px] leading-4 text-ink-secondary", heading && "mt-1")}>{t("lmStudio.desc")}</p>
+      {heading && <div className="text-ui text-ink">{t("lmStudio.title")}</div>}
+      <p className={cn("text-small leading-4 text-ink-secondary", heading && "mt-1")}>{t("lmStudio.desc")}</p>
       <div className="mt-2 flex flex-col gap-1.5">
-        <label className="flex flex-col gap-1 text-[12px] leading-4 text-ink-secondary">
+        <label className="flex flex-col gap-1 text-small leading-4 text-ink-secondary">
           {t("lmStudio.port")}
           <input
             inputMode="numeric"
@@ -201,8 +201,8 @@ export function LmStudioServer({ heading = true }: { heading?: boolean } = {}) {
           disabled={busy}
           className={cn(INPUT, "font-mono")}
         />
-        <p className="text-[12px] leading-4 text-ink-secondary">{t("lmStudio.tokenHint")}</p>
-        {url && <p className="truncate font-mono text-[12px] leading-4 text-ink-secondary">{url}</p>}
+        <p className="text-small leading-4 text-ink-secondary">{t("lmStudio.tokenHint")}</p>
+        {url && <p className="truncate font-mono text-small leading-4 text-ink-secondary">{url}</p>}
         <Button
           onClick={add}
           disabled={busy || !url || present}
@@ -211,9 +211,9 @@ export function LmStudioServer({ heading = true }: { heading?: boolean } = {}) {
           {busy ? <Loader2 size={12} aria-hidden="true" className="animate-spin" /> : <Plus size={12} aria-hidden="true" />}
           {busy ? t("lmStudio.adding") : t("lmStudio.add")}
         </Button>
-        {present && <p className="text-[12px] text-ink-secondary">{t("lmStudio.added")}</p>}
+        {present && <p className="text-small text-ink-secondary">{t("lmStudio.added")}</p>}
       </div>
-      {error && <div className="mt-1 text-[12px] text-danger-text">{error}</div>}
+      {error && <div className="mt-1 text-small text-danger-text">{error}</div>}
     </div>
   );
 }

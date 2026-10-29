@@ -22,13 +22,13 @@ export function AuthPrompt({ origin, realm, onAnswer }: {
   };
   return (
     <form role="dialog" aria-label="Sign in to this site" onSubmit={submit} className="popover-surface absolute inset-x-3 top-3 z-20 mx-auto flex max-w-sm flex-col gap-2.5 rounded-xl border border-hairline bg-menu p-4 text-ink shadow-xl">
-      <div className="flex items-center gap-2 text-[13px] font-medium"><LockKeyhole size={14} aria-hidden="true" />Sign in</div>
-      <p className="break-words text-[12px] text-ink-secondary">{origin}{realm ? ` asks for “${realm}”` : ""}</p>
-      <input name="username" aria-label="Username" autoComplete="off" spellCheck={false} maxLength={1024} placeholder="Username" className="rounded-lg bg-inset px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-focus" />
-      <input name="password" type="password" aria-label="Password" autoComplete="new-password" maxLength={1024} placeholder="Password" className="rounded-lg bg-inset px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-focus" />
+      <div className="flex items-center gap-2 text-ui font-medium"><LockKeyhole size={14} aria-hidden="true" />Sign in</div>
+      <p className="break-words text-small text-ink-secondary">{origin}{realm ? ` asks for “${realm}”` : ""}</p>
+      <input name="username" aria-label="Username" autoComplete="off" spellCheck={false} maxLength={1024} placeholder="Username" className="rounded-lg bg-inset px-3 py-2 text-ui outline-none focus:ring-1 focus:ring-focus" />
+      <input name="password" type="password" aria-label="Password" autoComplete="new-password" maxLength={1024} placeholder="Password" className="rounded-lg bg-inset px-3 py-2 text-ui outline-none focus:ring-1 focus:ring-focus" />
       <div className="flex justify-end gap-2">
-        <button type="button" onClick={() => onAnswer(null)} className="rounded-lg px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-inset">Cancel</button>
-        <Button variant="primary" type="submit" className="text-[12px]">Sign in</Button>
+        <button type="button" onClick={() => onAnswer(null)} className="rounded-lg px-3 py-1.5 text-small text-ink-secondary hover:bg-inset">Cancel</button>
+        <Button variant="primary" type="submit" className="text-small">Sign in</Button>
       </div>
     </form>
   );

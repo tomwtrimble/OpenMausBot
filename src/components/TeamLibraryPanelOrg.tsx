@@ -32,9 +32,9 @@ export function OrgLibraryTab({
   const name = listing.organization.name;
   return (
     <div>
-      <p className="max-w-2xl text-[13px] leading-relaxed text-ink-secondary">{t("orgLibrary.intro", { name })}</p>
+      <p className="max-w-2xl text-ui leading-relaxed text-ink-secondary">{t("orgLibrary.intro", { name })}</p>
       {listing.packages.length === 0 ? (
-        <p className="mt-6 text-[13px] text-ink-secondary">{t("orgLibrary.empty", { name })}</p>
+        <p className="mt-6 text-ui text-ink-secondary">{t("orgLibrary.empty", { name })}</p>
       ) : (
         <div className="mt-4 grid grid-cols-1 gap-x-10 md:grid-cols-2">
           {listing.packages.map((entry, index) => (
@@ -42,8 +42,8 @@ export function OrgLibraryTab({
           ))}
         </div>
       )}
-      {notice && <div role="status" className="mt-4 rounded-lg bg-raised/60 px-3 py-2 text-[13px] text-ink-secondary">{notice}</div>}
-      {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
+      {notice && <div role="status" className="mt-4 rounded-lg bg-raised/60 px-3 py-2 text-ui text-ink-secondary">{notice}</div>}
+      {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-ui text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -71,15 +71,15 @@ function OrgPackageCard({
         <Building2 size={20} />
       </div>
       <div className="min-w-0 flex-1">
-        <h3 className="truncate text-[14px] font-medium text-ink">{entry.name}</h3>
-        <p className="mt-0.5 truncate text-[13px] text-ink-secondary">{entry.tagline}</p>
-        <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-ink-tertiary">
+        <h3 className="truncate text-label font-medium text-ink">{entry.name}</h3>
+        <p className="mt-0.5 truncate text-ui text-ink-secondary">{entry.tagline}</p>
+        <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-small text-ink-tertiary">
           <span>{orgPublisherLine(entry)}</span>
           {badge && <span className="rounded-full bg-accent/10 px-2 py-0.5 text-accent-text">{badge}</span>}
           {entry.release && <span>{entry.release.version}</span>}
         </p>
-        <p className="mt-0.5 truncate text-[12px] text-ink-tertiary">{orgContentsLine(entry.contents)}</p>
-        {notes.map((note) => <p key={note} className="mt-0.5 text-[12px] text-warning-text">{note}</p>)}
+        <p className="mt-0.5 truncate text-small text-ink-tertiary">{orgContentsLine(entry.contents)}</p>
+        {notes.map((note) => <p key={note} className="mt-0.5 text-small text-warning-text">{note}</p>)}
       </div>
       <div className="flex shrink-0 flex-col items-end gap-1.5">
         {action === "add" && (
@@ -94,19 +94,19 @@ function OrgPackageCard({
           </Button>
         )}
         {action === "added" && (
-          <span className="flex items-center gap-1 rounded-full bg-raised px-3 py-1.5 text-[12px] text-ink-secondary">
+          <span className="flex items-center gap-1 rounded-full bg-raised px-3 py-1.5 text-small text-ink-secondary">
             <Check size={13} className="text-success" />{t("orgLibrary.added")}
           </span>
         )}
-        {action === "updateApp" && <span className="max-w-[140px] text-right text-[12px] text-ink-secondary">{t("orgLibrary.updateApp")}</span>}
-        {action === "notReady" && <span className="text-[12px] text-ink-secondary">{t("orgLibrary.notReady")}</span>}
-        {action === "noRelease" && <span className="text-[12px] text-ink-secondary">{t("orgLibrary.noRelease")}</span>}
+        {action === "updateApp" && <span className="max-w-[140px] text-right text-small text-ink-secondary">{t("orgLibrary.updateApp")}</span>}
+        {action === "notReady" && <span className="text-small text-ink-secondary">{t("orgLibrary.notReady")}</span>}
+        {action === "noRelease" && <span className="text-small text-ink-secondary">{t("orgLibrary.noRelease")}</span>}
         {entry.blob === "ready" && (
           <Button variant="ghost" size="md"
             onClick={() => onDetails(entry)}
             disabled={busy !== null}
             aria-label={t("orgLibrary.detailsAria", { name: entry.name })}
-            className="rounded-full text-[12px] font-normal"
+            className="rounded-full text-small font-normal"
           >
             {t("orgLibrary.details")}
           </Button>

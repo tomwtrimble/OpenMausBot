@@ -41,16 +41,16 @@ export function AutomaticRecoverySettings() {
   return (
     <Card title={t("settings.recovery.title")}>
       <div className="flex items-center justify-between gap-4">
-        <label htmlFor="automatic-recovery-enabled" className="text-[13px] font-medium text-ink">{t("settings.recovery.enable")}</label>
+        <label htmlFor="automatic-recovery-enabled" className="text-ui font-medium text-ink">{t("settings.recovery.enable")}</label>
         <Switch id="automatic-recovery-enabled" checked={value.enabled} disabled={saving || !state.config}
           aria-describedby="automatic-recovery-help automatic-recovery-scope"
           onClick={() => change({ ...value, enabled: !value.enabled })} />
       </div>
-      <p id="automatic-recovery-help" className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("settings.recovery.help")}</p>
-      <p id="automatic-recovery-scope" className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("settings.recovery.scope")}</p>
+      <p id="automatic-recovery-help" className="mt-2 text-small leading-relaxed text-ink-secondary">{t("settings.recovery.help")}</p>
+      <p id="automatic-recovery-scope" className="mt-2 text-small leading-relaxed text-ink-secondary">{t("settings.recovery.scope")}</p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="min-w-0">
-          <label htmlFor="automatic-recovery-engine" className="block text-[13px] font-medium text-ink">{t("settings.recovery.engine")}</label>
+          <label htmlFor="automatic-recovery-engine" className="block text-ui font-medium text-ink">{t("settings.recovery.engine")}</label>
           <Select className="mt-2 w-full" id="automatic-recovery-engine" value={value.backup?.instanceId ?? ""} disabled={saving || !value.enabled}
             onChange={(event) => change({ enabled: value.enabled, ...(event.target.value ? { backup: { instanceId: event.target.value, model: "" } } : {}) })}>
             <option value="">{t("settings.recovery.chooseEngine")}</option>
@@ -60,7 +60,7 @@ export function AutomaticRecoverySettings() {
           </Select>
         </div>
         <div className="min-w-0">
-          <label htmlFor="automatic-recovery-model" className="block text-[13px] font-medium text-ink">{t("settings.recovery.model")}</label>
+          <label htmlFor="automatic-recovery-model" className="block text-ui font-medium text-ink">{t("settings.recovery.model")}</label>
           <Select className="mt-2 w-full" id="automatic-recovery-model" value={value.backup?.model ?? ""} disabled={saving || !value.enabled || !engine}
             onChange={(event) => change({ enabled: value.enabled, backup: { instanceId: engine!.instanceId, model: event.target.value } })}>
             <option value="">{t("settings.recovery.chooseModel")}</option>
@@ -69,12 +69,12 @@ export function AutomaticRecoverySettings() {
           </Select>
         </div>
       </div>
-      <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("settings.recovery.charges")}</p>
-      {value.enabled && !ready && <p className="mt-2 text-[12px] text-ink-secondary">{t("settings.recovery.required")}</p>}
+      <p className="mt-2 text-small leading-relaxed text-ink-secondary">{t("settings.recovery.charges")}</p>
+      {value.enabled && !ready && <p className="mt-2 text-small text-ink-secondary">{t("settings.recovery.required")}</p>}
       <Button variant="primary" size="lg" disabled={!draft || saving || (value.enabled && !ready)} onClick={() => void save()}
         className="mt-3 px-3">{saving ? t("settings.threads.saving") : t("common.save")}</Button>
       {saving && <span role="status" className="sr-only">{t("settings.threads.saving")}</span>}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-small text-danger-text">{error}</p>}
     </Card>
   );
 }

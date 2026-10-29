@@ -51,7 +51,7 @@ export function MeterRow({ meter, compact = false }: { meter: CloudUsageMeter; c
   const label = meterLabel(meter.kind), band = meterBand(meterPercent(meter));
   return (
     <div className={compact ? "mt-2.5" : "py-2.5"}>
-      <div className={cn("mb-1 flex flex-wrap items-baseline justify-between gap-x-3", compact ? "text-[12px]" : "text-[13px]")}>
+      <div className={cn("mb-1 flex flex-wrap items-baseline justify-between gap-x-3", compact ? "text-small" : "text-ui")}>
         <span className="min-w-0 text-ink">{label}</span>
         <span className={cn("ms-auto shrink-0 tabular-nums", AMOUNT[band])}>{meterAmounts(meter)}</span>
       </div>
@@ -137,7 +137,7 @@ export function useUpgrade(bridge: CloudPlanBridge | undefined, usage: CloudUsag
 
 export function NoteLine({ note }: { note: UpgradeNote | null }) {
   if (!note) return null;
-  return <p role={note.tone === "bad" ? "alert" : "status"} className={cn("text-[12px] leading-relaxed", note.tone === "bad" ? "text-danger-text" : note.tone === "good" ? "text-success" : "text-ink-secondary")}>{note.text}</p>;
+  return <p role={note.tone === "bad" ? "alert" : "status"} className={cn("text-small leading-relaxed", note.tone === "bad" ? "text-danger-text" : note.tone === "good" ? "text-success" : "text-ink-secondary")}>{note.text}</p>;
 }
 
 export type UpgradeUi = { busy: "preview" | "change" | null; note: UpgradeNote | null; onUpgrade: (tier?: string) => void };
@@ -150,11 +150,11 @@ export function CloudUsageCardView({ usage, meters, band, upgrade, onHide, onSee
     <section aria-labelledby="cloud-usage-card-title" data-cloud-usage-card={band}
       className="mb-2 rounded-xl border border-hairline bg-card p-3 text-ink shadow-sm">
       <div className="flex items-start justify-between gap-2">
-        <h2 id="cloud-usage-card-title" className="min-w-0 text-[13px] font-semibold leading-5">{t(band === "full" ? "usageMeter.card.full" : "usageMeter.card.near")}</h2>
+        <h2 id="cloud-usage-card-title" className="min-w-0 text-ui font-semibold leading-5">{t(band === "full" ? "usageMeter.card.full" : "usageMeter.card.near")}</h2>
         <IconButton label={t("usageMeter.card.hide")} onClick={onHide} className="ui-icon-button -me-1 -mt-0.5 shrink-0"><X size={14} /></IconButton>
       </div>
       {meters.map((meter) => <MeterRow key={meter.kind} meter={meter} compact />)}
-      <p className="mt-2 text-[12px] text-ink-secondary">{resetLine(usage)}</p>
+      <p className="mt-2 text-small text-ink-secondary">{resetLine(usage)}</p>
       {path !== "top" && (
         <Button variant="primary" className="mt-2.5 w-full justify-center gap-1.5" disabled={upgrade.busy !== null} onClick={() => upgrade.onUpgrade()}>
           {upgrade.busy === "preview" && <Loader2 size={13} className="animate-spin" aria-hidden="true" />}
@@ -162,7 +162,7 @@ export function CloudUsageCardView({ usage, meters, band, upgrade, onHide, onSee
           {path === "browser" && <ArrowUpRight size={13} aria-hidden="true" />}
         </Button>
       )}
-      <button type="button" className="mt-1.5 w-full py-1 text-center text-[12px] text-ink-secondary hover:text-ink" onClick={onSeeAll}>{t("usageMeter.card.seeAll")}</button>
+      <button type="button" className="mt-1.5 w-full py-1 text-center text-small text-ink-secondary hover:text-ink" onClick={onSeeAll}>{t("usageMeter.card.seeAll")}</button>
       {upgrade.note && <div className="mt-1"><NoteLine note={upgrade.note} /></div>}
       {children}
     </section>
@@ -188,18 +188,18 @@ export function CloudUsageCard() {
 
 function MeterList({ usage }: { usage: CloudUsage }) {
   return usage.meters.length ? <div className="divide-y divide-hairline">{usage.meters.map((meter) => <MeterRow key={meter.kind} meter={meter} />)}</div>
-    : <p className="text-[13px] text-ink-secondary">{t("usageMeter.empty")}</p>;
+    : <p className="text-ui text-ink-secondary">{t("usageMeter.empty")}</p>;
 }
 
 function TopPlanNote({ usage }: { usage: CloudUsage }) {
-  return <p className="text-[13px] text-ink-secondary">{t(TEAM_TIERS.includes(usage.tier) ? "usageMeter.teamPlan" : "usageMeter.topPlan")}</p>;
+  return <p className="text-ui text-ink-secondary">{t(TEAM_TIERS.includes(usage.tier) ? "usageMeter.teamPlan" : "usageMeter.topPlan")}</p>;
 }
 
 function OtherPlans({ usage, upgrade }: { usage: CloudUsage; upgrade: UpgradeUi }) {
   if (upgradePath(usage) !== "app") return null;
   return <>{[...usage.upgrades].sort((a, b) => a.amount - b.amount).slice(1).map((other) => (
     <button key={other.tier} type="button" disabled={upgrade.busy !== null} onClick={() => upgrade.onUpgrade(other.tier)}
-      className="cursor-pointer text-[13px] text-ink-secondary underline underline-offset-2 hover:text-ink disabled:opacity-50">{upgradeLabel(other)}</button>
+      className="cursor-pointer text-ui text-ink-secondary underline underline-offset-2 hover:text-ink disabled:opacity-50">{upgradeLabel(other)}</button>
   ))}</>;
 }
 
@@ -208,7 +208,7 @@ export function CloudUsageSettingsView({ usage, upgrade, children }: { usage: Cl
     <Card title={t("usageMeter.title")} subtitle={t("usageMeter.subtitle", { plan: cloudPlanLabel(usage.tier) })}>
       <div data-cloud-usage={usage.tier}>
         <MeterList usage={usage} />
-        <p className="mt-2 text-[12px] text-ink-secondary">{resetLine(usage)}</p>
+        <p className="mt-2 text-small text-ink-secondary">{resetLine(usage)}</p>
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
           {upgradePath(usage) === "top" ? <TopPlanNote usage={usage} /> : <UpgradeButton usage={usage} upgrade={upgrade} />}
           <OtherPlans usage={usage} upgrade={upgrade} />
@@ -258,15 +258,15 @@ export function UsageSummaryCard({ kind, title, percent, label, note, children }
   const band = meterBand(percent);
   return (
     <section data-usage-summary={kind} data-band={band} aria-label={label} className={cn(SIMPLE_CARD, "px-4 py-3.5")}>
-      <p className="text-[13px] leading-[18px] text-ink">{title}</p>
+      <p className="text-ui leading-[18px] text-ink">{title}</p>
       <p className="mt-2 flex items-baseline gap-1.5">
-        <span className="text-[22px] font-medium leading-7 tracking-[-0.012em] text-ink tabular-nums">{percent}%</span>
-        <span className="text-[13px] text-ink-secondary">{t("settings.simple.billing.used")}</span>
+        <span className="text-display font-medium leading-7 tracking-[-0.012em] text-ink tabular-nums">{percent}%</span>
+        <span className="text-ui text-ink-secondary">{t("settings.simple.billing.used")}</span>
       </p>
       <div role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent} className="mt-2 h-1 w-full overflow-hidden rounded-full bg-ink/[0.04]">
         <div className={cn("h-full rounded-full", SUMMARY_BAR[band])} style={{ width: `${percent > 0 ? Math.max(percent, 1) : 0}%` }} />
       </div>
-      <p className="mt-2 text-[12px] leading-4 text-ink-secondary">{note}</p>
+      <p className="mt-2 text-small leading-4 text-ink-secondary">{note}</p>
       {children}
     </section>
   );

@@ -179,7 +179,7 @@ export function SecretRequestCard({
               ? <KeyRound size={13} />
               : <Loader2 size={13} className="animate-spin" />}
         action={retry}
-        detail={error && <p role="alert" className="ms-[19px] mt-1 text-[12px] text-danger-text">{error}</p>}
+        detail={error && <p role="alert" className="ms-[19px] mt-1 text-small text-danger-text">{error}</p>}
       >
         <span className="text-ink-secondary" title={description}>{provided ? `${secret.label} saved securely` : secret.label}</span>
         <span className={declined ? "text-danger-text" : undefined}> · {footerLabel}</span>
@@ -197,7 +197,7 @@ export function SecretRequestCard({
       dismissLabel="Not now"
     >
       {remoteClient ? (
-        <div className="text-[13px] leading-relaxed text-ink-secondary">
+        <div className="text-ui leading-relaxed text-ink-secondary">
           This key must be saved on the host computer. Open this conversation on the host to continue securely.
         </div>
       ) : (
@@ -220,7 +220,7 @@ export function SecretRequestCard({
               {savedLocally ? "Continue task" : "Save securely"}
             </button>
           </div>
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-ink-tertiary">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-small text-ink-tertiary">
             <span className="flex items-center gap-1">
               <LockKeyhole size={11} />{" "}
               {!custom ? `Stored securely by ${productName()} and never added to chat.` : secret.delivery === "file" ? t("secretCard.file") : t("secretCard.ref")}
@@ -238,7 +238,7 @@ export function SecretRequestCard({
           </div>
         </form>
       )}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-small text-danger-text">{error}</p>}
     </AskCard>
   );
 }

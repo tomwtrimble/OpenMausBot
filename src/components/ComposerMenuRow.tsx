@@ -30,14 +30,14 @@ export function ComposerMenuRow({
     >
       <span className="shrink-0">{icon}</span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[14px] font-medium text-ink">{name}</span>
+        <span className="block truncate text-label font-medium text-ink">{name}</span>
         {description ? (
-          <span dir="auto" className="block truncate text-xs text-ink-secondary">
+          <span dir="auto" className="block truncate text-small text-ink-secondary">
             {description}
           </span>
         ) : null}
       </span>
-      <span className="shrink-0 text-end text-xs text-ink-secondary">{kind}</span>
+      <span className="shrink-0 text-end text-small text-ink-secondary">{kind}</span>
     </button>
   );
 }

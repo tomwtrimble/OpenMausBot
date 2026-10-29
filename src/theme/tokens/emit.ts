@@ -4,6 +4,7 @@ import {
   COLOR_TOKENS, IDENTITY_HUES, RADII, ROOT_TOKENS, THEME_TOKENS, WIDE_GAMUT_LIFT, WIDE_GAMUT_TOKENS,
   type ColorToken, type Colors, type Radius, type SkinSource,
 } from "./skin.ts";
+import { TYPE_SCALE } from "./type.ts";
 
 /** The marker pairs around every generated region. Everything between two markers is rewritten on each run. */
 export const REGIONS = {
@@ -32,9 +33,16 @@ const phoneScaleEntries = (skin: SkinSource): Entry[] => {
   return scaleEntries({ ...skin.radius, ...skin.phone!.radius }).filter(([name, value]) => desktop.get(name) !== value);
 };
 
-/** The default skin's colours in `@theme`, so Tailwind emits a utility for each token. */
+/** Each type step as Tailwind's `--text-*` pair, so `text-ui` sets 13px and its 20px line. */
+const typeEntries = (): Entry[] =>
+  Object.entries(TYPE_SCALE).flatMap(([step, { size, lineHeight }]): Entry[] => [
+    [`--text-${step}`, `${size}px`],
+    [`--text-${step}--line-height`, `${lineHeight}px`],
+  ]);
+
+/** The default skin's colours, its corners and the type scale in `@theme`, so Tailwind emits a utility for each token. */
 export function themeDefaults(skin: SkinSource): string {
-  return [...declare("  ", colorEntries(skin.colors, THEME_TOKENS)), ...declare("  ", scaleEntries(skin.radius))].join("\n");
+  return [...declare("  ", colorEntries(skin.colors, THEME_TOKENS)), ...declare("  ", scaleEntries(skin.radius)), ...declare("  ", typeEntries())].join("\n");
 }
 
 /** A token's Display P3 twin: the pinned value, or the same lightness and hue with more chroma, fitted to P3. */

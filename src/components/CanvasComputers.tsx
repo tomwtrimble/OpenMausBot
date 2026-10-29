@@ -9,8 +9,8 @@ import { t } from "@/lib/i18n";
 import type { LocaleKey } from "@/locales";
 import { Button } from "./ui/Button";
 
-const control = "rounded-lg px-3 py-2 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40";
-const field = "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[12px] text-ink outline-none focus:border-accent";
+const control = "rounded-lg px-3 py-2 text-small text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40";
+const field = "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-small text-ink outline-none focus:border-accent";
 type Inventory = { computers: TeamComputer[]; configured: boolean; problem?: string };
 
 function computerStateLabel(state: string, updating: boolean): string {
@@ -192,14 +192,14 @@ export function CanvasComputers({ open, createRequest, drop, sections, onClose, 
   return <>
     {open && <aside ref={shelf} aria-label={t("canvasComputers.title")} onKeyDown={(event) => { if (event.key === "Escape" && !assignment) { event.stopPropagation(); if (pointer.current) clearDrag(); else onClose(); } }} className="flex w-[300px] max-w-[90vw] shrink-0 flex-col border-l border-hairline bg-panel max-sm:absolute max-sm:inset-y-0 max-sm:right-0 max-sm:z-30 max-sm:shadow-xl">
       <header className="flex items-center gap-2 border-b border-hairline px-4 py-3">
-        <Monitor size={16} className="text-ink-secondary" /><h2 className="flex-1 text-[13px] font-semibold">{t("canvasComputers.title")}</h2>
+        <Monitor size={16} className="text-ink-secondary" /><h2 className="flex-1 text-ui font-semibold">{t("canvasComputers.title")}</h2>
         <button aria-label={t("canvasComputers.refresh")} className={control} disabled={loading || busy !== null} onClick={() => { setError(""); void refresh(); }}><RefreshCw size={14} className={loading ? "animate-spin" : ""} /></button>
         <button ref={closeButton} aria-label={t("canvasComputers.close")} className={control} onClick={onClose}><X size={15} /></button>
       </header>
       <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-4">
-        <p className="text-[12px] leading-relaxed text-ink-secondary">{t("canvasComputers.hint")}</p>
-        {(error || readError || inventory?.problem) && <p role="alert" className="rounded-lg bg-danger/10 p-3 text-[12px] text-danger-text">{error || readError || inventory?.problem}</p>}
-        {inventory && !inventory.configured && <div className="rounded-xl border border-hairline p-3 text-[12px]">
+        <p className="text-small leading-relaxed text-ink-secondary">{t("canvasComputers.hint")}</p>
+        {(error || readError || inventory?.problem) && <p role="alert" className="rounded-lg bg-danger/10 p-3 text-small text-danger-text">{error || readError || inventory?.problem}</p>}
+        {inventory && !inventory.configured && <div className="rounded-xl border border-hairline p-3 text-small">
           <p className="text-ink-secondary">{t("canvasComputers.connectBoatHint")}</p>
           <button className={`${control} mt-2 border border-hairline`} onClick={settings}>{t("canvasComputers.connectBoat")}</button>
         </div>}
@@ -214,16 +214,16 @@ export function CanvasComputers({ open, createRequest, drop, sections, onClose, 
             submittedName.current = null;
           });
         }}>
-          <label className="block text-[12px] font-medium" htmlFor="canvas-computer-name">{t("canvasComputers.newCloud")}</label>
+          <label className="block text-small font-medium" htmlFor="canvas-computer-name">{t("canvasComputers.newCloud")}</label>
           <input ref={nameInput} id="canvas-computer-name" className={field} value={name} maxLength={60} placeholder={t("canvasComputers.namePlaceholder")} disabled={busy !== null || submittedName.current !== null} onChange={(event) => setName(event.target.value)} />
-          <p className="text-[11px] leading-relaxed text-ink-secondary">{t("canvasComputers.createHint")}</p>
+          <p className="text-caption leading-relaxed text-ink-secondary">{t("canvasComputers.createHint")}</p>
           <div className="flex justify-end gap-1">
             <button type="button" className={control} disabled={busy !== null} onClick={() => setCreating(false)}>{t("common.cancel")}</button>
-            <Button variant="primary" size="lg" type="submit" className="flex gap-2 px-3 text-[12px]" disabled={!inventory?.configured || !name.trim() || busy !== null}>
+            <Button variant="primary" size="lg" type="submit" className="flex gap-2 px-3 text-small" disabled={!inventory?.configured || !name.trim() || busy !== null}>
               {busy === "create" && <Loader2 size={13} className="animate-spin" />}{t("canvasComputers.create")}
             </Button>
           </div>
-        </form> : <Button variant="ghost" size="lg" className="flex w-full gap-2 rounded-xl border border-dashed border-hairline px-3 text-[12px] min-h-11 font-normal" disabled={busy !== null} onClick={() => setCreating(true)}><Plus size={14} /> {t("canvasComputers.newCloud")}</Button>}
+        </form> : <Button variant="ghost" size="lg" className="flex w-full gap-2 rounded-xl border border-dashed border-hairline px-3 text-small min-h-11 font-normal" disabled={busy !== null} onClick={() => setCreating(true)}><Plus size={14} /> {t("canvasComputers.newCloud")}</Button>}
         {inventory?.computers.map((computer) => {
           const ready = ["idle", "ready", "running"].includes(computer.state);
           const starting = ["init", "provisioning", "provisioned", "cloning", "starting"].includes(computer.state);
@@ -240,16 +240,16 @@ export function CanvasComputers({ open, createRequest, drop, sections, onClose, 
             onLostPointerCapture={() => { if (pointer.current) clearDrag(); }}
             className="flex touch-none select-none cursor-grab items-center gap-2.5 rounded-lg py-1 outline-none active:cursor-grabbing">
             <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-control text-ink-secondary"><Box size={18} /></span>
-            <span className="min-w-0"><span className="block truncate text-[13px] font-medium">{computer.name}</span><span className="block text-[11px] text-ink-secondary">{t("canvasComputers.cloudComputer")} · {computerStateLabel(computer.state, busy === computer.id)}</span></span>
+            <span className="min-w-0"><span className="block truncate text-ui font-medium">{computer.name}</span><span className="block text-caption text-ink-secondary">{t("canvasComputers.cloudComputer")} · {computerStateLabel(computer.state, busy === computer.id)}</span></span>
           </div>
-          {computer.problem && <p className="mt-2 text-[11px] text-danger-text">{computer.problem}</p>}
+          {computer.problem && <p className="mt-2 text-caption text-danger-text">{computer.problem}</p>}
           <label className="sr-only" htmlFor={`computer-team-${computer.id}`}>{t("canvasComputers.teamFor", { name: computer.name })}</label>
           <Select id={`computer-team-${computer.id}`} className="mt-3 w-full" disabled={busy !== null} value={computer.section === null ? "unassigned" : `team:${computer.section}`}
             onChange={(event) => requestAssignment(computer, event.target.value === "unassigned" ? null : event.target.value.slice(5))}>
             <option value="unassigned">{t("canvasComputers.unassigned")}</option>
             {sections.filter((section) => computer.section === null || section.key === computer.section).map((section) => <option key={section.key} value={`team:${section.key}`}>{section.name}</option>)}
           </Select>
-          {computer.section !== null && <p className="mt-1.5 text-[10px] text-ink-secondary">{t("canvasComputers.unassignHint")}</p>}
+          {computer.section !== null && <p className="mt-1.5 text-caption text-ink-secondary">{t("canvasComputers.unassignHint")}</p>}
           <div className="mt-2 flex flex-wrap gap-1">
             {!ready && !starting && <button className={control} title={t("canvasComputers.startTitle")} disabled={busy !== null || held} onClick={() => void mutate(computer.id, () => post(computer.id, "provision", { acknowledgeCost: true }))}>{t("canvasComputers.startRetry")}</button>}
             {ready && !held && <button className={control} disabled={busy !== null} onClick={() => void mutate(computer.id, () => post(computer.id, "sleep"))}>{t("canvasComputers.sleep")}</button>}
@@ -265,14 +265,14 @@ export function CanvasComputers({ open, createRequest, drop, sections, onClose, 
             {heldHereNow && <button className={`${control} text-accent-text`} disabled={busy !== null} onClick={() => void mutate(computer.id, () => post(computer.id, "control", { action: "release", controlLeaseId: controlLeaseId.current }), () => { setHeldHere(null); setViewer(null); })}>{t("canvasComputers.returnToBots")}</button>}
             {computer.held && !heldHereNow && <button className={control} disabled title={t("canvasComputers.inUseTitle")}>{t("canvasComputers.inUse")}</button>}
           </div>
-          {viewer?.id === computer.id && <a href={viewer.url} target="_blank" rel="noopener noreferrer" className="mt-2 block rounded-lg px-3 py-2 text-[12px] text-accent-text hover:bg-control">{t("canvasComputers.openSecure")} <ArrowUpRight size={14} aria-hidden="true" className="inline align-[-2px]" /></a>}
+          {viewer?.id === computer.id && <a href={viewer.url} target="_blank" rel="noopener noreferrer" className="mt-2 block rounded-lg px-3 py-2 text-small text-accent-text hover:bg-control">{t("canvasComputers.openSecure")} <ArrowUpRight size={14} aria-hidden="true" className="inline align-[-2px]" /></a>}
         </article>; })}
       </div>
       <footer className="border-t border-hairline p-3"><button className={`${control} w-full text-left`} onClick={settings}>{t("canvasComputers.moreSettings")}</button></footer>
     </aside>}
-    {dragging && createPortal(<div role="status" className="pointer-events-none fixed z-[70] rounded-xl border border-accent/40 bg-card px-4 py-3 text-[12px] text-ink shadow-xl" style={{ left: dragging.x + 14, top: dragging.y + 14 }}>
+    {dragging && createPortal(<div role="status" className="pointer-events-none fixed z-[70] rounded-xl border border-accent/40 bg-card px-4 py-3 text-small text-ink shadow-xl" style={{ left: dragging.x + 14, top: dragging.y + 14 }}>
       <span className="flex items-center gap-2"><Box size={15} />{dragging.name}</span>
-      <p className="mt-1 text-[10px] text-ink-secondary">{dragging.hint}</p>
+      <p className="mt-1 text-caption text-ink-secondary">{dragging.hint}</p>
     </div>, document.body)}
     <ConfirmDialog open={assignment !== null} tone="neutral" title={assignment?.section === null ? t("canvasComputers.unassignTitle", { name: assignment?.computer.name ?? t("canvasComputers.computer") }) : t("canvasComputers.assignTitle", { name: assignment?.computer.name ?? t("canvasComputers.computer"), team: assignment?.section || t("settings.section.general") })}
       body={assignment?.section === null

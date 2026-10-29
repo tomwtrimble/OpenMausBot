@@ -482,7 +482,7 @@ export function PluginsPanel() {
     : search
       ? t("connectors.section.results")
       : category ? appCategoryLabel(category) : (sections.length > 1 ? t("apps.section.all") : t("connectors.section.available"));
-  const pill = "inline-flex h-7 shrink-0 items-center justify-center gap-2 rounded-full px-3 text-[13px] font-medium leading-5 transition-colors";
+  const pill = "inline-flex h-7 shrink-0 items-center justify-center gap-2 rounded-full px-3 text-ui font-medium leading-5 transition-colors";
   const pillTone = (selected: boolean) => selected
     ? "bg-ink text-app"
     : "bg-control/70 text-ink-secondary hover:bg-raised-hover hover:text-ink";
@@ -507,7 +507,7 @@ export function PluginsPanel() {
         <header className="flex flex-col gap-4 px-5 pb-4 pt-5 sm:px-7 sm:pt-6">
           <div>
           <div className="flex items-center justify-between gap-3">
-            <h2 id="plugins-title" className="min-w-0 truncate text-[20px] font-semibold leading-7 tracking-[-0.01em] text-ink">{t("apps.title")}</h2>
+            <h2 id="plugins-title" className="min-w-0 truncate text-display font-semibold leading-7 tracking-[-0.01em] text-ink">{t("apps.title")}</h2>
             <div className="flex shrink-0 items-center gap-1">
               <button
                 type="button"
@@ -515,7 +515,7 @@ export function PluginsPanel() {
                 aria-pressed={filter === "connected"}
                 onClick={() => chooseFilter(filter === "connected" ? "all" : "connected")}
                 className={cn(
-                  "inline-flex h-8 items-center gap-2 rounded-full ps-1.5 pe-2 text-[13px] font-medium leading-5 transition-colors",
+                  "inline-flex h-8 items-center gap-2 rounded-full ps-1.5 pe-2 text-ui font-medium leading-5 transition-colors",
                   filter === "connected" ? "bg-raised text-ink" : "text-ink-secondary hover:bg-raised/60 hover:text-ink",
                 )}
               >
@@ -549,7 +549,7 @@ export function PluginsPanel() {
               </button>
             </div>
           </div>
-          <p className="mt-0.5 text-[13px] leading-5 text-ink-secondary">{t("apps.subtitle")}</p>
+          <p className="mt-0.5 text-ui leading-5 text-ink-secondary">{t("apps.subtitle")}</p>
           </div>
           <div className="flex items-center gap-2">
             <label className="flex h-9 min-w-0 flex-1 items-center gap-2.5 rounded-full bg-control/70 px-3.5 focus-within:ring-1 focus-within:ring-focus">
@@ -559,7 +559,7 @@ export function PluginsPanel() {
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder={t("connectors.searchPlaceholder")}
                 aria-label={t("connectors.searchPlaceholder")}
-                className="min-w-0 flex-1 bg-transparent text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
+                className="min-w-0 flex-1 bg-transparent text-label text-ink placeholder:text-ink-secondary focus:outline-none"
               />
             </label>
             <button
@@ -613,7 +613,7 @@ export function PluginsPanel() {
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-7 sm:px-7">
           {stale && (
-            <div className="mb-3 flex items-start gap-2 rounded-xl bg-warning/10 px-3 py-2 text-[13px] text-warning-text">
+            <div className="mb-3 flex items-start gap-2 rounded-xl bg-warning/10 px-3 py-2 text-ui text-warning-text">
               <TriangleAlert size={14} className="mt-px shrink-0" />
               <span>
                 {t("connectors.stale")}
@@ -623,7 +623,7 @@ export function PluginsPanel() {
           {setupNotice && filter !== "mcp" && (
             <div
               className={cn(
-                "mb-3 rounded-xl px-4 py-3 text-[13px]",
+                "mb-3 rounded-xl px-4 py-3 text-ui",
                 setupNotice.tone === "warning" ? "bg-warning/10 text-warning-text" : "bg-control/50 text-ink-secondary",
               )}
             >
@@ -641,7 +641,7 @@ export function PluginsPanel() {
             </div>
           )}
           {botsWithoutApps.length > 0 && (
-            <div className="mb-3 rounded-xl bg-control/50 px-4 py-3 text-[13px] leading-relaxed text-ink-secondary">
+            <div className="mb-3 rounded-xl bg-control/50 px-4 py-3 text-ui leading-relaxed text-ink-secondary">
               <span className="font-medium text-ink">{t("connectors.perBot.title")}</span>{" "}
               {t("connectors.perBot.body")}
               <div className="mt-2 flex flex-wrap gap-2">
@@ -659,7 +659,7 @@ export function PluginsPanel() {
             </div>
           )}
           {configured && !remoteClient && source === "curated" && mode === "self-hosted" && filter !== "mcp" && (
-            <div className="mb-3 text-[12px] text-ink-secondary">
+            <div className="mb-3 text-small text-ink-secondary">
               {t("connectors.featuredBefore")}{" "}
               <button
                 className="underline underline-offset-2 hover:text-ink"
@@ -673,7 +673,7 @@ export function PluginsPanel() {
               {t("connectors.featuredAfter")}
             </div>
           )}
-          {error && <div role="alert" className="mb-3 rounded-xl bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{typeof error === "string" ? error : t(error.key)}</div>}
+          {error && <div role="alert" className="mb-3 rounded-xl bg-danger/10 px-3 py-2 text-small text-danger-text">{typeof error === "string" ? error : t(error.key)}</div>}
 
           {filter !== "mcp" && (
             <div data-apps-grid className="@container flex flex-col gap-7 pt-1">
@@ -714,7 +714,7 @@ export function PluginsPanel() {
                 after={(
                   <>
                     {cards === null && (
-                      <div className="flex items-center justify-center gap-2 py-24 text-[13px] text-ink-secondary">
+                      <div className="flex items-center justify-center gap-2 py-24 text-ui text-ink-secondary">
                         <Loader2 size={14} className="animate-spin" /> {t("connectors.loadingCatalog")}
                       </div>
                     )}
@@ -731,10 +731,10 @@ export function PluginsPanel() {
                     )}
                     {cards !== null && allShown.length === 0 && !nativeCardsShown && sections.length <= 1 && (
                       <div className="flex min-h-40 flex-col items-center justify-center text-center">
-                        <div className="text-[14px] font-medium text-ink">
+                        <div className="text-label font-medium text-ink">
                           {filter === "connected" ? connectedEmptyCopy.title : t("connectors.noAppsFound")}
                         </div>
-                        <div className="mt-1 text-[13px] text-ink-secondary">
+                        <div className="mt-1 text-ui text-ink-secondary">
                           {filter === "connected" ? connectedEmptyCopy.description : t("connectors.tryDifferentSearch")}
                         </div>
                         {filter === "connected" && inventoryPhase === "error" && (
@@ -814,7 +814,7 @@ export function PluginsPanel() {
           <ServiceIcon card={card} className="size-10 shrink-0 rounded-[10px]" />
           <div className="min-w-0 flex-1">
             <div className="flex min-w-0 items-center gap-1.5">
-              <span className="truncate text-[14px] font-semibold leading-5 text-ink">{card.label}</span>
+              <span className="truncate text-label font-semibold leading-5 text-ink">{card.label}</span>
               {connected && !pending && (
                 <Check size={13} strokeWidth={2.5} className="shrink-0 text-success" aria-label={t("apps.connected")} />
               )}
@@ -837,7 +837,7 @@ export function PluginsPanel() {
                 </span>
               )}
             </div>
-            <div className="truncate text-[13px] leading-[18px] text-ink-secondary" title={description}>
+            <div className="truncate text-ui leading-[18px] text-ink-secondary" title={description}>
               {description}
             </div>
           </div>
@@ -861,7 +861,7 @@ export function PluginsPanel() {
                 setAliasDraft("");
               }
             }}
-            className="inline-flex h-7 min-w-[64px] shrink-0 items-center justify-center gap-2 rounded-full bg-control/80 px-3 text-[13px] font-medium leading-5 text-ink transition-colors hover:bg-raised-hover disabled:opacity-40"
+            className="inline-flex h-7 min-w-[64px] shrink-0 items-center justify-center gap-2 rounded-full bg-control/80 px-3 text-ui font-medium leading-5 text-ink transition-colors hover:bg-raised-hover disabled:opacity-40"
           >
             {unavailableReason ? (
               t("connectors.selfHostOnly")
@@ -887,7 +887,7 @@ export function PluginsPanel() {
                 event.preventDefault();
                 void connect(card.slug);
               }
-            }} className="mt-1.5 inline-block text-[12px] text-accent-text underline underline-offset-2">
+            }} className="mt-1.5 inline-block text-small text-accent-text underline underline-offset-2">
               {t("connectors.openAuthorizationPage")}
             </a>
           )}
@@ -897,7 +897,7 @@ export function PluginsPanel() {
                 const active = /^active$/i.test(account.status);
                 const reconnectable = needsReconnect(account) && account.id !== reconnect?.id;
                 return (
-                  <div key={account.id} className="flex min-w-0 items-center gap-2 text-[12px] leading-5">
+                  <div key={account.id} className="flex min-w-0 items-center gap-2 text-small leading-5">
                     {active ? <Check size={12} className="shrink-0 text-success" /> : <span className="size-3 shrink-0" />}
                     <span className="min-w-0 truncate text-ink" title={`${account.alias ? `${account.id} · ` : ""}${account.status.toLowerCase()}`}>
                       {account.alias || account.id}
@@ -908,7 +908,7 @@ export function PluginsPanel() {
                         type="button"
                         disabled={busy}
                         onClick={() => void connect(card.slug, account.alias, account)}
-                        className="ms-auto shrink-0 rounded-full px-2 text-[12px] font-medium leading-5 text-accent-text transition-colors hover:bg-raised-hover disabled:opacity-40"
+                        className="ms-auto shrink-0 rounded-full px-2 text-small font-medium leading-5 text-accent-text transition-colors hover:bg-raised-hover disabled:opacity-40"
                         aria-label={t("connectors.reconnectAria", { account: account.alias || account.id, service: card.label })}
                       >
                         {t("connectors.action.reconnect")}
@@ -921,7 +921,7 @@ export function PluginsPanel() {
                         if (!window.confirm(disconnectAccountConfirmation(card.label, account))) return;
                         disconnectAccount(card.slug, account.id);
                       }}
-                      className={cn("shrink-0 rounded-full px-2 text-[12px] font-medium leading-5 text-ink-secondary transition-colors hover:bg-danger/10 hover:text-danger-text disabled:opacity-40", !reconnectable && "ms-auto")}
+                      className={cn("shrink-0 rounded-full px-2 text-small font-medium leading-5 text-ink-secondary transition-colors hover:bg-danger/10 hover:text-danger-text disabled:opacity-40", !reconnectable && "ms-auto")}
                       aria-label={t("connectors.disconnectAria", {
                         account: account.alias || account.id,
                         service: card.label,
@@ -950,7 +950,7 @@ export function PluginsPanel() {
               </span>
             ));
             return (
-              <div className="mt-1.5 text-[12px] leading-relaxed text-ink-secondary">
+              <div className="mt-1.5 text-small leading-relaxed text-ink-secondary">
                 <span>{t("connectors.grants.limited", { count: limited.length })}</span>{" "}
                 {names}
                 {limited.length > 4 && <span>{t("connectors.grants.more", { count: limited.length - 4 })}</span>}
@@ -979,7 +979,7 @@ export function PluginsPanel() {
                 aria-label={accounts.length > 0
                   ? t("connectors.aliasAriaAnother", { service: card.label })
                   : t("connectors.aliasAriaNew", { service: card.label })}
-                className="h-8 min-w-0 flex-1 rounded-full bg-inset px-3 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus"
+                className="h-8 min-w-0 flex-1 rounded-full bg-inset px-3 text-ui text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus"
               />
               <Button variant="primary" size="md"
                 type="submit"
@@ -1007,15 +1007,15 @@ function AppsSection({ id, title, note, viewAll, after, children }: {
   return (
     <section aria-labelledby={id} data-apps-section={id}>
       <div className="mb-1.5 flex min-h-7 items-center justify-between gap-3 px-2">
-        <h3 id={id} className="min-w-0 truncate text-[14px] font-semibold leading-5 text-ink">
+        <h3 id={id} className="min-w-0 truncate text-label font-semibold leading-5 text-ink">
           {title}
-          {note && <span className="ms-2 text-[12px] font-normal text-ink-secondary">{note}</span>}
+          {note && <span className="ms-2 text-small font-normal text-ink-secondary">{note}</span>}
         </h3>
         {viewAll && (
           <button
             type="button"
             onClick={viewAll.onClick}
-            className="shrink-0 rounded-full px-2 text-[13px] font-medium leading-5 text-ink-secondary transition-colors hover:text-ink"
+            className="shrink-0 rounded-full px-2 text-ui font-medium leading-5 text-ink-secondary transition-colors hover:text-ink"
           >
             {viewAll.label}
           </button>

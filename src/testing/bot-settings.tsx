@@ -57,7 +57,7 @@ function Fixture() {
     setSaved(result.bots);
   };
   return <main className="min-h-screen bg-panel p-8 text-ink">
-    <h1 className="text-xl font-semibold">Isolated bot settings verification</h1>
+    <h1 className="text-display font-semibold">Isolated bot settings verification</h1>
     <p className="my-3">Alt+1–9 switches bots; Alt+D toggles delayed reads, including while settings is open. All data is disposable.</p>
     <label><input type="checkbox" checked={delayReads} onChange={toggleDelay} /> Delay profile reads</label>
     <label className="ml-3">Read delay (ms) <input type="number" defaultValue={1500} min={0} className="w-24 bg-control" onChange={(event) => { readDelayMs = Number(event.target.value); }} /></label>

@@ -12,7 +12,7 @@ export type ButtonSize = "sm" | "md" | "lg";
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  /** fully round, 14px regular, as Simple mode's first-run actions are */
+  /** fully round, at the label step (14px) and regular weight, as Simple mode's first-run and Cloud sheet actions are */
   pill?: boolean;
   /** Busy: keeps its colours, shows a spinner before the label and ignores presses until it is done. */
   loading?: boolean;

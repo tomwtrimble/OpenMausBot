@@ -35,7 +35,7 @@ function storeCollapsed(collapsed: boolean) {
 }
 
 const CARD = "popover-surface fixed bottom-4 left-4 z-40 max-h-[calc(100dvh-32px)] w-[300px] max-w-[calc(100vw-32px)] origin-bottom-left overflow-y-auto rounded-2xl border border-hairline bg-menu text-ink shadow-[0_18px_48px_-16px_color-mix(in_srgb,var(--color-shadow)_55%,transparent),0_4px_12px_-6px_color-mix(in_srgb,var(--color-shadow)_30%,transparent)]";
-const PRIMARY = "ui-button ui-button-primary shrink-0 gap-1.5 text-[13px] transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:transition-none";
+const PRIMARY = "ui-button ui-button-primary shrink-0 gap-1.5 text-ui transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:transition-none";
 
 function nextRunLabel(at: number | null, now = Date.now()): string | null {
   if (!at) return null;
@@ -79,24 +79,24 @@ function CloudReady({ routine, onDone }: { routine?: Routine; onDone: () => void
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--color-success)_16%,transparent),transparent)]" />
     <MausAvatar color="green" state="celebrate" motion={motion.kind} motionKey={motion.key} size={56} label={productName()} />
     <div role="status" className="relative">
-      <h2 id="cloud-ready-title" className="mt-3 text-[15px] font-semibold">{t("cloudSetup.ready.title")}</h2>
+      <h2 id="cloud-ready-title" className="mt-3 text-body font-semibold">{t("cloudSetup.ready.title")}</h2>
       {routine
-        ? <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">
+        ? <p className="mt-1 text-ui leading-relaxed text-ink-secondary">
             <span className="font-medium text-ink">{routine.name}</span>
             {next ? <> {t("cloudSetup.ready.runs", { when: next })}</> : null}
           </p>
-        : <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("cloudSetup.ready.body")}</p>}
-      {run === "failed" && <p role="alert" className="mt-1.5 text-[12px] text-danger-text">{t("cloudSetup.ready.runFailed")}</p>}
+        : <p className="mt-1 text-ui leading-relaxed text-ink-secondary">{t("cloudSetup.ready.body")}</p>}
+      {run === "failed" && <p role="alert" className="mt-1.5 text-small text-danger-text">{t("cloudSetup.ready.runFailed")}</p>}
     </div>
     {routine
       ? <div className="relative mt-4 flex w-full flex-col gap-2">
           <button type="button" onClick={runNow} disabled={run === "starting" || run === "started"}
             className={run === "started"
-              ? "inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-success/15 text-[13px] font-medium text-success"
+              ? "inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-success/15 text-ui font-medium text-success"
               : cn(PRIMARY, "min-h-9 w-full justify-center")}>
             {run === "started" ? <><Check size={14} strokeWidth={2.5} aria-hidden="true" />{t("cloudSetup.ready.running")}</> : t("cloudSetup.ready.runNow")}
           </button>
-          <button type="button" className="py-1 text-[12px] text-ink-secondary transition-colors hover:text-ink" onClick={() => setLeaving(true)}>{t("cloudSetup.ready.later")}</button>
+          <button type="button" className="py-1 text-small text-ink-secondary transition-colors hover:text-ink" onClick={() => setLeaving(true)}>{t("cloudSetup.ready.later")}</button>
         </div>
       : <Button className="relative mt-4 w-full" onClick={() => setLeaving(true)}>{t("cloudSetup.ready.done")}</Button>}
   </aside>;
@@ -152,7 +152,7 @@ export function CloudSetup({ viewer, welcomeShown = false }: { viewer: WelcomeVi
     const bot = state.bots.find((candidate) => candidate.id === jobBot);
     if (bot) openBot(dispatch, bot, showThreads);
   };
-  const hint = (key: LocaleKey) => <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t(key)}</p>;
+  const hint = (key: LocaleKey) => <p className="mt-1 text-ui leading-relaxed text-ink-secondary">{t(key)}</p>;
   const action = (label: LocaleKey, onClick: () => void) => <button type="button" className={PRIMARY} onClick={onClick}>{t(label)}<ArrowRight size={13} aria-hidden="true" /></button>;
 
   const details = (id: CloudSetupStep): { body: ReactNode; act?: ReactNode } => {
@@ -179,7 +179,7 @@ export function CloudSetup({ viewer, welcomeShown = false }: { viewer: WelcomeVi
   const titleOf = (id: CloudSetupStep) => t(TITLE[id]);
   const row = (item: CloudSetupItem, index: number) => {
     const pending = item.status === "todo";
-    const title = <span className="min-w-0 flex-1 text-[13px] leading-[18px]">
+    const title = <span className="min-w-0 flex-1 text-ui leading-[18px]">
       {titleOf(item.id)}
       {item.status === "skipped"
         ? <span> · {t("cloudSetup.skipped")}</span>
@@ -198,9 +198,9 @@ export function CloudSetup({ viewer, welcomeShown = false }: { viewer: WelcomeVi
     const here = onScreen(id);
     const { body, act } = here ? { body: null, act: null } : details(id);
     return <div key={id} data-cloud-setup-step={id} data-status="todo" className="animate-rise mt-4">
-      <h3 className="text-[14px] font-semibold leading-snug text-ink [text-wrap:balance]">{titleOf(id)}</h3>
+      <h3 className="text-label font-semibold leading-snug text-ink [text-wrap:balance]">{titleOf(id)}</h3>
       {here
-        ? <p className="mt-1.5 flex items-center gap-1.5 text-[12px] font-medium text-accent-text"><span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />{t("cloudSetup.onScreen")}</p>
+        ? <p className="mt-1.5 flex items-center gap-1.5 text-small font-medium text-accent-text"><span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />{t("cloudSetup.onScreen")}</p>
         : body}
       {act && <div className="mt-3.5 flex">{act}</div>}
     </div>;
@@ -214,8 +214,8 @@ export function CloudSetup({ viewer, welcomeShown = false }: { viewer: WelcomeVi
   return <aside aria-labelledby="cloud-setup-title" data-cloud-setup className={cn(CARD, "animate-spot-in p-4")}>
     <div className="flex items-center gap-2">
       <Cloud size={14} aria-hidden="true" className="shrink-0 text-ink-secondary" />
-      <h2 id="cloud-setup-title" className="min-w-0 flex-1 truncate text-[13px] font-semibold">{t("cloudSetup.title")}</h2>
-      <span aria-hidden="true" className="shrink-0 text-[12px] tabular-nums text-ink-secondary">{progress}</span>
+      <h2 id="cloud-setup-title" className="min-w-0 flex-1 truncate text-ui font-semibold">{t("cloudSetup.title")}</h2>
+      <span aria-hidden="true" className="shrink-0 text-small tabular-nums text-ink-secondary">{progress}</span>
       <button type="button" aria-label={t(collapsed ? "cloudSetup.expand" : "cloudSetup.collapse")} aria-expanded={!collapsed} aria-controls="cloud-setup-body" onClick={toggle}
         className={cn("ui-icon-button -mr-1.5 size-6 min-h-0 shrink-0 p-0", collapsed && "after:absolute after:inset-0 after:content-['']")}>
         <ChevronDown size={14} aria-hidden="true" className={cn("transition-transform duration-200 ease-out", collapsed && "rotate-180")} />
@@ -231,9 +231,9 @@ export function CloudSetup({ viewer, welcomeShown = false }: { viewer: WelcomeVi
       })}
     </div>
     {!collapsed && <div id="cloud-setup-body">
-      {current ? focus(current) : <p role="status" className="animate-rise mt-4 text-[13px] leading-relaxed text-ink-secondary">{t("cloudSetup.working")}</p>}
+      {current ? focus(current) : <p role="status" className="animate-rise mt-4 text-ui leading-relaxed text-ink-secondary">{t("cloudSetup.working")}</p>}
       {others.length > 0 && <ol className="stagger mt-4 flex flex-col border-t border-hairline pt-2.5">{others.map(row)}</ol>}
-      <button type="button" className="mt-1.5 py-1 text-[12px] text-ink-secondary transition-colors hover:text-ink" onClick={hide}>{t("cloudSetup.hide")}</button>
+      <button type="button" className="mt-1.5 py-1 text-small text-ink-secondary transition-colors hover:text-ink" onClick={hide}>{t("cloudSetup.hide")}</button>
     </div>}
   </aside>;
 }

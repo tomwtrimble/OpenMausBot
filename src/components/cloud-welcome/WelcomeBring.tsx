@@ -33,8 +33,8 @@ export function WelcomeBring({ name, desktop, older = false, cloudHasWork, sent 
   const teamButton = useRef<HTMLButtonElement>(null);
   const freshBody = <>
     <CardIcon icon={Sparkles} />
-    <span className="text-[15px] font-semibold text-ink">{t("cloudWelcome.bring.fresh")}</span>
-    <span className="text-[13px] leading-relaxed text-ink-secondary">{t(advanced ? "cloudWelcome.bring.freshHint" : "cloudWelcome.bring.freshChief")}</span>
+    <span className="text-body font-semibold text-ink">{t("cloudWelcome.bring.fresh")}</span>
+    <span className="text-ui leading-relaxed text-ink-secondary">{t(advanced ? "cloudWelcome.bring.freshHint" : "cloudWelcome.bring.freshChief")}</span>
   </>;
   const library = teams && <TeamLibraryPanel returnFocusRef={teamButton} onClose={() => setTeams(false)}
     onImported={() => { onTeam(); setTeams(false); onFinish("team"); }} />;
@@ -67,19 +67,19 @@ export function WelcomeBring({ name, desktop, older = false, cloudHasWork, sent 
       : <button type="button" className={PRIMARY} onClick={() => onFinish("skipped")}>{t("onboarding.continue")}</button>;
   return <section aria-labelledby="cloud-welcome-step" data-welcome-step="bring" className="flex flex-col gap-5">
     <StepHeading headingRef={headingRef} title={t("cloudWelcome.bring.title", { name })} sub={t(team ? "cloudWelcome.bring.subTeam" : "cloudWelcome.bring.sub", { name })} />
-    {older && <p role="note" data-bring-update className="text-[13px] leading-relaxed text-ink">{t("cloudWelcome.bring.update")}</p>}
+    {older && <p role="note" data-bring-update className="text-ui leading-relaxed text-ink">{t("cloudWelcome.bring.update")}</p>}
     {cloudHasWork
       ? <div data-bring-here className={cn(CARD, CARD_IDLE)}>
           <CardIcon icon={Users} />
-          <span className="text-[15px] font-semibold text-ink">{t("cloudWelcome.bring.hereTitle")}</span>
-          <span className="text-[13px] leading-relaxed text-ink-secondary">{t("cloudWelcome.bring.hereBody", { name })}</span>
+          <span className="text-body font-semibold text-ink">{t("cloudWelcome.bring.hereTitle")}</span>
+          <span className="text-ui leading-relaxed text-ink-secondary">{t("cloudWelcome.bring.hereBody", { name })}</span>
         </div>
       : <div className="grid gap-3 @lg/step:grid-cols-2">
           <div data-bring-choice="fresh" className={cn(CARD, CARD_PICKED)}>{freshBody}</div>
           {!desktop && <div data-bring-desktop className={cn(CARD, "border-dashed border-hairline bg-transparent")}>
             <CardIcon icon={Laptop} />
-            <span className="text-[15px] font-semibold text-ink">{t("cloudWelcome.bring.desktopTitle")}</span>
-            <span className="text-[13px] leading-relaxed text-ink-secondary">{t("cloudWelcome.bring.desktopOnly")}</span>
+            <span className="text-body font-semibold text-ink">{t("cloudWelcome.bring.desktopTitle")}</span>
+            <span className="text-ui leading-relaxed text-ink-secondary">{t("cloudWelcome.bring.desktopOnly")}</span>
           </div>}
         </div>}
     <Footer>{actions}</Footer>

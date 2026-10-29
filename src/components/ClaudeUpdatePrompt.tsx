@@ -47,14 +47,14 @@ export function ClaudeUpdatePrompt({
     <button
       type="button"
       onClick={onRetry}
-      className="flex items-center gap-1.5 rounded-full border border-hairline px-2.5 py-1 text-[13px] text-ink hover:bg-raised-hover"
+      className="flex items-center gap-1.5 rounded-full border border-hairline px-2.5 py-1 text-ui text-ink hover:bg-raised-hover"
     >
       <RefreshCw size={12} aria-hidden="true" /> {t("chat.retry")}
     </button>
   );
 
   return (
-    <div className="mt-2 rounded-lg border border-hairline bg-card/60 px-3 py-2.5 text-[13px] text-ink" role="group" aria-label={t("chat.claudeUpdate.aria")}>
+    <div className="mt-2 rounded-lg border border-hairline bg-card/60 px-3 py-2.5 text-ui text-ink" role="group" aria-label={t("chat.claudeUpdate.aria")}>
       {phase.kind === "ask" && (
         <>
           <p className="leading-relaxed">{t("chat.claudeUpdate.offer")}</p>
@@ -91,7 +91,7 @@ export function ClaudeUpdatePrompt({
         <>
           {phase.kind === "failed" && <p className="mb-1.5 break-words text-danger-text">{phase.error}</p>}
           <p className="leading-relaxed text-ink-secondary">{t("chat.claudeUpdate.manual")}</p>
-          <div className="mt-1.5 flex items-center gap-1 rounded-md bg-inset/60 px-2 py-1 font-mono text-[12px]">
+          <div className="mt-1.5 flex items-center gap-1 rounded-md bg-inset/60 px-2 py-1 font-mono text-small">
             <span className="flex-1 select-all">{UPDATE_COMMAND}</span>
             <button
               type="button"

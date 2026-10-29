@@ -88,7 +88,7 @@ export function ExportTranscriptMenu({
         label="Export options" className="w-[220px] overflow-hidden">
         <MenuHeading>Export Conversation</MenuHeading>
         {!hasMessages ? (
-          <div className="px-2 py-1.5 text-[12px] text-ink-secondary">
+          <div className="px-2 py-1.5 text-small text-ink-secondary">
             No messages to export yet.
           </div>
         ) : (
@@ -98,7 +98,7 @@ export function ExportTranscriptMenu({
               {copied ? "Copied to clipboard!" : "Copy as Markdown"}
             </MenuItem>
             {copyFailed && (
-              <div role="status" className="px-2 py-1.5 text-[12px] text-ink-secondary">
+              <div role="status" className="px-2 py-1.5 text-small text-ink-secondary">
                 Clipboard unavailable. Download the Markdown file instead.
               </div>
             )}

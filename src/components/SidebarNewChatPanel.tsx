@@ -120,7 +120,7 @@ export function SidebarNewChatPanel({
   };
 
   const rowClass = (index: number) => cn(
-    "flex h-12 w-full items-center gap-3 rounded-2xl px-3 text-start text-[14px] text-ink outline-none focus-visible:bg-raised-hover",
+    "flex h-12 w-full items-center gap-3 rounded-2xl px-3 text-start text-label text-ink outline-none focus-visible:bg-raised-hover",
     index === selected && "bg-raised-hover",
   );
 
@@ -144,7 +144,7 @@ export function SidebarNewChatPanel({
         "flex h-12 shrink-0 items-center gap-2 px-4",
         place.floating && "rounded-b-2xl bg-app",
       )}>
-        <label htmlFor="new-chat-to" className="shrink-0 text-[14px] text-ink-secondary">{t("sidebar.newChat.to")}</label>
+        <label htmlFor="new-chat-to" className="shrink-0 text-label text-ink-secondary">{t("sidebar.newChat.to")}</label>
         <input
           id="new-chat-to"
           autoFocus
@@ -156,7 +156,7 @@ export function SidebarNewChatPanel({
           aria-controls="new-chat-bots"
           autoComplete="off"
           spellCheck={false}
-          className="h-7 min-w-0 flex-1 bg-transparent text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
+          className="h-7 min-w-0 flex-1 bg-transparent text-label text-ink placeholder:text-ink-secondary focus:outline-none"
         />
         <IconButton label={t("common.close")}
           onClick={onClose}
@@ -186,9 +186,9 @@ export function SidebarNewChatPanel({
           </div>
         ))}
         {state.bots.every((bot) => bot.hidden) ? (
-          <div className="px-3 py-4 text-center text-[13px] text-ink-secondary">{t("sidebar.newChannel.emptyHint")}</div>
+          <div className="px-3 py-4 text-center text-ui text-ink-secondary">{t("sidebar.newChannel.emptyHint")}</div>
         ) : bots.length === 0 ? (
-          <div className="px-3 py-4 text-center text-[13px] text-ink-secondary">{t("sidebar.newChat.noMatch", { query: query.trim() })}</div>
+          <div className="px-3 py-4 text-center text-ui text-ink-secondary">{t("sidebar.newChat.noMatch", { query: query.trim() })}</div>
         ) : bots.map((bot, i) => {
           const index = actions.length + i;
           const subtext = newChatSubtext(bot);

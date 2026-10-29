@@ -21,11 +21,11 @@ export function CloudNoticeCard({ kind, busy = false, failed = false, onAction, 
 }) {
   const card = CLOUD_NOTICE_CARD[kind];
   return <NoticeCard titleId="cloud-notice-title" notice={`cloud-notice-${kind}`} icon={Cloud} title={t(card.title)} onDismiss={onNotNow}>
-    <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t(card.hint)}</p>
+    <p className="mt-1 text-ui leading-relaxed text-ink-secondary">{t(card.hint)}</p>
     <div className="mt-3 flex flex-wrap items-center gap-3">
       <button type="button" disabled={busy} className={PRIMARY_BUTTON} onClick={onAction}>{t(card.action)}</button>
       <NotNowButton onClick={onNotNow} />
     </div>
-    {failed && <p role="alert" className="mt-2 text-[12px] text-danger-text">{t("cloudAccount.actionFailed")}</p>}
+    {failed && <p role="alert" className="mt-2 text-small text-danger-text">{t("cloudAccount.actionFailed")}</p>}
   </NoticeCard>;
 }

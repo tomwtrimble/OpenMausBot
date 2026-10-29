@@ -123,26 +123,26 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
   };
 
   if (auth?.phase === "succeeded") {
-    return <p role="status" data-claude-sign-in className="mt-3 text-[12px] text-success">{t("engineSetup.claude.connected")}</p>;
+    return <p role="status" data-claude-sign-in className="mt-3 text-small text-success">{t("engineSetup.claude.connected")}</p>;
   }
 
   if (auth?.phase === "waiting" && !link) {
-    return <p role="alert" data-claude-sign-in className="mt-3 text-[12px] text-danger-text">{t("engineSetup.claude.invalidChallenge")}</p>;
+    return <p role="alert" data-claude-sign-in className="mt-3 text-small text-danger-text">{t("engineSetup.claude.invalidChallenge")}</p>;
   }
 
   if (auth?.phase === "waiting" && link) {
     return (
       <form data-claude-sign-in className="mt-3 space-y-3 rounded-xl border border-hairline bg-app p-3" onSubmit={(event) => { event.preventDefault(); void finish(); }}>
         <div className="space-y-1.5">
-          <p className="text-[12px] font-medium text-ink">{t("accounts.claude.step1")}</p>
+          <p className="text-small font-medium text-ink">{t("accounts.claude.step1")}</p>
           <a href={link} target="_blank" rel="noopener noreferrer" onClick={(event) => {
             if (window.ogb?.openExternal) { event.preventDefault(); void openExternalLink(link); }
-          }} className="flex w-fit items-center gap-1.5 rounded-lg bg-control px-3 py-1.5 text-[12px] font-medium text-ink hover:bg-raised-hover">
+          }} className="flex w-fit items-center gap-1.5 rounded-lg bg-control px-3 py-1.5 text-small font-medium text-ink hover:bg-raised-hover">
             {t("accounts.claude.openAgain")} <ExternalLink size={12} />
           </a>
         </div>
         <div className="space-y-1.5">
-          <label className="block text-[12px] font-medium text-ink" htmlFor={`claude-code-${instanceId}`}>{t("accounts.claude.step2")}</label>
+          <label className="block text-small font-medium text-ink" htmlFor={`claude-code-${instanceId}`}>{t("accounts.claude.step2")}</label>
           <div className="flex gap-2">
             <input
               id={`claude-code-${instanceId}`}
@@ -152,7 +152,7 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
               spellCheck={false}
               autoFocus
               placeholder={t("accounts.claude.codePlaceholder")}
-              className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink outline-none focus:border-accent-border"
+              className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-ui text-ink outline-none focus:border-accent-border"
             />
             <Button variant="primary" size="lg" type="submit" disabled={busy !== null || code.trim().length < 8} className="flex shrink-0 gap-1.5 px-3">
               {busy === "finish" && <Loader2 size={13} className="animate-spin" />}
@@ -160,10 +160,10 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
             </Button>
           </div>
         </div>
-        {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+        {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
         <div className="flex items-center justify-between gap-3">
-          <p className="text-[11px] leading-relaxed text-ink-secondary">{t("accounts.claude.security")}</p>
-          <Button variant="ghost" disabled={busy !== null} onClick={() => void cancel()} className="shrink-0 text-[12px] font-normal">
+          <p className="text-caption leading-relaxed text-ink-secondary">{t("accounts.claude.security")}</p>
+          <Button variant="ghost" disabled={busy !== null} onClick={() => void cancel()} className="shrink-0 text-small font-normal">
             {t("common.cancel")}
           </Button>
         </div>
@@ -175,7 +175,7 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
     : auth?.phase === "failed" ? auth.message || t("engineSetup.device.failed") : null;
   return (
     <div className="mt-3 space-y-2" data-claude-sign-in>
-      {outcome && <p role="status" className="text-[12px] text-ink-secondary">{outcome}</p>}
+      {outcome && <p role="status" className="text-small text-ink-secondary">{outcome}</p>}
       <div className="flex flex-wrap items-center gap-2">
         <Button variant="primary" size="lg"
           disabled={busy !== null}
@@ -186,10 +186,10 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
           {busy === "start" ? t("engineSetup.claude.starting") : auth || error ? t("engineSetup.device.tryAgain") : t("engineSetup.claude.start")}
         </Button>
         {onDone && (auth || error) && busy === null && (
-          <Button variant="ghost" size="lg" onClick={() => onDone(false)} className="px-2.5 text-[12px] font-normal">{t("common.cancel")}</Button>
+          <Button variant="ghost" size="lg" onClick={() => onDone(false)} className="px-2.5 text-small font-normal">{t("common.cancel")}</Button>
         )}
       </div>
-      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
     </div>
   );
 }

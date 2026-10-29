@@ -14,7 +14,7 @@ function Fixture() {
   const bot = state.bots.find((b) => b.name === "Atlas");
   const group = state.groups[0];
   return <div className="flex h-dvh flex-col bg-app text-ink">
-    <nav className="flex shrink-0 flex-wrap gap-4 border-b border-edge px-6 py-3 text-sm">
+    <nav className="flex shrink-0 flex-wrap gap-4 border-b border-edge px-6 py-3 text-label">
       <span className="font-semibold">OpenMausBot · Isolated mention verification</span>
       <button onClick={() => { setRoom(true); setDmPreview(false); }}>Channel</button>
       <button onClick={() => setRoom(false)}>Direct chat</button>

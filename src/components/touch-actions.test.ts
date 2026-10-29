@@ -14,12 +14,12 @@ const styles = readFileSync(stylesPath, "utf8");
 
 // Keyed by file and a class-string snippet, so a stale entry fails instead of silently widening.
 const notActions: Array<{ file: string; snippet: string; why: string }> = [
-  { file: "components/ChatView.tsx", snippet: "self-end pb-1 text-[11px] tabular-nums", why: "message timestamp, informational" },
-  { file: "components/GroupView.tsx", snippet: "self-end pb-1 text-[11px] tabular-nums", why: "message timestamp, informational" },
+  { file: "components/ChatView.tsx", snippet: "self-end pb-1 text-caption tabular-nums", why: "message timestamp, informational" },
+  { file: "components/GroupView.tsx", snippet: "self-end pb-1 text-caption tabular-nums", why: "message timestamp, informational" },
   { file: "components/ScreenFrame.tsx", snippet: "group-hover/image:opacity-100", why: "aria-hidden zoom hint; the whole image is the tap target" },
   { file: "components/AttachmentPreview.tsx", snippet: "group-hover/image:opacity-100", why: "zoom hint; the whole image is the tap target" },
   { file: "components/remote-desktop-panel.tsx", snippet: "bg-black/65 py-2", why: "caption; the whole preview is the tap target" },
-  { file: "components/routines/CalendarSidebar.tsx", snippet: "text-[9px]", why: "'Drag' hint badge, not a control" },
+  { file: "components/routines/CalendarSidebar.tsx", snippet: "px-1.5 py-0.5 text-caption text-ink-tertiary opacity-0", why: "'Drag' hint badge, not a control" },
   { file: "components/RoutineCalendarPage.tsx", snippet: "cursor-ns-resize", why: "mouse drag-resize handle for call events" },
   { file: "components/ComputerPanel.tsx", snippet: "opacity-80", why: "already visible at 80% without hover" },
   { file: "components/bot-panel/PanelHero.tsx", snippet: "whitespace-nowrap rounded-md border border-edge bg-menu", why: "\"Edit avatar\" tooltip; the avatar button itself is the tap target" },

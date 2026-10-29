@@ -50,9 +50,9 @@ export function OpenCodeProviderKeys() {
 
   return (
     <div data-opencode-provider-keys className="flex flex-col gap-2">
-      <p className="text-[12px] leading-4 text-ink-secondary">{t("keys.opencode.otherProviders.hint")}</p>
+      <p className="text-small leading-4 text-ink-secondary">{t("keys.opencode.otherProviders.hint")}</p>
       {state.config?.cloudHome !== true && (
-        <p className="text-[12px] leading-4 text-ink-secondary">
+        <p className="text-small leading-4 text-ink-secondary">
           {t("keys.opencode.providersHint").split("{command}").flatMap((part, index) =>
             index === 0 ? [part] : [<code key={index} className="font-mono">opencode auth login</code>, part])}
         </p>
@@ -98,7 +98,7 @@ export function OpenCodeProviderKeys() {
           {adding ? <Loader2 size={13} className="animate-spin" aria-hidden="true" /> : t("common.save")}
         </Button>
       </div>
-      {error && <div role="alert" className="text-[12px] leading-4 text-danger-text">{error}</div>}
+      {error && <div role="alert" className="text-small leading-4 text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -122,18 +122,18 @@ export function AnthropicEveryClaudeBot() {
     <div data-anthropic-every-claude-bot className="flex flex-col gap-1.5">
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
-          <div className="text-[13px] leading-[18px] text-ink">{t("keys.anthropic.everyBot")}</div>
-          <div className="text-[12px] leading-4 text-ink-secondary">{on ? t("keys.anthropic.everyBotOn") : t("keys.anthropic.everyBotOff")}</div>
+          <div className="text-ui leading-[18px] text-ink">{t("keys.anthropic.everyBot")}</div>
+          <div className="text-small leading-4 text-ink-secondary">{on ? t("keys.anthropic.everyBotOn") : t("keys.anthropic.everyBotOff")}</div>
         </div>
         <Switch checked={on} disabled={saving} onClick={toggle} aria-label={t("keys.anthropic.everyBot")} />
       </div>
       {on && (
-        <p className="flex gap-1.5 text-[12px] leading-4 text-warning-text">
+        <p className="flex gap-1.5 text-small leading-4 text-warning-text">
           <TriangleAlert size={13} className="mt-px shrink-0" aria-hidden="true" />
           <span>{t("keys.anthropic.warning")}</span>
         </p>
       )}
-      {error && <div role="alert" className="text-[12px] leading-4 text-danger-text">{error}</div>}
+      {error && <div role="alert" className="text-small leading-4 text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -166,7 +166,7 @@ export function VpsConnection() {
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-[12px] leading-4 text-ink-secondary">
+      <p className="text-small leading-4 text-ink-secondary">
         {t("keys.vps.descBefore")}
         <a href="https://github.com/milind-soni/OpenMausBot/blob/main/docs/byo-vps.md" target="_blank" rel="noopener noreferrer" className="text-accent-text hover:underline">
           {t("keys.vps.descLink")}
@@ -196,7 +196,7 @@ export function VpsConnection() {
           {saving ? <Loader2 size={13} className="animate-spin" aria-hidden="true" /> : clearing ? t("keys.row.remove") : t("common.save")}
         </Button>
       </div>
-      {error && <div role="alert" className="text-[12px] leading-4 text-danger-text">{error}</div>}
+      {error && <div role="alert" className="text-small leading-4 text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -224,7 +224,7 @@ export function OpenAiCompatUrl() {
 
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="text-[13px] leading-[18px] text-ink">{t("keys.openaiCompat.url")}</div>
+      <div className="text-ui leading-[18px] text-ink">{t("keys.openaiCompat.url")}</div>
       <div className="relative">
         <input
           type="url"
@@ -239,8 +239,8 @@ export function OpenAiCompatUrl() {
         />
         {saving && <Loader2 size={13} aria-hidden="true" className="absolute right-2.5 top-1/2 -translate-y-1/2 animate-spin text-ink-secondary" />}
       </div>
-      <p className="text-[12px] leading-4 text-ink-secondary">{t("keys.openaiCompat.urlHint")}</p>
-      {error && <div role="alert" className="text-[12px] leading-4 text-danger-text">{error}</div>}
+      <p className="text-small leading-4 text-ink-secondary">{t("keys.openaiCompat.urlHint")}</p>
+      {error && <div role="alert" className="text-small leading-4 text-danger-text">{error}</div>}
     </div>
   );
 }

@@ -468,7 +468,7 @@ describe("the hero", () => {
   });
 
   it("sets the name at 17px, and shows the title line only once one is set", () => {
-    expect(find(hero(makeBot()), "data-panel-rename").props.className).toContain("text-[17px]");
+    expect(find(hero(makeBot()), "data-panel-rename").props.className).toContain("text-title");
     const untitled = hero(makeBot({ title: "" }));
     expect(has(untitled, "data-panel-label")).toBe(false);
     expect(untitled.html).not.toContain("Add a label");

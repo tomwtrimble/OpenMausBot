@@ -18,8 +18,8 @@ export interface McpServerSubmission {
   ownKey?: string;
 }
 
-const FIELD = "mt-1.5 w-full rounded-lg border border-hairline bg-raised px-3 py-2.5 text-[13px] text-ink outline-none focus:border-accent";
-const LABEL = "text-[12px] font-medium text-ink-secondary";
+const FIELD = "mt-1.5 w-full rounded-lg border border-hairline bg-raised px-3 py-2.5 text-ui text-ink outline-none focus:border-accent";
+const LABEL = "text-small font-medium text-ink-secondary";
 
 function where(draft: McpDraft): string {
   if (draft.transport === "stdio") return draft.command;
@@ -75,10 +75,10 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
 
   return (
     <div data-mcp-editor className="mt-4 rounded-2xl border border-hairline bg-card p-4 sm:p-5">
-      <div className="text-[14px] font-medium text-ink">{adding ? t("mcp.editorNew") : t(keysOnly ? "mcp.fixKeys.title" : "mcp.editorEdit", { name: server.name })}</div>
+      <div className="text-label font-medium text-ink">{adding ? t("mcp.editorNew") : t(keysOnly ? "mcp.fixKeys.title" : "mcp.editorEdit", { name: server.name })}</div>
       {keysOnly && draft && !details && (
         <div className="mt-3 space-y-3">
-          <p className="text-[12px] leading-relaxed text-ink-secondary">{t("mcp.fixKeys.hint")}</p>
+          <p className="text-small leading-relaxed text-ink-secondary">{t("mcp.fixKeys.hint")}</p>
           {draft.headers.some((row) => row.name.trim())
             ? <McpSecretRows kind="header" valuesOf="named" placeholder={t("mcp.fixKeys.placeholder")} rows={draft.headers} onChange={(headers) => setDraft((current) => ({ ...current, headers }))} />
             : <McpSecretRows kind="header" rows={draft.headers} onChange={(headers) => setDraft((current) => ({ ...current, headers }))} />}
@@ -86,15 +86,15 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
       )}
       {adding && (
         <label className="mt-3 block">
-          <span className="text-[13px] text-ink">{t("mcp.paste.prompt")}</span>
+          <span className="text-ui text-ink">{t("mcp.paste.prompt")}</span>
           <textarea autoFocus aria-label={t("mcp.paste.label")} value={text} onChange={(event) => paste(event.target.value)} spellCheck={false} rows={3}
             placeholder="https://mcp.example.com/mcp"
-            className="mt-2 w-full resize-y rounded-lg border border-hairline bg-raised px-3 py-2.5 font-mono text-[12px] leading-relaxed text-ink outline-none focus:border-accent" />
+            className="mt-2 w-full resize-y rounded-lg border border-hairline bg-raised px-3 py-2.5 font-mono text-small leading-relaxed text-ink outline-none focus:border-accent" />
         </label>
       )}
-      {pasteError && <p role="alert" className="mt-2 text-[12px] leading-relaxed text-danger-text">{t(pasteError)}</p>}
+      {pasteError && <p role="alert" className="mt-2 text-small leading-relaxed text-danger-text">{t(pasteError)}</p>}
       {adding && text.trim() && drafts.length > 0 && !pasteError && (
-        <p role="status" className="mt-2 text-[12px] text-ink-secondary">
+        <p role="status" className="mt-2 text-small text-ink-secondary">
           {draft ? t("mcp.paste.foundOne", { name: draft.name, where: where(draft) }) : t("mcp.paste.foundMany", { count: drafts.length, names: drafts.map((each) => each.name).join(", ") })}
         </p>
       )}
@@ -102,12 +102,12 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
         <div className="mt-3 space-y-3">
           {drafts.map((each, index) => (
             <div key={index} className="space-y-3">
-              {drafts.length > 1 && (each.urlGap || each.headers.some((row) => row.gap) || each.env.some((row) => row.gap)) && <div className="text-[12px] font-medium text-ink">{each.name}</div>}
+              {drafts.length > 1 && (each.urlGap || each.headers.some((row) => row.gap) || each.env.some((row) => row.gap)) && <div className="text-small font-medium text-ink">{each.name}</div>}
               {each.urlGap && (
                 <label className="block">
                   <span className={LABEL}>{t("mcp.field.url")}</span>
                   <input value={each.url} spellCheck={false} onChange={(event) => setDrafts((current) => current.map((other, at) => at === index ? { ...other, url: event.target.value } : other))} className={FIELD} />
-                  <span className="mt-1 block text-[11px] text-warning-text">{t("mcp.paste.urlMissing")}</span>
+                  <span className="mt-1 block text-caption text-warning-text">{t("mcp.paste.urlMissing")}</span>
                 </label>
               )}
               <McpSecretRows kind="header" valuesOf="gaps" rows={each.headers} onChange={(headers) => setDrafts((current) => current.map((other, at) => at === index ? { ...other, headers } : other))} />
@@ -118,7 +118,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
       )}
       {(adding || keysOnly) && drafts.length <= 1 && (
         <button type="button" aria-expanded={details} onClick={() => { setDetails(!details); if (!drafts.length) setDrafts([emptyDraft()]); }}
-          className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-ink-secondary hover:text-ink">
+          className="mt-3 inline-flex items-center gap-1 text-small font-medium text-ink-secondary hover:text-ink">
           {details ? <ChevronDown size={14} /> : <ChevronRight size={14} />} {t("mcp.details")}
         </button>
       )}
@@ -128,7 +128,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
             <div className="inline-flex rounded-lg bg-raised p-0.5" role="radiogroup" aria-label={t("mcp.field.type")}>
               {(["remote", "stdio"] as const).map((transport) => (
                 <button key={transport} type="button" role="radio" aria-checked={draft.transport === transport} onClick={() => setDraft((current) => ({ ...current, transport }))}
-                  className={cn("rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors", draft.transport === transport ? "bg-card text-ink shadow-sm" : "text-ink-secondary hover:text-ink")}>
+                  className={cn("rounded-md px-3 py-1.5 text-small font-medium transition-colors", draft.transport === transport ? "bg-card text-ink shadow-sm" : "text-ink-secondary hover:text-ink")}>
                   {t(transport === "stdio" ? "mcp.transport.stdio" : "mcp.transport.remote")}
                 </button>
               ))}
@@ -146,7 +146,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
                   <span className={LABEL}>{t("mcp.field.url")}</span>
                   <input autoFocus={!adding} value={draft.url} spellCheck={false} placeholder="https://mcp.example.com/mcp" className={FIELD}
                     onChange={(event) => setDraft((current) => ({ ...current, url: event.target.value }))} />
-                  {draft.urlGap && <span className="mt-1 block text-[11px] text-warning-text">{t("mcp.paste.urlMissing")}</span>}
+                  {draft.urlGap && <span className="mt-1 block text-caption text-warning-text">{t("mcp.paste.urlMissing")}</span>}
                 </label>
                 <label className="block">
                   <span className={LABEL}>{t("mcp.field.type")}</span>
@@ -158,33 +158,33 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
                 <div className="sm:col-span-2">
                   <div className={cn(LABEL, "mb-1.5")}>{t("mcp.field.headerRows")}</div>
                   <McpSecretRows kind="header" rows={draft.headers} onChange={(headers) => setDraft((current) => ({ ...current, headers }))} />
-                  <span className="mt-1.5 block text-[11px] text-ink-secondary">{t("mcp.headersHint")}</span>
+                  <span className="mt-1.5 block text-caption text-ink-secondary">{t("mcp.headersHint")}</span>
                 </div>
                 <div className="sm:col-span-2">
-                  <div className="text-[12px] font-medium text-ink">{t("mcp.oauth.title")}</div>
-                  <p className="mt-1 text-[11px] leading-relaxed text-ink-secondary">{savedOAuth ? t("mcp.oauth.hintRedirect", { uri: savedOAuth.redirectUri }) : t("mcp.oauth.hint")}</p>
+                  <div className="text-small font-medium text-ink">{t("mcp.oauth.title")}</div>
+                  <p className="mt-1 text-caption leading-relaxed text-ink-secondary">{savedOAuth ? t("mcp.oauth.hintRedirect", { uri: savedOAuth.redirectUri }) : t("mcp.oauth.hint")}</p>
                   <div className="mt-2 grid gap-4 sm:grid-cols-2">
                     <label className="block">
                       <span className={LABEL}>{t("mcp.oauth.clientId")}</span>
-                      <input value={draft.oauthClientId} spellCheck={false} autoComplete="off" className={cn(FIELD, "font-mono text-[12px]")}
+                      <input value={draft.oauthClientId} spellCheck={false} autoComplete="off" className={cn(FIELD, "font-mono text-small")}
                         onChange={(event) => setDraft((current) => ({ ...current, oauthClientId: event.target.value }))} />
                     </label>
                     <label className="block">
-                      <span className="flex items-center justify-between gap-2 text-[12px] font-medium text-ink-secondary">
+                      <span className="flex items-center justify-between gap-2 text-small font-medium text-ink-secondary">
                         {t("mcp.oauth.clientSecret")}
                         {secretKept && (
-                          <button type="button" onClick={() => setDraft((current) => ({ ...current, oauthClientSecret: "", oauthForgetSecret: true }))} className="text-[11px] font-normal text-ink-secondary underline-offset-2 hover:text-ink hover:underline">
+                          <button type="button" onClick={() => setDraft((current) => ({ ...current, oauthClientSecret: "", oauthForgetSecret: true }))} className="text-caption font-normal text-ink-secondary underline-offset-2 hover:text-ink hover:underline">
                             {t("mcp.oauth.removeSecret")}
                           </button>
                         )}
                       </span>
-                      <input type="password" value={draft.oauthClientSecret} autoComplete="new-password" className={cn(FIELD, "font-mono text-[12px]")}
+                      <input type="password" value={draft.oauthClientSecret} autoComplete="new-password" className={cn(FIELD, "font-mono text-small")}
                         placeholder={secretKept ? t("mcp.oauth.secretSaved") : t("mcp.oauth.secretOptional")}
                         onChange={(event) => setDraft((current) => ({ ...current, oauthClientSecret: event.target.value }))} />
                     </label>
                     <label className="block sm:col-span-2">
                       <span className={LABEL}>{t("mcp.oauth.scopes")}</span>
-                      <input value={draft.oauthScopes} placeholder="offline_access api://my-app/mcp.read" spellCheck={false} className={cn(FIELD, "font-mono text-[12px]")}
+                      <input value={draft.oauthScopes} placeholder="offline_access api://my-app/mcp.read" spellCheck={false} className={cn(FIELD, "font-mono text-small")}
                         onChange={(event) => setDraft((current) => ({ ...current, oauthScopes: event.target.value }))} />
                     </label>
                   </div>
@@ -199,7 +199,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
                 </label>
                 <label className="block sm:col-span-2">
                   <span className={LABEL}>{t("mcp.field.args")}</span>
-                  <textarea value={draft.args} placeholder={"-y\n@modelcontextprotocol/server-github"} rows={4} className={cn(FIELD, "resize-y font-mono text-[12px]")}
+                  <textarea value={draft.args} placeholder={"-y\n@modelcontextprotocol/server-github"} rows={4} className={cn(FIELD, "resize-y font-mono text-small")}
                     onChange={(event) => setDraft((current) => ({ ...current, args: event.target.value }))} />
                 </label>
                 <div className="sm:col-span-2">
@@ -213,7 +213,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
         </div>
       )}
       {team && adding && drafts.length > 0 && (
-        <div data-mcp-team-scope className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-lg bg-raised/50 px-3 py-2 text-[12px]">
+        <div data-mcp-team-scope className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-lg bg-raised/50 px-3 py-2 text-small">
           <span className="text-ink-secondary">{t(canKeepOwn && onlyMe ? "mcp.team.onlyMeOn" : "mcp.team.everyone")}</span>
           {canKeepOwn && (
             <label className="flex items-center gap-1.5 text-ink">
@@ -222,7 +222,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
           )}
         </div>
       )}
-      {error && <p role="alert" className="mt-3 text-[12px] text-danger-text">{t(error.key, error.params)}</p>}
+      {error && <p role="alert" className="mt-3 text-small text-danger-text">{t(error.key, error.params)}</p>}
       <div className="mt-4 flex justify-end gap-2">
         <Button variant="ghost" size="lg" onClick={onCancel} className="px-3 font-normal">{t("mcp.cancel")}</Button>
         <Button variant="primary" size="lg" disabled={busy || !drafts.length} onClick={submit}

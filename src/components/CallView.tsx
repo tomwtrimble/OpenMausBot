@@ -341,8 +341,8 @@ export function CallTargetButton({
           aria-label="Call unavailable"
           className={cn("absolute right-0 z-30 w-[280px]", composer ? "bottom-full mb-1.5" : "mt-1.5", "popover-surface rounded-xl border border-edge bg-menu p-3 text-left shadow-2xl", helpMotion.className)} {...helpMotion.exitProps}
         >
-          <div className="text-[13px] font-medium text-ink">Call unavailable</div>
-          <div className="mt-1 text-[12px] leading-[1.45] text-ink-secondary">{reason}</div>
+          <div className="text-ui font-medium text-ink">Call unavailable</div>
+          <div className="mt-1 text-small leading-[1.45] text-ink-secondary">{reason}</div>
           {canLive && (
             <button
               type="button"
@@ -350,7 +350,7 @@ export function CallTargetButton({
                 setCallMode("live");
                 start("live");
               }}
-              className="mt-2.5 mr-2 rounded-lg border border-edge px-3 py-1.5 text-[12px] font-medium text-ink hover:bg-raised"
+              className="mt-2.5 mr-2 rounded-lg border border-edge px-3 py-1.5 text-small font-medium text-ink hover:bg-raised"
               title={callModeHint("live", { cloudHome })}
             >
               {t("call.live.startInstead")}
@@ -369,7 +369,7 @@ export function CallTargetButton({
                 }
                 setVoiceSetupOpen(true);
               }}
-              className="mt-2.5 text-[12px]"
+              className="mt-2.5 text-small"
             >
               {t("call.voiceSetup.open")}
             </Button>
@@ -438,8 +438,8 @@ export function CallModeMenu({ id, mode, onChoose, onClose, placement = "header"
             )}
           >
             <span className="min-w-0 flex-1">
-              <span className={cn("block text-[14px] leading-[18px]", unavailable ? "text-ink-tertiary" : "text-ink")}>{t(entry.label)}</span>
-              <span className="mt-0.5 block text-[12px] leading-[1.4] text-ink-secondary">
+              <span className={cn("block text-label leading-[18px]", unavailable ? "text-ink-tertiary" : "text-ink")}>{t(entry.label)}</span>
+              <span className="mt-0.5 block text-small leading-[1.4] text-ink-secondary">
                 {unavailable ? `${unavailable.label}. ${unavailable.reason}` : callModeHint(entry.id, { cloudHome })}
               </span>
             </span>
@@ -784,14 +784,14 @@ function Call({ bot }: { bot: Bot }) {
       <BotAvatar bot={bot} state={mascotState} size={220} animated trackPointer />
 
       <div className="flex flex-col items-center gap-1.5 text-center">
-        <div className="text-[20px] font-medium text-ink">{bot.name}</div>
-        <div className="flex items-center gap-2 text-[14px] text-ink-secondary">
+        <div className="text-display font-medium text-ink">{bot.name}</div>
+        <div className="flex items-center gap-2 text-label text-ink-secondary">
           {(phase === "working" || phase === "sending") && <Loader2 size={13} className="animate-spin" />}
           {status}
         </div>
       </div>
 
-      <div className="min-h-[3.5rem] max-w-[560px] px-6 text-center text-[15px] leading-relaxed text-ink">
+      <div className="min-h-[3.5rem] max-w-[560px] px-6 text-center text-body leading-relaxed text-ink">
         {phase === "listening" ? (
           heard || (
             <span className="text-ink-secondary">
@@ -804,17 +804,17 @@ function Call({ bot }: { bot: Bot }) {
       </div>
 
       {note && (
-        <div className="flex max-w-[460px] flex-col items-center gap-2 text-center text-[13px] text-warning-text">
+        <div className="flex max-w-[460px] flex-col items-center gap-2 text-center text-ui text-warning-text">
           <span>{note}</span>
           <button
             onClick={listen}
-            className="rounded-full border border-warning/40 px-3 py-1.5 text-[12px] hover:bg-warning/10"
+            className="rounded-full border border-warning/40 px-3 py-1.5 text-small hover:bg-warning/10"
           >
             Try microphone again
           </button>
         </div>
       )}
-      {speech.error && <div className="max-w-[420px] text-center text-[13px] text-danger-text">{speech.error}</div>}
+      {speech.error && <div className="max-w-[420px] text-center text-ui text-danger-text">{speech.error}</div>}
 
       <div className="flex items-center gap-3">
         {speaker.isSpeaking() && (
@@ -824,20 +824,20 @@ function Call({ bot }: { bot: Bot }) {
               speaker.stop();
               listen();
             }}
-            className="rounded-full border border-hairline px-4 py-2 text-[14px] text-ink hover:bg-raised"
+            className="rounded-full border border-hairline px-4 py-2 text-label text-ink hover:bg-raised"
           >
             Interrupt
           </button>
         )}
         <button
           onClick={() => endCall(bot.id)}
-          className="flex items-center gap-2 rounded-full bg-danger px-5 py-2.5 text-[14px] font-medium text-white hover:brightness-110"
+          className="flex items-center gap-2 rounded-full bg-danger px-5 py-2.5 text-label font-medium text-white hover:brightness-110"
         >
           <PhoneOff size={16} /> Hang up
         </button>
       </div>
 
-      <div className="text-[12px] text-ink-tertiary">
+      <div className="text-small text-ink-tertiary">
         Hold Control + Option to talk · Space interrupts · Esc hangs up
       </div>
     </>

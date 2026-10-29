@@ -23,18 +23,18 @@ function rule(selector: string): Record<string, string> {
 describe("control scale", () => {
   it("steps buttons 32, 28 and 24px with a centered medium label", () => {
     const base = rule(".ui-button,\n  .ui-icon-button");
-    expect(base).toMatchObject({ "min-height": "2rem", "font-size": "13px", "font-weight": "500", "line-height": "1.25rem", "align-items": "center" });
+    expect(base).toMatchObject({ "min-height": "2rem", "font-size": "var(--text-ui)", "font-weight": "500", "line-height": "1.25rem", "align-items": "center" });
     expect(rule(".ui-button")).toMatchObject({ padding: "0.25rem 0.75rem" });
-    expect(rule(".ui-button-md")).toMatchObject({ "min-height": "1.75rem", "font-size": "13px", "line-height": "1.25rem" });
-    expect(rule(".ui-button-sm")).toMatchObject({ "min-height": "1.5rem", "font-size": "12px", "line-height": "1rem" });
+    expect(rule(".ui-button-md")).toMatchObject({ "min-height": "1.75rem", "font-size": "var(--text-ui)", "line-height": "1.25rem" });
+    expect(rule(".ui-button-sm")).toMatchObject({ "min-height": "1.5rem", "font-size": "var(--text-small)", "line-height": "1rem" });
     expect(rule(".ui-button-primary")).toMatchObject({ background: "var(--color-accent)", color: "var(--color-accent-ink)" });
   });
 
   it("gives pills, chips, code and menu rows one size each", () => {
-    expect(rule(".ui-pill")).toMatchObject({ "min-height": "1.75rem", "border-radius": "9999px", "font-size": "13px", "font-weight": "500", "line-height": "1.25rem", "align-items": "center" });
-    expect(rule(".ui-chip")).toMatchObject({ "min-height": "1.375rem", "border-radius": "9999px", "font-size": "12px", "font-weight": "500", "line-height": "1rem" });
+    expect(rule(".ui-pill")).toMatchObject({ "min-height": "1.75rem", "border-radius": "9999px", "font-size": "var(--text-ui)", "font-weight": "500", "line-height": "1.25rem", "align-items": "center" });
+    expect(rule(".ui-chip")).toMatchObject({ "min-height": "1.375rem", "border-radius": "9999px", "font-size": "var(--text-small)", "font-weight": "500", "line-height": "1rem" });
     expect(rule(".ui-code-chip")).toMatchObject({ "box-decoration-break": "clone", "font-family": "var(--font-mono)", "font-size": "0.86em", "line-height": "1" });
-    expect(rule(".ui-menu-row")).toMatchObject({ "min-height": "30px", "border-radius": "0.375rem", "font-size": "14px", "line-height": "18px", gap: "0.5rem" });
+    expect(rule(".ui-menu-row")).toMatchObject({ "min-height": "30px", "border-radius": "0.375rem", "font-size": "var(--text-label)", "line-height": "18px", gap: "0.5rem" });
   });
 
   it("keeps every step on skin tokens", () => {

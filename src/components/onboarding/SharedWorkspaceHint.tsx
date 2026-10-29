@@ -44,10 +44,10 @@ export function SharedWorkspaceHint({
         <MausAvatar color="green" state="happy" size={36} trackPointer={false} />
       </div>
       <div className="min-w-0 flex-1">
-        <h2 id={titleId} className="text-[14px] font-semibold text-ink">
+        <h2 id={titleId} className="text-label font-semibold text-ink">
           {t("onboarding.shared.title")}
         </h2>
-        <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("onboarding.shared.body")}</p>
+        <p className="mt-1 text-ui leading-relaxed text-ink-secondary">{t("onboarding.shared.body")}</p>
         <Button variant="primary"
           onClick={close}
           className="mt-2.5 transition-transform duration-150 active:scale-[0.98]"

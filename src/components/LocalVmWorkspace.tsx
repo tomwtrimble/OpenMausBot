@@ -440,7 +440,7 @@ function LocalVmPane({
               </option>
             ))}
           </Select>
-          <div className="mt-1 flex items-center gap-1.5 text-[11px] text-ink-secondary">
+          <div className="mt-1 flex items-center gap-1.5 text-caption text-ink-secondary">
             <span
               className={cn(
                 "h-1.5 w-1.5 rounded-full",
@@ -460,7 +460,7 @@ function LocalVmPane({
           <Button variant="primary" size="lg"
             onClick={onRelease}
             disabled={controlPending}
-            className="flex shrink-0 gap-1.5 px-2.5 text-[12px]"
+            className="flex shrink-0 gap-1.5 px-2.5 text-small"
           >
             {controlPending ? <Loader2 size={13} className="animate-spin" /> : <Hand size={13} />}
             {t("vm.workspace.handBack")}
@@ -470,7 +470,7 @@ function LocalVmPane({
             type="button"
             onClick={() => onTake(bot.id)}
             disabled={!canDrive || controlPending || heldElsewhere}
-            className="flex shrink-0 items-center gap-1.5 rounded-lg bg-raised px-2.5 py-2 text-[12px] text-ink hover:bg-raised-hover disabled:opacity-45"
+            className="flex shrink-0 items-center gap-1.5 rounded-lg bg-raised px-2.5 py-2 text-small text-ink hover:bg-raised-hover disabled:opacity-45"
             title={t("vm.workspace.takeControlTitle")}
           >
             {controlPending ? <Loader2 size={13} className="animate-spin" /> : <Hand size={13} />}
@@ -488,20 +488,20 @@ function LocalVmPane({
           {!bot ? (
             <div className="flex max-w-[260px] flex-col items-center gap-2 text-ink-secondary">
               <Monitor size={22} />
-              <span className="text-[12px]">{t("vm.workspace.chooseAnother")}</span>
+              <span className="text-small">{t("vm.workspace.chooseAnother")}</span>
             </div>
           ) : !status && !error ? (
-            <div className="flex items-center gap-2 text-[12px] text-ink-secondary">
+            <div className="flex items-center gap-2 text-small text-ink-secondary">
               <Loader2 size={15} className="animate-spin" /> {t("vm.workspace.checking", { name: bot.name })}
             </div>
           ) : status?.ready && nativeState.status !== "error" && !error ? (
-            <div className="flex items-center gap-2 text-[12px] text-ink-secondary">
+            <div className="flex items-center gap-2 text-small text-ink-secondary">
               <Loader2 size={15} className="animate-spin" /> {t("vm.workspace.connecting")}
             </div>
           ) : (
             <div className="flex max-w-[300px] flex-col items-center gap-3 text-ink-secondary">
               <AlertTriangle size={21} className="text-warning-text" />
-              <div className="text-[12px] leading-relaxed">
+              <div className="text-small leading-relaxed">
                 {error ??
                   (status?.container === "missing"
                     ? t("vm.workspace.notCreated", { name: bot.name })
@@ -513,14 +513,14 @@ function LocalVmPane({
                 <button
                   type="button"
                   onClick={() => setRetry((value) => value + 1)}
-                  className="flex items-center gap-1.5 rounded-lg bg-raised px-3 py-2 text-[12px] text-ink hover:bg-raised-hover"
+                  className="flex items-center gap-1.5 rounded-lg bg-raised px-3 py-2 text-small text-ink hover:bg-raised-hover"
                 >
                   <RefreshCw size={13} /> {t("vm.workspace.retryStatus")}
                 </button>
                 <button
                   type="button"
                   onClick={() => onOpenComputer(bot.id)}
-                  className="rounded-lg bg-raised px-3 py-2 text-[12px] text-ink hover:bg-raised-hover"
+                  className="rounded-lg bg-raised px-3 py-2 text-small text-ink hover:bg-raised-hover"
                 >
                   {t("vm.workspace.openComputer")}
                 </button>
@@ -767,8 +767,8 @@ export function LocalVmWorkspace({
           <Monitor size={18} />
         </div>
         <div className="min-w-0 flex-1">
-          <h1 className="truncate text-[14px] font-semibold text-ink">{t("vm.workspace.viewTitle")}</h1>
-          <p className="truncate text-[12px] text-ink-secondary">
+          <h1 className="truncate text-label font-semibold text-ink">{t("vm.workspace.viewTitle")}</h1>
+          <p className="truncate text-small text-ink-secondary">
             Two live desktops · one active controller · watch-only by default
           </p>
         </div>
@@ -784,7 +784,7 @@ export function LocalVmWorkspace({
       </header>
 
       {controlError && (
-        <div className="mx-3 mt-3 flex items-center gap-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">
+        <div className="mx-3 mt-3 flex items-center gap-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-small text-danger-text">
           <AlertTriangle size={14} className="shrink-0" /> {controlError}
         </div>
       )}

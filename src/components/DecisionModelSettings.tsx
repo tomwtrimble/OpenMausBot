@@ -203,8 +203,8 @@ export function DecisionModelSettings() {
   return (
     <>
       <section className="space-y-2 px-4">
-        <p className="text-[13px] leading-relaxed text-ink-secondary">{t("decider.intro")}</p>
-        <p role="status" data-testid="helpers-status" className="text-[13px] font-medium text-ink">{helpersStatusLine(state.config)}</p>
+        <p className="text-ui leading-relaxed text-ink-secondary">{t("decider.intro")}</p>
+        <p role="status" data-testid="helpers-status" className="text-ui font-medium text-ink">{helpersStatusLine(state.config)}</p>
       </section>
       <WorkersAiKeyCard failureText={(result) => deciderFailureText(result, false, "workersai")} />
       <SettingRow title={t("decider.provider.label")}>
@@ -260,7 +260,7 @@ export function DecisionModelSettings() {
       </SettingRow>
 
       <Card title={t(openrouter ? "decider.openrouter.key.label" : "decider.key.label")}>
-        <div role="status" className="mb-2 flex items-center gap-2 text-[13px] text-ink-secondary">
+        <div role="status" className="mb-2 flex items-center gap-2 text-ui text-ink-secondary">
           <span className={cn("size-1.5 rounded-full", configured ? "bg-success" : "bg-raised-hover")} />
           <span className={configured ? "text-success" : undefined}>
             {included
@@ -273,7 +273,7 @@ export function DecisionModelSettings() {
           </span>
         </div>
         {keyHint && (
-          <p className="mb-2 text-[12px] leading-relaxed text-ink-secondary">
+          <p className="mb-2 text-small leading-relaxed text-ink-secondary">
             {t(keyHint)}
             {!ownKey && (
               <>
@@ -301,7 +301,7 @@ export function DecisionModelSettings() {
             aria-label={t(openrouter ? "decider.openrouter.key.label" : "decider.key.label")}
             autoComplete="off"
             spellCheck={false}
-            className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
+            className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-ui text-ink placeholder:text-ink-secondary focus:outline-none"
           />
           <button
             type="button"
@@ -310,7 +310,7 @@ export function DecisionModelSettings() {
             disabled={saving || (!draft && !ownKey)}
             title={clearing ? t("keys.removeKey") : t("common.save")}
             className={cn(
-              "flex w-[72px] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-control py-2 text-[13px] hover:bg-raised-hover disabled:cursor-not-allowed disabled:opacity-50",
+              "flex w-[72px] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-control py-2 text-ui hover:bg-raised-hover disabled:cursor-not-allowed disabled:opacity-50",
               clearing ? "text-danger-text" : "text-ink",
             )}
           >
@@ -321,19 +321,19 @@ export function DecisionModelSettings() {
             data-testid="decider-test"
             onClick={() => void test()}
             disabled={testing || saving || (!draft && !configured)}
-            className="flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-hairline px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-hairline px-3 py-2 text-ui text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
           >
             {testing ? t("keys.testing") : t("keys.test")}
           </button>
         </div>
-        {error && <p role="alert" className="mt-1 text-[12px] text-danger-text">{error}</p>}
-        {verdict && <p role="status" className={cn("mt-1 text-[12px]", verdict.ok ? "text-success" : "text-danger-text")}>{verdict.text}</p>}
+        {error && <p role="alert" className="mt-1 text-small text-danger-text">{error}</p>}
+        {verdict && <p role="status" className={cn("mt-1 text-small", verdict.ok ? "text-success" : "text-danger-text")}>{verdict.text}</p>}
         {!usingShared && (
           <a
             href={KEY_URL[provider]}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-flex cursor-pointer items-center gap-1 text-[12px] text-accent-text hover:underline"
+            className="mt-2 inline-flex cursor-pointer items-center gap-1 text-small text-accent-text hover:underline"
           >
             {t(openrouter ? "decider.openrouter.key.getKey" : "decider.key.getKey")}
             <ExternalLink size={11} aria-hidden="true" />
@@ -345,8 +345,8 @@ export function DecisionModelSettings() {
         <ul className="flex flex-col">
           <li className="flex items-start justify-between gap-4 py-2">
             <div className="min-w-0">
-              <div className="text-[13px] font-medium text-ink">{t("decider.jobs.roomRouting")}</div>
-              <div className="mt-0.5 text-[12px] leading-relaxed text-ink-secondary">{t("decider.jobs.roomRoutingDetail")}</div>
+              <div className="text-ui font-medium text-ink">{t("decider.jobs.roomRouting")}</div>
+              <div className="mt-0.5 text-small leading-relaxed text-ink-secondary">{t("decider.jobs.roomRoutingDetail")}</div>
             </div>
             <Switch
               data-testid="decider-job-roomRouting"
@@ -359,8 +359,8 @@ export function DecisionModelSettings() {
           </li>
           {COMING_SOON.map((label) => (
             <li key={label} data-testid="decider-coming-soon" aria-disabled="true" className="flex items-center justify-between gap-4 border-t border-hairline py-2 opacity-50">
-              <span className="text-[13px] text-ink-secondary">{t(label)}</span>
-              <span className="rounded bg-control px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-ink-secondary">
+              <span className="text-ui text-ink-secondary">{t(label)}</span>
+              <span className="rounded bg-control px-1.5 py-0.5 text-caption font-medium uppercase tracking-wide text-ink-secondary">
                 {t("decider.jobs.comingSoon")}
               </span>
             </li>

@@ -41,7 +41,7 @@ export function GrokImportFlow({ link = null, onPreview, onAdded, bare }: {
     return grokSetupLeft(pending.grokSetup)
       ? <GrokFinishSetup notes={pending.grokSetup} imported={added} onDone={() => finish(added)} className="mt-1" />
       : (
-        <div role="status" className="flex items-center gap-2 text-[14px] text-ink">
+        <div role="status" className="flex items-center gap-2 text-label text-ink">
           <Check size={15} className="text-success" />
           {t("grokFinish.added", { name: added.name })}
         </div>
@@ -66,23 +66,23 @@ export function GrokImportFlow({ link = null, onPreview, onAdded, bare }: {
     };
     return (
       <div aria-label={pending.name}>
-        <div className="text-[15px] font-medium text-ink">{pending.name}</div>
+        <div className="text-body font-medium text-ink">{pending.name}</div>
         <div className="mt-3">
           <TeamImportDetails pending={pending} importedNames={pending.members.map((member) => takeImportName(member.name, taken))} />
         </div>
-        {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
+        {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-ui text-danger-text">{error}</div>}
         <div className="mt-4 flex flex-wrap items-center justify-end gap-2">
           <button
             onClick={() => setPending(null)}
             disabled={adding}
-            className="rounded-full bg-raised px-4 py-2.5 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
+            className="rounded-full bg-raised px-4 py-2.5 text-ui text-ink hover:bg-raised-hover disabled:opacity-50"
           >
             {t("templates.back")}
           </button>
           <Button variant="primary" size="lg"
             onClick={() => void add()}
             disabled={adding}
-            className="flex gap-2 rounded-full px-5 text-[14px] min-h-10"
+            className="flex gap-2 rounded-full px-5 text-label min-h-10"
           >
             {adding && <Loader2 size={15} className="animate-spin" />}
             {adding ? t("templates.importing") : t("templates.addTeam")}

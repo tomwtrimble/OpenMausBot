@@ -34,8 +34,8 @@ export function ownServerSteps(managed: { command: string } | null = null, { ins
 function Command({ text }: { text: string }) {
   const { state, copy } = useCopyFeedback(text);
   return <div className="mt-2 flex items-center gap-2 rounded-lg border border-edge bg-app py-1.5 pe-1.5 ps-3">
-    <code data-own-server-command className="min-w-0 flex-1 select-all break-words font-mono text-[13px] text-ink">{text}</code>
-    <button type="button" onClick={copy} className="ui-button inline-flex shrink-0 items-center gap-1.5 px-2.5 py-1 text-[12px]">
+    <code data-own-server-command className="min-w-0 flex-1 select-all break-words font-mono text-ui text-ink">{text}</code>
+    <button type="button" onClick={copy} className="ui-button inline-flex shrink-0 items-center gap-1.5 px-2.5 py-1 text-small">
       {state === "copied" ? <Check size={13} aria-hidden="true" /> : <Copy size={13} aria-hidden="true" />}
       {t(state === "copied" ? "rail.copied" : "rail.copy")}
     </button>
@@ -54,10 +54,10 @@ export function OwnServerSteps({ choices, onBack, onChoose, managed = null, conn
     <Heading title={connect ? t("rail.connectTitle", { name: connect.name }) : t("rail.own")} sub={t(connect ? "rail.connectLede" : "rail.ownLede")} />
     <ol className="flex flex-col gap-3">
       {steps.map((step, index) => <li key={step.key} className="grid grid-cols-[26px_minmax(0,1fr)] gap-3">
-        <span aria-hidden="true" className="grid size-[26px] place-items-center rounded-full bg-accent/12 text-[13px] font-semibold text-accent-text">{index + 1}</span>
+        <span aria-hidden="true" className="grid size-[26px] place-items-center rounded-full bg-accent/12 text-ui font-semibold text-accent-text">{index + 1}</span>
         <div className="min-w-0">
-          <p className="text-[14px] font-semibold text-ink">{t(step.title)}</p>
-          <p className="text-[13px] leading-relaxed text-ink-secondary">{t(step.detail)}</p>
+          <p className="text-label font-semibold text-ink">{t(step.title)}</p>
+          <p className="text-ui leading-relaxed text-ink-secondary">{t(step.detail)}</p>
           {step.command && <Command text={step.command} />}
           {step.key === "connect" && <div className="mt-2.5 flex flex-wrap gap-2">
             {choices.link && <button type="button" data-autofocus className="ui-button ui-button-primary" onClick={() => onChoose("link")}>{t("rail.paste")}</button>}
@@ -73,8 +73,8 @@ function Choice({ icon, title, sub, onClick, kind }: { icon: ReactNode; title: s
   return <button type="button" data-place-add-choice={kind} onClick={onClick}
     className="flex min-w-0 flex-1 flex-col items-start gap-2 rounded-2xl border border-edge bg-card p-5 text-start transition-colors hover:border-accent/60 hover:bg-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
     <span aria-hidden="true" className="grid size-9 place-items-center rounded-[10px] bg-accent/12 text-accent-text">{icon}</span>
-    <span className="text-[15px] font-semibold text-ink">{title}</span>
-    <span className="text-[13px] leading-snug text-ink-secondary">{sub}</span>
+    <span className="text-body font-semibold text-ink">{title}</span>
+    <span className="text-ui leading-snug text-ink-secondary">{sub}</span>
   </button>;
 }
 

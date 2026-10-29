@@ -6,7 +6,7 @@ import { Button } from "./ui/Button";
 /** A stopped turn, never an error. `name` is the row's tool name: a turn the person stopped says so. */
 export function CancelledTurnRow({ onRetry, name }: { onRetry?: () => void; name?: string }) {
   return (
-    <div role="status" className="flex w-fit max-w-full flex-wrap items-center gap-2 text-[13px] text-ink-secondary">
+    <div role="status" className="flex w-fit max-w-full flex-wrap items-center gap-2 text-ui text-ink-secondary">
       <span>{t(name === PERSON_STOPPED_TURN_NAME ? "chat.turnStoppedByYou" : "chat.turnStopped")}</span>
       {onRetry && (
         <Button variant="ghost" size="md"

@@ -36,9 +36,9 @@ export function CloudTrialNoticeCard({ view, failed = false, onAction, onClose }
 }) {
   return <NoticeCard titleId="cloud-trial-notice-title" notice={`cloud-trial-${view.state}`} icon={ICON[view.state]} title={view.title} onDismiss={onClose} dismissLabel={t("cloudAdd.close")}>
     <div id="cloud-trial-notice-body">
-      <p className="mt-1.5 text-[13px] leading-relaxed text-ink-secondary">{view.body}</p>
-      {view.credit && <p className="mt-1.5 text-[13px] text-ink-secondary">{view.credit}</p>}
-      {view.switchPlan && <p className="mt-1.5 text-[13px] text-ink-secondary">{view.switchPlan}</p>}
+      <p className="mt-1.5 text-ui leading-relaxed text-ink-secondary">{view.body}</p>
+      {view.credit && <p className="mt-1.5 text-ui text-ink-secondary">{view.credit}</p>}
+      {view.switchPlan && <p className="mt-1.5 text-ui text-ink-secondary">{view.switchPlan}</p>}
     </div>
     <div className="mt-3 flex flex-wrap items-center gap-3">
       {view.action ? <>
@@ -46,6 +46,6 @@ export function CloudTrialNoticeCard({ view, failed = false, onAction, onClose }
         <NotNowButton onClick={onClose} />
       </> : <button type="button" className={PRIMARY_BUTTON} onClick={onClose}>{t("cloudTrial.ok")}</button>}
     </div>
-    {failed && <p role="alert" className="mt-2 text-[12px] text-danger-text">{t("notice.openFailed")}</p>}
+    {failed && <p role="alert" className="mt-2 text-small text-danger-text">{t("notice.openFailed")}</p>}
   </NoticeCard>;
 }

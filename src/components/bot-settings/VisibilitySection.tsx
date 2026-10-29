@@ -98,10 +98,10 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
 
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-hairline bg-card p-4" data-bot-visibility>
-      <p className="text-[13px] leading-relaxed text-ink-secondary">{t("botSettings.visibility.subtitle")}</p>
+      <p className="text-ui leading-relaxed text-ink-secondary">{t("botSettings.visibility.subtitle")}</p>
       <div role="radiogroup" aria-label={t("botSettings.visibility.title")} className="flex flex-col gap-1.5">
         {OPTIONS.map((option) => (
-          <label key={option.mode} className="flex cursor-pointer items-center gap-2 text-[13px] text-ink">
+          <label key={option.mode} className="flex cursor-pointer items-center gap-2 text-ui text-ink">
             <input
               type="radio"
               name={`visibility-${bot.id}`}
@@ -115,7 +115,7 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
         ))}
       </div>
       {mode === "people" && (
-        <label className="flex flex-col gap-1 text-[12px] text-ink-secondary">
+        <label className="flex flex-col gap-1 text-small text-ink-secondary">
           {t("botSettings.visibility.peopleLabel")}
           <textarea
             value={people}
@@ -123,13 +123,13 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
             placeholder={t("botSettings.visibility.peoplePlaceholder")}
             rows={4}
             disabled={busy}
-            className="rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
+            className="rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-ui text-ink placeholder:text-ink-secondary focus:outline-none"
           />
         </label>
       )}
-      <p className="text-[12px] leading-relaxed text-ink-secondary">{t("botSettings.visibility.rooms")}</p>
+      <p className="text-small leading-relaxed text-ink-secondary">{t("botSettings.visibility.rooms")}</p>
       {mixed.length > 0 && (
-        <div className="flex flex-col gap-2 rounded-lg border border-warning/25 bg-warning/5 px-3 py-2 text-[12px] leading-relaxed text-ink-secondary" data-visibility-mixed-rooms>
+        <div className="flex flex-col gap-2 rounded-lg border border-warning/25 bg-warning/5 px-3 py-2 text-small leading-relaxed text-ink-secondary" data-visibility-mixed-rooms>
           <p>{t("botSettings.visibility.mixedRooms", { rooms: mixed.map((room) => JSON.stringify(room.name)).join(", ") })}</p>
           <div className="flex flex-wrap gap-2">
             {mixed.map((room) => (
@@ -137,7 +137,7 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
                 key={room.id}
                 disabled={busy}
                 onClick={() => void resetRoom(room.id)}
-                className="text-[12px] hover:bg-control/70 font-normal"
+                className="text-small hover:bg-control/70 font-normal"
               >
                 {t("botSettings.visibility.resetRoom", { room: JSON.stringify(room.name) })}
               </Button>
@@ -150,10 +150,10 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
           {busy ? t("botSettings.visibility.saving") : t("botSettings.visibility.save")}
         </Button>
         {status === "saved" && !dirty && (
-          <span role="status" className="flex items-center gap-1 text-[12px] text-success"><Check size={13} />{t("botSettings.visibility.saved")}</span>
+          <span role="status" className="flex items-center gap-1 text-small text-success"><Check size={13} />{t("botSettings.visibility.saved")}</span>
         )}
       </div>
-      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
+      {error && <p role="alert" className="text-small text-danger-text">{error}</p>}
     </div>
   );
 }

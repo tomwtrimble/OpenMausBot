@@ -21,7 +21,7 @@ export function LicenseExpiryBanner({ config }: { config: ConfigStatus | null | 
     <div
       role="status"
       className={cn(
-        "flex items-start gap-2 rounded-xl border px-3 py-2.5 text-[13px] leading-relaxed",
+        "flex items-start gap-2 rounded-xl border px-3 py-2.5 text-ui leading-relaxed",
         notice.tone === "danger" ? "border-danger/40 bg-danger/10 text-danger-text" : "border-warning/40 bg-warning/10 text-warning-text",
       )}
     >

@@ -52,7 +52,7 @@ export function OwnerFace({ bot }: { bot: Bot }) {
   if (!team) return null;
   const owner = ownerOf(bot, team);
   const label = owner ? t("owner.tooltip", { name: owner.name }) : t("owner.tooltipNone");
-  const face = owner ? <PersonFace person={owner} /> : <span aria-hidden="true" className="inline-flex size-[18px] shrink-0 items-center justify-center rounded-full border border-dashed border-ink-secondary/60 text-[10px] text-ink-secondary">?</span>;
+  const face = owner ? <PersonFace person={owner} /> : <span aria-hidden="true" className="inline-flex size-[18px] shrink-0 items-center justify-center rounded-full border border-dashed border-ink-secondary/60 text-caption text-ink-secondary">?</span>;
   if (!mayChangeOwner(bot, team)) return <span data-owner-face={owner?.email ?? ""} role="img" aria-label={label} title={label} className="flex shrink-0">{face}</span>;
   return <button type="button" data-owner-face={owner?.email ?? ""} aria-label={`${label}. ${t("owner.change", { bot: bot.name })}`} title={label}
     onClick={(event) => {
@@ -107,17 +107,17 @@ export function OwnerPicker({ target, onClose }: { target: OwnerPickerTarget | n
         {team.people.map((person) => (
           <button key={person.email} type="button" role="menuitemradio" aria-checked={person.email === shown.current} disabled={busy}
             onClick={() => void pick(person)}
-            className={cn("flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[14px] leading-[18px] text-ink", person.email === shown.current ? "bg-menu-active" : "hover:bg-menu-hover")}>
+            className={cn("flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-label leading-[18px] text-ink", person.email === shown.current ? "bg-menu-active" : "hover:bg-menu-hover")}>
             <PersonFace person={person} size={20} />
             <span className="min-w-0 flex-1">
               <span className="block truncate">{person.you ? t("owner.you", { name: person.name }) : person.name}</span>
-              <span className="block truncate text-[11px] text-ink-secondary">{person.email}</span>
+              <span className="block truncate text-caption text-ink-secondary">{person.email}</span>
             </span>
             {person.email === shown.current && <Check size={14} className="shrink-0 text-accent-text" />}
           </button>
         ))}
       </div>
-      <div className="px-2 pb-1 text-[12px] leading-4 text-ink-tertiary">{t("owner.pickHint")}</div>
+      <div className="px-2 pb-1 text-small leading-4 text-ink-tertiary">{t("owner.pickHint")}</div>
     </div>,
     document.body,
   );
@@ -147,8 +147,8 @@ function readConversation(groups: ReadonlyArray<{ id: string; threadId: string; 
 /** A Needs you line's title, after the face of the teammate it is from. */
 export function NeedsYouTitle({ item, title }: { item: NeedsYouItem; title: string }) {
   const from = item.kind === "message" && item.fromEmail ? { email: item.fromEmail, name: item.from, role: "member" } : null;
-  if (!from) return <span className="w-full truncate text-[13px] text-ink">{title}</span>;
-  return <span className="flex w-full min-w-0 items-center gap-1.5 text-[13px] text-ink"><PersonFace person={from} size={16} /><span className="min-w-0 truncate">{title}</span></span>;
+  if (!from) return <span className="w-full truncate text-ui text-ink">{title}</span>;
+  return <span className="flex w-full min-w-0 items-center gap-1.5 text-ui text-ink"><PersonFace person={from} size={16} /><span className="min-w-0 truncate">{title}</span></span>;
 }
 
 /** On a Team Cloud: what the bots ask of this person, newest first, each one opening its conversation. */
@@ -170,10 +170,10 @@ export function NeedsYouButton({ compact = false }: { compact?: boolean }) {
   return (
     <div data-needs-you className={cn("relative", compact ? "px-1" : "px-2 pb-1")}>
       <button type="button" aria-expanded={open} aria-haspopup="menu" aria-label={label} title={label} onClick={() => setOpen((value) => !value)}
-        className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[13px] font-medium text-warning-text hover:bg-raised/60">
+        className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-ui font-medium text-warning-text hover:bg-raised/60">
         <Bell size={15} aria-hidden="true" className="shrink-0" />
         {!compact && <span className="min-w-0 flex-1 truncate">{t("needsYou.title")}</span>}
-        <span className="rounded-full bg-warning px-1.5 text-[11px] font-semibold tabular-nums text-warning-ink">{items.length}</span>
+        <span className="rounded-full bg-warning px-1.5 text-caption font-semibold tabular-nums text-warning-ink">{items.length}</span>
       </button>
       {open && (
         <div role="menu" aria-label={t("needsYou.title")} className={cn("absolute left-2 right-2 top-full z-40 mt-1 max-h-[340px] overflow-y-auto", MENU_SHEET)}>
@@ -191,7 +191,7 @@ export function NeedsYouButton({ compact = false }: { compact?: boolean }) {
               }}
               className="flex w-full flex-col items-start rounded-md px-2 py-1.5 text-left hover:bg-menu-hover">
               <NeedsYouTitle item={item} title={title} />
-              {text && <span className="w-full truncate text-[12px] text-ink-secondary">{text}</span>}
+              {text && <span className="w-full truncate text-small text-ink-secondary">{text}</span>}
             </button>;
           })}
         </div>
@@ -208,7 +208,7 @@ export function AskingLine({ botId, threadId }: { botId: string; threadId: strin
   if (!team || !bot) return null;
   const person = askingWhom(bot, bot.tasks?.find((task) => task.threadId === threadId), team);
   if (!person) return null;
-  return <div data-asking={person.email} className="mb-1.5 flex items-center gap-1.5 text-[12px] text-ink-secondary">
+  return <div data-asking={person.email} className="mb-1.5 flex items-center gap-1.5 text-small text-ink-secondary">
     <PersonFace person={person} size={14} />{person.you ? t("owner.askingYou") : t("owner.asking", { name: person.name })}
   </div>;
 }

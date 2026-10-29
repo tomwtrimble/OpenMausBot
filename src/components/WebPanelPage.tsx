@@ -40,7 +40,7 @@ export function WebPanelPage() {
     <main className="flex min-w-0 flex-1 flex-col bg-app" aria-label={panel.name}>
       <header className="flex items-center gap-2 border-b border-hairline px-4 py-2.5">
         <Globe size={16} className="shrink-0 text-ink-secondary" />
-        <h1 className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink" title={panel.url}>{panel.name}</h1>
+        <h1 className="min-w-0 flex-1 truncate text-label font-semibold text-ink" title={panel.url}>{panel.name}</h1>
         <IconButton
           label={t("webPanels.page.reload")}
           className="ui-icon-button shrink-0"
@@ -55,8 +55,8 @@ export function WebPanelPage() {
       </header>
       {status === "failed" || isAppOrigin(panel.url, window.location.origin) ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
-          <p className="text-[14px] font-medium text-ink">{t("webPanels.page.cantEmbed")}</p>
-          <p className="max-w-sm text-[13px] text-ink-secondary">{t("webPanels.page.cantEmbedBody")}</p>
+          <p className="text-label font-medium text-ink">{t("webPanels.page.cantEmbed")}</p>
+          <p className="max-w-sm text-ui text-ink-secondary">{t("webPanels.page.cantEmbedBody")}</p>
           <Button variant="primary" onClick={openInBrowser}>
             {t("webPanels.page.openInBrowser")}
           </Button>

@@ -213,7 +213,7 @@ export function Tooltip({ content, children, side = "bottom", delay = TOOLTIP_DE
           data-side={place?.side ?? side}
           style={{ left: place?.left ?? 0, top: place?.top ?? 0, visibility: place ? undefined : "hidden" }}
           className={cn(
-            "popover-surface pointer-events-none fixed z-[70] max-w-[280px] rounded-md border border-hairline bg-menu px-2 py-1 text-[12px] font-normal leading-4 text-ink shadow-md",
+            "popover-surface pointer-events-none fixed z-[70] max-w-[280px] rounded-md border border-hairline bg-menu px-2 py-1 text-small font-normal leading-4 text-ink shadow-md",
             !prefersReducedMotion() && "animate-[fade-in_120ms_ease-out]",
           )}
         >

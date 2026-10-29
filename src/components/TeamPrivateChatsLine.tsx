@@ -18,14 +18,14 @@ export function teamPrivateChatsLineDue(teamId: string, storage: Pick<Storage, "
 
 /** In every private chat with a team's bot, beside its name: who can see it. */
 export function TeamPrivateHeader() {
-  return <span data-chathead-private className="flex shrink-0 items-center gap-1 truncate text-[12px] text-ink-secondary">
+  return <span data-chathead-private className="flex shrink-0 items-center gap-1 truncate text-small text-ink-secondary">
     <Lock size={12} aria-hidden="true" />{t("team.privateHeader")}
   </span>;
 }
 
 /** In a team bot's shared chats (its main chat, a routine's report): everyone in the team can read them. */
 export function TeamSharedHeader({ team }: { team: { name: string } }) {
-  return <span data-chathead-shared className="flex shrink-0 items-center gap-1 truncate text-[12px] text-ink-secondary">
+  return <span data-chathead-shared className="flex shrink-0 items-center gap-1 truncate text-small text-ink-secondary">
     <Users size={12} aria-hidden="true" />{t("team.sharedHeader", { team: team.name })}
   </span>;
 }
@@ -34,5 +34,5 @@ export function TeamSharedHeader({ team }: { team: { name: string } }) {
 export function TeamPrivateFirstLine({ team }: { team: { id: string; name: string } }) {
   const [due] = useState(() => teamPrivateChatsLineDue(team.id, typeof localStorage === "undefined" ? null : localStorage));
   if (!due) return null;
-  return <p role="status" data-team-private-chats className="mx-5 mb-2 text-[13px] text-ink-secondary">{t("team.privateChats", { team: team.name })}</p>;
+  return <p role="status" data-team-private-chats className="mx-5 mb-2 text-ui text-ink-secondary">{t("team.privateChats", { team: team.name })}</p>;
 }

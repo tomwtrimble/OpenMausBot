@@ -120,10 +120,10 @@ export function ConfirmDialogCard({
           {icon ?? <AlertTriangle size={18} />}
         </span>
         <div className="min-w-0">
-          <h2 id="confirm-dialog-title" className="text-[15px] font-semibold text-ink">
+          <h2 id="confirm-dialog-title" className="text-body font-semibold text-ink">
             {title}
           </h2>
-          <p id="confirm-dialog-body" className="mt-1.5 text-[13px] leading-relaxed text-ink-secondary">
+          <p id="confirm-dialog-body" className="mt-1.5 text-ui leading-relaxed text-ink-secondary">
             {body}
           </p>
         </div>

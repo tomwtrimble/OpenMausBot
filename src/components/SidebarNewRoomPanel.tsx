@@ -36,7 +36,7 @@ export function NewRoomPanel({ onClose }: { onClose: () => void }) {
       onMouseDown={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="w-[340px] rounded-2xl border border-hairline bg-card p-4 shadow-2xl">
-        <div className="mb-3 text-[15px] font-semibold text-ink">{t("sidebar.newChannel.title")}</div>
+        <div className="mb-3 text-body font-semibold text-ink">{t("sidebar.newChannel.title")}</div>
         <input
           autoFocus
           maxLength={100}
@@ -48,7 +48,7 @@ export function NewRoomPanel({ onClose }: { onClose: () => void }) {
           }}
           aria-label={t("sidebar.newChannel.nameLabel")}
           placeholder={t("sidebar.newChannel.name")}
-          className="mb-3 w-full rounded-lg bg-raised/70 px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
+          className="mb-3 w-full rounded-lg bg-raised/70 px-3 py-2 text-label text-ink placeholder:text-ink-secondary focus:outline-none"
         />
         <input
           value={section}
@@ -60,7 +60,7 @@ export function NewRoomPanel({ onClose }: { onClose: () => void }) {
           }}
           placeholder={t("sidebar.newChannel.context")}
           aria-label={t("sidebar.newChannel.contextAria")}
-          className="mb-3 w-full rounded-lg bg-raised/70 px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
+          className="mb-3 w-full rounded-lg bg-raised/70 px-3 py-2 text-label text-ink placeholder:text-ink-secondary focus:outline-none"
         />
         <BotPickerList
           bots={bots}
@@ -71,7 +71,7 @@ export function NewRoomPanel({ onClose }: { onClose: () => void }) {
         <Button variant="primary" size="lg"
           onClick={create}
           disabled={!picked.size}
-          className="mt-3 w-full text-[14px]"
+          className="mt-3 w-full text-label"
         >
           {picked.size === 0
             ? t("sidebar.newChannel.create")

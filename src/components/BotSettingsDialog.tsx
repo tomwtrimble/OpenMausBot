@@ -98,7 +98,7 @@ export function BotSettingsDialog({ bot, overlay = false }: {
     switch (id) {
       case "overview":
         return overview === null && overviewError ? (
-          <div className="rounded-xl bg-card p-4 text-[13px] text-ink-secondary">Couldn’t load the overview.</div>
+          <div className="rounded-xl bg-card p-4 text-ui text-ink-secondary">Couldn’t load the overview.</div>
         ) : (
           <OverviewSection
             overview={overview}
@@ -143,7 +143,7 @@ export function BotSettingsDialog({ bot, overlay = false }: {
         return <VisibilitySection bot={bot} />;
       case "history":
         return history.rows === null && history.error ? (
-          <div className="rounded-xl bg-card p-4 text-[13px] text-ink-secondary">Couldn’t load history.</div>
+          <div className="rounded-xl bg-card p-4 text-ui text-ink-secondary">Couldn’t load history.</div>
         ) : (
           <HistorySection
             bot={bot}
@@ -180,7 +180,7 @@ export function BotSettingsDialog({ bot, overlay = false }: {
           />
         ) : <>
         <div {...dragProps} className={cn("flex shrink-0 items-center justify-between px-4 py-3", padClass)}>
-          <span id="bot-settings-title" className="truncate text-[15px] font-semibold text-ink">
+          <span id="bot-settings-title" className="truncate text-body font-semibold text-ink">
             {bot.name}
           </span>
           <button
@@ -209,13 +209,13 @@ export function BotSettingsDialog({ bot, overlay = false }: {
             }}
             placeholder={t("botSettings.search")}
             aria-label={t("botSettings.searchAria")}
-            className="w-full bg-transparent text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
+            className="w-full bg-transparent text-ui text-ink placeholder:text-ink-secondary focus:outline-none"
           />
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           {visibleSections.length === 0 && (
-            <div className="px-4 py-4 text-[13px] leading-relaxed text-ink-secondary">
+            <div className="px-4 py-4 text-ui leading-relaxed text-ink-secondary">
               {t("botSettings.searchNone", { query: query.trim() })}
             </div>
           )}
@@ -243,7 +243,7 @@ export function BotSettingsDialog({ bot, overlay = false }: {
                   }}
                   aria-expanded={open}
                   className={cn(
-                    "flex w-full shrink-0 items-center gap-2.5 px-4 py-2.5 text-left text-[14px]",
+                    "flex w-full shrink-0 items-center gap-2.5 px-4 py-2.5 text-left text-label",
                     open ? "bg-control/60 text-ink" : "text-ink-secondary hover:bg-control/40 hover:text-ink",
                   )}
                 >

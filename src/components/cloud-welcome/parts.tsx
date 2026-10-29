@@ -3,19 +3,19 @@ import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 
-export const PRIMARY = "ui-button ui-button-primary min-h-9 px-4 text-[14px]";
-export const SECONDARY = "ui-button min-h-9 px-4 text-[14px]";
-export const QUIET = "rounded-md px-2 py-1.5 text-[13px] font-medium text-accent-text transition-colors hover:bg-raised/60 disabled:opacity-50 motion-reduce:transition-none";
+export const PRIMARY = "ui-button ui-button-primary min-h-9 px-4 text-label";
+export const SECONDARY = "ui-button min-h-9 px-4 text-label";
+export const QUIET = "rounded-md px-2 py-1.5 text-ui font-medium text-accent-text transition-colors hover:bg-raised/60 disabled:opacity-50 motion-reduce:transition-none";
 export const CARD = "flex min-w-0 flex-col gap-2 rounded-2xl border p-4 text-left";
 export const CARD_IDLE = "border-hairline bg-card/50";
 export const CARD_PICKED = "border-accent/70 bg-accent/[0.07] shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-accent)_16%,transparent)]";
 
 export function StepHeading({ title, sub, aside, headingRef }: { title: ReactNode; sub: ReactNode; aside?: ReactNode; headingRef?: Ref<HTMLHeadingElement> }) {
   return <header className="flex flex-col gap-1.5">
-    <h2 ref={headingRef} id="cloud-welcome-step" tabIndex={-1} className="text-[21px] font-semibold tracking-[-0.02em] text-ink outline-none [text-wrap:balance]">
-      {title}{aside && <span className="ml-2 align-[2px] text-[13px] font-medium tracking-normal text-ink-tertiary">{aside}</span>}
+    <h2 ref={headingRef} id="cloud-welcome-step" tabIndex={-1} className="text-display font-semibold tracking-[-0.02em] text-ink outline-none [text-wrap:balance]">
+      {title}{aside && <span className="ml-2 align-[2px] text-ui font-medium tracking-normal text-ink-tertiary">{aside}</span>}
     </h2>
-    <p className="text-[14px] leading-relaxed text-ink-secondary [text-wrap:pretty]">{sub}</p>
+    <p className="text-label leading-relaxed text-ink-secondary [text-wrap:pretty]">{sub}</p>
   </header>;
 }
 

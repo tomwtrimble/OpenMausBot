@@ -174,8 +174,8 @@ export function MausBotWelcomeCard({ bot, onClose }: { bot: Bot; onClose: () => 
               <Pencil size={13} />
             </span>
           </button>
-          <h2 id="mausbot-welcome-title" className={cn("mt-3 text-ink", advanced ? "text-[20px] font-semibold" : "text-[17px] font-medium leading-6 tracking-[-0.008em]")}>{t("mausbotWelcome.title", { name })}</h2>
-          <ul className="mt-3 space-y-1.5 text-left text-[14px] leading-snug text-ink-secondary">
+          <h2 id="mausbot-welcome-title" className={cn("mt-3 text-ink", advanced ? "text-display font-semibold" : "text-title font-medium leading-6 tracking-[-0.008em]")}>{t("mausbotWelcome.title", { name })}</h2>
+          <ul className="mt-3 space-y-1.5 text-left text-label leading-snug text-ink-secondary">
             {([[Sparkles, "mausbotWelcome.line.helper"], [BookOpen, "mausbotWelcome.line.knows"], [Wand2, "mausbotWelcome.line.setup"], [Crown, "mausbotWelcome.line.powers"]] as const).map(([Icon, key]) => (
               <li key={key} className="flex items-start gap-2.5"><Icon size={15} className="mt-0.5 shrink-0 text-ink-tertiary" aria-hidden="true" />{t(key)}</li>
             ))}

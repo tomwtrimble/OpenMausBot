@@ -221,13 +221,13 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
 
   const diagram = <>
     {error && (
-      <p role="alert" className="px-3 pt-2 text-[12px] text-danger-text">
+      <p role="alert" className="px-3 pt-2 text-small text-danger-text">
         Diagram could not be rendered: {error}
       </p>
     )}
     {markup && <div className="overflow-x-auto p-3 [&_svg]:!max-w-full" dangerouslySetInnerHTML={markup} />}
     {(showSource || !svg || error) && (
-      <pre className={cn("overflow-x-auto text-[13px]", simple ? "px-3 py-2 leading-5 text-ink-secondary" : "p-3 leading-relaxed text-ink")}>{code}</pre>
+      <pre className={cn("overflow-x-auto text-ui", simple ? "px-3 py-2 leading-5 text-ink-secondary" : "p-3 leading-relaxed text-ink")}>{code}</pre>
     )}
   </>;
   if (simple) {
@@ -243,15 +243,15 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
   }
   return (
     <div ref={frame} dir="ltr" className="my-2 overflow-hidden rounded-lg border border-hairline bg-inset">
-      <div className="flex items-center justify-between gap-2 border-b border-hairline bg-raised/30 px-3 py-1.5 text-xs">
-        <span title="Mermaid diagram" className="min-w-0 truncate rounded border border-hairline bg-raised px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-ink select-none">
+      <div className="flex items-center justify-between gap-2 border-b border-hairline bg-raised/30 px-3 py-1.5 text-small">
+        <span title="Mermaid diagram" className="min-w-0 truncate rounded border border-hairline bg-raised px-1.5 py-0.5 text-caption font-medium tracking-wide text-ink select-none">
           Mermaid diagram
         </span>
         <div className="flex shrink-0 items-center gap-1 whitespace-nowrap">
           <button
             type="button"
             onClick={() => setShowSource((visible) => !visible)}
-            className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] transition-colors ${
+            className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-caption transition-colors ${
               showSource
                 ? "bg-accent/15 text-accent-text font-medium"
                 : "text-ink-secondary hover:bg-raised hover:text-ink"
@@ -266,7 +266,7 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
           <button
             type="button"
             onClick={copy}
-            className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] text-ink-secondary hover:bg-raised hover:text-ink transition-colors"
+            className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-caption text-ink-secondary hover:bg-raised hover:text-ink transition-colors"
             title={copied === "copied" ? "Copied to clipboard" : copied === "failed" ? t("common.copyFailed") : "Copy diagram source"}
             aria-label={copied === "copied" ? "Diagram source copied to clipboard" : copied === "failed" ? t("common.copyFailed") : "Copy diagram source to clipboard"}
           >
@@ -334,13 +334,13 @@ function LocalFileLink({ filePath, name, children, message }: { filePath: string
         <span
           role={save.state === "failed" ? "alert" : "status"}
           title={save.state === "saved" ? save.savedTo : undefined}
-          className={`text-[12px] ${save.state === "saved" ? "text-success" : save.state === "failed" ? "text-danger-text" : "text-ink-secondary"}`}
+          className={`text-small ${save.state === "saved" ? "text-success" : save.state === "failed" ? "text-danger-text" : "text-ink-secondary"}`}
         >
           {save.state === "failed" ? saveFailureText(save) : label}
         </span>
       )}
       {save.state === "failed" && save.outsideWorkspace && (
-        <span className="inline-flex flex-wrap items-center gap-x-1.5 text-[12px]">
+        <span className="inline-flex flex-wrap items-center gap-x-1.5 text-small">
           <OutsideWorkspaceFile filePath={filePath} />
         </span>
       )}
@@ -371,14 +371,14 @@ function Spoiler({ children }: { children?: ReactNode }) {
     );
   }
   return (
-    <span className="mx-px inline rounded px-1 py-px text-[13px] leading-relaxed text-ink underline decoration-dotted decoration-edge underline-offset-2">
+    <span className="mx-px inline rounded px-1 py-px text-ui leading-relaxed text-ink underline decoration-dotted decoration-edge underline-offset-2">
       {children}
       <button
         type="button"
         aria-label="Hide spoiler"
         title="Hide spoiler"
         onClick={() => setRevealed(false)}
-        className="ms-1 rounded px-0.5 text-[11px] text-ink-secondary hover:text-ink"
+        className="ms-1 rounded px-0.5 text-caption text-ink-secondary hover:text-ink"
       >
         Hide
       </button>
@@ -568,7 +568,7 @@ function MarkdownImage(props: ComponentProps<"img"> & ExtraProps) {
   const { message, imageOffsets } = useContext(MessageScopeContext);
   const { src, alt } = props;
   if (!src) {
-    return <span className="text-[12px] text-danger-text" role="alert">{t("attach.imageUnavailable")}</span>;
+    return <span className="text-small text-danger-text" role="alert">{t("attach.imageUnavailable")}</span>;
   }
   const filePath = localFilePath(src) ?? undefined;
   const sourceOffset = props.node?.position?.start.offset;
@@ -662,10 +662,10 @@ const MARKDOWN_COMPONENTS: Components = {
     return <ol dir={blockDirection(node)} className="list-decimal space-y-1 ps-5">{children}</ol>;
   },
   h1({ node, children }: BlockProps) {
-    return <div dir={blockDirection(node)} className="mt-3 text-[18px] font-semibold">{children}</div>;
+    return <div dir={blockDirection(node)} className="mt-3 text-title font-semibold">{children}</div>;
   },
   h2({ node, children }: BlockProps) {
-    return <div dir={blockDirection(node)} className="mt-2 text-[16px] font-semibold">{children}</div>;
+    return <div dir={blockDirection(node)} className="mt-2 text-title font-semibold">{children}</div>;
   },
   h3({ node, children }: BlockProps) {
     return <div dir={blockDirection(node)} className="mt-1.5 font-semibold">{children}</div>;
@@ -674,10 +674,10 @@ const MARKDOWN_COMPONENTS: Components = {
     return <div dir={blockDirection(node)} className="mt-1.5 font-semibold">{children}</div>;
   },
   h5({ node, children }: BlockProps) {
-    return <div dir={blockDirection(node)} className="mt-1.5 text-[14px] font-semibold">{children}</div>;
+    return <div dir={blockDirection(node)} className="mt-1.5 text-label font-semibold">{children}</div>;
   },
   h6({ node, children }: BlockProps) {
-    return <div dir={blockDirection(node)} className="mt-1.5 text-[14px] font-semibold text-ink-secondary">{children}</div>;
+    return <div dir={blockDirection(node)} className="mt-1.5 text-label font-semibold text-ink-secondary">{children}</div>;
   },
   blockquote({ node, children }: BlockProps) {
     return (

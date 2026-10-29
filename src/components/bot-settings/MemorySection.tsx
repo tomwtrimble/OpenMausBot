@@ -39,8 +39,8 @@ import { useDesktopCapabilities } from "../DesktopCapabilities";
 import { inputCls } from "./field";
 import { IconButton } from "../ui/IconButton";
 
-const buttonCls = "rounded-lg bg-control px-3 py-1.5 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50";
-const quietButtonCls = "rounded-md px-2 py-1 text-[13px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50";
+const buttonCls = "rounded-lg bg-control px-3 py-1.5 text-ui text-ink hover:bg-raised-hover disabled:opacity-50";
+const quietButtonCls = "rounded-md px-2 py-1 text-ui text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50";
 
 interface Editing {
   path: string;
@@ -86,13 +86,13 @@ function localizedJournalSummary(row: MemoryJournalRow, botName: string): string
 export function LendingReviewNotice({ changed, stale, busy, onReviewed }: { changed: readonly string[]; stale: boolean; busy: boolean; onReviewed: () => void }) {
   return (
     <div role="status" className="rounded-xl border border-danger/40 bg-card p-4">
-      <p className="text-[13px] leading-relaxed text-ink">{t(stale ? "memory.lendingReviewStale" : "memory.lendingReview")}</p>
+      <p className="text-ui leading-relaxed text-ink">{t(stale ? "memory.lendingReviewStale" : "memory.lendingReview")}</p>
       {changed.length > 0 && (
         <>
-          <p className="mt-2 text-[12px] text-ink-secondary">{t("memory.lendingReviewChanged")}</p>
+          <p className="mt-2 text-small text-ink-secondary">{t("memory.lendingReviewChanged")}</p>
           <ul className="mt-1 space-y-0.5">
             {changed.map((file) => (
-              <li key={file} className="break-all font-mono text-[12px] text-ink">{file}</li>
+              <li key={file} className="break-all font-mono text-small text-ink">{file}</li>
             ))}
           </ul>
         </>
@@ -293,21 +293,21 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
   return (
     <div className="flex flex-col gap-4">
       <div className="rounded-xl bg-card p-4">
-        <div className="text-[15px] font-medium text-ink">{t("memory.title")}</div>
-        <label className="mt-3 flex items-center gap-2 text-[13px] text-ink">
+        <div className="text-body font-medium text-ink">{t("memory.title")}</div>
+        <label className="mt-3 flex items-center gap-2 text-ui text-ink">
           <input type="checkbox" checked={bot.memoryEnabled !== false} disabled={bot.busy} onChange={(event) => onToggle(event.target.checked)} />
           {t("memory.enable")}
         </label>
-        <p className="mt-1 text-[13px] text-ink-secondary">
+        <p className="mt-1 text-ui text-ink-secondary">
           {t("memory.enableHelp")}
           {bot.busy ? ` ${t("memory.busyHelp")}` : ""}
         </p>
-        <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">
+        <p className="mt-1 text-ui leading-relaxed text-ink-secondary">
           {t("memory.notesHelp")}
         </p>
         {overview && (
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="min-w-0 flex-1 truncate font-mono text-[12px] text-ink-secondary" title={overview.workspacePath}>
+            <span className="min-w-0 flex-1 truncate font-mono text-small text-ink-secondary" title={overview.workspacePath}>
               {shortPath(overview.workspacePath, home)}
             </span>
             <button type="button" className={buttonCls} onClick={() => void openLocation("obsidian")}>
@@ -356,7 +356,7 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
       {editing && (
         <div className="rounded-xl bg-card p-4">
           <div className="flex items-center justify-between gap-2">
-            <span className="truncate font-mono text-[13px] text-ink">{editing.path}</span>
+            <span className="truncate font-mono text-ui text-ink">{editing.path}</span>
             {editing.path !== MEMORY_INDEX && (
               <button type="button" className={quietButtonCls} onClick={() => void open(MEMORY_INDEX)}>
                 {t("memory.backToIndex")}
@@ -372,7 +372,7 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
             />
           )}
           <textarea
-            className={cn(inputCls, "mt-2 min-h-[200px] resize-y font-mono text-[13px] leading-relaxed")}
+            className={cn(inputCls, "mt-2 min-h-[200px] resize-y font-mono text-ui leading-relaxed")}
             value={editing.text}
             readOnly={editing.readOnly}
             placeholder={
@@ -384,7 +384,7 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
             onChange={(e) => setEditing({ ...editing, text: e.target.value, dirty: true })}
           />
           {editing.readOnly ? (
-            <p className="mt-2 text-[12px] text-ink-secondary">{t("memory.logsReadOnly")}</p>
+            <p className="mt-2 text-small text-ink-secondary">{t("memory.logsReadOnly")}</p>
           ) : (
             <div className="mt-2 flex items-center gap-3">
               <button type="button" onClick={() => void save(editing.hash)} disabled={saving || !editing.dirty} className={buttonCls}>
@@ -399,8 +399,8 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
           )}
           {savedDraft !== null && (
             <div className="mt-3">
-              <div className="mb-1 text-[12px] text-ink-secondary">{t("memory.unsavedDraft")}</div>
-              <pre className="max-h-[160px] overflow-auto whitespace-pre-wrap rounded-lg border border-hairline bg-inset p-3 font-mono text-[12px] leading-relaxed text-ink">
+              <div className="mb-1 text-small text-ink-secondary">{t("memory.unsavedDraft")}</div>
+              <pre className="max-h-[160px] overflow-auto whitespace-pre-wrap rounded-lg border border-hairline bg-inset p-3 font-mono text-small leading-relaxed text-ink">
                 {savedDraft}
               </pre>
               <button type="button" className={cn(quietButtonCls, "mt-1")} onClick={() => setSavedDraft(null)}>
@@ -423,7 +423,7 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
           />
           <div className="mt-3 flex items-center gap-2">
             <input
-              className={cn(inputCls, "py-1.5 text-[13px]")}
+              className={cn(inputCls, "py-1.5 text-ui")}
               value={newTopic}
               placeholder={t("memory.newTopicPlaceholder")}
               aria-label={t("memory.newTopicLabel")}
@@ -452,8 +452,8 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
       )}
 
       <div className="rounded-xl bg-card p-4">
-        <div className="text-[15px] font-medium text-ink">{t("memory.changes")}</div>
-        <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">
+        <div className="text-body font-medium text-ink">{t("memory.changes")}</div>
+        <p className="mt-1 text-ui leading-relaxed text-ink-secondary">
           {t("memory.changesHelp")}
         </p>
         <div className="mt-3">
@@ -461,8 +461,8 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
         </div>
       </div>
 
-      {notice && <div className="text-[13px] text-ink-secondary">{notice}</div>}
-      {error && <div className="text-[13px] text-danger-text">{error}</div>}
+      {notice && <div className="text-ui text-ink-secondary">{notice}</div>}
+      {error && <div className="text-ui text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -492,20 +492,20 @@ export function MemoryUpkeepCard({
     <div className="rounded-xl bg-card p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-[15px] font-medium text-ink">{t("memory.upkeep.title")}</div>
-          <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("memory.upkeep.help")}</p>
+          <div className="text-body font-medium text-ink">{t("memory.upkeep.title")}</div>
+          <p className="mt-1 text-ui leading-relaxed text-ink-secondary">{t("memory.upkeep.help")}</p>
         </div>
         <Switch checked={enabled} aria-label={t("memory.upkeep.title")} onClick={onToggle} />
       </div>
       {enabled && rooms && (
         <div className="mt-3 flex items-start justify-between gap-3 border-t border-hairline pt-3">
           <div className="min-w-0">
-            <div className="text-[13px] font-medium text-ink">{t("memory.learnFromRooms.title")}</div>
-            <p className="mt-0.5 text-[13px] leading-relaxed text-ink-secondary">{t("memory.learnFromRooms.subtitle")}</p>
+            <div className="text-ui font-medium text-ink">{t("memory.learnFromRooms.title")}</div>
+            <p className="mt-0.5 text-ui leading-relaxed text-ink-secondary">{t("memory.learnFromRooms.subtitle")}</p>
             {status && !status.modelSteps && (
-              <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("memory.learnFromRooms.noModelSteps")}</p>
+              <p className="mt-1 text-ui leading-relaxed text-ink-secondary">{t("memory.learnFromRooms.noModelSteps")}</p>
             )}
-            {rooms.error && <p role="alert" className="mt-1 text-[13px] text-danger-text">{rooms.error}</p>}
+            {rooms.error && <p role="alert" className="mt-1 text-ui text-danger-text">{rooms.error}</p>}
           </div>
           <Switch
             checked={rooms.enabled}
@@ -517,14 +517,14 @@ export function MemoryUpkeepCard({
         </div>
       )}
       {enabled && status && !status.modelSteps && (
-        <p className="mt-2 text-[13px] text-ink-secondary">{t("memory.upkeep.noModelSteps")}</p>
+        <p className="mt-2 text-ui text-ink-secondary">{t("memory.upkeep.noModelSteps")}</p>
       )}
       {enabled && (
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <button type="button" className={buttonCls} disabled={tidying} onClick={onTidy}>
             {tidying ? t("memory.upkeep.tidying") : t("memory.upkeep.tidyNow")}
           </button>
-          <span className="text-[13px] text-ink-secondary">
+          <span className="text-ui text-ink-secondary">
             {status?.lastTidy ? t("memory.upkeep.lastTidy", { time: localizedRelativeTime(status.lastTidy.at, activeLocale()), summary: localizedTidySummary(status.lastTidy).toLowerCase() }) : t("memory.upkeep.notTidied")}
             {status?.lastCapture && noticedCount(status.lastCapture) ? ` ${t(noticedCount(status.lastCapture) === 1 ? "memory.upkeep.lastNoticed.one" : "memory.upkeep.lastNoticed.many", { count: noticedCount(status.lastCapture), time: localizedRelativeTime(status.lastCapture.at, activeLocale()) })}` : ""}
           </span>
@@ -539,18 +539,18 @@ export function MemoryGauge({ index }: { index: MemoryCapacity }) {
   const fill = status.level === "over" ? "bg-danger" : status.level === "near" ? "bg-warning" : "bg-accent";
   return (
     <div className={cn("rounded-xl p-4", status.level === "over" ? "border border-danger/30 bg-danger/10" : "bg-card")}>
-      <div className="flex items-center justify-between gap-3 text-[13px]">
+      <div className="flex items-center justify-between gap-3 text-ui">
         <span className="font-medium text-ink">{t("memory.capacity.title")}</span>
-        <span className={cn("text-[12px]", status.level === "over" ? "text-danger-text" : "text-ink-secondary")}>
+        <span className={cn("text-small", status.level === "over" ? "text-danger-text" : "text-ink-secondary")}>
           {index.lines} / {index.maxLines} lines · {formatBytes(index.bytes)} / {formatBytes(index.maxBytes)}
         </span>
       </div>
       <GaugeBar label={t("memory.capacity.lines")} share={status.lineShare} fill={fill} />
       <GaugeBar label={t("memory.capacity.size")} share={status.byteShare} fill={fill} />
-      <p className={cn("mt-2 text-[13px] leading-relaxed", status.level === "over" ? "text-danger-text" : "text-ink-secondary")}>
+      <p className={cn("mt-2 text-ui leading-relaxed", status.level === "over" ? "text-danger-text" : "text-ink-secondary")}>
           {status.warning ?? t("memory.capacity.sentence", { lines: index.lines, maxLines: index.maxLines, bytes: formatBytes(index.bytes), maxBytes: formatBytes(index.maxBytes), maxLoaded: index.maxLines })}
       </p>
-      {status.warning && <p className="mt-1 text-[12px] text-ink-secondary">{t("memory.capacity.sentence", { lines: index.lines, maxLines: index.maxLines, bytes: formatBytes(index.bytes), maxBytes: formatBytes(index.maxBytes), maxLoaded: index.maxLines })}</p>}
+      {status.warning && <p className="mt-1 text-small text-ink-secondary">{t("memory.capacity.sentence", { lines: index.lines, maxLines: index.maxLines, bytes: formatBytes(index.bytes), maxBytes: formatBytes(index.maxBytes), maxLoaded: index.maxLines })}</p>}
     </div>
   );
 }
@@ -558,7 +558,7 @@ export function MemoryGauge({ index }: { index: MemoryCapacity }) {
 function GaugeBar({ label, share, fill }: { label: string; share: number; fill: string }) {
   const width = `${Math.min(100, Math.round(share * 100))}%`;
   return (
-    <div className="mt-2 flex items-center gap-2 text-[12px] text-ink-secondary">
+    <div className="mt-2 flex items-center gap-2 text-small text-ink-secondary">
       <span className="w-10 shrink-0">{label}</span>
       <div
         className="h-1.5 flex-1 overflow-hidden rounded-full bg-inset"
@@ -586,7 +586,7 @@ export function ConflictNotice({
   onOverwrite: () => void;
 }) {
   return (
-    <div className="mt-2 rounded-lg border border-warning/25 bg-warning/10 p-3 text-[13px] leading-relaxed text-ink">
+    <div className="mt-2 rounded-lg border border-warning/25 bg-warning/10 p-3 text-ui leading-relaxed text-ink">
       <div className="font-medium">{t("memory.conflict.title", { name: botName })}</div>
       <div className="mt-0.5 text-ink-secondary">
         {t("memory.conflict.help", { name: botName })}
@@ -620,10 +620,10 @@ export function MemoryFileRows({
 }) {
   return (
     <div>
-      <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-ink-secondary">{title}</div>
-      <div className="mt-0.5 text-[12px] text-ink-secondary">{hint}</div>
+      <div className="text-small font-medium uppercase tracking-[0.08em] text-ink-secondary">{title}</div>
+      <div className="mt-0.5 text-small text-ink-secondary">{hint}</div>
       {files.length === 0 ? (
-        <div className="mt-2 text-[13px] text-ink-secondary">{t("memory.noneYet")}</div>
+        <div className="mt-2 text-ui text-ink-secondary">{t("memory.noneYet")}</div>
       ) : (
         <div className="mt-2 overflow-hidden rounded-lg border border-hairline">
           {files.map((file) => (
@@ -636,8 +636,8 @@ export function MemoryFileRows({
             >
               <button type="button" onClick={() => onOpen(file)} className="flex min-w-0 flex-1 items-center gap-2 text-left">
                 <FileText size={14} className="shrink-0 text-ink-secondary" />
-                <span className="truncate font-mono text-[13px] text-ink">{file.name}</span>
-                <span className="shrink-0 text-[12px] text-ink-secondary">
+                <span className="truncate font-mono text-ui text-ink">{file.name}</span>
+                <span className="shrink-0 text-small text-ink-secondary">
                   {formatBytes(file.bytes)} · {localizedRelativeTime(file.modifiedAt, activeLocale())}
                 </span>
               </button>
@@ -668,8 +668,8 @@ export function MemoryJournalList({
   onRevert: (row: MemoryJournalRow) => void;
   now?: number;
 }) {
-  if (!rows) return <div className="text-[13px] text-ink-secondary">{t("memory.loading")}</div>;
-  if (rows.length === 0) return <div className="text-[13px] text-ink-secondary">{t("memory.noChanges")}</div>;
+  if (!rows) return <div className="text-ui text-ink-secondary">{t("memory.loading")}</div>;
+  if (rows.length === 0) return <div className="text-ui text-ink-secondary">{t("memory.noChanges")}</div>;
   return (
     <div className="flex flex-col gap-2">
       {rows.map((row) => {
@@ -678,7 +678,7 @@ export function MemoryJournalList({
         return (
           <div key={row.id} className="rounded-lg bg-inset px-3 py-2">
             <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0 flex-1 text-[13px] leading-relaxed text-ink">
+              <div className="min-w-0 flex-1 text-ui leading-relaxed text-ink">
                 <span>{localizedJournalSummary(row, botName)}</span>
                 {" · "}
                 <span className="text-ink-secondary">{localizedRelativeTime(row.at, activeLocale(), now)}</span>
@@ -694,23 +694,23 @@ export function MemoryJournalList({
                   type="button"
                   disabled={reverting !== null}
                   onClick={() => onRevert(row)}
-                  className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-[12px] font-medium text-accent-text hover:bg-accent/10 disabled:opacity-50"
+                  className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-small font-medium text-accent-text hover:bg-accent/10 disabled:opacity-50"
                 >
                   <RotateCcw size={12} />
                   {reverting === row.id ? t("memory.undoing") : t("memory.undo")}
                 </button>
               ) : (
-                <span className="shrink-0 text-[12px] text-ink-secondary" title={row.revertUnavailableReason}>
+                <span className="shrink-0 text-small text-ink-secondary" title={row.revertUnavailableReason}>
                   {t("memory.cantUndo")}
                 </span>
               )}
             </div>
             {row.diff && (
               <details className="mt-1">
-                <summary className="cursor-pointer text-[12px] text-ink-secondary">
+                <summary className="cursor-pointer text-small text-ink-secondary">
                   +{row.added} −{row.removed} · {t("memory.showChanged")}
                 </summary>
-                <pre className="mt-1 max-h-[240px] overflow-auto whitespace-pre-wrap rounded-md bg-card p-2 font-mono text-[12px] leading-relaxed text-ink">
+                <pre className="mt-1 max-h-[240px] overflow-auto whitespace-pre-wrap rounded-md bg-card p-2 font-mono text-small leading-relaxed text-ink">
                   {row.diff}
                 </pre>
               </details>
