@@ -4,7 +4,7 @@ import { nextCronRuns, type RoutineCronSchedule } from "../../../shared/routine-
 import type { CronChoice, CronDraft } from "./cron-editor";
 import { Select } from "../Select";
 
-const fieldClass = "min-w-0 rounded-lg border border-hairline/50 bg-inset px-3 py-2 text-[13px] text-ink outline-none focus:border-accent [color-scheme:dark]";
+const fieldClass = "min-w-0 rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink outline-none focus:border-accent";
 const MONTHS = Array.from({ length: 12 }, (_, index) => new Intl.DateTimeFormat("en", { month: "long", timeZone: "UTC" }).format(new Date(Date.UTC(2024, index, 1))));
 const TIME_ZONES = ["UTC", ...(typeof Intl.supportedValuesOf === "function" ? Intl.supportedValuesOf("timeZone") : [])];
 
@@ -42,7 +42,7 @@ export function CronScheduleFields({ choice, value, onChange, runs, error }: {
     {choice !== "cron" && Number(value.day) > 28 && <p className="text-[11px] text-ink-secondary">Months without this date are skipped. Choose Last day to always use the end of the month.</p>}
     <label className="block space-y-1.5 text-[12px] text-ink-secondary"><span>Time zone</span><input list="routine-time-zones" value={value.timeZone} onChange={(event) => update({ timeZone: event.target.value })} placeholder="America/New_York" spellCheck={false} autoComplete="off" aria-invalid={Boolean(error)} aria-describedby="routine-cron-error" className={cn(fieldClass, "block w-full")} /></label>
     <datalist id="routine-time-zones">{TIME_ZONES.map(zone => <option key={zone} value={zone} />)}</datalist>
-    {error && <p id="routine-cron-error" role="alert" className="text-[12px] text-danger">{error}</p>}
+    {error && <p id="routine-cron-error" role="alert" className="text-[12px] text-danger-text">{error}</p>}
     {!error && <CronRunDates runs={runs} timeZone={value.timeZone.trim()} />}
   </div>;
 }

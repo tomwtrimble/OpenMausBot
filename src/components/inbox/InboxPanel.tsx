@@ -39,7 +39,7 @@ export function InboxPanel() {
   const rows = rowsIn(view, panel.tab);
   const body = (
     <>
-      <div className="flex items-center gap-1.5 border-b border-hairline/40 px-3.5 py-2.5">
+      <div className="flex items-center gap-1.5 border-b border-hairline px-3.5 py-2.5">
         <h2 className="flex-1 text-[14px] font-semibold text-ink">{t("inbox.panel.title")}</h2>
         <button type="button" onClick={closeInbox} aria-label={t("common.close")} title={t("common.close")}
           className="flex size-[26px] shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-raised hover:text-ink">
@@ -48,7 +48,7 @@ export function InboxPanel() {
       </div>
       {reading && view ? <InboxReading view={view} row={reading} now={now} /> : (
         <>
-          <div role="tablist" aria-label={t("inbox.panel.title")} className="flex shrink-0 gap-1 border-b border-hairline/40 px-2">
+          <div role="tablist" aria-label={t("inbox.panel.title")} className="flex shrink-0 gap-1 border-b border-hairline px-2">
             {INBOX_TABS.map((tab) => (
               <button key={tab} type="button" role="tab" aria-selected={panel.tab === tab} data-inbox-tab={tab} onClick={() => showInboxTab(tab)}
                 aria-label={tab === "needs-you" ? t("needsYou.count", { count: counts[tab] }) : t(TAB_LABEL[tab])}
@@ -56,7 +56,7 @@ export function InboxPanel() {
                   panel.tab === tab ? "border-accent text-ink" : "border-transparent text-ink-secondary hover:text-ink")}>
                 {t(TAB_LABEL[tab])}
                 {tab !== "done" && counts[tab] > 0 && (
-                  <span aria-hidden="true" className={cn("rounded-full px-1.5 text-[11px] font-semibold tabular-nums", tab === "needs-you" ? "bg-warning text-panel" : "bg-raised text-ink-secondary")}>{counts[tab]}</span>
+                  <span aria-hidden="true" className={cn("rounded-full px-1.5 text-[11px] font-semibold tabular-nums", tab === "needs-you" ? "bg-warning text-warning-ink" : "bg-raised text-ink-secondary")}>{counts[tab]}</span>
                 )}
               </button>
             ))}
@@ -74,7 +74,7 @@ export function InboxPanel() {
     return createPortal(
       <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/40" onMouseDown={(event) => { if (event.target === event.currentTarget) closeInbox(); }}>
         <section role="dialog" aria-modal="true" aria-label={t("inbox.panel.title")} data-inbox-panel="sheet" onKeyDown={onKeyDown}
-          className="animate-pop-in motion-reduce:animate-none flex max-h-[85dvh] min-h-[50dvh] flex-col overflow-hidden rounded-t-2xl border-t border-hairline/50 bg-panel pb-[env(safe-area-inset-bottom)]">
+          className="animate-pop-in motion-reduce:animate-none flex max-h-[85dvh] min-h-[50dvh] flex-col overflow-hidden rounded-t-2xl border-t border-hairline bg-panel pb-[env(safe-area-inset-bottom)]">
           {body}
         </section>
       </div>,
@@ -83,7 +83,7 @@ export function InboxPanel() {
   }
   return (
     <aside aria-label={t("inbox.panel.title")} data-inbox-panel="side" onKeyDown={onKeyDown}
-      className="animate-panel-in motion-reduce:animate-none flex h-full w-[380px] max-w-full shrink-0 flex-col border-l border-hairline/40 bg-panel max-md:absolute max-md:inset-y-0 max-md:right-0 max-md:z-30">
+      className="animate-panel-in motion-reduce:animate-none flex h-full w-[380px] max-w-full shrink-0 flex-col border-l border-hairline bg-panel max-md:absolute max-md:inset-y-0 max-md:right-0 max-md:z-30">
       {body}
     </aside>
   );

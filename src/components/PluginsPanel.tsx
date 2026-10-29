@@ -552,7 +552,7 @@ export function PluginsPanel() {
           <p className="mt-0.5 text-[13px] leading-5 text-ink-secondary">{t("apps.subtitle")}</p>
           </div>
           <div className="flex items-center gap-2">
-            <label className="flex h-9 min-w-0 flex-1 items-center gap-2.5 rounded-full bg-control/70 px-3.5 focus-within:ring-1 focus-within:ring-accent">
+            <label className="flex h-9 min-w-0 flex-1 items-center gap-2.5 rounded-full bg-control/70 px-3.5 focus-within:ring-1 focus-within:ring-focus">
               <Search size={15} className="shrink-0 text-ink-secondary" />
               <input
                 value={search}
@@ -567,7 +567,7 @@ export function PluginsPanel() {
               data-apps-filter="mcp"
               aria-pressed={filter === "mcp"}
               onClick={() => chooseFilter(filter === "mcp" ? "all" : "mcp")}
-              className={cn(pill, "h-9 border border-hairline/40 px-3.5", filter === "mcp" ? "bg-ink text-app" : "text-ink hover:bg-raised")}
+              className={cn(pill, "h-9 border border-hairline px-3.5", filter === "mcp" ? "bg-ink text-app" : "text-ink hover:bg-raised")}
             >
               <Server size={14} aria-hidden="true" />
               <span className="hidden sm:inline">{t("apps.filter.mcp")}</span>
@@ -613,7 +613,7 @@ export function PluginsPanel() {
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-7 sm:px-7">
           {stale && (
-            <div className="mb-3 flex items-start gap-2 rounded-xl bg-warning/10 px-3 py-2 text-[13px] text-warning">
+            <div className="mb-3 flex items-start gap-2 rounded-xl bg-warning/10 px-3 py-2 text-[13px] text-warning-text">
               <TriangleAlert size={14} className="mt-px shrink-0" />
               <span>
                 {t("connectors.stale")}
@@ -624,7 +624,7 @@ export function PluginsPanel() {
             <div
               className={cn(
                 "mb-3 rounded-xl px-4 py-3 text-[13px]",
-                setupNotice.tone === "warning" ? "bg-warning/10 text-warning" : "bg-control/50 text-ink-secondary",
+                setupNotice.tone === "warning" ? "bg-warning/10 text-warning-text" : "bg-control/50 text-ink-secondary",
               )}
             >
               {t(whopConnected ? "whop.otherAppsSetup" : setupNotice.key)}{" "}
@@ -673,7 +673,7 @@ export function PluginsPanel() {
               {t("connectors.featuredAfter")}
             </div>
           )}
-          {error && <div role="alert" className="mb-3 rounded-xl bg-danger/10 px-3 py-2 text-[12px] text-danger">{typeof error === "string" ? error : t(error.key)}</div>}
+          {error && <div role="alert" className="mb-3 rounded-xl bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{typeof error === "string" ? error : t(error.key)}</div>}
 
           {filter !== "mcp" && (
             <div data-apps-grid className="@container flex flex-col gap-7 pt-1">
@@ -767,7 +767,7 @@ export function PluginsPanel() {
           )}
 
           {filter !== "connected" && category === null && (
-            <div className={cn(filter === "all" && "mt-8 border-t border-hairline/30 pt-6", filter === "mcp" && "pt-1")}>
+            <div className={cn(filter === "all" && "mt-8 border-t border-hairline pt-6", filter === "mcp" && "pt-1")}>
               <McpServersPanel embedded hideWhop={filter === "all"} />
             </div>
           )}
@@ -921,7 +921,7 @@ export function PluginsPanel() {
                         if (!window.confirm(disconnectAccountConfirmation(card.label, account))) return;
                         disconnectAccount(card.slug, account.id);
                       }}
-                      className={cn("shrink-0 rounded-full px-2 text-[12px] font-medium leading-5 text-ink-secondary transition-colors hover:bg-danger/10 hover:text-danger disabled:opacity-40", !reconnectable && "ms-auto")}
+                      className={cn("shrink-0 rounded-full px-2 text-[12px] font-medium leading-5 text-ink-secondary transition-colors hover:bg-danger/10 hover:text-danger-text disabled:opacity-40", !reconnectable && "ms-auto")}
                       aria-label={t("connectors.disconnectAria", {
                         account: account.alias || account.id,
                         service: card.label,
@@ -979,7 +979,7 @@ export function PluginsPanel() {
                 aria-label={accounts.length > 0
                   ? t("connectors.aliasAriaAnother", { service: card.label })
                   : t("connectors.aliasAriaNew", { service: card.label })}
-                className="h-8 min-w-0 flex-1 rounded-full bg-inset px-3 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-accent"
+                className="h-8 min-w-0 flex-1 rounded-full bg-inset px-3 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus"
               />
               <button
                 type="submit"

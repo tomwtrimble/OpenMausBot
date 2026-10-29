@@ -62,11 +62,11 @@ export function PinnedCircleThreadPanel(props: BotRowProps) {
       <BotThreadList {...props} activityLabel={liveActivityLabel(last)} query={threadListQuery(bot, query)} />
       <div className="flex items-center gap-1 pl-6">
         <button type="button" aria-label={t("task.newShort")} title={t("task.newShort")} onClick={() => dispatch({ type: "newTask", botId: bot.id })}
-          className="inline-flex h-7 items-center gap-1 rounded px-1 text-[13px] font-medium text-ink-secondary outline-none hover:text-ink focus-visible:ring-1 focus-visible:ring-accent/60">
+          className="inline-flex h-7 items-center gap-1 rounded px-1 text-[13px] font-medium text-ink-secondary outline-none hover:text-ink focus-visible:ring-1 focus-visible:ring-focus/60">
           <Plus aria-hidden="true" size={13} />{t("task.newShort")}
         </button>
         <button type="button" aria-label={t("folder.newNamed", { name: bot.name })} title={t("folder.new")} onClick={() => setCreatingProject(true)}
-          className="inline-flex h-7 items-center gap-1 rounded px-1 text-[13px] font-medium text-ink-secondary outline-none hover:text-ink focus-visible:ring-1 focus-visible:ring-accent/60">
+          className="inline-flex h-7 items-center gap-1 rounded px-1 text-[13px] font-medium text-ink-secondary outline-none hover:text-ink focus-visible:ring-1 focus-visible:ring-focus/60">
           <FolderPlus aria-hidden="true" size={13} />{t("folder.new")}
         </button>
       </div>
@@ -208,7 +208,7 @@ export const PinnedBotCircle = memo(function PinnedBotCircle({
           onMenu({ botId: bot.id, x: event.clientX, y: event.clientY });
         }}
         className={cn(
-          "flex w-full min-w-0 flex-col items-center gap-1 rounded-lg px-1 py-1 text-center outline-none focus-visible:ring-1 focus-visible:ring-accent/60",
+          "flex w-full min-w-0 flex-col items-center gap-1 rounded-lg px-1 py-1 text-center outline-none focus-visible:ring-1 focus-visible:ring-focus/60",
           pinnedCircleDragClass({ drag, dragging, drop }),
         )}
       >
@@ -258,7 +258,7 @@ export const PinnedBotCircle = memo(function PinnedBotCircle({
           aria-expanded={threadsOpen}
           aria-controls={pinnedCircleThreadPanelId(bot.id)}
           onClick={() => setThreadsOpen((open) => !open)}
-          className="flex size-4 items-center justify-center rounded text-ink-secondary outline-none hover:text-ink focus-visible:ring-1 focus-visible:ring-accent/60"
+          className="flex size-4 items-center justify-center rounded text-ink-secondary outline-none hover:text-ink focus-visible:ring-1 focus-visible:ring-focus/60"
         ><ChevronRight aria-hidden="true" size={13} className={cn("transition-transform", threadsOpen && "rotate-90")} /></button>}
       </div>}
       {expanded && threadPanelHost ? createPortal(<PinnedCircleThreadPanel {...props} />, threadPanelHost) : null}

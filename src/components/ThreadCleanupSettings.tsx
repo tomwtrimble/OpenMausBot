@@ -153,7 +153,7 @@ export function ThreadCleanupSettings() {
             className="size-4 accent-accent"
           />
           <label htmlFor="thread-log-retention-enabled" className="text-[13px] font-medium text-ink">{t("settings.threadCleanup.retention.enable")}</label>
-          <div className={`flex max-w-[160px] items-center rounded-lg border bg-inset ${errorKnob === "retention" ? "border-danger/60" : "border-hairline/40 focus-within:border-focus"}`}>
+          <div className={`flex max-w-[160px] items-center rounded-lg border bg-inset ${errorKnob === "retention" ? "border-danger/60" : "border-hairline focus-within:border-focus"}`}>
             <input
               id="thread-log-retention-days"
               type="number"
@@ -192,7 +192,7 @@ export function ThreadCleanupSettings() {
             className="size-4 accent-accent"
           />
           <label htmlFor="thread-log-cap-enabled" className="text-[13px] font-medium text-ink">{t("settings.threadCleanup.cap.enable")}</label>
-          <div className={`flex max-w-[160px] items-center rounded-lg border bg-inset ${errorKnob === "cap" ? "border-danger/60" : "border-hairline/40 focus-within:border-focus"}`}>
+          <div className={`flex max-w-[160px] items-center rounded-lg border bg-inset ${errorKnob === "cap" ? "border-danger/60" : "border-hairline focus-within:border-focus"}`}>
             <input
               id="thread-log-cap-mib"
               type="number"
@@ -221,7 +221,7 @@ export function ThreadCleanupSettings() {
         <p id="thread-log-cap-help" className="text-[12px] leading-relaxed text-ink-secondary">{t("settings.threadCleanup.cap.help")}</p>
       </div>
       {pending !== null && <p role="status" className="mt-2 text-[12px] text-ink-secondary">{t("settings.threadCleanup.saving")}</p>}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </Card>
   );
 }

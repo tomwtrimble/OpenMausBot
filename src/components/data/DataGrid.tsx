@@ -97,8 +97,8 @@ const gridTheme = themeQuartz.withParams({
   fontFamily: "var(--font-sans)", fontSize: 13, headerFontWeight: 500,
   backgroundColor: "var(--color-panel)", foregroundColor: "var(--color-ink)",
   headerBackgroundColor: "var(--color-raised)", headerTextColor: "var(--color-ink)",
-  borderColor: "color-mix(in srgb, var(--color-hairline) 40%, transparent)",
-  rowBorder: { color: "color-mix(in srgb, var(--color-hairline) 20%, transparent)" },
+  borderColor: "var(--color-hairline)",
+  rowBorder: { color: "var(--color-hairline)" },
   rowHoverColor: "var(--color-raised-hover)",
   selectedRowBackgroundColor: "color-mix(in srgb, var(--color-accent) 15%, transparent)",
   accentColor: "var(--color-accent)", wrapperBorder: false, wrapperBorderRadius: 0,
@@ -109,7 +109,7 @@ const defaultColDef: ColDef<DataGridRow> = { sortable: true, resizable: true, ce
 const rowsFromNodes = (nodes: IRowNode<DataGridRow>[]) => nodes.filter((node) => node.data).sort((left, right) => (left.rowIndex ?? 0) - (right.rowIndex ?? 0)).map((node) => node.data!.cells);
 
 export function DataResultFooter({ children, controls }: { children?: ReactNode; controls?: ReactNode }) {
-  return <footer className="relative flex h-11 shrink-0 items-center gap-2 border-t border-hairline/40 px-3 text-[11px] text-ink-secondary" data-testid="data-result-footer">
+  return <footer className="relative flex h-11 shrink-0 items-center gap-2 border-t border-hairline px-3 text-[11px] text-ink-secondary" data-testid="data-result-footer">
     <div className="min-w-0 flex-1 truncate">{children}</div>
     <div className="flex shrink-0 items-center gap-1">{controls}</div>
   </footer>;
@@ -180,7 +180,7 @@ export function DataGrid({ botId, target, columns, rowCount, name, revision, han
 
   return (
     <div className="data-grid flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-panel text-ink" data-row-count={total}>
-      <div className="flex shrink-0 items-center border-b border-hairline/40 px-2 py-1">
+      <div className="flex shrink-0 items-center border-b border-hairline px-2 py-1">
         <DataFilter columns={columns} value={filterValue} onChange={(value) => {
           setFilterInput(value);
           if (!value.text.trim() || value.column !== filterInput.column) setAppliedFilter({ ...value, text: value.text.trim() });
@@ -203,7 +203,7 @@ export function DataGrid({ botId, target, columns, rowCount, name, revision, han
       </div>
       <DataResultFooter controls={footerControls}>
         <span role="status">{t(filter ? "data.grid.countFiltered" : "data.grid.count", { shown: formatCount(total), total: formatCount(rowCount), count: formatCount(total), columns: columns.length })}</span>
-        {error && <span role="alert" className="ml-2 text-danger" title={error}>{t("data.grid.loadFailed", { reason: error })}</span>}
+        {error && <span role="alert" className="ml-2 text-danger-text" title={error}>{t("data.grid.loadFailed", { reason: error })}</span>}
         {copyState !== "idle" && <span role={copyState === "failed" ? "alert" : "status"}>{t(copyState === "failed" ? "data.card.copyFailed" : "data.card.copied")}</span>}
       </DataResultFooter>
     </div>

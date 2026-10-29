@@ -202,7 +202,7 @@ function VideoAttachment({ file, message }: { file: GalleryFile; message: Messag
   };
 
   return (
-    <div className="min-w-0 overflow-hidden rounded-xl border border-hairline/40 bg-inset/40">
+    <div className="min-w-0 overflow-hidden rounded-xl border border-hairline bg-inset/40">
       <div className="relative flex aspect-[4/3] items-center justify-center bg-inset">
         {preview && !error ? (
           <video
@@ -223,7 +223,7 @@ function VideoAttachment({ file, message }: { file: GalleryFile; message: Messag
             disabled={loading}
             onClick={() => void load()}
             aria-label={t("attach.previewVideo", { name: file.name })}
-            className="flex size-full flex-col items-center justify-center gap-2 p-3 text-center text-ink-secondary transition-colors hover:bg-raised/60 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60 disabled:cursor-wait disabled:hover:bg-transparent"
+            className="flex size-full flex-col items-center justify-center gap-2 p-3 text-center text-ink-secondary transition-colors hover:bg-raised/60 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus/60 disabled:cursor-wait disabled:hover:bg-transparent"
           >
             {loading ? <LoaderCircle size={24} className="animate-spin" /> : <Play size={24} />}
             <span className="text-[12px]">{loading ? t("attach.videoLoading") : error ? t("chat.retry") : t("attach.loadVideo")}</span>
@@ -231,14 +231,14 @@ function VideoAttachment({ file, message }: { file: GalleryFile; message: Messag
           </button>
         )}
         {(preview || loading || error) && (
-          <button type="button" aria-label={t("attach.closeVideo")} onClick={close} className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-panel/90 text-ink-secondary hover:bg-raised hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60">
+          <button type="button" aria-label={t("attach.closeVideo")} onClick={close} className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-panel/90 text-ink-secondary hover:bg-raised hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60">
             <X size={14} />
           </button>
         )}
         {!preview && !loading && <Film size={13} className="pointer-events-none absolute left-2 top-2 text-ink-secondary/50" />}
       </div>
-      {error && <p role="alert" className="px-3 py-2 text-[11px] text-danger">{error}</p>}
-      <AttachedFileChip file={file} linked={file.linked} message={message} className="max-w-none rounded-none border-0 border-t border-hairline/30 bg-transparent" />
+      {error && <p role="alert" className="px-3 py-2 text-[11px] text-danger-text">{error}</p>}
+      <AttachedFileChip file={file} linked={file.linked} message={message} className="max-w-none rounded-none border-0 border-t border-hairline bg-transparent" />
     </div>
   );
 }
@@ -307,12 +307,12 @@ function AudioAttachment({ file, message }: { file: GalleryFile; message: Messag
   };
 
   return (
-    <div className="inline-flex w-72 max-w-full flex-col gap-1.5 rounded-2xl border border-hairline/30 bg-inset/60 px-3 py-2.5 text-left">
+    <div className="inline-flex w-72 max-w-full flex-col gap-1.5 rounded-2xl border border-hairline bg-inset/60 px-3 py-2.5 text-left">
       <div className="flex items-center gap-2">
-        {src ? <Music size={14} className="shrink-0 text-accent" aria-hidden="true" />
+        {src ? <Music size={14} className="shrink-0 text-accent-text" aria-hidden="true" />
           : (
             <button type="button" disabled={loading} onClick={() => void load()} aria-label={t("attach.previewAudio", { name: file.name })}
-              className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent transition-colors hover:bg-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 disabled:cursor-wait">
+              className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent-text transition-colors hover:bg-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60 disabled:cursor-wait">
               {loading ? <LoaderCircle size={14} className="animate-spin" /> : <Play size={13} fill="currentColor" />}
             </button>
           )}
@@ -321,7 +321,7 @@ function AudioAttachment({ file, message }: { file: GalleryFile; message: Messag
           className="shrink-0 rounded-lg p-1 text-ink-secondary hover:bg-raised hover:text-ink"><Download size={14} /></a>}
       </div>
       {src && !error && <audio src={src} controls autoPlay preload="metadata" aria-label={t("attach.previewAudio", { name: file.name })} onError={() => { setSrc(null); setError(t("attach.audioUnavailable")); }} className="h-9 w-full" />}
-      {error && <p role="alert" className="text-[11px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[11px] text-danger-text">{error}</p>}
     </div>
   );
 }
@@ -433,11 +433,11 @@ export function AttachmentGallery({ images = [], files = [], message, eager = fa
         <div className="flex flex-col items-start gap-1.5">
           {documents.map((item) => item.kind === "audio" && message
             ? <AudioAttachment key={`${message.threadId}:${message.messageId}:${item.key}`} file={item.file} message={message} />
-            : item.kind === "file" && <AttachedFileChip key={item.key} file={item.file} linked={item.file.linked} message={message} className="max-w-none rounded-xl border-hairline/25 bg-transparent" />)}
+            : item.kind === "file" && <AttachedFileChip key={item.key} file={item.file} linked={item.file.linked} message={message} className="max-w-none rounded-xl border-hairline bg-transparent" />)}
         </div>
       )}
       {items.length > limit && (
-        <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="flex min-h-8 items-center gap-1 rounded-lg px-1 py-1 text-[11px] text-ink-secondary transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60">
+        <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="flex min-h-8 items-center gap-1 rounded-lg px-1 py-1 text-[11px] text-ink-secondary transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60">
           {expanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
           {expanded ? t("attach.showLess") : t("attach.showMore", { count: items.length - limit })}
         </button>

@@ -77,7 +77,7 @@ export function SidebarAppsButton() {
       aria-pressed={state.pluginsOpen}
       className={cn(
         "flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors",
-        state.pluginsOpen ? "bg-raised text-accent" : "text-ink-secondary hover:bg-raised/50 hover:text-ink",
+        state.pluginsOpen ? "bg-raised text-accent-text" : "text-ink-secondary hover:bg-raised/50 hover:text-ink",
       )}
     >
       <Puzzle size={18} />
@@ -119,7 +119,7 @@ export function SidebarFooterNav({
   const toolsLayout = useSidebarToolsLayout();
   const toolbar = advanced && !iconsOnly && toolsLayout === "toolbar";
   const iconSize = iconsOnly && !rail ? 20 : 18;
-  const tone = (active: boolean) => (active ? "text-accent" : "text-ink-secondary");
+  const tone = (active: boolean) => (active ? "text-accent-text" : "text-ink-secondary");
   const automationsNeedYou = useAutomationsNeedYou();
   const automationsRow = <NavRow
     id="automations"

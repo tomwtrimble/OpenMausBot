@@ -579,7 +579,7 @@ export function SettingsModal() {
         className="glass-surface glass-popup animate-pop-in relative flex overflow-hidden rounded-2xl outline-none"
       >
         <span id="app-settings-title" className="sr-only">{t("settings.title")}</span>
-        <nav className="glass-rail hidden min-h-0 w-[200px] shrink-0 flex-col gap-1 overflow-y-auto border-r border-hairline/30 p-3 sm:flex">
+        <nav className="glass-rail hidden min-h-0 w-[200px] shrink-0 flex-col gap-1 overflow-y-auto border-r border-hairline p-3 sm:flex">
           <div className="shrink-0 px-2 py-3 text-[15px] font-semibold text-ink">
             {t("settings.title")}
           </div>
@@ -622,7 +622,7 @@ export function SettingsModal() {
         </nav>
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-          <div className="flex shrink-0 items-center justify-between gap-3 border-b border-hairline/30 px-3 py-3 sm:pl-9">
+          <div className="flex shrink-0 items-center justify-between gap-3 border-b border-hairline px-3 py-3 sm:pl-9">
             <Select className="min-w-0 sm:hidden"
               aria-label={t("settings.title")}
               value={section}
@@ -649,7 +649,7 @@ export function SettingsModal() {
               onClick={close}
               aria-label={t("settings.close")}
               title={`${t("settings.close")} (${shortcutLabel("close-panel")})`}
-              className="ui-icon-button cursor-pointer shrink-0 max-md:size-9 max-md:rounded-full max-md:border max-md:border-hairline max-md:bg-card"
+              className="ui-icon-button cursor-pointer shrink-0 max-md:size-9 max-md:rounded-full max-md:border max-md:border-edge max-md:bg-card"
             >
               <X size={18} />
             </button>

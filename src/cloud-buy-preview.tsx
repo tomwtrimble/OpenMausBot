@@ -59,7 +59,7 @@ const actions = new Proxy({}, { get: () => noop }) as CloudAddActions;
 
 function MockApp() {
   return <div className="flex h-full bg-app text-ink">
-    <aside className="flex w-[236px] shrink-0 flex-col border-e border-hairline/40 bg-panel">
+    <aside className="flex w-[236px] shrink-0 flex-col border-e border-hairline bg-panel">
       <div className="flex gap-[7px] px-3.5 pb-1.5 pt-3.5">{[0, 1, 2].map(dot => <i key={dot} className="block size-[11px] rounded-full bg-raised" />)}</div>
       <div className="mx-2.5 my-2 flex items-center gap-2 rounded-lg px-2 py-2 text-[13px] font-medium"><Cloud size={16} className="text-ink-secondary" />This computer</div>
       {[[MessageSquare, "Chats"], [Repeat, "Routines"], [FolderOpen, "Files"]].map(([Icon, label]) => {

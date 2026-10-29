@@ -254,7 +254,7 @@ function AppliedChangeLine({
             type="button"
             onClick={undo}
             disabled={undoing}
-            className={cn(TEXT_ACTION, "text-accent disabled:opacity-60")}
+            className={cn(TEXT_ACTION, "text-accent-text disabled:opacity-60")}
           >
             {undoing ? t("approval.applied.undoing") : t("approval.applied.undo")}
           </button>
@@ -264,7 +264,7 @@ function AppliedChangeLine({
             type="button"
             onClick={share}
             disabled={sharing}
-            className="rounded-md px-1.5 py-0.5 font-medium text-accent hover:bg-inset disabled:opacity-60"
+            className="rounded-md px-1.5 py-0.5 font-medium text-accent-text hover:bg-inset disabled:opacity-60"
           >
             {sharing ? t("approval.applied.sharingSkill") : t("approval.applied.shareSkill")}
           </button>
@@ -282,9 +282,9 @@ function AppliedChangeLine({
         <div className="mt-1 text-[13px] text-ink-tertiary">{t("approval.applied.shareSkipped", { names: skippedNames.join(", ") })}</div>
       )}
       {!error && !shared && !undone && skill?.shareError && (
-        <div className="mt-1 text-[13px] text-warning">{t("approval.applied.shareFailed", { error: skill.shareError })}</div>
+        <div className="mt-1 text-[13px] text-warning-text">{t("approval.applied.shareFailed", { error: skill.shareError })}</div>
       )}
-      {error && <div role="alert" className="mt-1 text-[13px] text-warning">{error}</div>}
+      {error && <div role="alert" className="mt-1 text-[13px] text-warning-text">{error}</div>}
       {open && (
         <pre
           tabIndex={0}
@@ -349,7 +349,7 @@ function CompactApprovalRow({
     >
       <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 leading-5">
         {waiting
-          ? <ShieldCheck size={14} className="shrink-0 self-center text-accent" aria-hidden="true" />
+          ? <ShieldCheck size={14} className="shrink-0 self-center text-accent-text" aria-hidden="true" />
           : allowed
             ? <Check size={14} className="shrink-0 self-center text-success" aria-hidden="true" />
             : expired
@@ -471,7 +471,7 @@ export function ApprovalCard({
       data-tour={settled || expired ? undefined : "approval"}
       className={cn(
         "w-full max-w-[840px] rounded-2xl border bg-card p-4",
-        settled || expired ? "border-hairline/30 opacity-70" : "border-accent/40",
+        settled || expired ? "border-hairline opacity-70" : "border-accent/40",
       )}
     >
       <div className="flex items-baseline justify-between gap-3">
@@ -507,7 +507,7 @@ export function ApprovalCard({
       {card.skillRequest && <SkillRequestPreview request={card.skillRequest} />}
 
       {heldNote && (
-        <div className="mt-2 rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-[13px] text-warning">
+        <div className="mt-2 rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-[13px] text-warning-text">
           {heldNote}
         </div>
       )}
@@ -520,7 +520,7 @@ export function ApprovalCard({
           </>
         ) : (
           <>
-            <ShieldCheck size={14} className="text-accent" />
+            <ShieldCheck size={14} className="text-accent-text" />
             {isRoutineRequest || isSkillRequest || isProfileRequest || isTeamSetup
               ? t("approval.status.waitingConfirmation")
               : t("approval.status.waitingAnswer")}

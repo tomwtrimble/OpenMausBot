@@ -99,7 +99,7 @@ export const SidebarBotTile = memo(function SidebarBotTile({ primary = false, dr
             <Phone size={9} strokeWidth={2.5} aria-hidden="true" />
           </span>
         ) : waiting ? (
-          <span data-testid="waiting-dot" aria-hidden="true" className={cn("absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-warning text-[11px] font-black leading-none text-panel", RING)}>!</span>
+          <span data-testid="waiting-dot" aria-hidden="true" className={cn("absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-warning text-[11px] font-black leading-none text-warning-ink", RING)}>!</span>
         ) : working ? dot("working-dot", "bg-success")
           : teammateWait ? dot("teammate-wait-dot", "bg-accent")
           : queued ? dot("queued-dot", "bg-ink-tertiary")

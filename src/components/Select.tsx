@@ -3,8 +3,8 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const VARIANTS = {
-  field: "rounded-lg border border-hairline/40 bg-inset text-ink",
-  pill: "h-8 rounded-full border border-hairline/40 bg-raised/60 font-medium text-ink hover:bg-raised",
+  field: "rounded-lg border border-hairline bg-inset text-ink",
+  pill: "h-8 rounded-full border border-hairline bg-raised/60 font-medium text-ink hover:bg-raised",
   ghost: "h-7 rounded-lg border-[0.5px] [border-color:var(--settings-edge,color-mix(in_srgb,var(--color-ink)_8%,transparent))] bg-transparent text-ink hover:bg-ink/[0.06] [field-sizing:content]",
   quiet: "rounded-md bg-ink/[0.05] text-ink outline-none hover:bg-ink/[0.08] focus-visible:ring-[1.5px] focus-visible:ring-focus",
 } as const;

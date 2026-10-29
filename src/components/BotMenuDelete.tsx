@@ -17,7 +17,7 @@ export function BotDeleteMenuItem({ deleting, onClick, className = "flex w-full 
       title={deleting ? t("sidebar.bot.deleteCheckingTitle") : undefined}
       className={cn(
         className,
-        "text-danger",
+        "text-danger-text",
         deleting ? "cursor-default opacity-40" : "hover:bg-menu-hover",
       )}
     >

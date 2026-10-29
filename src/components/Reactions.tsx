@@ -130,7 +130,7 @@ export function ReactAction({ threadId, message }: { threadId: string; message: 
           aria-label={t("chat.reactions")}
           onKeyDown={onKey}
           className={cn(
-            "popover-surface absolute bottom-full z-40 mb-1 flex animate-pop-in items-center gap-0.5 rounded-full border border-hairline/50 bg-menu p-1 shadow-2xl shadow-black/40",
+            "popover-surface absolute bottom-full z-40 mb-1 flex animate-pop-in items-center gap-0.5 rounded-full border border-hairline bg-menu p-1 shadow-2xl shadow-shadow/40",
             end ? "end-0" : "start-0",
           )}
         >
@@ -186,7 +186,7 @@ function Chips({ threadId, message, bots = [], align = "start", canReact = true 
         const chip = cn(
           "flex items-center gap-1 rounded-full border px-2 py-0.5 text-[13px] leading-5",
           fresh && "animate-pop-in",
-          mine === emoji ? "border-accent/50 bg-accent/15" : "border-hairline/40 bg-panel",
+          mine === emoji ? "border-accent/50 bg-accent/15" : "border-hairline bg-panel",
         );
         const face = (
           <>

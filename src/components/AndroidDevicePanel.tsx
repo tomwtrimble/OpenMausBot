@@ -247,7 +247,7 @@ export function AndroidDevicePanel({ status }: { status: AndroidDeviceStatus }) 
       </div>
 
       {!ready ? (
-        <div className="rounded-xl border border-warning/25 bg-warning/10 p-4 text-[12px] leading-relaxed text-warning">
+        <div className="rounded-xl border border-warning/25 bg-warning/10 p-4 text-[12px] leading-relaxed text-warning-text">
           {selected.state === "unauthorized"
             ? t("computer.android.unauthorized")
             : t("computer.android.badState", { state: selected.state })}
@@ -290,7 +290,7 @@ export function AndroidDevicePanel({ status }: { status: AndroidDeviceStatus }) 
             onPointerCancel={() => {
               pointerRef.current = null;
             }}
-            className="mx-auto flex h-[520px] w-full touch-none cursor-pointer items-center justify-center overflow-hidden overscroll-none rounded-[28px] bg-black outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-accent"
+            className="mx-auto flex h-[520px] w-full touch-none cursor-pointer items-center justify-center overflow-hidden overscroll-none rounded-[28px] bg-black outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-focus"
           >
             {frame ? (
               <img
@@ -337,14 +337,14 @@ export function AndroidDevicePanel({ status }: { status: AndroidDeviceStatus }) 
       )}
 
       {error && (
-        <div className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger">
+        <div className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">
           {error}
         </div>
       )}
 
       <div className="rounded-xl bg-card p-4">
         <div className="flex items-center gap-2 text-[13px] font-medium text-ink">
-          <Usb size={15} className="text-accent" /> {t("computer.android.setupTitle")}
+          <Usb size={15} className="text-accent-text" /> {t("computer.android.setupTitle")}
         </div>
         <ol className="mt-2 list-decimal space-y-1.5 pl-4 text-[12px] leading-relaxed text-ink-secondary">
           <li>{t("computer.android.step1")}</li>

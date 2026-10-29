@@ -29,7 +29,7 @@ export function PayScreen({ plan, offer, browser, late, link, email, busy, copie
     </div>
     <div aria-live="polite" className="text-[13px] leading-[18px] empty:-mt-5">
       {copied && <p className="text-ink-secondary">{t("cloudBuy.pay.copied")}</p>}
-      {failed && <p role="alert" className="text-danger">{t("cloudBuy.pay.failed")}</p>}
+      {failed && <p role="alert" className="text-danger-text">{t("cloudBuy.pay.failed")}</p>}
     </div>
   </div>;
 }

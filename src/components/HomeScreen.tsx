@@ -48,7 +48,7 @@ export function HomeScreen({ bridge, manage }: { bridge: HomeBridge; manage?: ()
     <main data-home-screen={view?.screen ?? "opening"} className="flex min-h-screen items-center justify-center bg-app px-6 text-ink" style={{ WebkitAppRegion: "drag" } as React.CSSProperties}>
       <div className="flex w-full max-w-[420px] flex-col items-start gap-3" style={{ WebkitAppRegion: "no-drag" } as React.CSSProperties}>
         <p role="status" className="flex items-center gap-2 text-[20px] font-semibold">
-          {text.busy && <span aria-hidden="true" className="size-3.5 shrink-0 animate-spin rounded-full border-2 border-hairline border-t-accent" />}
+          {text.busy && <span aria-hidden="true" className="size-3.5 shrink-0 animate-spin rounded-full border-2 border-edge border-t-accent" />}
           {text.title}
         </p>
         {text.body && <p className="text-[14px] leading-relaxed text-ink-secondary">{text.body}</p>}
@@ -56,7 +56,7 @@ export function HomeScreen({ bridge, manage }: { bridge: HomeBridge; manage?: ()
         {text.reason && <p data-home-reason className="text-[13px] leading-relaxed text-ink-secondary">{text.reason}</p>}
         {text.action === "sign-in" && <button type="button" className="ui-button ui-button-primary mt-2" onClick={() => act(() => bridge.signIn())}>{t("homeScreen.signInButton")}</button>}
         {text.action === "manage" && manage && <button type="button" className="ui-button mt-2" onClick={() => act(manage)}>{t("cloudAccount.manageInBrowser")}</button>}
-        {failed && <p role="alert" className="text-[13px] text-danger">{t("cloudAccount.actionFailed")}</p>}
+        {failed && <p role="alert" className="text-[13px] text-danger-text">{t("cloudAccount.actionFailed")}</p>}
       </div>
     </main>
   );

@@ -23,7 +23,7 @@ describe("RawToggleAction", () => {
 
     expect(markup).toContain('aria-label="Show raw markdown"');
     expect(markup).toContain('title="Show raw markdown"');
-    expect(markup).not.toContain("text-accent");
+    expect(markup).not.toContain("text-accent-text");
     expect(markup).toContain('type="button"');
     expect(markup).toContain('aria-pressed="false"');
   });
@@ -38,7 +38,7 @@ describe("RawToggleAction", () => {
 
     expect(markup).toContain('aria-label="Show rendered markdown"');
     expect(markup).toContain('title="Show rendered markdown"');
-    expect(markup).toContain("text-accent");
+    expect(markup).toContain("text-accent-text");
     expect(markup).toContain("bg-raised");
     expect(markup).toContain("opacity-100");
     expect(markup).toContain('aria-pressed="true"');

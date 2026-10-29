@@ -8,7 +8,7 @@ import type { useAllAutomationActions } from "./app-actions";
 
 /** A coloured dot for Working and Paused; a warning sign for Needs you; a quiet check for Done. */
 export function StatusMark({ status, className }: { status: AutomationStatus; className?: string }) {
-  if (status.state === "needs-you") return <TriangleAlert size={15} aria-hidden="true" className={cn("shrink-0 text-warning", className)} />;
+  if (status.state === "needs-you") return <TriangleAlert size={15} aria-hidden="true" className={cn("shrink-0 text-warning-text", className)} />;
   if (status.state === "done") return <Check size={14} aria-hidden="true" className={cn("shrink-0 text-ink-tertiary", className)} />;
   return <span aria-hidden="true" className={cn("size-2.5 shrink-0 rounded-full", status.state === "working" ? "bg-success" : "bg-ink-tertiary/60", className)} />;
 }
@@ -32,7 +32,7 @@ export function FixButton({ automation, status, actions, onEdit, className }: {
     else void actions.runNow(automation);
   };
   return (
-    <button type="button" onClick={onClick} disabled={Boolean(actions.busy)} className={cn("shrink-0 rounded-lg bg-warning/15 px-2.5 py-1 text-[12px] font-medium text-warning hover:bg-warning/25 disabled:opacity-50", className)}>
+    <button type="button" onClick={onClick} disabled={Boolean(actions.busy)} className={cn("shrink-0 rounded-lg bg-warning/15 px-2.5 py-1 text-[12px] font-medium text-warning-text hover:bg-warning/25 disabled:opacity-50", className)}>
       {t(AUTOMATION_FIX_LABEL[fix])}
     </button>
   );

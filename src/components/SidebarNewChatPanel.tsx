@@ -136,7 +136,7 @@ export function SidebarNewChatPanel({
       style={{ ...style, left: place.left, width: place.width }}
       className={cn(
         "fixed top-0 z-40 flex animate-panel-in flex-col",
-        !place.floating && "bottom-0 border-e border-hairline/40 bg-app shadow-2xl shadow-black/40",
+        !place.floating && "bottom-0 border-e border-hairline bg-app shadow-2xl shadow-shadow/40",
       )}
     >
       <div className={cn(
@@ -171,7 +171,7 @@ export function SidebarNewChatPanel({
         id="new-chat-bots"
         role="list"
         style={{ maxHeight }}
-        className="mx-3 mt-2 min-h-0 overflow-y-auto rounded-2xl border border-hairline/60 bg-composer p-1.5 shadow-xl shadow-black/25 [scrollbar-width:thin]"
+        className="mx-3 mt-2 min-h-0 overflow-y-auto rounded-2xl border border-hairline bg-composer p-1.5 shadow-xl shadow-shadow/25 [scrollbar-width:thin]"
       >
         {actions.map((action, index) => (
           <div role="listitem" key={action.key}>

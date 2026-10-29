@@ -11,9 +11,10 @@ import { ArrowLeft, Check, Compass, ExternalLink, FolderOpen, Github, Loader2, S
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { catalogCopy, catalogMatches, type TeamCatalog, type TeamCatalogEntry } from "@/lib/team-catalog";
+import { TEAM_GLYPHS } from "@/lib/team-glyphs";
 
 import { GrokFinishSetup, grokSetupLeft } from "./GrokFinishSetup";
-import { TEAM_GLYPHS, TeamImportDetails } from "./TeamImportDetails";
+import { TeamImportDetails } from "./TeamImportDetails";
 import { GrokImportFlow } from "./GrokImportFlow";
 import { ReadyBotGallery } from "./ReadyBotGallery";
 import { ShareTeamDialog } from "./ShareTeamDialog";
@@ -457,7 +458,7 @@ export function TeamLibraryPanel({
         aria-modal="true"
         aria-labelledby="team-library-title"
         tabIndex={-1}
-        className="animate-pop-in flex h-[min(780px,calc(100dvh-2rem))] w-full max-w-[1040px] flex-col overflow-hidden rounded-2xl border border-hairline/50 bg-panel shadow-2xl shadow-black/50 outline-none"
+        className="animate-pop-in flex h-[min(780px,calc(100dvh-2rem))] w-full max-w-[1040px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel shadow-2xl shadow-shadow/50 outline-none"
       >
         <header className="flex items-start justify-between gap-4 px-6 pb-3 pt-6 sm:px-8 sm:pt-7">
           <div className="min-w-0">
@@ -521,10 +522,10 @@ export function TeamLibraryPanel({
           <>
             <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-6 sm:px-8">
               <TeamImportDetails pending={pending} importedNames={importedNames} org={pendingOrg !== null} />
-              {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger">{error}</div>}
+              {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
             </div>
 
-            <footer className="flex flex-col gap-3 border-t border-hairline/35 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+            <footer className="flex flex-col gap-3 border-t border-hairline px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
               <div className="text-[13px] text-ink-secondary">
                 {t(currentBotCount === 0 ? "templates.existingNone" : currentBotCount === 1 ? "templates.existingOne" : "templates.existingMany", { count: currentBotCount })}
                 {" "}{pending.kind === "backup"
@@ -682,7 +683,7 @@ export function TeamLibraryPanel({
                     </div>
                   )}
                   {!catalogLoading && catalogError && (
-                    <div className="rounded-xl bg-danger/10 p-4 text-[13px] text-danger">
+                    <div className="rounded-xl bg-danger/10 p-4 text-[13px] text-danger-text">
                       <p>{catalogError}</p>
                       <button onClick={() => void loadCatalog()} className="mt-3 rounded-full bg-raised px-3.5 py-2 text-ink hover:bg-raised-hover">{t("common.tryAgain")}</button>
                     </div>
@@ -692,7 +693,7 @@ export function TeamLibraryPanel({
                       {visibleTeams.map((entry, index) => {
                         const copy = catalogCopy(entry);
                         return (
-                        <article key={entry.slug} className="flex min-h-[104px] items-center gap-3 border-b border-hairline/35 px-1 py-4">
+                        <article key={entry.slug} className="flex min-h-[104px] items-center gap-3 border-b border-hairline px-1 py-4">
                           <TeamGlyph index={index} />
                           <div className="min-w-0 flex-1">
                             <h3 className="truncate text-[14px] font-medium text-ink">{copy.name}</h3>
@@ -757,10 +758,10 @@ export function TeamLibraryPanel({
                       }}
                       className={cn(
                         "flex min-h-56 flex-col items-center justify-center rounded-2xl border border-dashed px-6 text-center transition-colors",
-                        dragging ? "border-accent bg-accent/5" : "border-hairline/60 bg-raised/20 hover:bg-raised/35",
+                        dragging ? "border-accent bg-accent/5" : "border-hairline bg-raised/20 hover:bg-raised/35",
                       )}
                     >
-                      <UploadCloud size={27} className="text-accent" />
+                      <UploadCloud size={27} className="text-accent-text" />
                       <span className="mt-3 text-[14px] font-medium text-ink">{t("templates.chooseFile")}</span>
                       <span className="mt-1 text-[13px] text-ink-secondary">{t("templates.dropFile")}</span>
                     </button>
@@ -790,7 +791,7 @@ export function TeamLibraryPanel({
                     </div>
                   </div>
                   <GrokImportFlow link={grokLink} onPreview={(preview) => { setGrokLink(null); previewManifest(preview, "grok"); }} />
-                  {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger">{error}</div>}
+                  {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
                 </div>
               )}
 
@@ -802,7 +803,7 @@ export function TeamLibraryPanel({
                   ) : (
                     <div className="mt-4 grid grid-cols-1 gap-x-10 md:grid-cols-2">
                       {shareableTeams.map((team, index) => (
-                        <article key={team.name || "general"} className="flex min-h-[84px] items-center gap-3 border-b border-hairline/35 px-1 py-4">
+                        <article key={team.name || "general"} className="flex min-h-[84px] items-center gap-3 border-b border-hairline px-1 py-4">
                           <TeamGlyph index={index} />
                           <div className="min-w-0 flex-1">
                             <h3 className="truncate text-[14px] font-medium text-ink">{team.name || t("teamLibrary.general")}</h3>
@@ -879,7 +880,7 @@ export function TeamLibraryPanel({
                       <div className="mt-5 text-[12px] font-medium text-ink-secondary">{t("templates.suggestedTeam")}</div>
                       <div className="mt-1 grid grid-cols-1 gap-x-10 md:grid-cols-2">
                         {scouted.suggestion.manifest.team.members.map((member, index) => (
-                          <div key={member.key} className="flex min-h-[64px] items-center gap-3 border-b border-hairline/35 px-1 py-3">
+                          <div key={member.key} className="flex min-h-[64px] items-center gap-3 border-b border-hairline px-1 py-3">
                             <div className={cn("flex size-9 shrink-0 items-center justify-center rounded-lg text-[13px] font-semibold", TEAM_GLYPHS[index % TEAM_GLYPHS.length])}>
                               {member.name.slice(0, 1).toUpperCase()}
                             </div>
@@ -900,7 +901,7 @@ export function TeamLibraryPanel({
                           <div className="mt-5 text-[12px] font-medium text-ink-secondary">{t("templates.communityDirectory")}</div>
                           <div className="mt-1 flex flex-col">
                             {directory.map((candidate) => (
-                              <div key={candidate.slug} className="flex items-center gap-3 border-b border-hairline/35 px-1 py-3">
+                              <div key={candidate.slug} className="flex items-center gap-3 border-b border-hairline px-1 py-3">
                                 <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-3">
                                   <input
                                     type="checkbox"
@@ -960,7 +961,7 @@ export function TeamLibraryPanel({
                       </p>
                     </div>
                   )}
-                  {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger">{error}</div>}
+                  {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
                 </div>
               )}
             </div>

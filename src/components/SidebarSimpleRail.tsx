@@ -4,7 +4,7 @@ import { SidebarProfileMenu, useSimpleAccount, type ArchivedBots } from "./Sideb
 import { UpdateIndicator } from "./UpdateIndicator";
 
 export function SidebarRailSeparator() {
-  return <div aria-hidden="true" data-sidebar-rail-separator="" className="mx-auto my-1.5 h-px w-8 shrink-0 bg-hairline/70" />;
+  return <div aria-hidden="true" data-sidebar-rail-separator="" className="mx-auto my-1.5 h-px w-8 shrink-0 bg-edge" />;
 }
 
 export function SimpleRailFooter({ owner = null, archived }: {
@@ -18,7 +18,7 @@ export function SimpleRailFooter({ owner = null, archived }: {
       <SidebarConnectApps circle />
       <UpdateIndicator />
       <SidebarProfileMenu iconOnly rail simple={account} />
-      <SidebarPlaceStatus place={place} className="absolute bottom-3 left-full z-40 ml-2 w-56 rounded-md bg-menu px-2 py-1 text-[11px] shadow-lg" />
+      <SidebarPlaceStatus place={place} className="popover-surface absolute bottom-3 left-full z-40 ml-2 w-56 rounded-md bg-menu px-2 py-1 text-[11px] shadow-lg" />
     </div>
   );
 }

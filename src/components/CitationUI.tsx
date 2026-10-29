@@ -60,7 +60,7 @@ function CitationEditor({
       ref={ref}
       role="dialog"
       aria-label="Comment on citation"
-      className="fixed z-50 w-[min(28rem,calc(100vw-1rem))] rounded-xl border border-hairline/50 bg-panel p-3 text-ink shadow-2xl"
+      className="popover-surface fixed z-50 w-[min(28rem,calc(100vw-1rem))] rounded-xl border border-hairline bg-menu p-3 text-ink shadow-2xl"
       style={point}
       onKeyDown={(event) => {
         event.stopPropagation();
@@ -70,7 +70,7 @@ function CitationEditor({
         }
       }}
     >
-      <div className="mb-2 max-h-36 overflow-auto rounded-lg border border-hairline/30 bg-inset px-3 py-2">
+      <div className="mb-2 max-h-36 overflow-auto rounded-lg border border-hairline bg-inset px-3 py-2">
         <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-ink-secondary">Quoted message</div>
         <pre dir="auto" className="whitespace-pre-wrap break-words font-sans text-[12px] leading-relaxed">{citation.quote}</pre>
       </div>
@@ -89,9 +89,9 @@ function CitationEditor({
             if (!tooLong) onSave(withCitationComment(citation, comment));
           }
         }}
-        className="w-full resize-none rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[13px] outline-none focus:border-accent"
+        className="w-full resize-none rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] outline-none focus:border-accent"
       />
-      {tooLong && <p role="status" className="mt-1 text-[11px] text-danger">Comments can contain up to {CITATION_MAX_COMMENT_LENGTH.toLocaleString()} characters.</p>}
+      {tooLong && <p role="status" className="mt-1 text-[11px] text-danger-text">Comments can contain up to {CITATION_MAX_COMMENT_LENGTH.toLocaleString()} characters.</p>}
       <div className="mt-2 flex justify-end gap-2">
         <button type="button" onClick={onCancel} className="rounded-lg px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-raised">Cancel</button>
         <button type="button" disabled={tooLong} onClick={() => onSave(withCitationComment(citation, comment))} className="rounded-lg bg-accent px-3 py-1.5 text-[12px] font-medium text-white disabled:opacity-40">Save</button>
@@ -190,7 +190,7 @@ export function CitationSelectionToolbar({
       onKeyDown={(event) => {
         if (event.key === "Escape") { event.preventDefault(); setCaptured(null); }
       }}
-      className="fixed z-50 flex items-center gap-1.5 rounded-full border border-hairline/50 bg-panel px-3 py-1.5 text-[12px] font-medium text-ink shadow-lg disabled:text-danger"
+      className="fixed z-50 flex items-center gap-1.5 rounded-full border border-hairline bg-panel px-3 py-1.5 text-[12px] font-medium text-ink shadow-lg disabled:text-danger-text"
       style={captured.point}
     >
       <Quote size={13} aria-hidden="true" /> {tooLong ? "Shorten selection" : "Cite"}
@@ -261,7 +261,7 @@ export function CitationBadge({
         <div
           role="dialog"
           aria-label="Citation details"
-          className="fixed z-50 w-[min(30rem,calc(100vw-1rem))] rounded-xl border border-hairline/50 bg-panel p-3 text-left text-ink shadow-2xl"
+          className="popover-surface fixed z-50 w-[min(30rem,calc(100vw-1rem))] rounded-xl border border-hairline bg-menu p-3 text-left text-ink shadow-2xl"
           style={point}
           ref={(element) => {
             detailsRef.current = element;
@@ -276,10 +276,10 @@ export function CitationBadge({
             <pre dir="auto" className="whitespace-pre-wrap break-words font-sans text-[12px] leading-relaxed">{citation.quote}</pre>
           </div>
           {citation.comment && <div className="mt-2 text-[12px]"><span className="font-semibold">Comment:</span> <span className="whitespace-pre-wrap">{citation.comment}</span></div>}
-          {unavailable && <p role="status" className="mt-2 text-[11px] text-warning">Source unavailable or changed. The saved quote is still available.</p>}
+          {unavailable && <p role="status" className="mt-2 text-[11px] text-warning-text">Source unavailable or changed. The saved quote is still available.</p>}
           <div className="mt-3 flex justify-end gap-2">
-            {onNavigate && <button type="button" onClick={() => { void onNavigate().then((found) => { setUnavailable(!found); if (found) setOpen(false); }); }} className="rounded-lg border border-hairline/40 px-3 py-1.5 text-[12px] hover:bg-raised">Go to source</button>}
-            {onChange && <button type="button" onClick={() => { setOpen(false); setEditing(true); }} className="rounded-lg border border-hairline/40 px-3 py-1.5 text-[12px] hover:bg-raised">Edit comment</button>}
+            {onNavigate && <button type="button" onClick={() => { void onNavigate().then((found) => { setUnavailable(!found); if (found) setOpen(false); }); }} className="rounded-lg border border-hairline px-3 py-1.5 text-[12px] hover:bg-raised">Go to source</button>}
+            {onChange && <button type="button" onClick={() => { setOpen(false); setEditing(true); }} className="rounded-lg border border-hairline px-3 py-1.5 text-[12px] hover:bg-raised">Edit comment</button>}
             <button type="button" onClick={() => { setOpen(false); restoreTriggerFocus(); }} className="rounded-lg bg-accent px-3 py-1.5 text-[12px] text-white">Close</button>
           </div>
         </div>,

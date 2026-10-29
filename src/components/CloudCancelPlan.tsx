@@ -62,7 +62,7 @@ export function CloudCancelPlan({ renewal, actions, onChanged }: { renewal: Clou
       ? <div data-cloud-cancel="cancelled" className="flex flex-col items-start gap-2 self-start">
         <p role="status" className="text-[13px] text-ink">{endedLine(renewal)}</p>
         <button type="button" className="ui-button" disabled={keeping} onClick={keep}>{t(keeping ? "cloudCancel.keeping" : "cloudCancel.keep")}</button>
-        {note && <p role={note === "failed" ? "alert" : "status"} className={cn("text-[13px]", note === "failed" ? "text-danger" : "text-ink-secondary")}>
+        {note && <p role={note === "failed" ? "alert" : "status"} className={cn("text-[13px]", note === "failed" ? "text-danger-text" : "text-ink-secondary")}>
           {t(note === "failed" ? "cloudCancel.failed" : "cloudCancel.browser")}</p>}
       </div>
       : <button type="button" data-cloud-cancel="renewing" className="ui-button self-start" onClick={() => { setNote(null); setOpened(renewal); }}>
@@ -105,12 +105,12 @@ export function CloudCancelSheet({ renewal, actions, onClose }: { renewal: Cloud
     else setFailed(true);
   });
   const title = t(renewal.trial ? "cloudCancel.titleTrial" : "cloudCancel.titlePlan");
-  const box = "mt-1.5 w-full rounded-lg border border-hairline/50 bg-inset px-3 py-2 text-[14px] text-ink disabled:opacity-60";
-  const alert = failed && <p role="alert" className="mt-3 text-[13px] text-danger">{t("cloudCancel.failed")}</p>;
+  const box = "mt-1.5 w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink disabled:opacity-60";
+  const alert = failed && <p role="alert" className="mt-3 text-[13px] text-danger-text">{t("cloudCancel.failed")}</p>;
   return createPortal(
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/55 p-4" onMouseDown={event => { if (event.target === event.currentTarget) close(); }}>
       <div ref={dialog} role="dialog" aria-modal="true" aria-labelledby="cloud-cancel-title" aria-busy={busy} tabIndex={-1} data-cloud-cancel-sheet={state.step}
-        className="flex max-h-[90vh] w-full max-w-[480px] flex-col overflow-hidden rounded-2xl border border-hairline/50 bg-panel text-ink shadow-2xl outline-none"
+        className="flex max-h-[90vh] w-full max-w-[480px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel text-ink shadow-2xl outline-none"
         onKeyDown={event => {
           if (event.key === "Escape") { event.stopPropagation(); close(); }
           if (event.key === "Tab") {

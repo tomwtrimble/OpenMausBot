@@ -90,7 +90,7 @@ export function LiveDesktop({ target, threadId, name, poster, expanded, onExpand
       }}
     >
       {expanded && (
-        <header {...dragProps} className={cn("flex shrink-0 flex-wrap items-center gap-2 border-b border-hairline/40 bg-panel px-3 py-2", macInset && "pl-[86px]", padClass)}>
+        <header {...dragProps} className={cn("flex shrink-0 flex-wrap items-center gap-2 border-b border-hairline bg-panel px-3 py-2", macInset && "pl-[86px]", padClass)}>
           <span className="min-w-0 truncate text-[13px] font-medium text-ink">{label}</span>
           {pill}
           <form
@@ -112,7 +112,7 @@ export function LiveDesktop({ target, threadId, name, poster, expanded, onExpand
               spellCheck={false}
               placeholder={t("desktopViewer.text")}
               aria-label={t("desktopViewer.text")}
-              className="w-44 min-w-0 rounded-lg border border-hairline bg-inset px-2.5 py-1.5 text-[12px] text-ink outline-none focus:border-focus max-sm:w-28"
+              className="w-44 min-w-0 rounded-lg border border-edge bg-inset px-2.5 py-1.5 text-[12px] text-ink outline-none focus:border-focus max-sm:w-28"
             />
             <button type="submit" disabled={connection !== "connected" || !text} title={t("desktopViewer.send")} aria-label={t("desktopViewer.send")} className={cn(iconButton, "bg-control text-ink hover:bg-raised-hover")}>
               <Send size={14} aria-hidden="true" />

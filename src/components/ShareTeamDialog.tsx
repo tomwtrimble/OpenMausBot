@@ -74,7 +74,7 @@ export function ShareTeamContents({ preview, includeMemory, localSkips }: {
         <span>{t("teamShare.never")}</span>
       </p>
       {preview.redacted.length > 0 && (
-        <div className="mt-3 rounded-xl border border-hairline px-4 py-3 text-[13px] text-ink-secondary">
+        <div className="mt-3 rounded-xl border border-edge px-4 py-3 text-[13px] text-ink-secondary">
           <div className="font-medium text-ink">{t("teamShare.redacted")}</div>
           <ul className="mt-1 list-disc pl-5">
             {preview.redacted.map((part) => <li key={part}>{describePart(part, preview.document)}</li>)}
@@ -82,7 +82,7 @@ export function ShareTeamContents({ preview, includeMemory, localSkips }: {
         </div>
       )}
       {skipped.length > 0 && (
-        <div className="mt-3 rounded-xl border border-hairline px-4 py-3 text-[13px] text-ink-secondary">
+        <div className="mt-3 rounded-xl border border-edge px-4 py-3 text-[13px] text-ink-secondary">
           <div className="font-medium text-ink">{t("teamShare.skipped")}</div>
           <ul className="mt-1 list-disc pl-5">
             {skipped.map((line, index) => <li key={`${line}-${index}`}>{line}</li>)}
@@ -230,14 +230,14 @@ export function ShareTeamDialog({ team, onClose }: { team: string; onClose: () =
     else next.add(skill);
     setSkillChoice(next);
   };
-  const field = "mt-1 w-full rounded-lg border border-hairline/50 bg-inset px-3 py-2 text-[14px] text-ink disabled:opacity-60";
+  const field = "mt-1 w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink disabled:opacity-60";
 
   return createPortal(
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 p-4" onMouseDown={(event) => {
       if (event.target === event.currentTarget && !saving) onClose();
     }}>
       <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="share-team-title" tabIndex={-1}
-        className="flex max-h-[90vh] w-full max-w-[620px] flex-col overflow-hidden rounded-2xl border border-hairline/50 bg-panel text-ink shadow-2xl outline-none"
+        className="flex max-h-[90vh] w-full max-w-[620px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel text-ink shadow-2xl outline-none"
         onKeyDown={(event) => {
           if (event.key === "Escape" && !saving) { event.stopPropagation(); onClose(); }
           if (event.key === "Tab") {
@@ -309,8 +309,8 @@ export function ShareTeamDialog({ team, onClose }: { team: string; onClose: () =
           </div>
         )}
 
-        {error && <p role="alert" className="mx-6 mb-2 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger">{error}</p>}
-        <footer className="flex justify-end gap-2 border-t border-hairline/35 px-6 py-3">
+        {error && <p role="alert" className="mx-6 mb-2 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</p>}
+        <footer className="flex justify-end gap-2 border-t border-hairline px-6 py-3">
           {saved ? (
             <button onClick={onClose} className="rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white">{t("teamShare.done")}</button>
           ) : (

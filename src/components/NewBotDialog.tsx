@@ -151,8 +151,8 @@ export function NewBotDialog({ defaultsMode = false, onClose, onCreated, readyBo
   const title = defaultsMode ? t("newBot.defaults") : t("sidebar.newBot");
   return <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 p-3 sm:p-5" hidden={!defaultsMode && parent.state.appSettingsOpen}>
     <div ref={dialog} role="dialog" aria-modal="true" aria-label={title} aria-busy={saving} tabIndex={-1}
-      className="flex h-[min(760px,94dvh)] w-full max-w-[900px] flex-col overflow-hidden rounded-2xl border border-hairline/50 bg-panel shadow-2xl outline-none">
-      <div className="flex shrink-0 items-center justify-between border-b border-hairline/40 px-5 py-4">
+      className="flex h-[min(760px,94dvh)] w-full max-w-[900px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel shadow-2xl outline-none">
+      <div className="flex shrink-0 items-center justify-between border-b border-hairline px-5 py-4">
         <h2 className="text-[17px] font-semibold text-ink">{title}</h2>
         <button type="button" onClick={() => closeRef.current()} aria-label={t("common.close")}
           className="flex size-8 shrink-0 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-40"><X size={18} className="pointer-events-none" /></button>
@@ -179,13 +179,13 @@ export function NewBotDialog({ defaultsMode = false, onClose, onCreated, readyBo
                 onChange={(event) => setPeople(event.target.value)}
                 placeholder={t("botSettings.visibility.peoplePlaceholder")}
                 aria-label={t("botSettings.visibility.peopleLabel")}
-                className="min-w-[16rem] flex-1 rounded-lg border border-hairline/40 bg-inset px-3 py-1.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
+                className="min-w-[16rem] flex-1 rounded-lg border border-hairline bg-inset px-3 py-1.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
               />
             )}
           </div>
         )}
       <div className="flex min-h-0 flex-1 flex-col sm:flex-row">
-        <nav aria-label={t("newBot.sections")} className="flex shrink-0 gap-1 overflow-x-auto border-b border-hairline/40 p-2 sm:w-40 sm:flex-col sm:border-b-0 sm:border-r">
+        <nav aria-label={t("newBot.sections")} className="flex shrink-0 gap-1 overflow-x-auto border-b border-hairline p-2 sm:w-40 sm:flex-col sm:border-b-0 sm:border-r">
           {sections.map(label => <button key={label} type="button" onClick={() => setActive(label)} aria-current={active === label ? "page" : undefined}
             className={cn("shrink-0 rounded-lg px-3 py-2 text-left text-[13px]", active === label ? "bg-control text-ink" : "text-ink-secondary hover:bg-control/50")}>{t(SECTION_KEYS[label])}</button>)}
         </nav>
@@ -199,8 +199,8 @@ export function NewBotDialog({ defaultsMode = false, onClose, onCreated, readyBo
           </fieldset>}
         </div>
       </div>
-      {error && <p role="alert" className="max-h-24 overflow-y-auto border-t border-hairline/40 px-5 py-3 text-[13px] text-danger">{error}</p>}
-      <div className="flex shrink-0 justify-end gap-2 border-t border-hairline/40 px-5 py-3">
+      {error && <p role="alert" className="max-h-24 overflow-y-auto border-t border-hairline px-5 py-3 text-[13px] text-danger-text">{error}</p>}
+      <div className="flex shrink-0 justify-end gap-2 border-t border-hairline px-5 py-3">
         <button type="button" onClick={() => closeRef.current()} className="rounded-lg px-4 py-2 text-[13px] text-ink-secondary hover:bg-control">{t("common.cancel")}</button>
         <button type="button" disabled={!ready || saving || (!defaultsMode && !bot.name.trim())} onClick={() => void save()}
           className="ui-button-primary flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-[13px] font-medium text-white hover:brightness-110 disabled:opacity-40">
@@ -214,10 +214,10 @@ export function NewBotDialog({ defaultsMode = false, onClose, onCreated, readyBo
 
 function SharedInTeam({ team }: { team: string }) {
   const bridge = typeof window === "undefined" ? undefined : window.ogb?.workspaces;
-  return <div data-new-bot-shared className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-hairline/40 bg-raised/30 px-5 py-2.5 text-[13px] text-ink-secondary">
+  return <div data-new-bot-shared className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-hairline bg-raised/30 px-5 py-2.5 text-[13px] text-ink-secondary">
     <span>{t("newBot.sharedWith", { team })}</span>
     {bridge
-      ? <button type="button" onClick={() => void openServerMenu(bridge).catch(() => {})} className="font-medium text-accent hover:underline">{t("newBot.justForYou")}</button>
+      ? <button type="button" onClick={() => void openServerMenu(bridge).catch(() => {})} className="font-medium text-accent-text hover:underline">{t("newBot.justForYou")}</button>
       : <span>{t("newBot.justForYou").replace(/\s*→$/, "")}</span>}
   </div>;
 }
@@ -320,7 +320,7 @@ function StartingRole({ draft, defaultsMode }: { draft: BotCreationDraft; defaul
       {chosen.source === "file" && <button type="button" onClick={() => void remove(chosen)}
         className="mt-1 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-control hover:text-ink">{t("newBot.presetRemove")}</button>}
     </div>}
-    {error && <p role="alert" className="mt-2 text-[13px] text-danger">{error}</p>}
+    {error && <p role="alert" className="mt-2 text-[13px] text-danger-text">{error}</p>}
   </div>;
 }
 

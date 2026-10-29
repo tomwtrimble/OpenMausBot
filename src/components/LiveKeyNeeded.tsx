@@ -10,7 +10,7 @@ import { openKeySettings } from "./keys/key-focus";
 export function LiveKeyNeeded() {
   const { state, dispatch } = useStore();
   const titleId = useId();
-  return <section aria-labelledby={titleId} className="flex flex-col gap-2.5 rounded-xl border border-hairline bg-panel p-4 text-left">
+  return <section aria-labelledby={titleId} className="flex flex-col gap-2.5 rounded-xl border border-edge bg-panel p-4 text-left">
     <div className="flex items-start gap-2.5">
       <KeyRound size={16} className="mt-0.5 shrink-0 text-ink-secondary" aria-hidden="true" />
       <h2 id={titleId} className="text-[14px] font-medium leading-[1.4] text-ink">{t("call.live.needsKey")}</h2>

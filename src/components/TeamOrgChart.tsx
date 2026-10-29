@@ -44,10 +44,10 @@ function BotRow({ bot, team, onDragStart }: { bot: Bot; team: TeamPeople; onDrag
   const movable = mayChangeOwner(bot, team);
   return (
     <div data-org-bot={bot.id} draggable={movable || undefined} onDragStart={movable ? (event) => onDragStart(event, bot) : undefined}
-      className={cn("group flex items-center gap-2 rounded-lg border border-hairline/40 bg-card px-2 py-1.5", movable && "cursor-grab active:cursor-grabbing")}>
+      className={cn("group flex items-center gap-2 rounded-lg border border-hairline bg-card px-2 py-1.5", movable && "cursor-grab active:cursor-grabbing")}>
       <BotAvatar bot={bot} size={24} motion="none" motionKey={0} animated={false} />
       <span className="min-w-0 flex-1 truncate text-[13px] text-ink">{bot.name}</span>
-      {bot.chiefOfStaff && <Crown size={12} className="shrink-0 text-accent" aria-label={t("orgChart.chief")} />}
+      {bot.chiefOfStaff && <Crown size={12} className="shrink-0 text-accent-text" aria-label={t("orgChart.chief")} />}
       {movable && <button type="button" aria-label={t("owner.change", { bot: bot.name })} title={t("owner.change", { bot: bot.name })}
         onClick={(event) => {
           const rect = event.currentTarget.getBoundingClientRect();
@@ -69,7 +69,7 @@ function Column({ column, team, over, onOver, onDrop, onDragStart }: {
       onDragOver={person ? (event) => { if (event.dataTransfer.types.includes(BOT_DRAG_TYPE)) { event.preventDefault(); onOver(person.email); } } : undefined}
       onDragLeave={person ? () => onOver(null) : undefined}
       onDrop={person ? (event) => onDrop(person.email, event) : undefined}
-      className={cn("flex w-[248px] shrink-0 flex-col gap-3 rounded-2xl border p-3 transition-colors", over ? "border-accent bg-accent/5" : "border-hairline/40 bg-panel")}>
+      className={cn("flex w-[248px] shrink-0 flex-col gap-3 rounded-2xl border p-3 transition-colors", over ? "border-accent bg-accent/5" : "border-hairline bg-panel")}>
       <header className="flex items-center gap-2.5">
         {person ? <PersonFace person={person} size={30} /> : <span aria-hidden="true" className="inline-flex size-[30px] items-center justify-center rounded-full border border-dashed border-ink-secondary/60 text-ink-secondary">?</span>}
         <span className="min-w-0 flex-1">

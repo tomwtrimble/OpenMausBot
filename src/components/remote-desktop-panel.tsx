@@ -209,8 +209,8 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
   };
 
   return (
-    <aside className="relative z-20 flex h-full w-[400px] shrink-0 flex-col border-l border-hairline bg-panel" ref={panelRef} data-computer-panel>
-      <div {...dragProps} className={cn("flex items-center justify-between border-b border-hairline px-5 py-4", padClass)}>
+    <aside className="relative z-20 flex h-full w-[400px] shrink-0 flex-col border-l border-edge bg-panel" ref={panelRef} data-computer-panel>
+      <div {...dragProps} className={cn("flex items-center justify-between border-b border-edge px-5 py-4", padClass)}>
         <div>
           <div className="text-[14px] font-medium text-ink">{bot.name}&apos;s computer</div>
           <div className="mt-0.5 text-[11px] text-ink-secondary">
@@ -251,7 +251,7 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
         <div className="flex min-h-0 flex-1 flex-col px-4 pb-4 pt-1">
           {help?.place === "browser" && <div className="-mt-2 mb-3"><SignInBanner help={help} askerName={asker} onError={setError} /></div>}
           <BrowserPanel bot={bot} signIn={signIn} />
-          {error && <div role="alert" className="mt-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger">{error}</div>}
+          {error && <div role="alert" className="mt-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{error}</div>}
           <p className="mt-2 text-[11px] leading-relaxed text-ink-secondary">
             Watching and driving this browser needs browser control for this paired device, in Settings → Remote access on the host computer.
           </p>
@@ -263,7 +263,7 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
           type="button"
           onClick={() => void open()}
           disabled={pending || !frame}
-          className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl border border-hairline bg-black disabled:cursor-default"
+          className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl border border-edge bg-black disabled:cursor-default"
           aria-label={frame ? `Open ${bot.name}'s live desktop` : "VPS preview unavailable"}
         >
           {frame ? (
@@ -298,7 +298,7 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
           {pending ? "Opening…" : "Take control"}
         </button>
         {error && (
-          <div role="alert" className="w-full rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-left text-[12px] text-danger">
+          <div role="alert" className="w-full rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-left text-[12px] text-danger-text">
             {error}
           </div>
         )}
@@ -309,7 +309,7 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
         <div className="w-full rounded-xl bg-card p-4 text-left">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-[15px] font-medium text-ink">
-              <CalendarClock size={16} className="text-accent" />
+              <CalendarClock size={16} className="text-accent-text" />
               Scheduled tasks
             </div>
             {botRoutines.length > 0 && (
@@ -322,7 +322,7 @@ export function RemoteDesktopPanel({ bot }: { bot: Bot }) {
             <button
               type="button"
               onClick={() => dispatch({ type: "showRoutines" })}
-              className="mt-3 flex w-full items-center gap-2 rounded-lg border border-accent/25 bg-accent/10 px-3 py-2 text-left text-[12px] text-accent hover:bg-accent/15"
+              className="mt-3 flex w-full items-center gap-2 rounded-lg border border-accent/25 bg-accent/10 px-3 py-2 text-left text-[12px] text-accent-text hover:bg-accent/15"
             >
               <Loader2 size={13} className={activeRoutineRun.status === "queued" ? "" : "animate-spin"} />
               <span className="min-w-0 flex-1 truncate">

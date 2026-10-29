@@ -75,9 +75,9 @@ describe("RoomMoreMenu, the Room panel's round ⋯", () => {
     expect(menu.ariaLabel).toBe("More");
     expect(menu.trigger).toContain('data-testid="room-more"');
     expect(menu.trigger).toMatch(/class="[^"]*\bsize-8\b[^"]*\brounded-full\b[^"]*\bbg-raised\/50\b/);
-    expect(menu.trigger).not.toContain("text-accent");
+    expect(menu.trigger).not.toContain("text-accent-text");
     fixture.findOpen = true;
-    expect(menuOf(room()).trigger).toContain("text-accent");
+    expect(menuOf(room()).trigger).toContain("text-accent-text");
     expect(item(room(), "find").active).toBe(true);
   });
 

@@ -95,7 +95,7 @@ export function PanelHero({ bot, activeState, patch, editorOpen, onToggleEditor 
         )}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[calc(100%+4px)] z-10 -translate-x-1/2 whitespace-nowrap rounded-md border border-hairline bg-menu px-[7px] py-0.5 text-[12px] text-ink opacity-0 transition-opacity group-hover:opacity-100"
+          className="pointer-events-none absolute left-1/2 top-[calc(100%+4px)] z-10 -translate-x-1/2 whitespace-nowrap rounded-md border border-edge bg-menu px-[7px] py-0.5 text-[12px] text-ink opacity-0 transition-opacity group-hover:opacity-100"
         >
           {t("botPanel.avatar.edit")}
         </span>

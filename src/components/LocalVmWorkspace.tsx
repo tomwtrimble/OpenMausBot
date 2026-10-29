@@ -417,10 +417,10 @@ function LocalVmPane({
     <section
       className={cn(
         "flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border bg-panel",
-        active ? "border-accent/80 shadow-[0_0_0_1px_rgb(var(--accent)/0.35)]" : "border-hairline/50",
+        active ? "border-accent/80 shadow-[0_0_0_1px_rgb(var(--accent)/0.35)]" : "border-hairline",
       )}
     >
-      <div className="flex min-h-[68px] items-center gap-3 border-b border-hairline/40 px-3 py-2.5">
+      <div className="flex min-h-[68px] items-center gap-3 border-b border-hairline px-3 py-2.5">
         <div className="min-w-0 flex-1">
           <label className="sr-only" htmlFor={`local-vm-slot-${index}`}>
             Local VM for pane {index + 1}
@@ -499,7 +499,7 @@ function LocalVmPane({
             </div>
           ) : (
             <div className="flex max-w-[300px] flex-col items-center gap-3 text-ink-secondary">
-              <AlertTriangle size={21} className="text-warning" />
+              <AlertTriangle size={21} className="text-warning-text" />
               <div className="text-[12px] leading-relaxed">
                 {error ??
                   (status?.container === "missing"
@@ -761,8 +761,8 @@ export function LocalVmWorkspace({
 
   return (
     <main className="flex h-full min-w-0 flex-1 flex-col bg-app">
-      <header {...dragProps} className="flex min-h-[60px] items-center gap-3 border-b border-hairline/40 px-5 py-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/15 text-accent">
+      <header {...dragProps} className="flex min-h-[60px] items-center gap-3 border-b border-hairline px-5 py-3">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/15 text-accent-text">
           <Monitor size={18} />
         </div>
         <div className="min-w-0 flex-1">
@@ -783,7 +783,7 @@ export function LocalVmWorkspace({
       </header>
 
       {controlError && (
-        <div className="mx-3 mt-3 flex items-center gap-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger">
+        <div className="mx-3 mt-3 flex items-center gap-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">
           <AlertTriangle size={14} className="shrink-0" /> {controlError}
         </div>
       )}

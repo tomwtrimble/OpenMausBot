@@ -60,7 +60,7 @@ export function OwnerFace({ bot }: { bot: Bot }) {
       const rect = event.currentTarget.getBoundingClientRect();
       requestOwnerPick({ botIds: [bot.id], title: t("owner.pickTitle"), current: owner?.email ?? null, x: rect.left, y: rect.bottom + 4 });
     }}
-    className="flex shrink-0 rounded-full outline-none hover:ring-2 hover:ring-accent/40 focus-visible:ring-2 focus-visible:ring-accent/60">{face}</button>;
+    className="flex shrink-0 rounded-full outline-none hover:ring-2 hover:ring-accent/40 focus-visible:ring-2 focus-visible:ring-focus/60">{face}</button>;
 }
 
 /** Changes who one bot, or every bot of a department, reports to. */
@@ -113,7 +113,7 @@ export function OwnerPicker({ target, onClose }: { target: OwnerPickerTarget | n
               <span className="block truncate">{person.you ? t("owner.you", { name: person.name }) : person.name}</span>
               <span className="block truncate text-[11px] text-ink-secondary">{person.email}</span>
             </span>
-            {person.email === shown.current && <Check size={14} className="shrink-0 text-accent" />}
+            {person.email === shown.current && <Check size={14} className="shrink-0 text-accent-text" />}
           </button>
         ))}
       </div>
@@ -170,10 +170,10 @@ export function NeedsYouButton({ compact = false }: { compact?: boolean }) {
   return (
     <div data-needs-you className={cn("relative", compact ? "px-1" : "px-2 pb-1")}>
       <button type="button" aria-expanded={open} aria-haspopup="menu" aria-label={label} title={label} onClick={() => setOpen((value) => !value)}
-        className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[13px] font-medium text-warning hover:bg-raised/60">
+        className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[13px] font-medium text-warning-text hover:bg-raised/60">
         <Bell size={15} aria-hidden="true" className="shrink-0" />
         {!compact && <span className="min-w-0 flex-1 truncate">{t("needsYou.title")}</span>}
-        <span className="rounded-full bg-warning px-1.5 text-[11px] font-semibold tabular-nums text-panel">{items.length}</span>
+        <span className="rounded-full bg-warning px-1.5 text-[11px] font-semibold tabular-nums text-warning-ink">{items.length}</span>
       </button>
       {open && (
         <div role="menu" aria-label={t("needsYou.title")} className={cn("absolute left-2 right-2 top-full z-40 mt-1 max-h-[340px] overflow-y-auto", MENU_SHEET)}>

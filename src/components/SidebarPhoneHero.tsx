@@ -17,12 +17,12 @@ export function PhoneHero({ bot, selected, onOpen, onMenu }: { bot: Bot; selecte
         aria-current={selected ? "page" : undefined}
         onClick={onOpen}
         onContextMenu={(event) => openBotContextMenu(onMenu, bot.id, event)}
-        className="flex flex-col items-center gap-1.5 rounded-2xl px-6 py-1 outline-none focus-visible:ring-1 focus-visible:ring-accent/60"
+        className="flex flex-col items-center gap-1.5 rounded-2xl px-6 py-1 outline-none focus-visible:ring-1 focus-visible:ring-focus/60"
       >
         <span className="relative flex">
           <BotAvatar bot={bot} state={stateForBot({ ...bot, messages: visible })} size={88} motion="none" motionKey={0} animated={Boolean(bot.busy)} />
           <span className="absolute -bottom-0.5 -right-0.5 flex rounded-full border-2 border-app bg-raised p-1">
-            <Crown size={13} strokeWidth={2.25} className="text-accent" aria-hidden="true" />
+            <Crown size={13} strokeWidth={2.25} className="text-accent-text" aria-hidden="true" />
           </span>
         </span>
         <span className="text-[17px] font-semibold leading-6 text-ink">{bot.name}</span>

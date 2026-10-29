@@ -26,6 +26,6 @@ export function CloudNoticeCard({ kind, busy = false, failed = false, onAction, 
       <button type="button" disabled={busy} className={PRIMARY_BUTTON} onClick={onAction}>{t(card.action)}</button>
       <NotNowButton onClick={onNotNow} />
     </div>
-    {failed && <p role="alert" className="mt-2 text-[12px] text-danger">{t("cloudAccount.actionFailed")}</p>}
+    {failed && <p role="alert" className="mt-2 text-[12px] text-danger-text">{t("cloudAccount.actionFailed")}</p>}
   </NoticeCard>;
 }

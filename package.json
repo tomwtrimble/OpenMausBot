@@ -25,6 +25,8 @@
     "prepare": "node scripts/install-git-hooks.mjs",
     "lint": "oxlint --deny-warnings .",
     "check:contrast": "node scripts/check-skin-contrast.mjs",
+    "tokens": "node scripts/tokens/generate.mjs",
+    "check:tokens": "node scripts/tokens/generate.mjs --check",
     "i18n:check": "node scripts/generate-locale.mjs --check",
     "dev": "vite",
     "docs:dev": "pnpm --filter @openmausbot/docs dev",

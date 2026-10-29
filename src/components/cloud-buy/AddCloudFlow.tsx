@@ -36,7 +36,7 @@ function NameScreen({ plan, name, color, busy, suggested, onName, onColor, onBac
       <span aria-hidden="true" className="text-[13px] font-medium text-ink">{t("cloudBuy.setup.color")}</span>
       <SwatchRadios value={color} onChange={onColor} label={t("cloudBuy.setup.color")} disabled={busy} />
     </div>
-    <div className="flex items-center gap-3 rounded-xl border border-hairline/70 bg-card/70 px-4 py-3">
+    <div className="flex items-center gap-3 rounded-xl border border-edge bg-card/70 px-4 py-3">
       <span aria-hidden="true" className={cn("grid size-10 shrink-0 place-items-center rounded-full text-[14px] font-semibold", color === "slate" ? "bg-raised text-ink" : "text-white")}
         style={color === "slate" ? undefined : { background: swatchFill(color) }}>{placeInitials(shown)}</span>
       <span className="min-w-0">
@@ -64,7 +64,7 @@ function Stop({ reason, home, busy, interest, onInterest, onClose }: {
     </div>
     <div aria-live="polite" className="text-[13px] empty:-mt-4">
       {interest === "sent" && <p className="text-ink-secondary">{t("cloudBuy.one.thanks")}</p>}
-      {interest === "failed" && <p role="alert" className="text-danger">{t("cloudBuy.one.failed")}</p>}
+      {interest === "failed" && <p role="alert" className="text-danger-text">{t("cloudBuy.one.failed")}</p>}
     </div>
   </div>;
 }
@@ -163,7 +163,7 @@ export function AddCloudFlow({ onClose, onFirstCloud, onWide = () => {}, onBack 
         </div>}
         <div aria-live="polite" className="text-[13px] empty:-mt-4">
           {note === "copied" && <p className="text-ink-secondary">{t("cloudBuy.pay.copied")}</p>}
-          {note === "pay-failed" && <p role="alert" className="text-danger">{t("cloudBuy.pay.failed")}</p>}
+          {note === "pay-failed" && <p role="alert" className="text-danger-text">{t("cloudBuy.pay.failed")}</p>}
         </div>
       </div>;
       case "starting": return <div data-cloud-add="extra-starting" className="flex flex-col gap-4 px-[30px] pb-[26px] pt-7">
@@ -175,7 +175,7 @@ export function AddCloudFlow({ onClose, onFirstCloud, onWide = () => {}, onBack 
         <Heading title={t("cloudBuy.ready.title", { name: screen.adding.name })} sub={t("cloudBuy.extra.readySub")} />
         <button type="button" data-autofocus className={PRIMARY_WIDE} disabled={busy}
           onClick={() => act(async () => { await bridge?.open(); onClose(); }, () => setNote("open-failed"))}>{t("cloudBuy.setup.open", { name: screen.adding.name })}</button>
-        {note === "open-failed" && <p role="alert" className="text-[13px] text-danger">{t("cloudBuy.openFailed", { name: screen.adding.name })}</p>}
+        {note === "open-failed" && <p role="alert" className="text-[13px] text-danger-text">{t("cloudBuy.openFailed", { name: screen.adding.name })}</p>}
       </div>;
       case "problem": return <div data-cloud-add="extra-problem" className="flex flex-col gap-4 px-[30px] pb-[26px] pt-7">
         <Heading title={t("cloudAdd.title")} />

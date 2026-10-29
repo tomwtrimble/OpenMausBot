@@ -46,7 +46,7 @@ export function SpeakButton({ className, ...args }: SpeakArgs & { className?: st
       title={label}
       className={cn(
         "rounded-md p-1.5 text-ink-secondary transition-opacity hover:bg-raised hover:text-ink disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-ink-secondary",
-        mine ? "text-accent opacity-100" : "opacity-0 focus-visible:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100 touch:opacity-100",
+        mine ? "text-accent-text opacity-100" : "opacity-0 focus-visible:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100 touch:opacity-100",
         className,
       )}
     >

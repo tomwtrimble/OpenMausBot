@@ -38,10 +38,10 @@ export function LocalComputerAutoWarning({
         aria-modal="true"
         aria-labelledby="local-auto-warning-title"
         aria-describedby="local-auto-warning-body"
-        className="w-full max-w-[420px] rounded-2xl border border-hairline/50 bg-panel p-5 shadow-2xl"
+        className="w-full max-w-[420px] rounded-2xl border border-hairline bg-panel p-5 shadow-2xl"
       >
         <div className="flex items-start gap-3">
-          <AlertTriangle size={18} className="mt-0.5 shrink-0 text-warning" />
+          <AlertTriangle size={18} className="mt-0.5 shrink-0 text-warning-text" />
           <div>
             <h2 id="local-auto-warning-title" className="text-[15px] font-semibold text-ink">
               {t("permissions.localAuto.title")}

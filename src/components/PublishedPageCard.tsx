@@ -38,7 +38,7 @@ export function PublishedPageCard({ message }: { message: Message }) {
   };
   const usage = usageLine(card);
   return (
-    <div data-published-page={card.pageId ?? "limit"} className="w-full max-w-md overflow-hidden rounded-xl border border-hairline/40 bg-panel px-3 py-2.5 text-sm">
+    <div data-published-page={card.pageId ?? "limit"} className="w-full max-w-md overflow-hidden rounded-xl border border-hairline bg-panel px-3 py-2.5 text-sm">
       <div className="flex min-w-0 items-center gap-2">
         <Globe size={16} className="shrink-0 text-ink-tertiary" aria-hidden="true" />
         <span dir="auto" className="min-w-0 truncate font-medium text-ink" title={card.title}>{card.title}</span>
@@ -59,7 +59,7 @@ export function PublishedPageCard({ message }: { message: Message }) {
             {busy ? <Loader2 size={14} className="animate-spin" /> : <X size={14} />}{t("chat.page.unpublish")}
           </button>
         </div>
-        {failed && <p role="alert" className="mt-1.5 text-[12px] text-danger">{t("chat.page.unpublishFailed")}</p>}
+        {failed && <p role="alert" className="mt-1.5 text-[12px] text-danger-text">{t("chat.page.unpublishFailed")}</p>}
       </>}
       {card.state === "unpublished" && <p className="mt-1 text-[13px] text-ink-secondary">{t("chat.page.unpublished")}</p>}
       {card.state === "limit" && <>

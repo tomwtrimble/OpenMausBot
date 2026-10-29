@@ -44,14 +44,14 @@ export function NewAutomation({ initialText = "", onClose, onSetUpYourself }: {
   };
   const choice = (value: SetUpKind, label: string, Icon: typeof CalendarClock) => (
     <button type="button" role="radio" aria-checked={kind === value} onClick={() => setKind(value)}
-      className={cn("flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left text-[14px]", kind === value ? "border-accent/70 bg-accent/10 text-ink" : "border-hairline/50 text-ink-secondary hover:bg-raised")}>
-      <Icon size={16} className="shrink-0 text-accent" />{label}
+      className={cn("flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left text-[14px]", kind === value ? "border-accent/70 bg-accent/10 text-ink" : "border-hairline text-ink-secondary hover:bg-raised")}>
+      <Icon size={16} className="shrink-0 text-accent-text" />{label}
     </button>
   );
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-5 pt-[14vh] backdrop-blur-sm" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={t("automations.newBox.title")} tabIndex={-1} className="w-full max-w-[560px] rounded-2xl border border-hairline/60 bg-panel p-5 shadow-2xl">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={t("automations.newBox.title")} tabIndex={-1} className="w-full max-w-[560px] rounded-2xl border border-hairline bg-panel p-5 shadow-2xl">
         <div className="flex items-start justify-between gap-3">
           <h2 className="text-[17px] font-semibold text-ink">{yourself ? t("automations.newBox.when") : t("automations.newBox.title")}</h2>
           <button type="button" onClick={onClose} aria-label={t("automations.newBox.cancel")} className="rounded-full p-1.5 text-ink-secondary hover:bg-raised hover:text-ink"><X size={16} /></button>
@@ -72,8 +72,8 @@ export function NewAutomation({ initialText = "", onClose, onSetUpYourself }: {
           <>
             <textarea autoFocus value={text} onChange={(event) => setText(event.target.value)} rows={3} placeholder={t("automations.newBox.placeholder")}
               onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); send(); } }}
-              className="mt-4 w-full resize-none rounded-xl border border-hairline/60 bg-inset px-3.5 py-3 text-[14px] leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/70" />
-            {bots.length === 0 && <p className="mt-2 text-[13px] text-warning">{t("automations.newBox.noBots")}</p>}
+              className="mt-4 w-full resize-none rounded-xl border border-hairline bg-inset px-3.5 py-3 text-[14px] leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/70" />
+            {bots.length === 0 && <p className="mt-2 text-[13px] text-warning-text">{t("automations.newBox.noBots")}</p>}
             {bots.length > 1 && (
               <label className="mt-3 flex items-center gap-2 text-[13px] text-ink-secondary">
                 {t("automations.newBox.bot")}

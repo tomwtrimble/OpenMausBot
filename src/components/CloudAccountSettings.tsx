@@ -68,7 +68,7 @@ function cloudHomeCard({ machine, busy, failed, onConnect, trial = false, waking
         </>}
         {!team && cloudFilesBridge() && <OpenFilesButton label={t("cloudHome.filesLink")} className="text-[13px] font-medium text-accent-text underline underline-offset-2 hover:text-ink" />}
       </>}
-      {failed && !unreachable && <p role="alert" className="text-[13px] text-danger">{t("cloudHome.connectFailed")}</p>}
+      {failed && !unreachable && <p role="alert" className="text-[13px] text-danger-text">{t("cloudHome.connectFailed")}</p>}
     </div>
   </Card>;
 }
@@ -80,7 +80,7 @@ function cloudPhoneCard({ ready, busy, failed, onUse }: { ready: boolean; busy: 
         <button type="button" disabled={busy} className="ui-button" onClick={onUse}>{t("cloudPhone.action")}</button>
         <p className="text-[12px] text-ink-secondary">{t("cloudPhone.help")}</p>
       </>}
-      {failed && <p role="alert" className="text-[13px] text-danger">{t("cloudPhone.failed")}</p>}
+      {failed && <p role="alert" className="text-[13px] text-danger-text">{t("cloudPhone.failed")}</p>}
       {(!ready || failed) && <>
         <p className="text-[13px] text-ink-secondary">{t(ready ? "cloudPhone.stepsIntro" : "cloudPhone.notReady")}</p>
         <ol className="list-decimal ps-5 text-[13px] leading-relaxed text-ink-secondary">
@@ -161,7 +161,7 @@ export function CloudPlanOnCloud({ bridge, onConnectPhone }: { bridge: CloudPlan
         {plan && onConnectPhone && <button type="button" className="ui-button" onClick={onConnectPhone}>{t("cloudPhone.action")}</button>}
       </div>
       {plan?.renewal && <CloudCancelPlan renewal={plan.renewal} actions={renewal} onChanged={() => setReads(count => count + 1)} />}
-      {failed && <p role="alert" className="text-[13px] text-danger">{t("cloudAccount.actionFailed")}</p>}
+      {failed && <p role="alert" className="text-[13px] text-danger-text">{t("cloudAccount.actionFailed")}</p>}
     </div>
   </Card>;
 }
@@ -306,13 +306,13 @@ export function CloudAccountSettings({ linkRequest = 0, cloudHome = false, teamH
         {account.status === "connected" && account.renewal && <CloudCancelPlan renewal={account.renewal} actions={renewal} />}
         {view.kind === "free" && !confirm && <p className="text-[12px] text-ink-secondary">{t("cloudAccount.otherEmail")}{" "}
           <button type="button" disabled={busy} className="underline hover:text-ink" onClick={() => setConfirm(true)}>{t("cloudAccount.useOtherEmail")}</button></p>}
-        {confirm && <div role="group" aria-label={t("cloudAccount.signoutTitle")} className="rounded-lg border border-hairline/40 p-3">
+        {confirm && <div role="group" aria-label={t("cloudAccount.signoutTitle")} className="rounded-lg border border-hairline p-3">
           <p className="text-[13px] text-ink-secondary">{t("cloudAccount.signoutHelp")}</p><div className="mt-3 flex flex-wrap gap-2">
             <button type="button" autoFocus disabled={busy} className="ui-button" onClick={() => setConfirm(false)}>{t("cloudAccount.keep")}</button>
-            <button type="button" disabled={busy} className="ui-button text-danger" onClick={() => void perform(() => bridge.signOut())}>{t("cloudAccount.signOut")}</button>
+            <button type="button" disabled={busy} className="ui-button text-danger-text" onClick={() => void perform(() => bridge.signOut())}>{t("cloudAccount.signOut")}</button>
           </div></div>}
       </div>}
-      {error && <p role="alert" className="mt-3 text-[13px] text-danger">{t("cloudAccount.actionFailed")}</p>}
+      {error && <p role="alert" className="mt-3 text-[13px] text-danger-text">{t("cloudAccount.actionFailed")}</p>}
       {!account && <button type="button" disabled={busy} className="ui-button mt-3" onClick={() => void perform(() => bridge.state())}>{t("organization.refresh")}</button>}
     </Card>
     {machine && (onTeamPlan

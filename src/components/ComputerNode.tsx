@@ -42,7 +42,7 @@ export const ComputerNode = memo(function ComputerNode({ computer, bots, frameUr
     {live && <span aria-hidden className="pointer-events-none absolute -inset-[5px] animate-computer-glow rounded-[22px] border-2 border-success/70 shadow-[0_0_24px_rgba(52,199,89,0.35)]" />}
     <button type="button" onClick={onOpen} disabled={!onOpen} title={activity ? `${name} · ${activity}` : name}
       aria-label={t("mapComputer.open", { name, state: t(STATE_LABEL[state]) })}
-      className="relative flex size-full flex-col rounded-[18px] border border-white/10 bg-[#0f1117] p-2 text-left shadow-[0_10px_30px_rgba(0,0,0,0.35)] outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-default">
+      className="relative flex size-full flex-col rounded-[18px] border border-white/10 bg-[#0f1117] p-2 text-left shadow-[0_10px_30px_color-mix(in_srgb,var(--color-shadow)_35%,transparent)] outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-default">
       <span className="relative block h-[160px] w-full overflow-hidden rounded-[10px] bg-[#06070b] [contain:paint]">
         {frameUrl
           ? <img src={frameUrl} alt="" draggable={false} decoding="async" className={cn("size-full object-cover", state === "asleep" || state === "off" ? "opacity-40 grayscale" : "")} />

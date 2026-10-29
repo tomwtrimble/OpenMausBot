@@ -10,7 +10,7 @@ import { Card } from "./SettingsPrimitives";
 
 const TOKEN_URL = "https://dash.cloudflare.com/profile/api-tokens";
 const ACCOUNT_ID = /^[0-9a-f]{32}$/i;
-const FIELD = "w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none";
+const FIELD = "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none";
 
 type TestResult = { ok: true; latencyMs: number; extraction?: { ok: boolean } } | { ok: false; reason: string; status?: number; extraction?: { ok: boolean } };
 
@@ -122,7 +122,7 @@ export function WorkersAiKeyCard({ failureText }: { failureText: (result: { reas
             title={clearing ? t("keys.removeKey") : t("common.save")}
             className={cn(
               "flex w-[72px] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-control py-2 text-[13px] hover:bg-raised-hover disabled:cursor-not-allowed disabled:opacity-50",
-              clearing ? "text-danger" : "text-ink",
+              clearing ? "text-danger-text" : "text-ink",
             )}
           >
             {saving ? <Loader2 size={13} className="animate-spin" /> : clearing ? t("keys.clear") : <><Check size={13} />{t("common.save")}</>}
@@ -132,15 +132,15 @@ export function WorkersAiKeyCard({ failureText }: { failureText: (result: { reas
             data-testid="workers-ai-test"
             onClick={() => void test()}
             disabled={testing || saving || (!draft && !saved)}
-            className="flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-hairline/40 px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-hairline px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
           >
             {testing ? t("keys.testing") : t("keys.test")}
           </button>
         </div>
       </div>
-      {error && <p role="alert" className="mt-1 text-[12px] text-danger">{error}</p>}
-      {verdict && <p role="status" className={cn("mt-1 text-[12px]", verdict.ok ? "text-success" : "text-danger")}>{verdict.text}</p>}
-      <a href={TOKEN_URL} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex cursor-pointer items-center gap-1 text-[12px] text-accent hover:underline">
+      {error && <p role="alert" className="mt-1 text-[12px] text-danger-text">{error}</p>}
+      {verdict && <p role="status" className={cn("mt-1 text-[12px]", verdict.ok ? "text-success" : "text-danger-text")}>{verdict.text}</p>}
+      <a href={TOKEN_URL} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex cursor-pointer items-center gap-1 text-[12px] text-accent-text hover:underline">
         {t("decider.workersAi.getKey")}
         <ExternalLink size={11} aria-hidden="true" />
       </a>

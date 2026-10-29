@@ -42,11 +42,11 @@ export function EdgeRow({ edge, bots }: { edge: TeamMapEdge; bots: Bot[] }) {
         else if (edge.groupId) dispatch({ type: "select", id: edge.groupId });
         else openBot(dispatch, target, showThreads);
       }}
-      className="flex w-full items-center gap-3 rounded-xl border border-hairline/40 bg-card px-3 py-2.5 text-left transition hover:bg-raised/50"
+      className="flex w-full items-center gap-3 rounded-xl border border-hairline bg-card px-3 py-2.5 text-left transition hover:bg-raised/50"
     >
       <div className="flex min-w-0 flex-1 items-center gap-2">
         <span className="truncate text-[13px] font-medium text-ink">{source.name}</span>
-        <ArrowRight size={13} className={cn("shrink-0", live ? "text-accent" : "text-ink-secondary")} />
+        <ArrowRight size={13} className={cn("shrink-0", live ? "text-accent-text" : "text-ink-secondary")} />
         <span className="truncate text-[13px] font-medium text-ink">{target.name}</span>
       </div>
       {edge.reason && <span className="max-w-[220px] truncate text-[12px] text-ink-secondary">{edge.reason}</span>}
@@ -56,7 +56,7 @@ export function EdgeRow({ edge, bots }: { edge: TeamMapEdge; bots: Bot[] }) {
           edge.state === "running"
             ? "bg-success/15 text-success"
             : edge.state === "queued"
-              ? "bg-warning/15 text-warning"
+              ? "bg-warning/15 text-warning-text"
               : "bg-control text-ink-secondary",
         )}
       >
@@ -191,12 +191,12 @@ function SectionContextDialog({ section, label, onClose }: { section: string; la
         aria-modal="true"
         aria-labelledby="section-context-title"
         tabIndex={-1}
-        className="animate-pop-in flex max-h-[min(680px,calc(100dvh-2rem))] w-full max-w-[680px] flex-col overflow-hidden rounded-2xl border border-hairline/50 bg-panel shadow-2xl shadow-black/50 outline-none"
+        className="animate-pop-in flex max-h-[min(680px,calc(100dvh-2rem))] w-full max-w-[680px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel shadow-2xl shadow-shadow/50 outline-none"
       >
-        <header className="flex items-start justify-between gap-4 border-b border-hairline/40 px-6 pb-4 pt-6 sm:px-8 sm:pt-7">
+        <header className="flex items-start justify-between gap-4 border-b border-hairline px-6 pb-4 pt-6 sm:px-8 sm:pt-7">
           <div>
             <div className="flex items-center gap-2">
-              <BookOpen size={19} className="text-accent" />
+              <BookOpen size={19} className="text-accent-text" />
               <h2 id="section-context-title" className="text-[20px] font-semibold tracking-[-0.01em] text-ink">
                 {t("team.instructionsTitle", { name: label })}
               </h2>
@@ -228,22 +228,22 @@ function SectionContextDialog({ section, label, onClose }: { section: string; la
                 onChange={(event) => setText(event.target.value)}
                 placeholder={t("team.instructionsPlaceholder")}
                 aria-label={t("team.instructionsTitle", { name: label })}
-                className="min-h-[280px] w-full resize-y rounded-xl border border-hairline/60 bg-inset px-4 py-3 font-mono text-[13px] leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/50"
+                className="min-h-[280px] w-full resize-y rounded-xl border border-hairline bg-inset px-4 py-3 font-mono text-[13px] leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/50"
               />
               <div className="mt-2 flex items-start justify-between gap-4 text-[12px] text-ink-secondary">
                 <span>
                   {t("team.instructionsFactHint")} {updatedAt ? ` ${t("team.instructionsLastSaved", { time: new Date(updatedAt).toLocaleString() })}` : ""}
                 </span>
-                <span className={cn("shrink-0 tabular-nums", bytes > maxBytes && "text-danger")}>
+                <span className={cn("shrink-0 tabular-nums", bytes > maxBytes && "text-danger-text")}>
                   {bytes.toLocaleString()} / {maxBytes.toLocaleString()} bytes
                 </span>
               </div>
             </>
           )}
-          {error && <div className="mt-3 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger">{error}</div>}
+          {error && <div className="mt-3 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">{error}</div>}
         </div>
 
-        <footer className="flex items-center justify-end gap-2 border-t border-hairline/40 px-6 py-4 sm:px-8">
+        <footer className="flex items-center justify-end gap-2 border-t border-hairline px-6 py-4 sm:px-8">
           <button onClick={requestClose} disabled={saving} className="rounded-lg px-3.5 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-40">
             {t("common.cancel")}
           </button>
@@ -351,7 +351,7 @@ export function TeamMapPage() {
 
   return (
     <main className="flex min-w-0 flex-1 flex-col overflow-hidden bg-app text-ink">
-      <header {...dragProps} className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-hairline/40 px-6 py-4 max-md:pl-12">
+      <header {...dragProps} className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-hairline px-6 py-4 max-md:pl-12">
         <div>
           <div className="flex items-center gap-2.5">
             <UsersRound size={18} className="text-ink-secondary" />
@@ -363,7 +363,7 @@ export function TeamMapPage() {
         {teamPeople && <MapModeToggle />}
         {!remoteClient && <div className="flex items-center gap-2">
           <button onClick={() => setShowComputers(!showComputers)} aria-pressed={showComputers} title={t("canvas.showComputersHint")}
-            className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-[12px] font-medium transition-colors", showComputers ? "border-accent/40 bg-accent/10 text-ink" : "border-hairline/60 bg-panel text-ink-secondary hover:bg-control hover:text-ink")}>
+            className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-[12px] font-medium transition-colors", showComputers ? "border-accent/40 bg-accent/10 text-ink" : "border-hairline bg-panel text-ink-secondary hover:bg-control hover:text-ink")}>
             <span aria-hidden className={cn("relative h-4 w-7 shrink-0 rounded-full transition-colors", showComputers ? "bg-accent" : "bg-control")}>
               <span className={cn("absolute top-0.5 size-3 rounded-full bg-white shadow-sm transition-[left]", showComputers ? "left-3.5" : "left-0.5")} />
             </span>
@@ -373,8 +373,8 @@ export function TeamMapPage() {
           <details className="relative" onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.removeAttribute("open"); }} onKeyDown={(event) => {
             if (event.key === "Escape") { event.currentTarget.removeAttribute("open"); event.currentTarget.querySelector("summary")?.focus(); }
           }}>
-            <summary aria-label={t("canvas.addToMap")} className="flex cursor-pointer list-none items-center gap-1.5 rounded-lg border border-hairline/60 bg-panel px-3 py-2 text-[12px] font-medium hover:bg-control [&::-webkit-details-marker]:hidden"><Plus size={14} /> {t("common.add")}</summary>
-            <div className="absolute right-0 top-full z-40 mt-2 w-52 rounded-xl border border-hairline/60 bg-panel p-1.5 shadow-xl" onClick={(event) => {
+            <summary aria-label={t("canvas.addToMap")} className="flex cursor-pointer list-none items-center gap-1.5 rounded-lg border border-hairline bg-panel px-3 py-2 text-[12px] font-medium hover:bg-control [&::-webkit-details-marker]:hidden"><Plus size={14} /> {t("common.add")}</summary>
+            <div className="popover-surface absolute right-0 top-full z-40 mt-2 w-52 rounded-xl border border-hairline bg-menu p-1.5 shadow-xl" onClick={(event) => {
               const details = event.currentTarget.closest("details"); details?.querySelector("summary")?.focus(); details?.removeAttribute("open");
             }}>
               <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-[12px] hover:bg-control" onClick={() => setTeamEditor({})}><Users size={14} />{t("team.create")}</button>
@@ -384,7 +384,7 @@ export function TeamMapPage() {
           </details>
         </div>}
       </header>
-      {(error || refreshError) && <div role="alert" className="flex shrink-0 items-center justify-between gap-3 border-b border-danger/20 bg-danger/10 px-6 py-2 text-[12px] text-danger">
+      {(error || refreshError) && <div role="alert" className="flex shrink-0 items-center justify-between gap-3 border-b border-danger/20 bg-danger/10 px-6 py-2 text-[12px] text-danger-text">
         {error || refreshError}
         <button aria-label={t("common.close")} className="rounded p-1 hover:bg-danger/10" onClick={() => { setError(null); setRefreshError(null); }}><X size={14} /></button>
       </div>}
@@ -408,7 +408,7 @@ export function TeamMapPage() {
       {!remoteClient && <CanvasComputers open={computersOpen} createRequest={createComputerRequest} drop={computerDrop} sections={sections}
         onClose={() => setComputersOpen(false)} onDropHandled={clearComputerDrop} onChange={setComputers} />}
       </div>
-      {edges.length > 0 && <details className="shrink-0 border-t border-hairline/40 bg-panel px-6 py-3">
+      {edges.length > 0 && <details className="shrink-0 border-t border-hairline bg-panel px-6 py-3">
         <summary className="cursor-pointer text-[12px] text-ink-secondary">{t("canvas.handoffs")} · {edges.length}</summary>
         <div className="mt-3 max-h-48 space-y-2 overflow-y-auto">{edges.slice(0, 12).map((edge) => <EdgeRow key={`${edge.sourceBotId}:${edge.targetBotId}`} edge={edge} bots={bots} />)}</div>
       </details>}

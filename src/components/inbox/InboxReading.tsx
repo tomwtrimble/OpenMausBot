@@ -49,7 +49,7 @@ export function InboxReading({ view, row, now }: { view: InboxView; row: InboxRo
   const canReply = !ask && row.tab === "info" && row.replies === true;
   return (
     <article data-inbox-reading={row.id} aria-label={`${row.from.name} · ${subjectOf(row)}`} className="flex min-h-0 flex-1 flex-col">
-      <header className="flex items-start gap-2 border-b border-hairline/40 px-3 py-2.5">
+      <header className="flex items-start gap-2 border-b border-hairline px-3 py-2.5">
         <button type="button" onClick={() => readInboxLine(null)} aria-label={t("inbox.action.back")} title={t("inbox.action.back")}
           className="flex size-7 shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-raised hover:text-ink pointer-coarse:size-9">
           <ArrowLeft size={15} aria-hidden="true" />
@@ -91,7 +91,7 @@ export function InboxReading({ view, row, now }: { view: InboxView; row: InboxRo
         )}
         {ask === "review" && <p className="text-[13px] text-ink-secondary">{t("inbox.reviewInChat")}</p>}
       </div>
-      <footer className="space-y-2 border-t border-hairline/40 px-3 py-2.5">
+      <footer className="space-y-2 border-t border-hairline px-3 py-2.5">
         {canReply && (
           <AskReply label={t("inbox.reply.placeholder")} placeholder={t("inbox.reply.placeholder")} color={asker?.color} value={reply} onChange={setReply}
             onSend={(text) => void send(text)} sending={sending} multiline />

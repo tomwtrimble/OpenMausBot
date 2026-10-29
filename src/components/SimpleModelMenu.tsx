@@ -66,7 +66,7 @@ function MenuModel({ instance, row, onPick }: { instance: InstanceInfo; row: Men
       <RowLines label={row.label}>
         {row.route && <span data-simple-route className={SIMPLE_MENU_META}>{row.route}</span>}
       </RowLines>
-      {row.current && <Check size={14} className="shrink-0 text-accent" aria-hidden="true" />}
+      {row.current && <Check size={14} className="shrink-0 text-accent-text" aria-hidden="true" />}
     </button>
   );
 }
@@ -240,10 +240,10 @@ export function SimpleModelMenu(props: SimpleModelMenuProps) {
                   : <span className="size-3.5 rounded-full bg-ink/[0.08]" aria-hidden="true" />}
               </Gutter>
               <RowLines label={current.label}>
-                {current.meta && <span className={cn(SIMPLE_MENU_META, current.warning && "text-warning")}>{current.meta}</span>}
+                {current.meta && <span className={cn(SIMPLE_MENU_META, current.warning && "text-warning-text")}>{current.meta}</span>}
               </RowLines>
               {current.pending && <Loader2 size={14} className="shrink-0 animate-spin text-ink-tertiary" aria-hidden="true" />}
-              <Check size={14} className="shrink-0 text-accent" aria-hidden="true" />
+              <Check size={14} className="shrink-0 text-accent-text" aria-hidden="true" />
             </button>
           )}
           {menu.follow && (

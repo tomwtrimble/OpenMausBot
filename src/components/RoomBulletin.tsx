@@ -41,7 +41,7 @@ export function RoomBulletin({ group, remoteClient }: { group: Group; remoteClie
   return (
     <div className="w-full px-5">
       {bulletin.open ? (
-        <div className="mb-1 rounded-lg border border-hairline/40 bg-panel p-2">
+        <div className="mb-1 rounded-lg border border-hairline bg-panel p-2">
           <textarea
             autoFocus
             dir="auto"

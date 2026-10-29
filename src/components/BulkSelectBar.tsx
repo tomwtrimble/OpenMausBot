@@ -48,7 +48,7 @@ export function bulkDeleteOutcome(outcome: BulkDeleteResult): string {
 
 const OLDER_DAYS = 30;
 
-const chip = "rounded-full border border-hairline/50 px-2.5 py-0.5 text-[11px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-40";
+const chip = "rounded-full border border-hairline px-2.5 py-0.5 text-[11px] text-ink-secondary hover:bg-raised hover:text-ink disabled:opacity-40";
 
 /** Each render hands `forRows` the rows the list shows, in display order, so ranges and filters touch only visible rows. */
 export function useBulkSelect() {
@@ -83,7 +83,7 @@ export function BulkSelectFilters({ rows, selected, now, onChange, onDone }: {
     <button type="button" className={chip} onClick={() => add(olderThanIds(rows, OLDER_DAYS, now))}>{t("task.bulk.older", { days: OLDER_DAYS })}</button>
     <button type="button" className={chip} onClick={() => add(archivedIds(rows))}>{t("task.bulk.archived")}</button>
     <button type="button" className={chip} disabled={selected.size === 0} onClick={() => onChange(clearSelection())}>{t("task.bulk.clear")}</button>
-    <button type="button" onClick={onDone} className="ml-auto rounded px-1.5 py-0.5 text-[11px] font-medium text-accent hover:underline">{t("task.bulk.done")}</button>
+    <button type="button" onClick={onDone} className="ml-auto rounded px-1.5 py-0.5 text-[11px] font-medium text-accent-text hover:underline">{t("task.bulk.done")}</button>
   </div>;
 }
 
@@ -115,7 +115,7 @@ export function BulkSelectBar({ rows, selected, maxDeletable, freshConversation,
       setConfirming(false);
     });
   };
-  return <div className="sticky bottom-0 z-10 -mx-1 border-t border-hairline/40 bg-panel px-2 py-1.5">
+  return <div className="sticky bottom-0 z-10 -mx-1 border-t border-hairline bg-panel px-2 py-1.5">
     <span role="status" className="block text-[11px] text-ink-secondary">
       {result ?? (overLimit ? t("task.bulk.channelLimit") : "")}
     </span>

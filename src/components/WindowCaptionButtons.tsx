@@ -61,7 +61,7 @@ export function WindowCaptionButtons({ visible }: { visible: boolean }) {
         type="button"
         aria-label={t("window.close")}
         title={t("window.close")}
-        className={cn(captionButton, "hover:bg-danger/25 hover:text-danger")}
+        className={cn(captionButton, "hover:bg-danger/25 hover:text-danger-text")}
         onClick={() => void controls?.close()}
       >
         <X size={15} />

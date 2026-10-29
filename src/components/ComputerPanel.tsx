@@ -1191,7 +1191,7 @@ export function ComputerPanel({
     <>
     <aside
       className={cn(
-        "animate-panel-in relative flex h-full shrink-0 flex-col border-l border-hairline/40 bg-panel",
+        "animate-panel-in relative flex h-full shrink-0 flex-col border-l border-hairline bg-panel",
         "max-md:absolute max-md:inset-0 max-md:z-40 max-md:w-full!",
       )}
       ref={panelRef}
@@ -1269,7 +1269,7 @@ export function ComputerPanel({
           {signInHelp?.place === "browser" && <div className="-mt-1 mb-3">{signInBanner()}</div>}
           <BrowserPanel bot={bot} signIn={signInRequest} page={pageRequest} />
           {errorText && (
-            <div role="alert" className="mt-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger">
+            <div role="alert" className="mt-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">
               {errorText}
             </div>
           )}
@@ -1284,7 +1284,7 @@ export function ComputerPanel({
               {browserCanTurnOn ? t("computer.browserOff.body", { name: bot.name }) : browserUnavailableReason(state.config)}
             </p>
             {errorText && (
-              <div role="alert" className="w-full rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger">
+              <div role="alert" className="w-full rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">
                 {errorText}
               </div>
             )}
@@ -1352,7 +1352,7 @@ export function ComputerPanel({
               type="button"
               onClick={() => void takeControl()}
               disabled={controlPending || pending === "join"}
-              className="group relative flex h-full w-full cursor-pointer items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-wait"
+              className="group relative flex h-full w-full cursor-pointer items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-wait"
               aria-label={t("computer.openLiveDesktopAria", { name: bot.name })}
               title={t("computer.openLiveDesktop")}
             >
@@ -1516,7 +1516,7 @@ export function ComputerPanel({
         </div>
 
         {errorText && !cloudRefused && (
-          <div className="mt-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger">
+          <div className="mt-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-[12px] text-danger-text">
             {errorText}
           </div>
         )}
@@ -1592,7 +1592,7 @@ export function ComputerPanel({
           <button
             onClick={() => void runVmAction("vm-delete")}
             disabled={pending !== null || profileBot.busy}
-            className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg border border-danger/30 py-2 text-[13px] text-danger hover:bg-danger/10 disabled:opacity-50"
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg border border-danger/30 py-2 text-[13px] text-danger-text hover:bg-danger/10 disabled:opacity-50"
             title={profileBot.busy ? t("computer.deleteVmBlocked") : t("computer.deleteVmTitle", { name: bot.name })}
           >
             {pending === "vm-delete" ? <Loader2 size={14} className="animate-spin" /> : <Power size={14} />}
@@ -1696,17 +1696,17 @@ export function ComputerPanel({
                 type="button"
                 aria-pressed={selected}
                 className={cn(
-                  "min-w-0 rounded-lg border px-2.5 py-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                  "min-w-0 rounded-lg border px-2.5 py-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-card",
                   selected
                     ? "border-accent/60 bg-accent/10 text-ink"
-                    : "border-hairline/50 bg-panel/30 text-ink-secondary",
+                    : "border-hairline bg-panel/30 text-ink-secondary",
                   disabled
                     ? "cursor-not-allowed"
                     : "hover:border-accent/40 hover:bg-control/60",
                 )}
               >
                 <span className="flex items-center gap-2 text-[12px] font-medium leading-4">
-                  {selected ? <Check size={14} className="shrink-0 text-accent" /> : <Icon size={14} className="shrink-0 text-ink-secondary" />}
+                  {selected ? <Check size={14} className="shrink-0 text-accent-text" /> : <Icon size={14} className="shrink-0 text-ink-secondary" />}
                   <span>{t(labelKey)}</span>
                 </span>
                 <span className="mt-1.5 block text-[11px] leading-4 text-ink-secondary">
@@ -1720,9 +1720,9 @@ export function ComputerPanel({
               {t("place.pinnedNote", { place: t(placeLabelKey(liveTask.surface)) })}
             </p>
           )}
-          <div className="mt-3 border-t border-hairline/40 pt-3 text-[12px] leading-5 text-ink-secondary" aria-live="polite" data-testid="place-line">
+          <div className="mt-3 border-t border-hairline pt-3 text-[12px] leading-5 text-ink-secondary" aria-live="polite" data-testid="place-line">
             {worksOnView.line}
-            {placeActionButton(worksOnView, "mt-1 block font-medium text-accent hover:underline")}
+            {placeActionButton(worksOnView, "mt-1 block font-medium text-accent-text hover:underline")}
           </div>
           {profileBot.computer === "cloud" && (
             <CloudBackendPicker
@@ -1734,7 +1734,7 @@ export function ComputerPanel({
         </div>
 
         <button type="button" onClick={() => selectPanelView("routines")} className="mt-4 flex w-full items-start gap-3 rounded-xl bg-card p-4 text-left hover:bg-raised">
-          <CalendarClock size={17} className="mt-0.5 shrink-0 text-accent" />
+          <CalendarClock size={17} className="mt-0.5 shrink-0 text-accent-text" />
           <span className="min-w-0 flex-1">
             <span className="block text-[14px] font-medium text-ink">{t("computer.tab.routines")} <span className="ml-1 text-[11px] text-ink-secondary">{botRoutines.length}</span></span>
             <span className={cn("mt-1 block truncate text-[12px]", activeRoutineRun ? routineRunTone(activeRoutineRun) : "text-ink-secondary")}>{activeRoutineRun ? `${activeRoutineRun.routineName} · ${routineRunLabel(activeRoutineRun)}` : t("computer.routines.openTitle")}</span>
@@ -1754,14 +1754,14 @@ export function ComputerPanel({
                   aria-pressed={selected}
                   onClick={() => selectPlace(mode)}
                   className={cn(
-                    "flex min-w-0 flex-col items-center gap-1.5 rounded-lg border px-1.5 py-2.5 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                    "flex min-w-0 flex-col items-center gap-1.5 rounded-lg border px-1.5 py-2.5 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-card",
                     selected
                       ? "border-accent/60 bg-accent/10 text-ink"
-                      : "border-hairline/50 bg-panel/30 text-ink-secondary",
+                      : "border-hairline bg-panel/30 text-ink-secondary",
                     disabled ? "cursor-not-allowed opacity-50" : "hover:border-accent/40 hover:bg-control/60",
                   )}
                 >
-                  <Icon size={16} className={cn("shrink-0", selected ? "text-accent" : "text-ink-secondary")} aria-hidden="true" />
+                  <Icon size={16} className={cn("shrink-0", selected ? "text-accent-text" : "text-ink-secondary")} aria-hidden="true" />
                   <span className="w-full truncate text-[12px] font-medium leading-4">{simpleLabel}</span>
                   {issue && <span className="w-full truncate text-[11px] leading-3 text-ink-secondary">{view.short}</span>}
                 </button>
@@ -1769,7 +1769,7 @@ export function ComputerPanel({
             </div>
             <div className="mt-3 text-[12px] leading-5 text-ink-secondary" data-testid="place-line">
               {worksOnView.line}
-              {placeActionButton(worksOnView, "mt-1 block font-medium text-accent hover:underline")}
+              {placeActionButton(worksOnView, "mt-1 block font-medium text-accent-text hover:underline")}
             </div>
             {heldPin && (
               <div className="mt-2 flex items-center gap-2">
@@ -1783,7 +1783,7 @@ export function ComputerPanel({
                   disabled={Boolean(bot.busy)}
                   title={bot.busy ? t("place.busy") : undefined}
                   onClick={() => dispatch({ type: "updateTask", botId: profileBot.id, threadId: profileBot.threadId, patch: { surface: null } })}
-                  className="shrink-0 rounded-md px-2 py-0.5 text-[12px] font-medium leading-5 text-accent-text transition-colors hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:bg-transparent"
+                  className="shrink-0 rounded-md px-2 py-0.5 text-[12px] font-medium leading-5 text-accent-text transition-colors hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:bg-transparent"
                   data-testid="place-unpin"
                 >
                   {t("place.unpinSimple", {

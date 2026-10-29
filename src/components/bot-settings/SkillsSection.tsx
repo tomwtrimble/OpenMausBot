@@ -229,7 +229,7 @@ export function SkillReviewDialog({
           Source: {skill.source}
         </div>
         {skill.warnings.length > 0 && (
-          <div className="mt-2 rounded-lg bg-warning/10 px-3 py-2 text-[12px] text-warning">
+          <div className="mt-2 rounded-lg bg-warning/10 px-3 py-2 text-[12px] text-warning-text">
             {skill.warnings.join(" · ")}
           </div>
         )}
@@ -240,7 +240,7 @@ export function SkillReviewDialog({
         >
           {text}
         </pre>
-        {error && <div role="alert" className="mt-2 text-[12px] text-danger">{error}</div>}
+        {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
         <div className="mt-4 flex justify-end gap-2">
           <button
             type="button"
@@ -453,7 +453,7 @@ export function SkillsSection({ bot }: { bot: Bot }) {
         ) : skills.length === 0 ? (
           <div className="mt-3 rounded-lg bg-inset px-3 py-2 text-[12px] text-ink-secondary">{t("skills.empty")}</div>
         ) : (
-          <div className="mt-3 divide-y divide-hairline/40 overflow-hidden rounded-lg border border-hairline/40">
+          <div className="mt-3 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
             {skills.map((skill) => (
               <div key={skill.name} className="px-3 py-2.5">
                 <div className="flex items-center gap-2">
@@ -488,7 +488,7 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                       title="Remove skill"
                       disabled={Boolean(working)}
                       onClick={() => void remove(skill)}
-                      className="flex size-8 shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-danger/10 hover:text-danger disabled:opacity-40"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40"
                     >
                       <Trash2 size={15} />
                     </button>
@@ -496,18 +496,18 @@ export function SkillsSection({ bot }: { bot: Bot }) {
                 </div>
                 <div className="mt-1 truncate text-[11px] text-ink-secondary" title={skill.source}>Source: {skill.source}</div>
                 {skill.warnings.length > 0 && (
-                  <div className="mt-1 text-[11px] text-warning">{skill.warnings.join(" · ")}</div>
+                  <div className="mt-1 text-[11px] text-warning-text">{skill.warnings.join(" · ")}</div>
                 )}
               </div>
             ))}
           </div>
         )}
         {staged.length > 0 && (
-          <div className="mt-2 text-[12px] text-warning">
+          <div className="mt-2 text-[12px] text-warning-text">
             {staged.length} proposal{staged.length === 1 ? " is" : "s are"} waiting for a decision in chat.
           </div>
         )}
-        {error && <div role="alert" className="mt-2 text-[12px] text-danger">{error}</div>}
+        {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
       </div>
 
       <WriteCommandCard bot={bot} taken={skills.map((skill) => skill.name)} onSaved={() => void refresh()} />

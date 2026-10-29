@@ -5,7 +5,7 @@ import { Select } from "./Select";
 import { Card } from "./SettingsPrimitives";
 
 const inputClass =
-  "w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
+  "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
 
 function errorText(error: unknown): string {
   return String((error as { message?: string })?.message ?? error).replace(
@@ -123,7 +123,7 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
             type="button"
             disabled={busy}
             onClick={() => void disconnect()}
-            className="flex w-fit items-center gap-2 rounded-lg border border-danger/30 px-3 py-2 text-[13px] text-danger hover:bg-danger/10 disabled:opacity-50"
+            className="flex w-fit items-center gap-2 rounded-lg border border-danger/30 px-3 py-2 text-[13px] text-danger-text hover:bg-danger/10 disabled:opacity-50"
           >
             {busy ? <Loader2 size={14} className="animate-spin" /> : <Unplug size={14} />}
             {t("remote.client.disconnect")}
@@ -206,7 +206,7 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
               </label>
             </>
           )}
-          {error ? <p role="alert" className="text-[13px] text-danger">{error}</p> : null}
+          {error ? <p role="alert" className="text-[13px] text-danger-text">{error}</p> : null}
           <button
             type="submit"
             disabled={busy || (serverMode ? !serverLink.trim() : endpoint.trim() === "" || code.length !== 6)}
@@ -220,7 +220,7 @@ export function RemoteComputerSection({ hideWhenUnavailable = false }: { hideWhe
           </p>
         </form>
       )}
-      {state.active && error ? <p role="alert" className="mt-3 text-[13px] text-danger">{error}</p> : null}
+      {state.active && error ? <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
     </Card>
   );
 }

@@ -41,7 +41,7 @@ export function BuiltInBrowserRow() {
         : browserBlockedOnWindows
         ? t("settings.experimental.browserWindows")
         : browserUnavailableReason(state.config)}
-    message={error ? <p role="alert" className="text-danger">{error}</p> : null}
+    message={error ? <p role="alert" className="text-danger-text">{error}</p> : null}
     >
       <Switch
           checked={browser}
@@ -79,7 +79,7 @@ export function NewBrowserSettings() {
   };
 
   return (
-    <div className="mt-4 border-t border-hairline/30 pt-4" data-testid="new-browser-settings">
+    <div className="mt-4 border-t border-hairline pt-4" data-testid="new-browser-settings">
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0">
           <div className="text-[14px] font-medium text-ink">{t("settings.experimental.newBrowser")}</div>
@@ -93,7 +93,7 @@ export function NewBrowserSettings() {
           className="disabled:cursor-wait disabled:opacity-50"
         />
       </div>
-      {error ? <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p> : null}
+      {error ? <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p> : null}
     </div>
   );
 }

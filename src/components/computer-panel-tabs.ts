@@ -13,7 +13,7 @@ export const PANEL_TABS: Record<ComputerPanelView, { Icon: LucideIcon; label: Lo
   files: { Icon: FolderOpen, label: "computer.tab.files" },
 };
 
-export const TAB_PANEL_FOCUS = "outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60";
+export const TAB_PANEL_FOCUS = "outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus/60";
 
 const tabId = (view: ComputerPanelView) => `computer-panel-tabs-tab-${view}`;
 const panelId = (view: ComputerPanelView) => `computer-panel-tabs-panel-${view}`;

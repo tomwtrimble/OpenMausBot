@@ -37,7 +37,7 @@ export function MausBotCustomize({ preview, name, nameRef, image, onName, onPatc
           placeholder="MausBot"
           data-mausbot-welcome-name=""
           onChange={(event) => onName(event.target.value)}
-          className="mt-1 w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[14px] text-ink focus:outline-none"
+          className="mt-1 w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink focus:outline-none"
         />
       </label>
       <div>
@@ -99,7 +99,7 @@ export function MausBotCustomize({ preview, name, nameRef, image, onName, onPatc
             </button></div>
           )}
         </div>
-        {image.error && <p role="alert" data-mausbot-welcome-error="" className="mt-1 px-2 text-[13px] text-danger">{image.error}</p>}
+        {image.error && <p role="alert" data-mausbot-welcome-error="" className="mt-1 px-2 text-[13px] text-danger-text">{image.error}</p>}
         {generating && (
           <div className="mt-2">
             <AvatarImageGenerator botLabel={name || "MausBot"} disabled={image.uploading} generating={image.generating} onGenerate={image.generate} onSavingChange={image.setSavingConnection} />

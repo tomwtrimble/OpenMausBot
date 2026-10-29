@@ -53,7 +53,7 @@ export function HelperSetup() {
               dispatch(setupAction(step));
             }}
               className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1.5 text-[13px] font-medium text-ink hover:bg-accent/20">
-              <Icon size={14} aria-hidden="true" className="text-accent" />{t(label)}
+              <Icon size={14} aria-hidden="true" className="text-accent-text" />{t(label)}
             </button>
           );
         })}

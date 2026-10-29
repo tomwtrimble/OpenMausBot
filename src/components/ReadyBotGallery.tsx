@@ -49,7 +49,7 @@ export function ReadyBotGallery({ search, onDialog, onAdded }: {
       </button>)}
     </div>
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-      {visible.map((bot) => <article key={bot.id} data-ready-bot={bot.id} className="flex flex-col rounded-2xl border border-hairline/40 bg-card p-4">
+      {visible.map((bot) => <article key={bot.id} data-ready-bot={bot.id} className="flex flex-col rounded-2xl border border-hairline bg-card p-4">
         <div className="flex items-center gap-3">
           <MausAvatar color={bot.look.color} bodyId={bot.look.mascotBody} size={40} animated={false} label={bot.name} />
           <div className="min-w-0 flex-1">
@@ -57,7 +57,7 @@ export function ReadyBotGallery({ search, onDialog, onAdded }: {
             <p className="truncate text-[12px] text-ink-secondary">{bot.title} · {t(CATEGORY_KEYS[bot.category])}</p>
           </div>
           <button type="button" onClick={() => open(bot.id)} aria-label={t("readyBots.addAria", { name: bot.name, title: bot.title })}
-            className="flex h-8 shrink-0 items-center gap-1 rounded-full bg-raised px-3 text-[13px] font-medium text-ink hover:bg-raised-hover focus-visible:outline-2 focus-visible:outline-accent">
+            className="flex h-8 shrink-0 items-center gap-1 rounded-full bg-raised px-3 text-[13px] font-medium text-ink hover:bg-raised-hover focus-visible:outline-2 focus-visible:outline-focus">
             <Plus size={14} aria-hidden="true" />{t("readyBots.add")}
           </button>
         </div>

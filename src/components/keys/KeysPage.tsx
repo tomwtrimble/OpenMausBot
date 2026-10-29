@@ -96,7 +96,7 @@ function KeySection({ id, rows, open, onToggle }: { id: KeySectionId; rows: KeyE
         {count > 0 && <span className="shrink-0 text-[12px] leading-4 text-ink-secondary">{t("keys.section.connected", { count })}</span>}
         <ChevronRight size={14} aria-hidden="true" className={cn("shrink-0 text-ink-secondary transition-transform motion-reduce:transition-none", open && "rotate-90")} />
       </button>
-      <div id={bodyId} hidden={!open} className="flex flex-col gap-0.5 border-t border-hairline/40 px-1 py-1.5 in-data-[settings-look=simple]:border-t-[0.5px] in-data-[settings-look=simple]:border-(--settings-edge)">
+      <div id={bodyId} hidden={!open} className="flex flex-col gap-0.5 border-t border-hairline px-1 py-1.5 in-data-[settings-look=simple]:border-t-[0.5px] in-data-[settings-look=simple]:border-(--settings-edge)">
         {rows.map((entry) => <KeyCatalogRow key={entry.id} entry={entry} />)}
       </div>
     </section>

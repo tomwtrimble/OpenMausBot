@@ -49,11 +49,11 @@ export function SearchResults({ query, onLanded }: { query: string; onLanded: ()
   };
 
   return (
-    <div className="mt-2 border-t border-hairline/40 pt-2">
+    <div className="mt-2 border-t border-hairline pt-2">
       <div className="px-3 pb-1 text-[11px] font-medium uppercase tracking-wide text-ink-secondary">
         Messages{hits ? ` · ${hits.length}${hits.length === 40 ? "+" : ""}` : ""}
       </div>
-      {error && <div className="px-3 py-2 text-[13px] text-danger">couldn't search: {error}</div>}
+      {error && <div className="px-3 py-2 text-[13px] text-danger-text">couldn't search: {error}</div>}
       {hits && hits.length === 0 && !error && <div className="px-3 py-3 text-[13px] text-ink-secondary">No messages match “{q}”</div>}
       {hits?.map((hit) => {
         const bot = hit.botId ? state.bots.find((b) => b.id === hit.botId) : undefined;

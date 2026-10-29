@@ -229,7 +229,7 @@ export function BotSettingsDialog({ bot, overlay = false }: {
               <div
                 key={id}
                 data-bot-settings-section={id}
-                className="border-b border-hairline/30"
+                className="border-b border-hairline"
                 hidden={!matched}
               >
                 <button

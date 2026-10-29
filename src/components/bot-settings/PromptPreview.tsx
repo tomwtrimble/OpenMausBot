@@ -46,7 +46,7 @@ export function PromptPreview({
       {open && data && (
         <div className="mt-3 flex flex-col gap-2">
           {data.sections.map((section) => (
-            <details key={section.id} className="rounded-lg border border-hairline/40 bg-inset px-3 py-2">
+            <details key={section.id} className="rounded-lg border border-hairline bg-inset px-3 py-2">
               <summary className="flex cursor-pointer items-center justify-between gap-3 text-[13px] text-ink">
                 <span>{section.label}</span>
                 <span className="shrink-0 tabular-nums text-ink-secondary">{t("botOverview.bytes", { count: section.bytes.toLocaleString() })}</span>

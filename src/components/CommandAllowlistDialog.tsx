@@ -133,7 +133,7 @@ export function CommandAllowlistDialog({ botId, botName, threadId, onClose }: {
         aria-describedby={scopeId}
         aria-busy={loading || Boolean(saving) || undefined}
         tabIndex={-1}
-        className="flex max-h-[85dvh] w-full max-w-[520px] flex-col overflow-hidden rounded-2xl border border-hairline/50 bg-panel shadow-2xl"
+        className="flex max-h-[85dvh] w-full max-w-[520px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel shadow-2xl"
       >
         <div className="flex shrink-0 items-start justify-between gap-4 px-5 pt-5">
           <div className="min-w-0">
@@ -148,13 +148,13 @@ export function CommandAllowlistDialog({ botId, botName, threadId, onClose }: {
           {loading && <p role="status" className="mt-5 flex items-center gap-2 text-[13px] text-ink-secondary">
             <Loader2 size={15} className="animate-spin" aria-hidden="true" />{t("commandAllowlist.loading")}
           </p>}
-          {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[12px] text-danger">
+          {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[12px] text-danger-text">
             <p>{error}</p>
             {!data && !loading && <button type="button" onClick={() => setRevision((value) => value + 1)}
               className="mt-2 underline underline-offset-2">{t("commandAllowlist.retry")}</button>}
           </div>}
           {data && !loading && <>
-            {data.rules.length ? <ul className="mt-4 divide-y divide-hairline/25 rounded-xl border border-hairline/40">
+            {data.rules.length ? <ul className="mt-4 divide-y divide-hairline rounded-xl border border-hairline">
               {data.rules.map((rule) => <li key={rule.id} className="flex items-start gap-3 p-3">
                 <div className="min-w-0 flex-1">
                   <pre tabIndex={0} className="max-h-28 overflow-auto whitespace-pre-wrap break-words font-mono text-[12px] leading-relaxed text-ink">{rule.command}</pre>
@@ -164,22 +164,22 @@ export function CommandAllowlistDialog({ botId, botName, threadId, onClose }: {
                 <button type="button" disabled={Boolean(saving)} onClick={() => void save(rule)}
                   aria-label={t("commandAllowlist.removeAria", { command: rule.command })}
                   title={t(saving === rule.id ? "commandAllowlist.removing" : "commandAllowlist.remove")}
-                  className="shrink-0 rounded-md p-1.5 text-ink-secondary hover:bg-danger/10 hover:text-danger disabled:opacity-40">
+                  className="shrink-0 rounded-md p-1.5 text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40">
                   {saving === rule.id ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
                 </button>
               </li>)}
             </ul> : <p className="mt-4 rounded-xl bg-inset px-3 py-4 text-[13px] text-ink-secondary">{t("commandAllowlist.empty")}</p>}
-            {data.supported ? <form className="mt-5 border-t border-hairline/30 pt-4" onSubmit={(event) => { event.preventDefault(); void save(); }}>
+            {data.supported ? <form className="mt-5 border-t border-hairline pt-4" onSubmit={(event) => { event.preventDefault(); void save(); }}>
               <p className="text-[12px] text-ink-secondary">{t("commandAllowlist.provider")}: <span className="text-ink">{providerName(data.context.providerInstanceId)}</span></p>
               <label className="mt-3 block text-[12px] text-ink-secondary">{t("commandAllowlist.command")}
                 <textarea value={command} onChange={(event) => setCommand(event.target.value)} disabled={Boolean(saving)} required rows={2} spellCheck={false}
                   aria-describedby={exactId}
-                  className="mt-1.5 w-full resize-y rounded-lg border border-hairline/50 bg-inset px-3 py-2 font-mono text-[12px] text-ink focus:border-accent/60 focus:outline-none disabled:opacity-50" />
+                  className="mt-1.5 w-full resize-y rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[12px] text-ink focus:border-accent/60 focus:outline-none disabled:opacity-50" />
               </label>
               <p id={exactId} className="mt-1 text-[11px] leading-relaxed text-ink-secondary">{t("commandAllowlist.exact")}</p>
               <label className="mt-3 block text-[12px] text-ink-secondary">{t("commandAllowlist.folder")}
                 <input value={cwd} onChange={(event) => setCwd(event.target.value)} disabled={Boolean(saving)} required spellCheck={false}
-                  className="mt-1.5 w-full rounded-lg border border-hairline/50 bg-inset px-3 py-2 font-mono text-[12px] text-ink focus:border-accent/60 focus:outline-none disabled:opacity-50" />
+                  className="mt-1.5 w-full rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[12px] text-ink focus:border-accent/60 focus:outline-none disabled:opacity-50" />
               </label>
               <div className="mt-4 flex justify-end">
                 <button type="submit" disabled={Boolean(saving) || !command.trim() || !cwd.trim()}

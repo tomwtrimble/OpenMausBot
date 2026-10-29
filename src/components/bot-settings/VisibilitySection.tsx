@@ -97,7 +97,7 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
   };
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-hairline/40 bg-card p-4" data-bot-visibility>
+    <div className="flex flex-col gap-3 rounded-xl border border-hairline bg-card p-4" data-bot-visibility>
       <p className="text-[13px] leading-relaxed text-ink-secondary">{t("botSettings.visibility.subtitle")}</p>
       <div role="radiogroup" aria-label={t("botSettings.visibility.title")} className="flex flex-col gap-1.5">
         {OPTIONS.map((option) => (
@@ -123,7 +123,7 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
             placeholder={t("botSettings.visibility.peoplePlaceholder")}
             rows={4}
             disabled={busy}
-            className="rounded-lg border border-hairline/40 bg-inset px-3 py-2 font-mono text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
+            className="rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none"
           />
         </label>
       )}
@@ -160,7 +160,7 @@ export function VisibilitySection({ bot }: { bot: Bot }) {
           <span role="status" className="flex items-center gap-1 text-[12px] text-success"><Check size={13} />{t("botSettings.visibility.saved")}</span>
         )}
       </div>
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
     </div>
   );
 }

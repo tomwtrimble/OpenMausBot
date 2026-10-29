@@ -83,7 +83,7 @@ export function SetupScreen({ started, received, step, slow, ready, sleeps = fal
       {counting !== null && <button type="button" className={QUIET} onClick={onNotNow}>{t("notice.notNow")}</button>}
       <button type="button" className={PRIMARY} disabled={!ready || busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</button>
     </div>
-    {openFailed && <p role="alert" className="-mt-2 text-end text-[13px] leading-[18px] text-danger">{t("cloudBuy.openFailed", { name })}</p>}
+    {openFailed && <p role="alert" className="-mt-2 text-end text-[13px] leading-[18px] text-danger-text">{t("cloudBuy.openFailed", { name })}</p>}
   </div>;
 }
 
@@ -111,6 +111,6 @@ export function TeamReadyScreen({ name, busy, openFailed, onOpen }: { name: stri
     <div className={ACTIONS}>
       <button type="button" data-autofocus className={PRIMARY} disabled={busy} onClick={onOpen}>{t("cloudBuy.setup.open", { name })}</button>
     </div>
-    {openFailed && <p role="alert" className="-mt-2 text-end text-[13px] leading-[18px] text-danger">{t("cloudBuy.openFailed", { name })}</p>}
+    {openFailed && <p role="alert" className="-mt-2 text-end text-[13px] leading-[18px] text-danger-text">{t("cloudBuy.openFailed", { name })}</p>}
   </div>;
 }

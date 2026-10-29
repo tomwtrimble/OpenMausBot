@@ -127,10 +127,10 @@ function CustomPicker({ instance, cliDefault, onClose, onSaved }: {
         aria-label={t("engines.customAria", { name: instance.displayName })}
         spellCheck={false}
         disabled={busy}
-        className="w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 font-mono text-[12px] text-ink placeholder:font-sans placeholder:text-ink-secondary focus:outline-none disabled:opacity-50"
+        className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[12px] text-ink placeholder:font-sans placeholder:text-ink-secondary focus:outline-none disabled:opacity-50"
       />
       {probe && !probe.ok && probe.message && (
-        <div role="alert" className="flex gap-1.5 rounded-lg border border-warning/25 bg-warning/10 px-2.5 py-2 text-[12px] leading-relaxed text-warning">
+        <div role="alert" className="flex gap-1.5 rounded-lg border border-warning/25 bg-warning/10 px-2.5 py-2 text-[12px] leading-relaxed text-warning-text">
           <TriangleAlert size={13} className="mt-0.5 shrink-0" />
           <span>{t("engines.testFailed", { message: probe.message })}</span>
         </div>
@@ -138,7 +138,7 @@ function CustomPicker({ instance, cliDefault, onClose, onSaved }: {
       {probe?.ok && probe.version && (
         <div className="text-[12px] text-success">{t("engines.testPassed", { version: probe.version })}</div>
       )}
-      {error && <div role="alert" className="text-[12px] text-danger">{error}</div>}
+      {error && <div role="alert" className="text-[12px] text-danger-text">{error}</div>}
       <div className="flex justify-end gap-2">
         <button
           onClick={onClose}
@@ -159,7 +159,7 @@ function CustomPicker({ instance, cliDefault, onClose, onSaved }: {
             <button
               onClick={() => persist()}
               disabled={busy}
-              className="flex items-center gap-1.5 rounded-lg bg-raised px-3 py-1.5 text-[13px] text-danger hover:bg-raised-hover disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-lg bg-raised px-3 py-1.5 text-[13px] text-danger-text hover:bg-raised-hover disabled:opacity-50"
             >
               {saving ? <Loader2 size={13} className="animate-spin" /> : t("engines.saveAnyway")}
             </button>
@@ -231,8 +231,8 @@ function EngineAdvanced({ instance }: { instance: InstanceInfo }) {
   };
 
   return (
-      <details className="mt-4 border-t border-hairline/40 pt-3">
-        <summary className="cursor-pointer rounded-md py-1 text-[12px] font-medium text-ink-secondary outline-none hover:text-ink focus-visible:ring-2 focus-visible:ring-accent">{t("engines.library.advanced")}</summary>
+      <details className="mt-4 border-t border-hairline pt-3">
+        <summary className="cursor-pointer rounded-md py-1 text-[12px] font-medium text-ink-secondary outline-none hover:text-ink focus-visible:ring-2 focus-visible:ring-focus">{t("engines.library.advanced")}</summary>
         <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("engines.footer")}</p>
         <div className="mt-3 flex flex-wrap items-center gap-2 text-[13px]">
           {instance.cli ? (
@@ -274,8 +274,8 @@ function EngineAdvanced({ instance }: { instance: InstanceInfo }) {
             disabled={updating}
             aria-expanded={open}
             className={cn(
-              "shrink-0 rounded-lg border border-hairline/40 px-3 py-1 text-[12px]",
-              open ? "bg-accent/15 text-accent" : "text-ink-secondary hover:bg-raised/50 hover:text-ink",
+              "shrink-0 rounded-lg border border-hairline px-3 py-1 text-[12px]",
+              open ? "bg-accent/15 text-accent-text" : "text-ink-secondary hover:bg-raised/50 hover:text-ink",
               "disabled:opacity-50",
             )}
           >
@@ -285,7 +285,7 @@ function EngineAdvanced({ instance }: { instance: InstanceInfo }) {
         {updatedVersion && (
           <div role="status" className="mt-1 text-[12px] text-success">{t("engines.claudeUpdated", { version: updatedVersion })}</div>
         )}
-        {error && <div role="alert" className="mt-1 text-[12px] text-danger">{error}</div>}
+        {error && <div role="alert" className="mt-1 text-[12px] text-danger-text">{error}</div>}
         {cliMotion.shown && (
           <div className={cliMotion.className} {...cliMotion.exitProps}>
             <CustomPicker
@@ -322,12 +322,12 @@ function RemoveAntigravityAccount({ instance }: { instance: InstanceInfo }) {
   };
   return <>
     <div className="flex flex-wrap items-center gap-2">
-      <button type="button" disabled={removing || usedBy > 0} onClick={() => setConfirming(true)} className="rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-danger hover:bg-danger/10 disabled:cursor-not-allowed disabled:opacity-50">
+      <button type="button" disabled={removing || usedBy > 0} onClick={() => setConfirming(true)} className="rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-danger-text hover:bg-danger/10 disabled:cursor-not-allowed disabled:opacity-50">
         {removing ? <Loader2 size={13} className="animate-spin" /> : t("accounts.remove")}
       </button>
       {usedBy > 0 && <p className="text-[11px] text-ink-secondary">{t("accounts.inUse", { count: String(usedBy) })}</p>}
     </div>
-    {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+    {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
     <ConfirmDialog open={confirming} title={t("accounts.removeTitle", { name: instance.displayName })} body={t("accounts.removeBodyAntigravity")}
       confirmLabel={t("accounts.remove")} tone="neutral" pending={removing} onCancel={() => { if (!removing) setConfirming(false); }} onConfirm={() => void remove()} />
   </>;

@@ -24,14 +24,14 @@ export function CloudBackendPicker({
           ? t("botAccess.cloud.vpsAutoDescription")
           : t("botAccess.cloud.hostedBackendDescription")}
       </div>
-      <div className="mt-2 flex overflow-hidden rounded-lg border border-hairline/40">
+      <div className="mt-2 flex overflow-hidden rounded-lg border border-hairline">
         {(["box", "vps"] as const).map((backend, i) => (
           <button
             key={backend}
             onClick={() => onChange(backend)}
             className={cn(
               "flex-1 py-1.5 text-[12px]",
-              i > 0 && "border-l border-hairline/40",
+              i > 0 && "border-l border-hairline",
               value === backend ? "bg-raised text-ink" : "text-ink-secondary hover:bg-raised/60 hover:text-ink",
             )}
           >

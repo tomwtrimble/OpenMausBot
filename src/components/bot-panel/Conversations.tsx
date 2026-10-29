@@ -149,7 +149,7 @@ export function BotConversations({ bot }: { bot: Bot }) {
           }}
           placeholder={t("botPanel.conversations.searchPlaceholder", { name: bot.name })}
           aria-label={t("botPanel.conversations.searchPlaceholder", { name: bot.name })}
-          className="mb-1.5 w-full rounded-[10px] border border-hairline/60 bg-inset px-3 py-1.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-focus"
+          className="mb-1.5 w-full rounded-[10px] border border-hairline bg-inset px-3 py-1.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-focus"
         />
       )}
       {listed && <div role="list" aria-label={t("botPanel.conversations.title")} className={cn("flex flex-col gap-px", PANEL_ROW_LOOK)}>

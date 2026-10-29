@@ -372,7 +372,7 @@ function MessageFolderFile({ folderPath, name, bytes, message }: {
         onClick={() => void save.save()}
         disabled={save.state === "saving"}
         aria-label={t("attach.saveAria", { name })}
-        className="inline-flex min-h-8 min-w-0 items-center gap-1 break-all text-start text-accent underline decoration-accent/40 hover:decoration-accent disabled:cursor-wait"
+        className="inline-flex min-h-8 min-w-0 items-center gap-1 break-all text-start text-accent-text underline decoration-accent/40 hover:decoration-accent disabled:cursor-wait"
       >
         {save.state === "saving" ? (
           <LoaderCircle size={12} className="shrink-0 animate-spin" aria-hidden="true" />
@@ -384,7 +384,7 @@ function MessageFolderFile({ folderPath, name, bytes, message }: {
         {name}
       </button>
       <span className="text-ink-secondary">{folderFileSize(bytes)}</span>
-      {save.state === "failed" && <span role="alert" className="text-danger">{save.reason}</span>}
+      {save.state === "failed" && <span role="alert" className="text-danger-text">{save.reason}</span>}
     </li>
   );
 }
@@ -442,12 +442,12 @@ export function OutsideWorkspaceFile({ filePath }: { filePath: string }) {
         type="button"
         onClick={() => void show()}
         title={filePath}
-        className="inline-flex items-center gap-1 text-accent underline decoration-accent/40 hover:decoration-accent"
+        className="inline-flex items-center gap-1 text-accent-text underline decoration-accent/40 hover:decoration-accent"
       >
         <FolderOpen size={12} className="shrink-0" aria-hidden="true" />
         {t("attach.showInFolder")}
       </button>
-      {problem && <span role="alert" className="text-danger">{problem}</span>}
+      {problem && <span role="alert" className="text-danger-text">{problem}</span>}
     </>
   );
 }
@@ -674,7 +674,7 @@ export function AttachmentThumbnail({
   return (
     <span
       style={ratio ? { aspectRatio: String(ratio) } : undefined}
-      className={cn("group/image relative block aspect-[4/3] min-w-0 overflow-hidden rounded-xl border border-hairline/40 bg-inset", className)}
+      className={cn("group/image relative block aspect-[4/3] min-w-0 overflow-hidden rounded-xl border border-hairline bg-inset", className)}
     >
       {state === "loading" && (
         <span className="absolute inset-0 flex animate-pulse items-center justify-center bg-raised/65" role="status">
@@ -706,7 +706,7 @@ export function AttachmentThumbnail({
               setState("loading");
               setAttempt((value) => value + 1);
             }}
-            className="flex items-center gap-1 rounded-md border border-hairline/50 bg-panel px-2 py-1 text-[11px] text-ink hover:bg-raised"
+            className="flex items-center gap-1 rounded-md border border-hairline bg-panel px-2 py-1 text-[11px] text-ink hover:bg-raised"
             aria-label={t("attach.retryAria", { name: image.name })}
           >
             <RotateCcw size={11} /> {t("chat.retry")}
@@ -728,7 +728,7 @@ export function AttachmentThumbnail({
               onPreview();
             }
           }}
-          className="absolute inset-0 block size-full cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60 aria-disabled:cursor-default"
+          className="absolute inset-0 block size-full cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus/60 aria-disabled:cursor-default"
           aria-label={t("attach.previewImageAria", { name: image.name })}
           title={t("attach.previewAria", { name: image.name })}
         >
@@ -867,25 +867,25 @@ export function MarkdownImagePreview({
     <>
       <span ref={containerRef} className="my-2 block w-[min(36rem,70vw)] max-w-full">
         {external && !externalAllowed ? (
-          <span className="flex aspect-[4/3] max-h-96 flex-col items-center justify-center gap-2 rounded-xl border border-hairline/40 bg-inset px-4 text-center text-[12px] text-ink-secondary">
+          <span className="flex aspect-[4/3] max-h-96 flex-col items-center justify-center gap-2 rounded-xl border border-hairline bg-inset px-4 text-center text-[12px] text-ink-secondary">
             <ImageOff size={20} />
             <span>{t("attach.externalHidden")}</span>
-            <button type="button" className="rounded-md border border-hairline/50 bg-panel px-2.5 py-1 text-ink hover:bg-raised" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setApprovedExternalSource(src); }}>{t("attach.loadImage")}</button>
+            <button type="button" className="rounded-md border border-hairline bg-panel px-2.5 py-1 text-ink hover:bg-raised" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setApprovedExternalSource(src); }}>{t("attach.loadImage")}</button>
           </span>
         ) : filePath && (!threadId || !messageId || localSourceOffset === null) ? (
-          <span className="flex aspect-[4/3] max-h-96 items-center justify-center gap-2 rounded-xl border border-hairline/40 bg-inset text-[12px] text-ink-secondary" role="alert">
+          <span className="flex aspect-[4/3] max-h-96 items-center justify-center gap-2 rounded-xl border border-hairline bg-inset text-[12px] text-ink-secondary" role="alert">
             <ImageOff size={17} /> {t("attach.oldImage")}
           </span>
         ) : visibleSource ? (
           <AttachmentThumbnail key={image.src} image={image} onPreview={() => setOpen(true)} className="max-h-96" eager explainRefusal={localMessageImage} />
         ) : (
-          <span className="flex aspect-[4/3] max-h-96 animate-pulse items-center justify-center rounded-xl border border-hairline/40 bg-inset" role="status">
+          <span className="flex aspect-[4/3] max-h-96 animate-pulse items-center justify-center rounded-xl border border-hairline bg-inset" role="status">
             <LoaderCircle size={17} className="animate-spin text-ink-tertiary" />
             <span className="sr-only">Loading {name}</span>
           </span>
         )}
         {openUrl && (
-          <a href={openUrl} target="_blank" rel="noreferrer" className="mt-1 inline-flex text-[11px] text-accent hover:underline">
+          <a href={openUrl} target="_blank" rel="noreferrer" className="mt-1 inline-flex text-[11px] text-accent-text hover:underline">
             Open original
           </a>
         )}
@@ -908,7 +908,7 @@ export function AttachedFileChip({ file, message, linked = false, compact = fals
   if (compact) return <CompactFileChip file={file} message={message} linked={linked} save={save} className={className} />;
   if (!message || (!file.private && !linked)) {
     return (
-      <div title={t("attach.legacyFile", { name: file.name })} className={cn("flex max-w-[280px] items-center gap-2 overflow-hidden rounded-lg border border-hairline/40 bg-inset/70 px-2.5 py-2 text-[12px] text-ink-secondary", className)}>
+      <div title={t("attach.legacyFile", { name: file.name })} className={cn("flex max-w-[280px] items-center gap-2 overflow-hidden rounded-lg border border-hairline bg-inset/70 px-2.5 py-2 text-[12px] text-ink-secondary", className)}>
         <FileText size={14} className="shrink-0" aria-hidden="true" />
         <span className="min-w-0 flex-1 truncate text-ink">{file.name}</span>
         <span className="text-[11px]">{t("attach.unavailable")}</span>
@@ -918,7 +918,7 @@ export function AttachedFileChip({ file, message, linked = false, compact = fals
   return (
     <div
       title={save.state === "saved" && save.savedTo ? t("attach.savedTo", { path: save.savedTo }) : file.name}
-      className={cn("max-w-[280px] overflow-hidden rounded-lg border border-hairline/40 bg-inset/70 text-[12px] text-ink-secondary", className)}
+      className={cn("max-w-[280px] overflow-hidden rounded-lg border border-hairline bg-inset/70 text-[12px] text-ink-secondary", className)}
     >
       <div className="flex items-center pe-1">
         <button
@@ -930,7 +930,7 @@ export function AttachedFileChip({ file, message, linked = false, compact = fals
               ? t("attach.retrySaveAria", { name: file.name })
               : t("attach.saveAria", { name: file.name })
           }
-          className="flex min-h-10 min-w-0 flex-1 items-center gap-2 px-2.5 py-2 text-left transition-colors hover:bg-raised/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60 disabled:cursor-wait disabled:hover:bg-transparent"
+          className="flex min-h-10 min-w-0 flex-1 items-center gap-2 px-2.5 py-2 text-left transition-colors hover:bg-raised/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus/60 disabled:cursor-wait disabled:hover:bg-transparent"
         >
           <FileText size={14} className="shrink-0" aria-hidden="true" />
           <span className="min-w-0 flex-1 truncate text-ink">{file.name}</span>
@@ -939,7 +939,7 @@ export function AttachedFileChip({ file, message, linked = false, compact = fals
           ) : save.state === "saved" ? (
             <Check size={13} className="shrink-0 text-success" />
           ) : failed ? (
-            retryable && <RotateCcw size={13} className="shrink-0 text-danger" />
+            retryable && <RotateCcw size={13} className="shrink-0 text-danger-text" />
           ) : (
             <Download size={13} className="shrink-0" />
           )}
@@ -950,8 +950,8 @@ export function AttachedFileChip({ file, message, linked = false, compact = fals
         <div
           role={failed ? "alert" : "status"}
           className={cn(
-            "border-t border-hairline/30 px-2.5 py-1.5 text-[11px]",
-            failed ? "text-danger" : save.state === "saved" ? "text-success" : "text-ink-secondary",
+            "border-t border-hairline px-2.5 py-1.5 text-[11px]",
+            failed ? "text-danger-text" : save.state === "saved" ? "text-success" : "text-ink-secondary",
           )}
         >
           {save.state === "saving"
@@ -1011,7 +1011,7 @@ function CompactFileChip({ file, message, linked, save, className }: {
           ) : save.state === "saved" ? (
             <Check size={13} className="shrink-0 text-success" aria-hidden="true" />
           ) : failed ? (
-            retryable && <RotateCcw size={13} className="shrink-0 text-danger" aria-hidden="true" />
+            retryable && <RotateCcw size={13} className="shrink-0 text-danger-text" aria-hidden="true" />
           ) : (
             <Download size={13} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
           )}
@@ -1019,7 +1019,7 @@ function CompactFileChip({ file, message, linked, save, className }: {
         <FilePreviewButton path={file.path} name={file.name} message={message} />
       </span>
       {save.state !== "idle" && save.state !== "saved" && (
-        <span role={failed ? "alert" : "status"} className={cn("px-2.5 text-[12px]", failed ? "text-danger" : "text-ink-secondary")}>
+        <span role={failed ? "alert" : "status"} className={cn("px-2.5 text-[12px]", failed ? "text-danger-text" : "text-ink-secondary")}>
           {save.state === "saving" ? t("attach.downloading") : saveFailureText(save)}
           {failed && save.outsideWorkspace && (
             <span className="ms-1.5 inline-flex flex-wrap items-center gap-x-1.5"><OutsideWorkspaceFile filePath={file.path} /></span>

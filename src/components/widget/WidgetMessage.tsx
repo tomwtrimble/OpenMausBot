@@ -248,7 +248,7 @@ function WidgetCard({ botId, threadId, messageId, payload }: { botId: string; th
           )}
           <WidgetBody root={root} headed={headed} />
           {problem && (
-            <div id={errorId} role="alert" className="mx-4 flex items-start gap-2 border-t border-ink/[0.12] pb-3.5 pt-3 text-[13px] leading-[18px] text-danger">
+            <div id={errorId} role="alert" className="mx-4 flex items-start gap-2 border-t border-ink/[0.12] pb-3.5 pt-3 text-[13px] leading-[18px] text-danger-text">
               <CircleAlert aria-hidden="true" size={14} className="mt-0.5 shrink-0" />
               <span dir="auto" className="min-w-0 break-words">{problem.text}</span>
             </div>

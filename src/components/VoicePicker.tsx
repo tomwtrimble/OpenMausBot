@@ -218,7 +218,7 @@ export function VoicePicker({
       return (
         <div key={voice.id || "default"}>
           {index === mineStart && heading(t("voice.yourVoices"))}
-          {index === libraryStart && index > 0 && <div role="separator" className="mx-2.5 my-1 h-px bg-hairline/50" />}
+          {index === libraryStart && index > 0 && <div role="separator" className="mx-2.5 my-1 h-px bg-hairline" />}
           {index === libraryStart && heading(t("voice.library"), t("voice.libraryHint"))}
           <div
             id={`${listId}-${index}`}
@@ -243,7 +243,7 @@ export function VoicePicker({
                 </span>
               )}
             </span>
-            {current && <Check size={14} aria-hidden className="shrink-0 text-accent" />}
+            {current && <Check size={14} aria-hidden className="shrink-0 text-accent-text" />}
           </div>
         </div>
       );
@@ -257,12 +257,12 @@ export function VoicePicker({
       {...motion.exitProps}
       style={{ position: "fixed", ...place, visibility: place ? undefined : "hidden" }}
       className={cn(
-        "popover-surface z-[70] flex flex-col overflow-hidden rounded-xl border border-hairline/50 bg-menu shadow-2xl shadow-black/50",
+        "popover-surface z-[70] flex flex-col overflow-hidden rounded-xl border border-hairline bg-menu shadow-2xl shadow-shadow/50",
         motion.className,
       )}
     >
       <div className="shrink-0 p-1.5">
-        <div className="flex items-center gap-2 rounded-lg border border-hairline/40 bg-inset px-2.5 py-1.5 focus-within:border-focus">
+        <div className="flex items-center gap-2 rounded-lg border border-hairline bg-inset px-2.5 py-1.5 focus-within:border-focus">
           {loading ? (
             <Loader2 size={13} aria-hidden className="shrink-0 animate-spin text-ink-secondary" />
           ) : (
@@ -327,7 +327,7 @@ export function VoicePicker({
         }}
         className={cn(
           "flex w-full items-center gap-2 rounded-lg border bg-inset py-2 pl-3 pr-2 text-start text-[13px] text-ink disabled:cursor-default",
-          open ? "border-focus" : "border-hairline/40",
+          open ? "border-focus" : "border-hairline",
         )}
       >
         <span className="min-w-0 flex-1 truncate">

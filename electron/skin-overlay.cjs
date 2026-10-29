@@ -1,8 +1,9 @@
 // The native chrome CSS cannot reach (the Windows caption-button overlay accepts no alpha, so opaque hex).
-// Keep in step with src/styles.css and src/lib/skins.ts.
+// The entries are generated with the skins (scripts/tokens/generate.mjs); keep the ids in step with src/lib/skins.ts.
 "use strict";
 
 const SKIN_CHROME = Object.freeze({
+// @generated tokens:chrome start
   midnight: Object.freeze({ color: "#121212", symbolColor: "#b5b5b5" }),
   atelier: Object.freeze({ color: "#f5f1eb", symbolColor: "#6b6559" }),
   foundry: Object.freeze({ color: "#100e0b", symbolColor: "#b0a696" }),
@@ -14,6 +15,7 @@ const SKIN_CHROME = Object.freeze({
   meadow: Object.freeze({ color: "#ffffff", symbolColor: "#4d5a52" }),
   pop: Object.freeze({ color: "#fdf5ea", symbolColor: "#3a322d" }),
   halloween: Object.freeze({ color: "#110d16", symbolColor: "#c2b3cc" }),
+// @generated tokens:chrome end
 });
 
 const DEFAULT_SKIN = "midnight";

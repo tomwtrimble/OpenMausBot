@@ -17,7 +17,7 @@ export interface McpServerSubmission {
   ownKey?: string;
 }
 
-const FIELD = "mt-1.5 w-full rounded-lg border border-hairline/60 bg-raised px-3 py-2.5 text-[13px] text-ink outline-none focus:border-accent";
+const FIELD = "mt-1.5 w-full rounded-lg border border-hairline bg-raised px-3 py-2.5 text-[13px] text-ink outline-none focus:border-accent";
 const LABEL = "text-[12px] font-medium text-ink-secondary";
 
 function where(draft: McpDraft): string {
@@ -73,7 +73,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
   const missing = !details && drafts.some((each) => each.urlGap || each.headers.some((row) => row.gap) || each.env.some((row) => row.gap));
 
   return (
-    <div data-mcp-editor className="mt-4 rounded-2xl border border-hairline/60 bg-card p-4 sm:p-5">
+    <div data-mcp-editor className="mt-4 rounded-2xl border border-hairline bg-card p-4 sm:p-5">
       <div className="text-[14px] font-medium text-ink">{adding ? t("mcp.editorNew") : t(keysOnly ? "mcp.fixKeys.title" : "mcp.editorEdit", { name: server.name })}</div>
       {keysOnly && draft && !details && (
         <div className="mt-3 space-y-3">
@@ -88,10 +88,10 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
           <span className="text-[13px] text-ink">{t("mcp.paste.prompt")}</span>
           <textarea autoFocus aria-label={t("mcp.paste.label")} value={text} onChange={(event) => paste(event.target.value)} spellCheck={false} rows={3}
             placeholder="https://mcp.example.com/mcp"
-            className="mt-2 w-full resize-y rounded-lg border border-hairline/60 bg-raised px-3 py-2.5 font-mono text-[12px] leading-relaxed text-ink outline-none focus:border-accent" />
+            className="mt-2 w-full resize-y rounded-lg border border-hairline bg-raised px-3 py-2.5 font-mono text-[12px] leading-relaxed text-ink outline-none focus:border-accent" />
         </label>
       )}
-      {pasteError && <p role="alert" className="mt-2 text-[12px] leading-relaxed text-danger">{t(pasteError)}</p>}
+      {pasteError && <p role="alert" className="mt-2 text-[12px] leading-relaxed text-danger-text">{t(pasteError)}</p>}
       {adding && text.trim() && drafts.length > 0 && !pasteError && (
         <p role="status" className="mt-2 text-[12px] text-ink-secondary">
           {draft ? t("mcp.paste.foundOne", { name: draft.name, where: where(draft) }) : t("mcp.paste.foundMany", { count: drafts.length, names: drafts.map((each) => each.name).join(", ") })}
@@ -106,7 +106,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
                 <label className="block">
                   <span className={LABEL}>{t("mcp.field.url")}</span>
                   <input value={each.url} spellCheck={false} onChange={(event) => setDrafts((current) => current.map((other, at) => at === index ? { ...other, url: event.target.value } : other))} className={FIELD} />
-                  <span className="mt-1 block text-[11px] text-warning">{t("mcp.paste.urlMissing")}</span>
+                  <span className="mt-1 block text-[11px] text-warning-text">{t("mcp.paste.urlMissing")}</span>
                 </label>
               )}
               <McpSecretRows kind="header" valuesOf="gaps" rows={each.headers} onChange={(headers) => setDrafts((current) => current.map((other, at) => at === index ? { ...other, headers } : other))} />
@@ -145,7 +145,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
                   <span className={LABEL}>{t("mcp.field.url")}</span>
                   <input autoFocus={!adding} value={draft.url} spellCheck={false} placeholder="https://mcp.example.com/mcp" className={FIELD}
                     onChange={(event) => setDraft((current) => ({ ...current, url: event.target.value }))} />
-                  {draft.urlGap && <span className="mt-1 block text-[11px] text-warning">{t("mcp.paste.urlMissing")}</span>}
+                  {draft.urlGap && <span className="mt-1 block text-[11px] text-warning-text">{t("mcp.paste.urlMissing")}</span>}
                 </label>
                 <label className="block">
                   <span className={LABEL}>{t("mcp.field.type")}</span>
@@ -221,7 +221,7 @@ export function McpServerEditor({ server, fixKeys = false, taken, team, busy, on
           )}
         </div>
       )}
-      {error && <p role="alert" className="mt-3 text-[12px] text-danger">{t(error.key, error.params)}</p>}
+      {error && <p role="alert" className="mt-3 text-[12px] text-danger-text">{t(error.key, error.params)}</p>}
       <div className="mt-4 flex justify-end gap-2">
         <button type="button" onClick={onCancel} className="rounded-lg px-3 py-2 text-[13px] text-ink-secondary hover:bg-raised">{t("mcp.cancel")}</button>
         <button type="button" disabled={busy || !drafts.length} onClick={submit}

@@ -52,7 +52,7 @@ export function CallLineItem({ line, busy }: { line: CallRecordLine; busy: boole
         ) : state === "done" ? (
           <Check size={12} className="text-success" />
         ) : state === "stopped" ? (
-          <X size={12} className="text-danger" />
+          <X size={12} className="text-danger-text" />
         ) : (
           <Minus size={12} className="text-ink-tertiary" />
         )}
@@ -112,10 +112,10 @@ export function CallSheet({ message, transcript, botName, threadId, busy, partia
         aria-modal="true"
         aria-labelledby="call-sheet-title"
         data-testid="call-sheet"
-        className="animate-pop-in flex max-h-[min(720px,calc(100dvh-2rem))] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl border border-hairline/50 bg-panel text-ink shadow-2xl"
+        className="animate-pop-in flex max-h-[min(720px,calc(100dvh-2rem))] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel text-ink shadow-2xl"
         style={{ outline: "none" }}
       >
-        <header className="flex items-start justify-between gap-4 border-b border-hairline/40 px-5 pb-3.5 pt-4">
+        <header className="flex items-start justify-between gap-4 border-b border-hairline px-5 pb-3.5 pt-4">
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-accent-text">
               <AudioLines size={13} aria-hidden="true" />
@@ -143,7 +143,7 @@ export function CallSheet({ message, transcript, botName, threadId, busy, partia
             </div>
           )}
         </div>
-        <footer className="border-t border-hairline/40 px-5 py-3 text-[12px] text-ink-tertiary">
+        <footer className="border-t border-hairline px-5 py-3 text-[12px] text-ink-tertiary">
           {t("chat.callSheet.kept", { name: botName })}
         </footer>
       </div>

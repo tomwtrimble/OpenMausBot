@@ -38,7 +38,7 @@ export function LiveKeySetup({ onSaved, compact = false }: { onSaved: () => void
   return (
     <form
       className={cn(
-        "flex flex-col gap-2.5 rounded-xl border border-hairline bg-panel p-4 text-left",
+        "flex flex-col gap-2.5 rounded-xl border border-edge bg-panel p-4 text-left",
         compact ? "w-full" : "w-[420px] max-w-[90vw]",
       )}
       onSubmit={(event) => {
@@ -57,9 +57,9 @@ export function LiveKeySetup({ onSaved, compact = false }: { onSaved: () => void
         onChange={(event) => setKey(event.target.value)}
         placeholder="sk-…"
         aria-label={t("call.live.keyField")}
-        className="rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink outline-none focus:border-accent/60"
+        className="rounded-lg border border-edge bg-inset px-3 py-2 text-[13px] text-ink outline-none focus:border-accent/60"
       />
-      {error && <div className="text-[12px] text-danger">{error}</div>}
+      {error && <div className="text-[12px] text-danger-text">{error}</div>}
       <button
         type="submit"
         disabled={!key.trim() || saving}

@@ -32,7 +32,7 @@ export function PinnedPanelsSettings() {
     <Card title={t("webPanels.settings.title")} subtitle={t("webPanels.settings.subtitle")}>
       <div className="flex flex-col gap-3">
         {panels.length > 0 && (
-          <ul className="flex flex-col divide-y divide-hairline/40 rounded-lg border border-hairline/40">
+          <ul className="flex flex-col divide-y divide-hairline rounded-lg border border-hairline">
             {panels.map((panel) => (
               <li key={panel.id} className="flex items-center gap-3 px-3 py-2">
                 <div className="min-w-0 flex-1">
@@ -41,7 +41,7 @@ export function PinnedPanelsSettings() {
                 </div>
                 <button
                   type="button"
-                  className="ui-button text-danger"
+                  className="ui-button text-danger-text"
                   onClick={() => setWebPanels(panels.filter((entry) => entry.id !== panel.id))}
                 >
                   {t("webPanels.settings.remove")}
@@ -59,7 +59,7 @@ export function PinnedPanelsSettings() {
             disabled={full}
             aria-invalid={error === "name"}
             onChange={(event) => { setName(event.target.value); setError(""); }}
-            className={`${field} sm:w-40 ${error === "name" ? "border-danger/60" : "border-hairline/40 focus:border-focus"}`}
+            className={`${field} sm:w-40 ${error === "name" ? "border-danger/60" : "border-hairline focus:border-focus"}`}
           />
           <input
             aria-label={t("webPanels.settings.url")}
@@ -71,14 +71,14 @@ export function PinnedPanelsSettings() {
             aria-invalid={error === "url" || error === "self"}
             onChange={(event) => { setUrl(event.target.value); setError(""); }}
             onKeyDown={(event) => { if (event.key === "Enter") add(); }}
-            className={`${field} flex-1 ${error === "url" || error === "self" ? "border-danger/60" : "border-hairline/40 focus:border-focus"}`}
+            className={`${field} flex-1 ${error === "url" || error === "self" ? "border-danger/60" : "border-hairline focus:border-focus"}`}
           />
           <button type="button" className="ui-button" disabled={full} onClick={add}>
             {t("webPanels.settings.add")}
           </button>
         </div>
         {error && (
-          <p role="alert" className="text-[12px] text-danger">
+          <p role="alert" className="text-[12px] text-danger-text">
             {t(error === "name" ? "webPanels.settings.nameInvalid" : error === "self" ? "webPanels.settings.urlSelf" : "webPanels.settings.urlInvalid", { max: MAX_WEB_PANEL_NAME })}
           </p>
         )}

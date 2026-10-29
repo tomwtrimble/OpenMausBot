@@ -63,7 +63,7 @@ export function SelectPopup({ options, selectedIndex, anchor, bounds, onChoose, 
         tabIndex={0}
         onKeyDown={onKeyDown}
         onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) onClose(); }}
-        className="absolute z-40 overflow-y-auto rounded-lg border border-hairline/60 bg-menu py-1 text-[13px] text-ink shadow-xl outline-none"
+        className="popover-surface absolute z-40 overflow-y-auto rounded-lg border border-hairline bg-menu py-1 text-[13px] text-ink shadow-xl outline-none"
         style={{
           left,
           minWidth: Math.max(anchor.width, 160),

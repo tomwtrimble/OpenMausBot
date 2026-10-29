@@ -12,7 +12,7 @@ const PROVIDERS = {
   custom: { label: "Custom", keyLabel: "Custom image API key", credential: "customImageApiKey" },
 } as const;
 
-const INPUT_CLASS = "w-full min-w-0 rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50";
+const INPUT_CLASS = "w-full min-w-0 rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50";
 const BUTTON_CLASS = "flex items-center justify-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50";
 
 export function AvatarImageGenerator({
@@ -205,7 +205,7 @@ export function AvatarImageGenerator({
       )}
       <div className="flex items-center justify-end gap-2">
         {keyConfigured && (
-          <button type="button" onClick={() => void removeKey()} disabled={busy} className="mr-auto rounded-md py-1.5 text-[12px] text-ink-secondary hover:text-danger disabled:opacity-50">
+          <button type="button" onClick={() => void removeKey()} disabled={busy} className="mr-auto rounded-md py-1.5 text-[12px] text-ink-secondary hover:text-danger-text disabled:opacity-50">
             {t("botIdentity.ai.removeKey")}
           </button>
         )}
@@ -223,9 +223,9 @@ export function AvatarImageGenerator({
   );
 
   return (
-    <div className="mt-5 border-t border-hairline/40 pt-4">
+    <div className="mt-5 border-t border-hairline pt-4">
       <div className="flex items-center gap-2 text-[13px] font-medium text-ink">
-        <Sparkles size={14} className="text-accent" /> {t("botIdentity.ai.generateWith")}
+        <Sparkles size={14} className="text-accent-text" /> {t("botIdentity.ai.generateWith")}
       </div>
       <label className="mt-3 block text-[12px] text-ink-secondary">
         {t("botIdentity.ai.provider")}
@@ -241,7 +241,7 @@ export function AvatarImageGenerator({
       </p>
 
       {configured ? (
-        <details key={provider} className="mt-3 rounded-lg border border-hairline/40 px-3 py-2">
+        <details key={provider} className="mt-3 rounded-lg border border-hairline px-3 py-2">
           <summary className="cursor-pointer text-[12px] text-ink-secondary">{t("botIdentity.ai.connectionSettings")}</summary>
           <div className="mt-3">{connectionForm}</div>
         </details>
@@ -274,7 +274,7 @@ export function AvatarImageGenerator({
         </button>
       </div>
       {unsaved && <p role="status" className="mt-2 text-[11px] text-ink-secondary">{t("botIdentity.ai.saveBeforeGenerate")}</p>}
-      {error && <div role="alert" className="mt-3 text-[12px] text-danger">{error}</div>}
+      {error && <div role="alert" className="mt-3 text-[12px] text-danger-text">{error}</div>}
     </div>
   );
 }

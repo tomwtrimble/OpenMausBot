@@ -24,14 +24,14 @@ export function HandoffReply({ message, children }: { message: Message; children
     <div className="flex flex-col items-start gap-1" data-handoff-reply={message.roomRequest?.id}>
       {children}
       {result.more === null
-        ? <p className={"max-w-[min(38rem,100%)] rounded-xl border border-hairline/40 bg-panel px-3 py-1.5 text-[13px] break-words text-ink-secondary"}>{result.preview}</p>
+        ? <p className={"max-w-[min(38rem,100%)] rounded-xl border border-hairline bg-panel px-3 py-1.5 text-[13px] break-words text-ink-secondary"}>{result.preview}</p>
         : (
-          <details className="group/reply w-fit max-w-full rounded-xl border border-hairline/40 bg-panel text-[13px] open:w-[min(38rem,100%)]">
-            <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1.5 text-ink-secondary hover:bg-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden">
+          <details className="group/reply w-fit max-w-full rounded-xl border border-hairline bg-panel text-[13px] open:w-[min(38rem,100%)]">
+            <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1.5 text-ink-secondary hover:bg-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus [&::-webkit-details-marker]:hidden">
               <span className="min-w-0 max-w-[34rem] truncate">{result.preview}</span>
               <ChevronRight size={13} className="ml-auto shrink-0 group-open/reply:rotate-90" aria-hidden="true" />
             </summary>
-            <p className="max-h-80 overflow-auto border-t border-hairline/40 px-3 py-2 whitespace-pre-wrap break-words text-ink">{result.more}</p>
+            <p className="max-h-80 overflow-auto border-t border-hairline px-3 py-2 whitespace-pre-wrap break-words text-ink">{result.more}</p>
           </details>
         )}
     </div>
@@ -45,7 +45,7 @@ export function HandoffChip({ message, bots, title, onClick }: { message: Messag
   const withBot = bots.find((bot) => bot.id === comm.withBotId);
   return (
     <HandoffReply message={message}>
-      <button type="button" onClick={onClick} title={title} className={cn("ui-pill", message.tool.ok === false && "text-danger")}>
+      <button type="button" onClick={onClick} title={title} className={cn("ui-pill", message.tool.ok === false && "text-danger-text")}>
         <BotAvatar bot={withBot ?? { name: comm.withName, color: comm.withColor }} state="happy" size={16} animated={false} />
         <span className="max-w-[480px] truncate">{message.tool.name}</span>
         <ChevronRight size={13} />

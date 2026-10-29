@@ -1230,7 +1230,7 @@ describe("bidi: message content carries its own direction", () => {
 
     expect(html).toContain("list-disc space-y-1 ps-5");
     expect(html).toContain("list-decimal space-y-1 ps-5");
-    expect(html).toContain("border-s-2 border-hairline ps-3");
+    expect(html).toContain("border-s-2 border-edge ps-3");
     expect(html).toContain('scope="col"');
     expect(html).not.toMatch(/class="[^"]*\bpl-5\b/);
     expect(html).not.toMatch(/class="[^"]*\bborder-l-2\b/);
@@ -1362,7 +1362,7 @@ describe("Simple mode's code block", () => {
   it("drops the header bar for a quiet surface, with Copy and a ⋯ menu on a hover plate", () => {
     const html = simple(() => renderToStaticMarkup(createElement(CodeBlock, { code: "const a = 1;", lang: "js" })));
     expect(html).toMatch(/class="chat-code-block group\/code relative my-2\.5 overflow-hidden rounded-lg bg-ink\/\[0\.04\]"/);
-    expect(html).not.toContain("border-hairline");
+    expect(html).not.toContain("border-edge");
     expect(html).not.toContain('aria-label="Wrap long lines"');
     const plate = html.match(/<div data-code-plate="[^"]*" class="([^"]*)"/)?.[1] ?? "";
     expect(plate.split(" ")).toEqual(expect.arrayContaining(["opacity-0", "group-hover/code:opacity-100", "focus-within:opacity-100", "touch:opacity-100"]));

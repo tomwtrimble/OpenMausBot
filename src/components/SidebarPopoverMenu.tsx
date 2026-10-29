@@ -117,7 +117,7 @@ function MenuRows({
           >
             {item.icon && (
               <span
-                className={cn("flex size-4 shrink-0 items-center justify-center [&>svg]:size-4", item.active ? "text-accent" : "text-ink-secondary")}
+                className={cn("flex size-4 shrink-0 items-center justify-center [&>svg]:size-4", item.active ? "text-accent-text" : "text-ink-secondary")}
               >
                 {item.icon}
               </span>

@@ -25,7 +25,7 @@ export function StackedMauses({ members, density, large = false }: { members: Bo
           <BotAvatar key={b.id} bot={b} state="happy" size={iconOnly ? 30 : large ? 26 : 20} animated={false} />
         ))}
         {extra > 0 && (
-          <span className="z-10 flex size-4 items-center justify-center rounded-full border border-hairline/40 bg-raised text-[9px] font-medium text-ink-secondary">
+          <span className="z-10 flex size-4 items-center justify-center rounded-full border border-hairline bg-raised text-[9px] font-medium text-ink-secondary">
             +{extra}
           </span>
         )}

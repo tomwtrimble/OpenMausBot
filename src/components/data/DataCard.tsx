@@ -24,7 +24,7 @@ export interface DataCardProps {
 export function RunningStatus({ onCancel }: { onCancel: () => void }) {
   return <span className="flex items-center gap-2 text-[12px] text-ink-secondary" role="status">
     <Loader2 size={13} className="animate-spin" aria-hidden="true" />{t("data.card.running")}
-    <button type="button" onClick={onCancel} className="rounded-md border border-hairline/60 px-2 py-0.5 text-ink hover:bg-inset">{t("data.card.cancel")}</button>
+    <button type="button" onClick={onCancel} className="rounded-md border border-hairline px-2 py-0.5 text-ink hover:bg-inset">{t("data.card.cancel")}</button>
   </span>;
 }
 
@@ -72,7 +72,7 @@ export function ExportMenu({ formats, busy, onExport, onCopyMarkdown }: { format
       <summary role="button" className={cn(action, "list-none cursor-pointer [&::-webkit-details-marker]:hidden")} aria-label={t("data.card.export")} title={t("data.card.export")}>
         {busy ? <Loader2 size={13} className="animate-spin" aria-hidden="true" /> : <Download size={13} aria-hidden="true" />}<span className="hidden @min-[460px]/data:inline">{t("data.card.export")}</span><ChevronDown size={11} aria-hidden="true" />
       </summary>
-      <div className="absolute right-0 bottom-full z-20 mb-1 flex max-h-[min(20rem,calc(100cqh-3rem))] w-52 flex-col overflow-y-auto rounded-xl border border-hairline/50 bg-menu p-1.5 shadow-xl">
+      <div className="popover-surface absolute right-0 bottom-full z-20 mb-1 flex max-h-[min(20rem,calc(100cqh-3rem))] w-52 flex-col overflow-y-auto rounded-xl border border-hairline bg-menu p-1.5 shadow-xl">
         {formats.map((format) => (
           <button key={format} type="button" className={menuItem} disabled={busy} onClick={(event) => { close(event); onExport(format); }}>{labels[format]}</button>
         ))}
@@ -99,7 +99,7 @@ export function DataCard({ bot, card, theme, controls, running, onCancel }: Data
   const actions = <>
     {(card.status === "running" || running) && <RunningStatus onCancel={onCancel} />}
     {card.status === "ready" && card.kind === "chart" && card.vegaLite && (
-      <div className="flex items-center rounded-lg border border-hairline/50 p-0.5">
+      <div className="flex items-center rounded-lg border border-hairline p-0.5">
         {(["chart", "table"] as const).map((mode) => (
           <button key={mode} type="button" className={cn(action, view === mode && "bg-inset text-ink")} aria-pressed={view === mode} onClick={() => setView(mode)}>{t(`data.view.${mode}`)}</button>
         ))}
@@ -110,7 +110,7 @@ export function DataCard({ bot, card, theme, controls, running, onCancel }: Data
         formats={card.kind === "chart" ? ["png", "svg", "csv"] : ["csv", "parquet", "xlsx"]}
         onCopyMarkdown={card.kind === "table" || view === "table" ? () => void exporter.copyMarkdown() : undefined} />
     )}
-    {exporter.notice && <span role={exporter.notice.kind} className={cn("absolute inset-x-0 bottom-full z-10 truncate border-t border-hairline/40 bg-card px-3 py-1 text-[11px]", exporter.notice.kind === "alert" ? "text-danger" : "text-ink-secondary")} title={exporter.notice.text}>{exporter.notice.text}</span>}
+    {exporter.notice && <span role={exporter.notice.kind} className={cn("absolute inset-x-0 bottom-full z-10 truncate border-t border-hairline bg-card px-3 py-1 text-[11px]", exporter.notice.kind === "alert" ? "text-danger-text" : "text-ink-secondary")} title={exporter.notice.text}>{exporter.notice.text}</span>}
     {controls}
   </>;
 
@@ -118,7 +118,7 @@ export function DataCard({ bot, card, theme, controls, running, onCancel }: Data
   const body = card.status === "running"
     ? <div className="flex min-h-0 flex-1 items-center justify-center text-[12px] text-ink-secondary"><Loader2 size={18} className="animate-spin" aria-hidden="true" /></div>
     : card.status === "failed"
-      ? <div role="alert" className="min-h-0 flex-1 overflow-auto px-3 py-2 text-[12px] text-danger" data-testid="card-error">
+      ? <div role="alert" className="min-h-0 flex-1 overflow-auto px-3 py-2 text-[12px] text-danger-text" data-testid="card-error">
           <div className="font-medium">{t("data.card.failed")}{card.error?.line ? ` · ${t("data.card.line", { line: card.error.line })}` : ""}</div>
           <pre className="mt-1 whitespace-pre-wrap break-words font-mono text-[12px]">{card.error?.message}</pre>
           {card.error?.hint && <p className="mt-1 text-ink-secondary">{card.error.hint}</p>}

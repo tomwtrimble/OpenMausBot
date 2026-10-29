@@ -76,7 +76,7 @@ export function RemoteAgentSettingsPanel({ bot, overlay = false }: {
 
   return (
     <aside className={cn(
-      "animate-panel-in absolute inset-0 z-40 flex h-full min-w-0 flex-col border-l border-hairline/40 bg-panel",
+      "animate-panel-in absolute inset-0 z-40 flex h-full min-w-0 flex-col border-l border-hairline bg-panel",
       overlay ? "md:left-auto md:w-[400px] md:shadow-2xl" : "md:relative md:z-20 md:w-[400px] md:shrink-0",
     )}>
       <div {...dragProps} className={cn("flex items-center justify-between px-4 py-3", padClass)}>
@@ -107,17 +107,17 @@ export function RemoteAgentSettingsPanel({ bot, overlay = false }: {
                 <button type="button" disabled={uploading || saving} onClick={() => avatarInput.current?.click()} className="flex items-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50">
                   {uploading ? <Loader2 size={14} className="animate-spin" /> : <ImagePlus size={14} />} Avatar
                 </button>
-                {bot.avatarUrl && <button type="button" disabled={saving} onClick={() => void patch({ avatarUrl: null, avatarCrop: "mascot" })} aria-label="Remove custom avatar" className="flex size-9 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-danger"><Trash2 size={14} /></button>}
+                {bot.avatarUrl && <button type="button" disabled={saving} onClick={() => void patch({ avatarUrl: null, avatarCrop: "mascot" })} aria-label="Remove custom avatar" className="flex size-9 items-center justify-center rounded-lg text-ink-secondary hover:bg-control hover:text-danger-text"><Trash2 size={14} /></button>}
               </div>
             </div>
             <label className="block text-[12px] font-medium text-ink-secondary">Name
-              <input key={bot.id} defaultValue={bot.name} maxLength={BOT_PROFILE_LIMITS.name} onBlur={(event) => { const name = event.currentTarget.value.trim(); if (name && name !== bot.name) void patch({ name }); }} className="mt-1 w-full rounded-lg bg-inset px-3 py-2 text-[14px] text-ink focus:outline-none focus:ring-1 focus:ring-accent" />
+              <input key={bot.id} defaultValue={bot.name} maxLength={BOT_PROFILE_LIMITS.name} onBlur={(event) => { const name = event.currentTarget.value.trim(); if (name && name !== bot.name) void patch({ name }); }} className="mt-1 w-full rounded-lg bg-inset px-3 py-2 text-[14px] text-ink focus:outline-none focus:ring-1 focus:ring-focus" />
             </label>
             <label className="mt-3 block text-[12px] font-medium text-ink-secondary">Title
-              <input key={bot.id} defaultValue={bot.title ?? ""} maxLength={BOT_PROFILE_LIMITS.title} onBlur={(event) => { if (event.currentTarget.value !== (bot.title ?? "")) void patch({ title: event.currentTarget.value }); }} className="mt-1 w-full rounded-lg bg-inset px-3 py-2 text-[14px] text-ink focus:outline-none focus:ring-1 focus:ring-accent" />
+              <input key={bot.id} defaultValue={bot.title ?? ""} maxLength={BOT_PROFILE_LIMITS.title} onBlur={(event) => { if (event.currentTarget.value !== (bot.title ?? "")) void patch({ title: event.currentTarget.value }); }} className="mt-1 w-full rounded-lg bg-inset px-3 py-2 text-[14px] text-ink focus:outline-none focus:ring-1 focus:ring-focus" />
             </label>
             <label className="mt-3 block text-[12px] font-medium text-ink-secondary">Description
-              <textarea key={bot.id} defaultValue={bot.description ?? ""} maxLength={BOT_PROFILE_LIMITS.description} rows={4} onBlur={(event) => { if (event.currentTarget.value !== (bot.description ?? "")) void patch({ description: event.currentTarget.value }); }} className="mt-1 w-full resize-y rounded-lg bg-inset px-3 py-2 text-[13px] leading-relaxed text-ink focus:outline-none focus:ring-1 focus:ring-accent" />
+              <textarea key={bot.id} defaultValue={bot.description ?? ""} maxLength={BOT_PROFILE_LIMITS.description} rows={4} onBlur={(event) => { if (event.currentTarget.value !== (bot.description ?? "")) void patch({ description: event.currentTarget.value }); }} className="mt-1 w-full resize-y rounded-lg bg-inset px-3 py-2 text-[13px] leading-relaxed text-ink focus:outline-none focus:ring-1 focus:ring-focus" />
             </label>
           </div>
 
@@ -145,7 +145,7 @@ export function RemoteAgentSettingsPanel({ bot, overlay = false }: {
             />
           </div>
 
-          {error ? <div role="alert" className="text-[12px] text-danger">{error}</div> : null}
+          {error ? <div role="alert" className="text-[12px] text-danger-text">{error}</div> : null}
         </div>
       </div>
     </aside>

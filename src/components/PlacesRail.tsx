@@ -104,7 +104,7 @@ function PlaceCircle({ place, calm, canPair, onOpen, onMenu }: { place: RailPlac
     {place.progress !== undefined && <ProgressRing value={place.progress} waiting={place.waiting === true} />}
     {place.attention && <span aria-hidden="true" data-rail-dot className="absolute -right-0.5 -top-0.5 size-3 rounded-full border-2 border-panel bg-danger" />}
     {place.update && !place.attention && <span aria-hidden="true" data-rail-update className="absolute -right-0.5 -top-0.5 size-3 rounded-full border-2 border-panel bg-accent" />}
-    {place.server && <span aria-hidden="true" data-rail-server className="absolute -bottom-0.5 -right-0.5 grid size-4 place-items-center rounded-full border border-hairline bg-panel text-ink-secondary">
+    {place.server && <span aria-hidden="true" data-rail-server className="absolute -bottom-0.5 -right-0.5 grid size-4 place-items-center rounded-full border border-edge bg-panel text-ink-secondary">
       <Server size={9} strokeWidth={2.25} />
     </span>}
   </button>;
@@ -138,7 +138,7 @@ function PlaceMenu({ place, top, onClose }: { place: RailPlace; top: number; onC
       <SwatchRadios value={pending ?? paint.swatch} onChange={choose} label={t("placeLook.aria", { name })} disabled={Boolean(paint.locked)} offset="menu" none />
     </div>
     {note && <p data-rail-menu-note className="px-2 pb-1 text-[12px] text-ink-secondary">{note}</p>}
-    {outcome === "failed" && <p role="alert" className="px-2 pb-1 text-[12px] text-danger">{t("placeLook.failed")}</p>}
+    {outcome === "failed" && <p role="alert" className="px-2 pb-1 text-[12px] text-danger-text">{t("placeLook.failed")}</p>}
   </div>;
 }
 
@@ -211,7 +211,7 @@ export function PlacesRail({ chrome = false }: { chrome?: boolean }) {
     setMenu({ place, top: nav ? Math.max(8, Math.min(topWithin(from, nav) - 6, nav.clientHeight - 200)) : 8 });
   };
   return <nav ref={navRef} aria-label={t("rail.label")} data-places-rail style={drag}
-    className={cn("relative w-16 shrink-0 flex-col items-center bg-panel", chrome ? "flex h-full" : "hidden md:flex", calm ? "border-r border-ink/[0.04]" : "border-r border-hairline/50")}>
+    className={cn("relative w-16 shrink-0 flex-col items-center bg-panel", chrome ? "flex h-full" : "hidden md:flex", calm ? "border-r border-ink/[0.04]" : "border-r border-hairline")}>
     {/* The macOS traffic lights sit over the rail's top; nothing here takes a click before they end. */}
     <div aria-hidden="true" className={macInset ? "h-[52px] shrink-0" : "h-3 shrink-0"} />
     <ul className="flex min-h-0 flex-col items-center gap-2.5 overflow-y-auto px-1 py-1" style={noDrag}>

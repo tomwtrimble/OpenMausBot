@@ -189,7 +189,7 @@ export function PageNotes({ version, point, share, className }: Pick<PageToolsPr
     );
   }
   if (share.unpublished && !share.url) rows.push(<p key="gone" className="px-1 text-[13px] text-ink-secondary">{t("chat.page.unpublished")}</p>);
-  if (state.kind === "unpublish-failed") rows.push(<p key="stuck" role="alert" className="px-1 text-[13px] text-danger">{t("chat.page.unpublishFailed")}</p>);
+  if (state.kind === "unpublish-failed") rows.push(<p key="stuck" role="alert" className="px-1 text-[13px] text-danger-text">{t("chat.page.unpublishFailed")}</p>);
   if (state.kind === "refused") {
     rows.push(
       <div key="refused" role="alert" className="flex items-center gap-2 rounded-2xl bg-inset px-3 py-2 text-[13px] text-ink-secondary">
@@ -229,7 +229,7 @@ export function PageFullScreen(props: PageToolsProps & {
   return createPortal(
     <div role="dialog" aria-modal="true" aria-label={props.title} data-page-fullscreen={props.doc.messageId}
       className="fixed inset-0 z-50 flex flex-col bg-panel">
-      <div ref={closer} className="flex flex-col gap-2 border-b border-hairline/40 px-4 pb-3 pt-3">
+      <div ref={closer} className="flex flex-col gap-2 border-b border-hairline px-4 pb-3 pt-3">
         <div className="truncate text-[15px] font-semibold text-ink" title={props.title}><bdi dir="auto">{props.title}</bdi></div>
         <PageToolbar {...props} />
         <PageNotes version={props.version} point={point} share={props.share} />

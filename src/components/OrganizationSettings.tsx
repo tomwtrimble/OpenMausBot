@@ -96,7 +96,7 @@ export function OrganizationSettings() {
             <label className="flex flex-col gap-1.5">{t("organization.address")}
               <input type="url" required value={address} disabled={busy} onChange={(event) => setAddress(event.target.value)}
                 placeholder={DEFAULT_PORTAL_ORIGIN} autoCapitalize="none" autoCorrect="off" autoComplete="off" spellCheck={false} maxLength={2048}
-                className="w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent/50" />
+                className="w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent/50" />
             </label>
             <button type="submit" disabled={busy || !address.trim()} className="ui-button w-fit">{t("organization.customSignIn")}</button>
           </form>
@@ -119,7 +119,7 @@ export function OrganizationSettings() {
         <div>{connection.branding?.logo && <img src={connection.branding.logo} alt="Organization logo" className="mb-2 size-12 rounded-lg object-contain" />}<div className="break-words text-[15px] font-medium text-ink">{connection.organization?.name}</div>
           <div className="break-all text-[13px] text-ink-secondary">{connection.email}</div></div>
         {connection.status === "reauth-required" ? <p role="alert" className="text-[13px] text-ink-secondary">{t("organization.reauth")}</p> : connection.status === "license-expired" ? <>
-          {connection.providers?.some((provider) => provider.configured && provider.models.length > 0) && <ul className="divide-y divide-hairline/40">{connection.providers.filter((provider) => provider.configured && provider.models.length > 0).map((provider) => <li key={provider.id} className="flex flex-wrap justify-between gap-2 py-2 text-[13px]">
+          {connection.providers?.some((provider) => provider.configured && provider.models.length > 0) && <ul className="divide-y divide-hairline">{connection.providers.filter((provider) => provider.configured && provider.models.length > 0).map((provider) => <li key={provider.id} className="flex flex-wrap justify-between gap-2 py-2 text-[13px]">
             <span className="text-ink">{providerNames[provider.id] ?? provider.id}</span>
             <span className="text-ink-secondary">{t("organization.companyModelsUnavailable")}</span>
           </li>)}</ul>}
@@ -128,11 +128,11 @@ export function OrganizationSettings() {
           {connection.providers?.some((provider) => provider.configured && provider.models.length > 0) ?
             <CompanyModels providers={connection.providers} /> : <p className="text-[13px] text-ink-secondary">{t("organization.noModels")}</p>}
         </> : null}
-        {confirmDisconnect ? <div role="group" aria-label={t("organization.disconnectTitle")} className="rounded-lg border border-hairline/40 p-3">
+        {confirmDisconnect ? <div role="group" aria-label={t("organization.disconnectTitle")} className="rounded-lg border border-hairline p-3">
           <p className="text-[13px] text-ink">{t("organization.disconnectWarning")}</p>
           <div className="mt-3 flex flex-wrap gap-2">
             <button type="button" autoFocus disabled={busy} className="ui-button" onClick={() => setConfirmDisconnect(false)}>{t("organization.keepConnection")}</button>
-            <button type="button" disabled={busy} className="ui-button text-danger" onClick={() => void perform(() => bridge.disconnect())}>{t("organization.disconnectConfirm")}</button>
+            <button type="button" disabled={busy} className="ui-button text-danger-text" onClick={() => void perform(() => bridge.disconnect())}>{t("organization.disconnectConfirm")}</button>
           </div>
         </div> : <div className="flex flex-wrap gap-2">
           {connection.status !== "reauth-required" && <button type="button" disabled={busy} className="ui-button" onClick={() => void perform(() => bridge.refresh())}>{t("organization.refresh")}</button>}
@@ -141,7 +141,7 @@ export function OrganizationSettings() {
       </div>}
       {connection?.status === "unavailable" && <p role="status" className="text-[13px] text-ink-secondary">{t("organization.unavailable")}</p>}
       {dateLabel && <p className="mt-3 text-[12px] text-ink-secondary">{t("organization.expires", { date: dateLabel })}</p>}
-      {error && connection && <p role="alert" className="mt-3 text-[13px] text-danger">{error}</p>}
+      {error && connection && <p role="alert" className="mt-3 text-[13px] text-danger-text">{error}</p>}
       {!connection && <button type="button" disabled={busy} className="ui-button mt-3" onClick={() => void perform(() => bridge.refresh())}>{t("organization.refresh")}</button>}
     </Card>
   </>;

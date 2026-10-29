@@ -24,7 +24,7 @@ export function TeamMenuItems({ onAddBots, onRename, onShare, onDelete, onSetFor
       {onSetForAll && <button type="button" role="menuitem" className={item} onClick={onSetForAll}><SlidersHorizontal size={16} />{t("teamSettings.menu")}</button>}
       <button type="button" role="menuitem" className={item} onClick={onRename}><SquarePen size={16} />{t("team.rename")}</button>
       <button type="button" role="menuitem" className={item} onClick={onShare}><Share2 size={16} />{t("team.share")}</button>
-      <button type="button" role="menuitem" className={cn(item, "text-danger [&>svg]:text-danger")} onClick={onDelete}><Trash2 size={16} />{t("team.delete")}</button>
+      <button type="button" role="menuitem" className={cn(item, "text-danger-text [&>svg]:text-danger-text")} onClick={onDelete}><Trash2 size={16} />{t("team.delete")}</button>
     </>
   );
 }

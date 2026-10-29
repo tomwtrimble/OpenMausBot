@@ -20,7 +20,7 @@ export function SidebarPinnedThreadsPanel({ entries, density, now, onJump, onUnp
     <section
       data-testid="sidebar-pinned-threads-panel"
       aria-label={t("sidebar.pinnedThreads.title")}
-      className={cn("mx-2 overflow-hidden rounded-lg border border-hairline/40 bg-inset/30", compact ? "mb-1.5" : "mb-2")}
+      className={cn("mx-2 overflow-hidden rounded-lg border border-hairline bg-inset/30", compact ? "mb-1.5" : "mb-2")}
     >
       <div className="flex items-center gap-1.5 px-2.5 pb-1 pt-1.5 text-[12px] font-medium text-ink-secondary">
         <button

@@ -15,7 +15,7 @@ import {
 } from "../lib/session";
 import { pairedDestination } from "../lib/phone-pairing";
 
-const input = "mt-1 w-full rounded-md border border-hairline/40 bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent-border";
+const input = "mt-1 w-full rounded-md border border-hairline bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent-border";
 const button = "mt-5 w-full rounded-md bg-accent px-4 py-2 text-[14px] font-medium text-accent-ink disabled:opacity-50";
 const fieldLabel = "mt-4 block text-[12px] font-medium text-ink-secondary";
 
@@ -128,7 +128,7 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
         {opening ? null : connected ? (
           <p className="mt-4 text-[14px]">
             This browser is already connected.{" "}
-            <a href="/" className="text-accent underline">
+            <a href="/" className="text-accent-text underline">
               Open the app
             </a>
           </p>
@@ -172,7 +172,7 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
                 <input id="signin-label" value={label} onChange={(e) => setLabel(e.target.value)} maxLength={80} className={input} />
               </>
             ) : null}
-            {error ? <p className="mt-3 text-[13px] text-danger">{error}</p> : null}
+            {error ? <p className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
             <button type="submit" disabled={busy || !email.includes("@") || (sent && otp.replace(/\D/g, "").length < 8)} className={button}>
               {busy ? (sent ? "Signing in…" : "Sending…") : sent ? "Sign in" : "Send code"}
             </button>
@@ -207,7 +207,7 @@ export function PairPage({ initialCode, initialEmail = null, reason }: { initial
               This device
             </label>
             <input id="pair-label" value={label} onChange={(e) => setLabel(e.target.value)} maxLength={80} className={input} />
-            {error ? <p className="mt-3 text-[13px] text-danger">{error}</p> : null}
+            {error ? <p className="mt-3 text-[13px] text-danger-text">{error}</p> : null}
             <button type="submit" disabled={busy || code.replace(/[^a-z0-9]/gi, "").length < 12} className={button}>
               {busy ? "Connecting…" : "Connect"}
             </button>

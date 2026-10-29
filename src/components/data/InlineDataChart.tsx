@@ -39,7 +39,7 @@ export function InlineDataChart({ botId, cardId, title }: { botId: string; cardI
   const theme = useColorScheme();
   if (card === null || (card && (card.status === "failed" || (card.status === "ready" && (card.kind !== "chart" || !card.vegaLite))))) return null;
   return (
-    <div role="img" aria-label={title} data-testid="inline-data-chart" className="flex h-[280px] flex-col border-t border-hairline/40 px-2 pt-1 pb-2">
+    <div role="img" aria-label={title} data-testid="inline-data-chart" className="flex h-[280px] flex-col border-t border-hairline px-2 pt-1 pb-2">
       {card?.status === "ready" && card.vegaLite
         ? <DataChart botId={botId} cardId={card.id} spec={card.vegaLite} rowCount={card.rowCount} theme={theme} revision={card.result ?? card.updatedAt} inline />
         : <div className="flex flex-1 items-center justify-center gap-2 text-[12px] text-ink-secondary" role="status">

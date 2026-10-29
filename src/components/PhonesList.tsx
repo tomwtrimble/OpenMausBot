@@ -24,7 +24,7 @@ export function PhonesList() {
   };
 
   return (
-    <div className="border-t border-hairline/30 pt-4">
+    <div className="border-t border-hairline pt-4">
       <div className="text-[13px] text-ink">{t("remote.phones.title")}</div>
       {phones.length === 0 ? (
         <div className="mt-0.5 text-[12px] leading-relaxed text-ink-secondary">{t("remote.phones.empty")}</div>
@@ -47,7 +47,7 @@ export function PhonesList() {
                     disabled={removing !== null}
                     onClick={() => remove(phone.key)}
                     aria-label={t("remote.phones.remove", { name })}
-                    className="shrink-0 rounded p-1.5 text-ink-secondary hover:bg-control hover:text-danger disabled:opacity-40"
+                    className="shrink-0 rounded p-1.5 text-ink-secondary hover:bg-control hover:text-danger-text disabled:opacity-40"
                   >
                     <Trash2 size={14} />
                   </button>

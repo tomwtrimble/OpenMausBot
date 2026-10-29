@@ -62,7 +62,7 @@ describe("BotListItem", () => {
     expect(badge).not.toContain("size-2.5");
     expect(badge).not.toContain("size-3");
     expect(waiting).toContain('aria-hidden="true">!</span>');
-    expect(waiting).toContain('class="flex min-w-0 items-center gap-1.5 truncate text-[13px] leading-[18px] font-semibold text-warning"');
+    expect(waiting).toContain('class="flex min-w-0 items-center gap-1.5 truncate text-[13px] leading-[18px] font-semibold text-warning-text"');
     expect(waiting).toContain('class="truncate">Waiting for you…</span>');
 
     const icons = opening(renderRow(bot({ activity: "waiting-on-you" }), false, "icons"), "waiting-dot");
@@ -77,19 +77,19 @@ describe("BotListItem", () => {
     expect(teammateDot).not.toContain("size-4");
     expect(teammate).toContain('class="truncate">Waiting on a teammate…</span>');
     expect(teammate).toContain("truncate text-[13px] leading-[18px] text-ink-secondary");
-    expect(teammate).not.toContain("font-semibold text-warning");
+    expect(teammate).not.toContain("font-semibold text-warning-text");
 
     const working = renderRow(bot({ busy: true }));
     expect(opening(working, "working-dot")).toContain("size-2.5");
     expect(working).not.toContain("waiting-dot");
-    expect(working).not.toContain("font-semibold text-warning");
+    expect(working).not.toContain("font-semibold text-warning-text");
 
     const preview = renderRow(bot({
       messages: [{ id: "b1", role: "bot", kind: "text", text: "Created notes.txt", at: 2 }] as Bot["messages"],
     }));
     expect(preview).toContain('class="truncate">Created notes.txt</span>');
     expect(preview).toContain("truncate text-[13px] leading-[18px] text-ink-secondary");
-    expect(preview).not.toContain("text-warning");
+    expect(preview).not.toContain("text-warning-text");
     expect(preview).not.toContain("waiting-dot");
   });
 

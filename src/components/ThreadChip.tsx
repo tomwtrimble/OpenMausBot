@@ -23,7 +23,7 @@ export function ThreadChip({ message }: { message: Message }) {
         data-thread-chip={ref.threadId}
         onClick={() => openThread(dispatch, ref, state, showThreads)}
         title={t("chat.openThread", { title: ref.title })}
-        className={cn("ui-pill", tool.ok === false && "text-danger")}
+        className={cn("ui-pill", tool.ok === false && "text-danger-text")}
       >
         {bot ? <BotAvatar bot={bot} state="happy" size={16} animated={false} /> : <MessagesSquare size={13} aria-hidden="true" />}
         <span className="max-w-[480px] truncate">{label}</span>

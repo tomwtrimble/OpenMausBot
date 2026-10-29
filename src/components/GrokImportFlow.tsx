@@ -69,7 +69,7 @@ export function GrokImportFlow({ link = null, onPreview, onAdded, bare }: {
         <div className="mt-3">
           <TeamImportDetails pending={pending} importedNames={pending.members.map((member) => takeImportName(member.name, taken))} />
         </div>
-        {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger">{error}</div>}
+        {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
         <div className="mt-4 flex flex-wrap items-center justify-end gap-2">
           <button
             onClick={() => setPending(null)}

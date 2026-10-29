@@ -155,9 +155,9 @@ export function CommandPalette({ onOpenChange }: { onOpenChange?: (open: boolean
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="popover-surface flex max-h-[min(480px,70vh)] w-full max-w-[560px] flex-col overflow-hidden rounded-xl border border-hairline/50 bg-card shadow-2xl shadow-black/60"
+        className="popover-surface flex max-h-[min(480px,70vh)] w-full max-w-[560px] flex-col overflow-hidden rounded-xl border border-hairline bg-menu shadow-2xl shadow-shadow/60"
       >
-        <div className="flex items-center gap-3 border-b border-hairline/40 px-4 py-3">
+        <div className="flex items-center gap-3 border-b border-hairline px-4 py-3">
           <Search size={16} className="shrink-0 text-ink-secondary" />
           <input
             autoFocus
@@ -166,7 +166,7 @@ export function CommandPalette({ onOpenChange }: { onOpenChange?: (open: boolean
             placeholder="Search bots, channels, messages…"
             className="w-full bg-transparent text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none"
           />
-          <kbd className="shrink-0 rounded-md border border-hairline/40 px-1.5 py-0.5 text-[11px] text-ink-secondary">
+          <kbd className="shrink-0 rounded-md border border-hairline px-1.5 py-0.5 text-[11px] text-ink-secondary">
             esc
           </kbd>
         </div>

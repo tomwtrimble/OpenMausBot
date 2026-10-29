@@ -18,7 +18,7 @@ export function SidebarAttentionPanel({ entries, density, onUnpin, onJump, colla
     <section
       data-testid="sidebar-attention-panel"
       aria-label={t("attention.title")}
-      className={cn("mx-2 overflow-hidden rounded-lg border border-hairline/40 bg-inset/30", compact ? "mb-1.5" : "mb-2")}
+      className={cn("mx-2 overflow-hidden rounded-lg border border-hairline bg-inset/30", compact ? "mb-1.5" : "mb-2")}
     >
       <div className="flex items-center gap-1.5 px-2.5 pb-1 pt-1.5 text-[12px] font-medium text-ink-secondary">
         <button

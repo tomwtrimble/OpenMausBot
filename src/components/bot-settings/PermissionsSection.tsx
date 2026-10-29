@@ -56,7 +56,7 @@ export function PermissionsSection({
       {shows("chief") && <div
         className={cn(
           "rounded-xl border p-4",
-          bot.chiefOfStaff ? "border-accent/40 bg-accent/10" : "border-hairline/40 bg-card",
+          bot.chiefOfStaff ? "border-accent/40 bg-accent/10" : "border-hairline bg-card",
         )}
       >
         <div className="flex items-center gap-3">
@@ -149,12 +149,12 @@ export function PermissionsSection({
         </div>
         {!draft && approvalMode === "full" && <button
           type="button"
-          className="mt-3 text-[13px] text-accent hover:underline disabled:opacity-40"
+          className="mt-3 text-[13px] text-accent-text hover:underline disabled:opacity-40"
           onClick={applyFullEverywhere}
         >{t("permissions.approval.applyFull")}</button>}
         {!draft && ownerOrAdmin === true && <button
           type="button"
-          className="mt-3 block text-[13px] text-accent hover:underline"
+          className="mt-3 block text-[13px] text-accent-text hover:underline"
           onClick={() => setCommandAllowlistTarget({ botId: bot.id, botName: bot.name })}
         >{t("commandAllowlist.manage")}</button>}
       </div>}
@@ -182,9 +182,9 @@ export function PermissionsSection({
 function PeersListNote({ peers, bots, onOpen }: { peers: readonly string[]; bots: readonly Bot[]; onOpen: () => void }) {
   const names = peers.flatMap((id) => bots.find((other) => other.id === id && !other.hidden)?.name ?? []);
   return (
-    <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-hairline/40 pt-3 text-[13px] text-ink-secondary">
+    <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-hairline pt-3 text-[13px] text-ink-secondary">
       <span>{names.length ? t("permissions.peers.limited", { names: names.join(", ") }) : t("permissions.peers.none")}</span>
-      <button type="button" className="text-accent hover:underline" onClick={onOpen}>{t("permissions.peers.everyone")}</button>
+      <button type="button" className="text-accent-text hover:underline" onClick={onOpen}>{t("permissions.peers.everyone")}</button>
     </div>
   );
 }
@@ -265,7 +265,7 @@ function OutboundControl({ bot, onChange }: { bot: Bot; onChange: (policy: Outbo
                 if (event.key === "Enter") (event.target as HTMLInputElement).blur();
               }}
               aria-label={t("permissions.outbound.dailyLimit")}
-              className="w-20 rounded-md bg-inset px-2 py-1 text-[13px] text-ink tabular-nums outline-none focus:ring-1 focus:ring-accent"
+              className="w-20 rounded-md bg-inset px-2 py-1 text-[13px] text-ink tabular-nums outline-none focus:ring-1 focus:ring-focus"
             />
             {t("permissions.outbound.perDay")}
           </label>

@@ -30,7 +30,7 @@ export function CompanyModels({ providers }: { providers: ReadonlyArray<{ id: st
   };
 
   return <>
-    <ul className="divide-y divide-hairline/40">{providers.map((provider) => <li key={provider.id} className="py-2 text-[13px]">
+    <ul className="divide-y divide-hairline">{providers.map((provider) => <li key={provider.id} className="py-2 text-[13px]">
       <div className="flex flex-wrap justify-between gap-2">
         <span className="text-ink">{providerNames[provider.id] ?? provider.id}</span>
         <span className="text-ink-secondary">{provider.configured ? t("organization.modelCount", { count: provider.models.length }) : t("organization.notConfigured")}</span>
@@ -39,7 +39,7 @@ export function CompanyModels({ providers }: { providers: ReadonlyArray<{ id: st
         <CompanyEngineReadiness instance={companyInstanceFor(state.instances, provider.id)} instances={state.instances} />}
     </li>)}</ul>
     {done && <p role="status" className="break-words text-[12px] text-ink-secondary">{t("organization.useCompanyDone", { name: done.name, names: done.bots.join(", ") })}</p>}
-    {target && plan.bots.length > 0 && <div data-company-switch className="flex flex-col items-start gap-2 rounded-lg border border-hairline/40 p-3">
+    {target && plan.bots.length > 0 && <div data-company-switch className="flex flex-col items-start gap-2 rounded-lg border border-hairline p-3">
       <p className="break-words text-[13px] text-ink">{t("organization.useCompanyBots", { names: names(plan.bots) })}</p>
       <button type="button" className="ui-button" disabled={switching} onClick={() => void switchBots()}>
         {plan.bots.length === 1

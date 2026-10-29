@@ -24,11 +24,11 @@ export function DigestChip({ message }: { message: Message }) {
     <div className="flex justify-start" data-testid="digest-chip">
       <span
         title={message.text ?? t("chat.digestTitle")}
-        className="ui-chip max-w-[min(520px,100%)] border border-hairline/40 bg-panel text-ink-secondary"
+        className="ui-chip max-w-[min(520px,100%)] border border-hairline bg-panel text-ink-secondary"
       >
         <ClipboardList size={12} />
         <span className="truncate">{label}</span>
-        <button type="button" onClick={() => setTracing(true)} className="shrink-0 text-accent hover:underline" data-testid="view-trace">
+        <button type="button" onClick={() => setTracing(true)} className="shrink-0 text-accent-text hover:underline" data-testid="view-trace">
           {t("trace.view")}
         </button>
       </span>
@@ -41,7 +41,7 @@ export function CompactionChip({ message }: { message: Message }) {
   if (!message.compaction) return null;
   const excerpts = message.compaction.summary.startsWith(EXCERPT_SUMMARY_HEADER);
   return (
-    <details className="max-w-[600px] rounded-xl border border-hairline/40 bg-panel px-3 py-2 text-[12px] text-ink-secondary" data-testid="compaction-chip">
+    <details className="max-w-[600px] rounded-xl border border-hairline bg-panel px-3 py-2 text-[12px] text-ink-secondary" data-testid="compaction-chip">
       <summary className="cursor-pointer font-medium">{t(excerpts ? "chat.compactionExcerptTitle" : "chat.compactionTitle")}</summary>
       <p className="mt-2">{t(excerpts ? "chat.compactionExcerptHint" : "chat.compactionHint")}</p>
       <p className="mt-2 whitespace-pre-wrap break-words">{message.compaction.summary}</p>

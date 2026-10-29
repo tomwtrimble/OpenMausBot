@@ -227,7 +227,7 @@ function ConversationTaskPicker({
         title={switchTitle}
         aria-label={t("task.switch")}
         className={cn(
-          "flex max-w-[220px] items-center gap-1.5 rounded-full border border-hairline/40 px-2.5 py-1 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink",
+          "flex max-w-[220px] items-center gap-1.5 rounded-full border border-hairline px-2.5 py-1 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink",
           COMPACT_BUBBLE,
         )}
       >
@@ -294,11 +294,11 @@ function ConversationTaskPicker({
               const heading = grouped?.find((group) => group.tasks[0]?.threadId === task.threadId)?.project;
               return (
                 <Fragment key={task.threadId}>
-                {bot?.projects?.length && heading ? <div className={cn("flex items-center gap-1.5 px-2 pb-1 pt-2 text-[12px] font-medium text-ink-secondary", index > 0 && "border-t border-hairline/30")}>{heading.id && <FolderIcon emoji={heading.emoji} size={12} />}{heading.name}</div> : null}
+                {bot?.projects?.length && heading ? <div className={cn("flex items-center gap-1.5 px-2 pb-1 pt-2 text-[12px] font-medium text-ink-secondary", index > 0 && "border-t border-hairline")}>{heading.id && <FolderIcon emoji={heading.emoji} size={12} />}{heading.name}</div> : null}
                 <div
                   className={cn("group flex items-center gap-2 rounded-md px-2 py-1.5", active ? "bg-menu-active" : "hover:bg-menu-hover")}
                 >
-                  <Check size={14} className={cn("shrink-0", active ? "text-accent" : "opacity-0")} />
+                  <Check size={14} className={cn("shrink-0", active ? "text-accent-text" : "opacity-0")} />
                   {renaming === task.threadId ? (
                     <input
                       autoFocus
@@ -391,7 +391,7 @@ function ConversationTaskPicker({
                     disabled={Boolean(task.busy) || busy && active}
                     aria-label={t("task.deleteAria")}
                     title={t("task.deleteTitle")}
-                    className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-danger focus-visible:opacity-100 group-hover:opacity-100 disabled:opacity-20 touch:opacity-70 touch:disabled:opacity-20"
+                    className="rounded-md p-1 text-ink-secondary opacity-0 hover:bg-menu-hover hover:text-danger-text focus-visible:opacity-100 group-hover:opacity-100 disabled:opacity-20 touch:opacity-70 touch:disabled:opacity-20"
                   >
                     <Trash2 size={14} />
                   </button>

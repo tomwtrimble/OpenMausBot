@@ -166,7 +166,7 @@ export function CommandLine({ command, copyLabel = "Copy command" }: { command: 
         aria-label={state === "failed" ? t("common.copyFailed") : copyLabel}
         className="ui-icon-button shrink-0"
       >
-        {state === "copied" ? <Check size={13} className="text-success" /> : state === "failed" ? <X size={13} className="text-danger" /> : <Copy size={13} />}
+        {state === "copied" ? <Check size={13} className="text-success" /> : state === "failed" ? <X size={13} className="text-danger-text" /> : <Copy size={13} />}
       </button>
     </div>
   );

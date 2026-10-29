@@ -162,9 +162,9 @@ describe("install from Settings on the server", () => {
     const quiet = renderToStaticMarkup(createElement(StoreProvider, null, createElement(EngineSetup, { instance: engine, quiet: true })));
     expect(quiet).toMatch(/<details data-engine-setup-reason="true" class="[^"]*text-ink-tertiary"><summary[^>]*>Details<\/summary><p[^>]*>`kimi` isn&#x27;t installed/);
     expect(quiet).not.toContain('role="alert"');
-    expect(quiet).not.toContain("text-danger");
+    expect(quiet).not.toContain("text-danger-text");
     expect(quiet).toContain("Install Kimi here");
-    expect(render(engine)).toMatch(/role="alert" class="[^"]*text-danger">`kimi` isn&#x27;t installed/);
+    expect(render(engine)).toMatch(/role="alert" class="[^"]*text-danger-text">`kimi` isn&#x27;t installed/);
   });
 
   it("falls back to the terminal command when the server cannot install", () => {

@@ -38,7 +38,7 @@ describe("ArchivedBotRow", () => {
     expect(markup).toContain(">Restore</button>");
     expect(markup).toContain('aria-label="Delete Waffle"');
     expect(markup).toContain(">Delete</button>");
-    expect(markup).toContain("text-danger");
+    expect(markup).toContain("text-danger-text");
   });
 
   it("spells out that Delete all permanently removes every archived bot", () => {

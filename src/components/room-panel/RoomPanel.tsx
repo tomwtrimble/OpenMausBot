@@ -71,7 +71,7 @@ function InstructionsRow({ group }: { group: Group }) {
           onKeyDown={onKeyDown}
           placeholder={t("room.bulletin.placeholder")}
           rows={6}
-          className="w-full resize-y rounded-lg border border-hairline bg-inset px-2.5 py-2 text-[13px] leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent-border"
+          className="w-full resize-y rounded-lg border border-edge bg-inset px-2.5 py-2 text-[13px] leading-relaxed text-ink outline-none placeholder:text-ink-tertiary focus:border-accent-border"
         />
         <div className="flex justify-end">
           <button

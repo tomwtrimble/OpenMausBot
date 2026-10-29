@@ -34,7 +34,7 @@ export function WorkspacesTable({ fleet, onAct, busy }: { fleet: FleetView; onAc
   if (fleet.workspaces.length === 0) return <div className="text-[13px] text-ink-secondary">{t("workspaces.empty", { domain: fleet.domain })}</div>;
   return (
     <div className="flex flex-col">
-      <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-5 border-b border-hairline/40 pb-2 text-[12px] font-medium uppercase tracking-wide text-ink-secondary">
+      <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-5 border-b border-hairline pb-2 text-[12px] font-medium uppercase tracking-wide text-ink-secondary">
         <span>{t("workspaces.colWorkspace")}</span>
         <span className="text-right">{t("workspaces.colState")}</span>
         <span className="text-right">{t("workspaces.colMonth")}</span>
@@ -48,13 +48,13 @@ export function WorkspacesTable({ fleet, onAct, busy }: { fleet: FleetView; onAc
           : workspace.status === "retained" ? t("workspaces.retained")
           : suspended ? t("workspaces.suspended") : workspace.live === "active" ? t("workspaces.running") : workspace.live;
         return (
-          <div key={workspace.slug} className="grid grid-cols-[1fr_auto_auto_auto] items-center gap-x-5 border-b border-hairline/20 py-2 text-[13px]">
+          <div key={workspace.slug} className="grid grid-cols-[1fr_auto_auto_auto] items-center gap-x-5 border-b border-hairline py-2 text-[13px]">
             <span className="min-w-0">
               <span className="block truncate text-ink">{workspace.slug}</span>
-              <a href={`https://${workspace.host}`} target="_blank" rel="noreferrer" className="block truncate text-[12px] text-accent hover:underline">{workspace.host}</a>
+              <a href={`https://${workspace.host}`} target="_blank" rel="noreferrer" className="block truncate text-[12px] text-accent-text hover:underline">{workspace.host}</a>
               {!operational && <span className="block text-[12px] text-ink-secondary">{t("workspaces.recoveryHint")}</span>}
             </span>
-            <span className={cn("text-right", suspended || workspace.status === "provisioning" ? "text-warning" : workspace.status === "running" && workspace.live === "active" ? "text-success" : "text-danger")}>{state}</span>
+            <span className={cn("text-right", suspended || workspace.status === "provisioning" ? "text-warning-text" : workspace.status === "running" && workspace.live === "active" ? "text-success" : "text-danger-text")}>{state}</span>
             <span className="text-right tabular-nums text-ink" title={workspace.usage.turns === null ? undefined : t("workspaces.turns", { turns: String(workspace.usage.turns) })}>
               {hasFiniteCost(workspace.usage.costUsd) ? formatUsd(workspace.usage.costUsd) : "—"}
               {hasFiniteCost(workspace.usage.billableUsd) && <span className="text-ink-secondary"> · {formatUsd(workspace.usage.billableUsd)}</span>}
@@ -62,7 +62,7 @@ export function WorkspacesTable({ fleet, onAct, busy }: { fleet: FleetView; onAc
             <span className="flex items-center justify-end gap-2 text-[12px]">
               {operational && <><button type="button" disabled={busy !== null} onClick={() => onAct(workspace.slug, "users")} className="text-ink-secondary hover:text-ink disabled:opacity-50">{t("workspaces.users")}</button>
               <button type="button" disabled={busy !== null} onClick={() => onAct(workspace.slug, suspended ? "resume" : "suspend")} className="text-ink-secondary hover:text-ink disabled:opacity-50">{suspended ? t("workspaces.resume") : t("workspaces.suspend")}</button>
-              <button type="button" disabled={busy !== null} onClick={() => onAct(workspace.slug, "delete")} className="text-danger hover:underline disabled:opacity-50">{t("workspaces.delete")}</button></>}
+              <button type="button" disabled={busy !== null} onClick={() => onAct(workspace.slug, "delete")} className="text-danger-text hover:underline disabled:opacity-50">{t("workspaces.delete")}</button></>}
             </span>
           </div>
         );
@@ -102,7 +102,7 @@ function NewWorkspaceForm({ domain, onCreated, disabled }: { domain: string; onC
     }
   };
 
-  const field = "w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50";
+  const field = "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50";
   return (
     <form className="flex flex-col gap-3" onSubmit={(event) => { event.preventDefault(); void create(); }}>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -131,7 +131,7 @@ function NewWorkspaceForm({ domain, onCreated, disabled }: { domain: string; onC
         </label>
       </div>
       <p className="text-[12px] leading-relaxed text-ink-secondary">{t("workspaces.createHint")}</p>
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       <div className="flex justify-end">
         <button type="submit" disabled={disabled || saving} className="ui-button ui-button-primary">
           {saving ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />}{saving ? t("workspaces.creating") : t("workspaces.create")}
@@ -161,15 +161,15 @@ function UsersForm({ slug, onDone }: { slug: string; onDone: (log: string[]) => 
     }
   };
   return (
-    <div className="mt-2 rounded-lg border border-hairline/40 p-3">
+    <div className="mt-2 rounded-lg border border-hairline p-3">
       <div className="mb-2 text-[13px] font-medium text-ink">{t("workspaces.usersTitle", { slug })}</div>
       <div className="flex flex-wrap items-center gap-2">
-        <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" placeholder="person@example.com or @example.com" aria-label={t("workspaces.email")} disabled={busy !== null} className="min-w-[16rem] flex-1 rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50" />
+        <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" placeholder="person@example.com or @example.com" aria-label={t("workspaces.email")} disabled={busy !== null} className="min-w-[16rem] flex-1 rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50" />
         <label className="flex items-center gap-1.5 text-[12px] text-ink-secondary"><input type="checkbox" checked={chatOnly} onChange={(e) => setChatOnly(e.target.checked)} disabled={busy !== null} />{t("workspaces.chatOnly")}</label>
         <button type="button" disabled={busy !== null || !email.trim()} onClick={() => void run("add")} className="rounded-lg bg-raised px-3 py-1.5 text-[12px] text-ink hover:bg-raised-hover disabled:opacity-50">{busy === "add" ? t("workspaces.working") : t("workspaces.addUser")}</button>
-        <button type="button" disabled={busy !== null || !email.trim()} onClick={() => void run("remove")} className="rounded-lg px-3 py-1.5 text-[12px] text-danger hover:underline disabled:opacity-50">{busy === "remove" ? t("workspaces.working") : t("workspaces.removeUser")}</button>
+        <button type="button" disabled={busy !== null || !email.trim()} onClick={() => void run("remove")} className="rounded-lg px-3 py-1.5 text-[12px] text-danger-text hover:underline disabled:opacity-50">{busy === "remove" ? t("workspaces.working") : t("workspaces.removeUser")}</button>
       </div>
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </div>
   );
 }
@@ -248,12 +248,12 @@ export function WorkspacesSection({ load = fetchFleet }: { load?: () => Promise<
       <Card title={t("workspaces.title")} subtitle={t("workspaces.subtitle")}>
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <button type="button" onClick={() => void refresh()} disabled={loading || busy !== null} className="flex items-center gap-1 text-[12px] text-ink-secondary hover:text-ink disabled:opacity-50"><RefreshCw size={12} className={cn(loading && "animate-spin")} />{t("workspaces.refresh")}</button>
-          <button type="button" onClick={() => setCreating((value) => !value)} disabled={busy !== null} className="ml-auto flex items-center gap-1.5 rounded-lg border border-hairline/40 px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:opacity-50"><Plus size={13} />{t("workspaces.new")}</button>
-          <button type="button" onClick={() => void upgrade()} disabled={busy !== null || !fleet?.workspaces.length} className="rounded-lg border border-hairline/40 px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:opacity-50">{busy === "*" ? t("workspaces.working") : t("workspaces.upgradeAll")}</button>
+          <button type="button" onClick={() => setCreating((value) => !value)} disabled={busy !== null} className="ml-auto flex items-center gap-1.5 rounded-lg border border-hairline px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:opacity-50"><Plus size={13} />{t("workspaces.new")}</button>
+          <button type="button" onClick={() => void upgrade()} disabled={busy !== null || !fleet?.workspaces.length} className="rounded-lg border border-hairline px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:opacity-50">{busy === "*" ? t("workspaces.working") : t("workspaces.upgradeAll")}</button>
         </div>
-        {creating && fleet && <div className="mb-4 rounded-xl border border-hairline/40 p-3"><NewWorkspaceForm domain={fleet.domain} disabled={busy !== null} onCreated={(lines, created) => { setCreating(false); setLog(lines); setInviteLink(`https://${created.slug}.${fleet.domain}/pair?email=${encodeURIComponent(created.admin)}`); void refresh(); }} /></div>}
+        {creating && fleet && <div className="mb-4 rounded-xl border border-hairline p-3"><NewWorkspaceForm domain={fleet.domain} disabled={busy !== null} onCreated={(lines, created) => { setCreating(false); setLog(lines); setInviteLink(`https://${created.slug}.${fleet.domain}/pair?email=${encodeURIComponent(created.admin)}`); void refresh(); }} /></div>}
         {inviteLink && <div className="mb-4"><CopyLink link={inviteLink} /></div>}
-        {error && <p role="alert" className="mb-2 text-[12px] text-danger">{error}</p>}
+        {error && <p role="alert" className="mb-2 text-[12px] text-danger-text">{error}</p>}
         {fleet ? <WorkspacesTable fleet={fleet} onAct={(slug, action) => void act(slug, action)} busy={busy} /> : loading ? <div className="flex items-center gap-2 text-[13px] text-ink-secondary"><Loader2 size={14} className="animate-spin" />{t("common.checking")}</div> : null}
         {usersFor && <UsersForm slug={usersFor} onDone={(lines) => { setLog(lines); void refresh(); }} />}
         {log.length > 0 && (

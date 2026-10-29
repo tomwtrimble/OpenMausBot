@@ -161,7 +161,7 @@ describe("Simple-mode sidebar layout", () => {
     const footer = (tree: ReactElement<Props>[]) => (tree.find((node) => node.type === SidebarFooter)!.props as Parameters<typeof SidebarFooter>[0]).simple;
     const simple = render();
     expect(simple.root.props.className).toContain("border-r border-ink/[0.04]");
-    expect(simple.root.props.className).not.toContain("border-hairline");
+    expect(simple.root.props.className).not.toContain("border-edge");
     expect(footer(simple.tree)).toBe(true);
     fixture.values = [];
     fixture.advanced = true;

@@ -11,13 +11,7 @@ import {
   type OrgLibraryListing,
   type OrgLibraryPackage,
 } from "@/lib/org-library";
-
-const GLYPHS = [
-  "bg-cyan-500/15 text-cyan-300",
-  "bg-purple-500/15 text-purple-300",
-  "bg-emerald-500/15 text-emerald-300",
-  "bg-orange-500/15 text-orange-300",
-] as const;
+import { ORG_GLYPHS } from "@/lib/team-glyphs";
 
 export function OrgLibraryTab({
   listing,
@@ -48,7 +42,7 @@ export function OrgLibraryTab({
         </div>
       )}
       {notice && <div role="status" className="mt-4 rounded-lg bg-raised/60 px-3 py-2 text-[13px] text-ink-secondary">{notice}</div>}
-      {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger">{error}</div>}
+      {error && <div role="alert" className="mt-4 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -71,8 +65,8 @@ function OrgPackageCard({
   const notes = orgCardNotes(entry);
   const adding = busy === entry.packageId;
   return (
-    <article className="flex min-h-[104px] items-center gap-3 border-b border-hairline/35 px-1 py-4">
-      <div className={cn("flex size-11 shrink-0 items-center justify-center rounded-xl", GLYPHS[index % GLYPHS.length])}>
+    <article className="flex min-h-[104px] items-center gap-3 border-b border-hairline px-1 py-4">
+      <div className={cn("flex size-11 shrink-0 items-center justify-center rounded-xl", ORG_GLYPHS[index % ORG_GLYPHS.length])}>
         <Building2 size={20} />
       </div>
       <div className="min-w-0 flex-1">
@@ -84,7 +78,7 @@ function OrgPackageCard({
           {entry.release && <span>{entry.release.version}</span>}
         </p>
         <p className="mt-0.5 truncate text-[12px] text-ink-tertiary">{orgContentsLine(entry.contents)}</p>
-        {notes.map((note) => <p key={note} className="mt-0.5 text-[12px] text-warning">{note}</p>)}
+        {notes.map((note) => <p key={note} className="mt-0.5 text-[12px] text-warning-text">{note}</p>)}
       </div>
       <div className="flex shrink-0 flex-col items-end gap-1.5">
         {action === "add" && (

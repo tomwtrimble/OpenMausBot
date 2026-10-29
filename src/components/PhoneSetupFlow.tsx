@@ -889,7 +889,7 @@ function ValuePoints() {
     <div className="mt-5 grid w-full gap-2 sm:grid-cols-3">
       {points.map(({ Icon, title, detail }) => (
         <div key={title} className="rounded-xl bg-inset px-3 py-3 text-left">
-          <Icon size={16} className="text-accent" />
+          <Icon size={16} className="text-accent-text" />
           <div className="mt-2 text-[13px] font-medium text-ink">{title}</div>
           <div className="mt-0.5 text-[12px] leading-relaxed text-ink-secondary">{detail}</div>
         </div>
@@ -907,7 +907,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
   if (c.phase === "intro") {
     return (
       <div className="flex flex-col items-center text-center">
-        <div className="flex size-14 items-center justify-center rounded-2xl bg-accent/12 text-accent">
+        <div className="flex size-14 items-center justify-center rounded-2xl bg-accent/12 text-accent-text">
           <Smartphone size={26} />
         </div>
         <h2 className="mt-4 text-[19px] font-semibold text-ink">{t("phone.intro.title", { app: brand().name })}</h2>
@@ -923,7 +923,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
         >
           {c.state?.devices.length ? t("phone.intro.pairAnother") : t("phone.intro.pair")}
         </button>
-        {c.error && <p role="alert" className="mt-3 max-w-[390px] text-[13px] text-danger">{c.error}</p>}
+        {c.error && <p role="alert" className="mt-3 max-w-[390px] text-[13px] text-danger-text">{c.error}</p>}
       </div>
     );
   }
@@ -936,7 +936,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
         <button onClick={c.cancel} className="mb-4 flex w-fit items-center gap-1.5 text-[12px] text-ink-secondary hover:text-ink">
           <ArrowLeft size={13} /> {t("phone.back")}
         </button>
-        <div className="flex size-11 items-center justify-center rounded-xl bg-accent/12 text-accent">
+        <div className="flex size-11 items-center justify-center rounded-xl bg-accent/12 text-accent-text">
           <Mail size={20} />
         </div>
         <h2 className="mt-3 text-[18px] font-semibold text-ink">
@@ -970,7 +970,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
                   if (event.key === "Enter" && !c.codeSent && canSubmitEmail) c.requestCode();
                 }}
                 placeholder="you@example.com"
-                className="rounded-lg border border-hairline/50 bg-inset px-3 py-2.5 text-[14px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-50"
+                className="rounded-lg border border-hairline bg-inset px-3 py-2.5 text-[14px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-50"
               />
             </label>
             {c.codeSent && (
@@ -987,7 +987,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
                     if (event.key === "Enter" && c.code.length === 8) c.verifyCode();
                   }}
                   placeholder="12345678"
-                  className="rounded-lg border border-hairline/50 bg-inset px-3 py-2.5 font-mono text-[16px] tracking-[0.18em] text-ink outline-none placeholder:tracking-normal placeholder:text-ink-tertiary focus:border-accent disabled:opacity-50"
+                  className="rounded-lg border border-hairline bg-inset px-3 py-2.5 font-mono text-[16px] tracking-[0.18em] text-ink outline-none placeholder:tracking-normal placeholder:text-ink-tertiary focus:border-accent disabled:opacity-50"
                 />
               </label>
             )}
@@ -1022,14 +1022,14 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
             {c.accountBusy ? t("remote.account.retrying") : t("phone.signIn.retry")}
           </button>
         )}
-        {actionError && <p role="alert" className="mt-3 text-[13px] text-danger">{actionError}</p>}
+        {actionError && <p role="alert" className="mt-3 text-[13px] text-danger-text">{actionError}</p>}
         <div className="my-4 flex items-center gap-3 text-[11px] text-ink-secondary">
-          <span className="h-px flex-1 bg-hairline/40" /> {t("phone.signIn.or")} <span className="h-px flex-1 bg-hairline/40" />
+          <span className="h-px flex-1 bg-hairline" /> {t("phone.signIn.or")} <span className="h-px flex-1 bg-hairline" />
         </div>
         <button
           disabled={c.busy || c.accountBusy}
           onClick={c.useLocal}
-          className="flex items-center justify-center gap-2 rounded-lg border border-hairline/50 py-2.5 text-[13px] text-ink hover:bg-control disabled:opacity-40"
+          className="flex items-center justify-center gap-2 rounded-lg border border-hairline py-2.5 text-[13px] text-ink hover:bg-control disabled:opacity-40"
         >
           <Wifi size={15} /> {t("phone.signIn.wifiInstead")}
         </button>
@@ -1043,7 +1043,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
   if (c.phase === "verifying") {
     return (
       <div className="flex flex-col items-center py-8 text-center">
-        <div className="flex size-14 items-center justify-center rounded-2xl bg-accent/12 text-accent">
+        <div className="flex size-14 items-center justify-center rounded-2xl bg-accent/12 text-accent-text">
           <Loader2 size={25} className="animate-spin" />
         </div>
         <h2 className="mt-4 text-[18px] font-semibold text-ink">
@@ -1061,7 +1061,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
             : t("phone.verifying.secureDetail")}
         </p>
         {(c.error || c.accountError) && (
-          <p role="alert" className="mt-3 max-w-[380px] text-[13px] text-danger">{c.error ?? c.accountError}</p>
+          <p role="alert" className="mt-3 max-w-[380px] text-[13px] text-danger-text">{c.error ?? c.accountError}</p>
         )}
         <button onClick={c.cancel} className="mt-5 text-[12px] text-ink-secondary hover:text-ink">{t("common.cancel")}</button>
       </div>
@@ -1116,7 +1116,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
         <p className="mt-3 text-[12px] text-ink-secondary">{t("phone.code.expiresIn", { seconds: c.secondsLeft })}</p>
       )}
       {!c.pairingExpired && c.localFallback && c.state?.publicNetwork && (
-        <p role="note" className="mt-3 w-full max-w-[390px] rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-left text-[12px] leading-relaxed text-warning">
+        <p role="note" className="mt-3 w-full max-w-[390px] rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-left text-[12px] leading-relaxed text-warning-text">
           {t("phone.code.publicNetwork", { network: c.state.publicNetwork })}
         </p>
       )}
@@ -1126,7 +1126,7 @@ export function PhoneSetupFlowView({ controller }: { controller: PhoneSetupContr
         </button>
       )}
       {!c.pairingExpired && c.state?.pairing && (
-        <details className="mt-4 w-full max-w-[390px] rounded-lg border border-hairline/40 px-3 py-2 text-left">
+        <details className="mt-4 w-full max-w-[390px] rounded-lg border border-hairline px-3 py-2 text-left">
           <summary className="cursor-pointer text-[12px] text-ink-secondary">{t("phone.code.trouble")}</summary>
           <div className="mt-3 text-[12px] text-ink-secondary">
             {t("phone.code.manual")}

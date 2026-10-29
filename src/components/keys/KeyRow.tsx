@@ -9,7 +9,7 @@ import { InstanceProviderMark } from "../ProviderIcons";
 import { keyEntry, keyForInstance, looksLikeOtherKey, savedState, type KeyEntry, type KeyId, type SavedState } from "./key-catalog";
 import { checkKey, cleanKey, looksLikeKey, saveKey } from "./key-save";
 
-export const KEY_FIELD = "h-8 w-full min-w-0 rounded-lg border border-hairline/60 bg-inset px-3 font-mono text-[13px] leading-8 text-ink placeholder:text-ink-tertiary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus/60 disabled:opacity-60";
+export const KEY_FIELD = "h-8 w-full min-w-0 rounded-lg border border-hairline bg-inset px-3 font-mono text-[13px] leading-8 text-ink placeholder:text-ink-tertiary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus/60 disabled:opacity-60";
 export const KEY_ROW = "group flex scroll-mt-24 flex-col gap-2 rounded-[10px] px-4 py-2.5 transition-[background-color,box-shadow] duration-500 data-[key-highlight]:bg-accent/10 data-[key-highlight]:ring-1 data-[key-highlight]:ring-accent/40 motion-reduce:transition-none";
 const MASK = "••••••••";
 
@@ -29,8 +29,8 @@ export function KeyStatusChip({ status }: { status: KeyStatus }) {
     <span aria-live="polite" className="flex min-h-5 shrink-0 items-center gap-1 text-[12px] leading-5 text-ink-secondary">
       {status?.tone === "busy" && <Loader2 size={12} aria-hidden="true" className="animate-spin" />}
       {status?.tone === "ok" && <Check size={13} aria-hidden="true" className="text-success" />}
-      {status?.tone === "bad" && <CircleAlert size={13} aria-hidden="true" className="text-danger" />}
-      {status && <span className={cn(status.tone === "bad" && "text-danger")}>{status.text}</span>}
+      {status?.tone === "bad" && <CircleAlert size={13} aria-hidden="true" className="text-danger-text" />}
+      {status && <span className={cn(status.tone === "bad" && "text-danger-text")}>{status.text}</span>}
     </span>
   );
 }
@@ -332,21 +332,21 @@ export function KeyRow({
         )}
         {(notice || failure || other || warning || note || verdict || (fieldShown && target.href) || (!fieldShown && saved.configured && target.test)) && (
           <div className="flex flex-col gap-1.5 text-[12px] leading-4">
-            {notice && <p role="alert" className="text-danger">{notice}</p>}
+            {notice && <p role="alert" className="text-danger-text">{notice}</p>}
             {failure && (
-              <p role="alert" className="flex gap-1.5 text-danger">
+              <p role="alert" className="flex gap-1.5 text-danger-text">
                 <CircleAlert size={13} aria-hidden="true" className="mt-px shrink-0" />
                 <span>{t("keys.row.failed", { reason: failure })}</span>
               </p>
             )}
             {other && (
-              <p className="flex gap-1.5 text-warning">
+              <p className="flex gap-1.5 text-warning-text">
                 <TriangleAlert size={13} aria-hidden="true" className="mt-px shrink-0" />
                 <span>{t("keys.row.looksLike", { label: t(other.labelKey) })}</span>
               </p>
             )}
             {warning && (
-              <p className="flex gap-1.5 text-warning">
+              <p className="flex gap-1.5 text-warning-text">
                 <TriangleAlert size={13} aria-hidden="true" className="mt-px shrink-0" />
                 <span>{warning}</span>
               </p>

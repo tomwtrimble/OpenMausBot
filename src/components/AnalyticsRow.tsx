@@ -10,7 +10,7 @@ export function AnalyticsRow({ simple = false }: { simple?: boolean }) {
   const subtitle = (
     <>
       {t(simple ? "settings.simple.analytics" : "settings.analytics.subtitle")}{" "}
-      <a href={ANALYTICS_DOC_URL} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+      <a href={ANALYTICS_DOC_URL} target="_blank" rel="noopener noreferrer" className="text-accent-text hover:underline">
         {t(simple ? "settings.simple.analyticsLink" : "settings.analytics.link")}
       </a>
     </>

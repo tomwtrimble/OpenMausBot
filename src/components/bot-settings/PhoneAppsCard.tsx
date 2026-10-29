@@ -13,7 +13,7 @@ export function PhoneAppsCard({ bot, patch }: { bot: Bot; patch: (patch: BotPatc
     <div className="text-[15px] font-medium text-ink">{t("botAccess.phone.title")}</div>
     <div className="mt-0.5 text-[13px] text-ink-secondary">{t("botAccess.phone.subtitle", { phone: phoneNames(phones) })}</div>
     {bot.phoneApps === undefined && <div className="mt-1 text-[12px] text-ink-secondary">{t("botAccess.phone.default")}</div>}
-    <div className="mt-3 flex flex-col divide-y divide-hairline/20 rounded-lg bg-inset">
+    <div className="mt-3 flex flex-col divide-y divide-hairline rounded-lg bg-inset">
       {rows.map(({ cap, grant, onPhone }) => {
         const label = t(`botAccess.phone.cap.${cap}` as LocaleKey);
         return <div key={cap} className={cn("flex flex-wrap items-center justify-between gap-3 px-3 py-1.5", !onPhone && "opacity-50")}>

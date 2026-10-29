@@ -52,7 +52,7 @@ export function NewOrganization({ onBack, onClose }: { onBack: (() => void) | nu
       <span aria-hidden="true" className="text-[13px] font-medium text-ink">{t("rail.orgColor")}</span>
       <SwatchRadios value={color} onChange={setColor} label={t("rail.orgColor")} disabled={busy} />
     </div>
-    <div className="flex items-center gap-3 rounded-xl border border-hairline/70 bg-card/70 px-4 py-3">
+    <div className="flex items-center gap-3 rounded-xl border border-edge bg-card/70 px-4 py-3">
       <span aria-hidden="true" className={cn("grid size-10 shrink-0 place-items-center rounded-full text-[14px] font-semibold", color === "slate" ? "bg-raised text-ink" : "text-white")}
         style={color === "slate" ? undefined : { background: swatchFill(color) }}>{placeInitials(shown || t("rail.org"))}</span>
       <span className="min-w-0">
@@ -60,7 +60,7 @@ export function NewOrganization({ onBack, onClose }: { onBack: (() => void) | nu
         {facts && <span data-org-count className="block text-[13px] text-ink-secondary">{t("rail.orgCount", { count: Math.min(facts.count + 1, facts.max), max: facts.max })}</span>}
       </span>
     </div>
-    {(blocked || problem) && <p role="alert" data-org-problem className="text-[13px] leading-relaxed text-danger">{t(blocked ?? problem!)}</p>}
+    {(blocked || problem) && <p role="alert" data-org-problem className="text-[13px] leading-relaxed text-danger-text">{t(blocked ?? problem!)}</p>}
     <button type="submit" className={PRIMARY_WIDE} disabled={busy || !shown || Boolean(blocked)}>
       {busy && <Loader2 size={15} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />}{t("rail.orgCreate")}
     </button>

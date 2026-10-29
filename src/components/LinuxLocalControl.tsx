@@ -67,9 +67,9 @@ export function LinuxLocalControl() {
             ready
               ? "bg-success/10 text-success"
               : waylandSafetyBlocked
-                ? "bg-danger/10 text-danger"
+                ? "bg-danger/10 text-danger-text"
                 : local.enabled
-                  ? "bg-warning/10 text-warning"
+                  ? "bg-warning/10 text-warning-text"
                   : "bg-raised text-ink-secondary",
           )}
         >
@@ -86,7 +86,7 @@ export function LinuxLocalControl() {
       {waylandSafetyBlocked ? (
         <div className="mt-3 rounded-lg border border-danger/20 bg-danger/5 p-3">
           <div className="flex gap-2 text-[12px] leading-relaxed text-ink-secondary">
-            <AlertTriangle size={15} className="mt-0.5 shrink-0 text-danger" />
+            <AlertTriangle size={15} className="mt-0.5 shrink-0 text-danger-text" />
             <span>
               {t("computer.linux.waylandBefore")}{" "}
               <strong className="font-medium text-ink">{t("computer.linux.waylandXorg")}</strong>
@@ -97,7 +97,7 @@ export function LinuxLocalControl() {
       ) : !local.enabled ? (
         <div className="mt-3 rounded-lg border border-warning/20 bg-warning/5 p-3">
           <div className="flex gap-2 text-[12px] leading-relaxed text-ink-secondary">
-            <AlertTriangle size={15} className="mt-0.5 shrink-0 text-warning" />
+            <AlertTriangle size={15} className="mt-0.5 shrink-0 text-warning-text" />
             <span>
               {t("computer.linux.enableBefore")}{" "}
               <strong className="font-medium text-ink">{t("vm.dest.local")}</strong>{" "}
@@ -114,7 +114,7 @@ export function LinuxLocalControl() {
             ) : busy ? (
               <Loader2 size={15} className="mt-0.5 shrink-0 animate-spin" />
             ) : (
-              <AlertTriangle size={15} className="mt-0.5 shrink-0 text-warning" />
+              <AlertTriangle size={15} className="mt-0.5 shrink-0 text-warning-text" />
             )}
             <span aria-live="polite">
               {ready
@@ -131,7 +131,7 @@ export function LinuxLocalControl() {
         </div>
       )}
 
-      {error && <div className="mt-2 text-[12px] text-danger">{typeof error === "string" ? error : t(error.key)}</div>}
+      {error && <div className="mt-2 text-[12px] text-danger-text">{typeof error === "string" ? error : t(error.key)}</div>}
 
       {!waylandSafetyBlocked && <div className="mt-3 flex gap-2">
         {!local.enabled ? (

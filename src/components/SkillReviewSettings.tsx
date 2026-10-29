@@ -61,7 +61,7 @@ export function SkillReviewSettings() {
   };
 
   return (
-    <div className="mt-4 border-t border-hairline/30 pt-4" data-testid="skill-review-settings">
+    <div className="mt-4 border-t border-hairline pt-4" data-testid="skill-review-settings">
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0">
           <div className="text-[14px] font-medium text-ink">{t("settings.experimental.skillReview")}</div>
@@ -85,7 +85,7 @@ export function SkillReviewSettings() {
           </label>
           <div
             className={`flex w-[96px] items-center rounded-lg border bg-inset ${
-              error ? "border-danger/60" : "border-hairline/40 focus-within:border-focus"
+              error ? "border-danger/60" : "border-hairline focus-within:border-focus"
             }`}
           >
             <input
@@ -112,7 +112,7 @@ export function SkillReviewSettings() {
           </div>
         </div>
       ) : null}
-      {error ? <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p> : null}
+      {error ? <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p> : null}
     </div>
   );
 }

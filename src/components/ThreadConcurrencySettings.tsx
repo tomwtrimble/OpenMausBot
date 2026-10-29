@@ -38,7 +38,7 @@ export function ThreadConcurrencySettings() {
       </Select>
       <p id="thread-concurrency-help" className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("settings.threads.help")}</p>
       {pending !== null && <p role="status" className="mt-2 text-[12px] text-ink-secondary">{t("settings.threads.saving")}</p>}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </Card>
   );
 }

@@ -44,7 +44,7 @@ export function Card({ label, action, anchor, children }: { label?: ReactNode; a
       <div
         data-panel-card-surface=""
         className={cn(
-          "divide-y divide-ink/[0.05] overflow-hidden max-md:rounded-[20px] max-md:border-hairline max-md:bg-card",
+          "divide-y divide-ink/[0.05] overflow-hidden max-md:rounded-[20px] max-md:border-edge max-md:bg-card",
           advanced ? "rounded-[14px] border border-ink/[0.04] bg-ink/[0.03]" : "rounded-[12px] bg-composer ring-1 ring-inset ring-ink/[0.06] max-md:border max-md:ring-0",
         )}
       >
@@ -129,7 +129,7 @@ export function NavRow({ title, hint, value, icon, onClick, drill = true, danger
     >
       {icon && <RowIcon icon={icon} />}
       <div className="min-w-0 flex-1">
-        <div className={cn(titleCls, danger && "text-danger")}>{title}</div>
+        <div className={cn(titleCls, danger && "text-danger-text")}>{title}</div>
         {hint && <div className={hintCls}>{hint}</div>}
       </div>
       {value !== undefined && value !== null && value !== "" && (
@@ -163,7 +163,7 @@ export function ColRow({ children, ...rest }: { children: ReactNode; "data-panel
 export function NoteRow({ children, tone }: { children: ReactNode; tone?: "warn" }) {
   return (
     <div className={rowCls}>
-      <div className={cn("text-[13px] leading-[1.35]", tone === "warn" ? "text-warning" : "text-ink-secondary")}>{children}</div>
+      <div className={cn("text-[13px] leading-[1.35]", tone === "warn" ? "text-warning-text" : "text-ink-secondary")}>{children}</div>
     </div>
   );
 }
@@ -303,7 +303,7 @@ export function TextRow({ value, placeholder, label, action, disabled, onChange,
         aria-label={label}
         disabled={disabled}
         onChange={(event) => onChange(event.target.value)}
-        className="h-8 min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-2.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent-border disabled:opacity-50"
+        className="h-8 min-w-0 flex-1 rounded-lg border border-edge bg-inset px-2.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent-border disabled:opacity-50"
       />
       <button type="submit" disabled={disabled || !value.trim()} className={buttonCls}>{action}</button>
     </form>

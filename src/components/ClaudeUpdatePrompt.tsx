@@ -46,14 +46,14 @@ export function ClaudeUpdatePrompt({
     <button
       type="button"
       onClick={onRetry}
-      className="flex items-center gap-1.5 rounded-full border border-hairline/40 px-2.5 py-1 text-[13px] text-ink hover:bg-raised-hover"
+      className="flex items-center gap-1.5 rounded-full border border-hairline px-2.5 py-1 text-[13px] text-ink hover:bg-raised-hover"
     >
       <RefreshCw size={12} aria-hidden="true" /> {t("chat.retry")}
     </button>
   );
 
   return (
-    <div className="mt-2 rounded-lg border border-hairline/30 bg-card/60 px-3 py-2.5 text-[13px] text-ink" role="group" aria-label={t("chat.claudeUpdate.aria")}>
+    <div className="mt-2 rounded-lg border border-hairline bg-card/60 px-3 py-2.5 text-[13px] text-ink" role="group" aria-label={t("chat.claudeUpdate.aria")}>
       {phase.kind === "ask" && (
         <>
           <p className="leading-relaxed">{t("chat.claudeUpdate.offer")}</p>
@@ -68,7 +68,7 @@ export function ClaudeUpdatePrompt({
             <button
               type="button"
               onClick={() => setPhase({ kind: "manual" })}
-              className="rounded-full border border-hairline/40 px-3 py-1 text-[13px] text-ink-secondary hover:bg-raised-hover hover:text-ink"
+              className="rounded-full border border-hairline px-3 py-1 text-[13px] text-ink-secondary hover:bg-raised-hover hover:text-ink"
             >
               {t("chat.claudeUpdate.myself")}
             </button>
@@ -90,7 +90,7 @@ export function ClaudeUpdatePrompt({
       )}
       {(phase.kind === "manual" || phase.kind === "failed") && (
         <>
-          {phase.kind === "failed" && <p className="mb-1.5 break-words text-danger">{phase.error}</p>}
+          {phase.kind === "failed" && <p className="mb-1.5 break-words text-danger-text">{phase.error}</p>}
           <p className="leading-relaxed text-ink-secondary">{t("chat.claudeUpdate.manual")}</p>
           <div className="mt-1.5 flex items-center gap-1 rounded-md bg-inset/60 px-2 py-1 font-mono text-[12px]">
             <span className="flex-1 select-all">{UPDATE_COMMAND}</span>
@@ -101,7 +101,7 @@ export function ClaudeUpdatePrompt({
               title={copyLabel}
               className="rounded-md p-1 text-ink-secondary hover:bg-raised hover:text-ink"
             >
-              {copyState === "copied" ? <Check size={13} className="text-success" /> : copyState === "failed" ? <X size={13} className="text-danger" /> : <Copy size={13} />}
+              {copyState === "copied" ? <Check size={13} className="text-success" /> : copyState === "failed" ? <X size={13} className="text-danger-text" /> : <Copy size={13} />}
             </button>
           </div>
           <div className="mt-2 flex flex-wrap gap-2">
@@ -110,7 +110,7 @@ export function ClaudeUpdatePrompt({
               <button
                 type="button"
                 onClick={update}
-                className="rounded-full border border-hairline/40 px-2.5 py-1 text-[13px] text-ink-secondary hover:bg-raised-hover hover:text-ink"
+                className="rounded-full border border-hairline px-2.5 py-1 text-[13px] text-ink-secondary hover:bg-raised-hover hover:text-ink"
               >
                 {t("chat.claudeUpdate.tryAgain")}
               </button>

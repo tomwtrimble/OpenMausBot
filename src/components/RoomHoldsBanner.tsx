@@ -17,7 +17,7 @@ export function RoomHoldsBanner({ group, members }: { group: Group; members: Bot
             key={member.id}
             type="button"
             onClick={() => dispatch({ type: "setGroupHold", groupId: group.id, botId: member.id, held: false })}
-            className="cursor-pointer text-accent hover:underline"
+            className="cursor-pointer text-accent-text hover:underline"
           >
             {t("room.holds.resume", { name: member.name })}
           </button>

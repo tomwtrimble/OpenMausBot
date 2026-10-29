@@ -185,7 +185,7 @@ export function Spotlight({
         <div
           role="dialog"
           className={cn(
-            "flex items-start gap-3 rounded-2xl border border-hairline/50 bg-panel p-3.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]",
+            "flex items-start gap-3 rounded-2xl border border-hairline bg-panel p-3.5 shadow-[0_24px_60px_-20px_color-mix(in_srgb,var(--color-shadow)_60%,transparent)]",
             rect
               ? beside
                 ? "origin-left"
@@ -196,7 +196,7 @@ export function Spotlight({
             settled ? "animate-spot-in motion-reduce:animate-none" : "opacity-0",
           )}
         >
-          <div className="shrink-0 drop-shadow-[0_6px_14px_rgba(0,0,0,0.35)]">
+          <div className="shrink-0 drop-shadow-[0_6px_14px_color-mix(in_srgb,var(--color-shadow)_35%,transparent)]">
             <MausAvatar
               color="green"
               state={mascot}

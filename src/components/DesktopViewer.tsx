@@ -109,37 +109,37 @@ export function DesktopViewer() {
   return (
     <div className="relative flex h-dvh overflow-hidden bg-app text-sm text-ink" style={{ paddingLeft: "env(safe-area-inset-left)", paddingRight: "env(safe-area-inset-right)" }}>
       <aside aria-label={t("desktopViewer.controls")} aria-hidden={!expanded} inert={!expanded} className={cn("z-10 flex shrink-0 items-center justify-center py-3", slide, expanded ? "w-[72px]" : "w-0")}>
-        <div className={cn("flex max-h-full w-14 shrink-0 flex-col items-center gap-1 overflow-y-auto rounded-2xl border border-hairline bg-panel p-1 shadow-xl", slide, expanded ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0")}>
+        <div className={cn("flex max-h-full w-14 shrink-0 flex-col items-center gap-1 overflow-y-auto rounded-2xl border border-edge bg-panel p-1 shadow-xl", slide, expanded ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0")}>
           <div className="relative flex h-11 w-11 shrink-0 items-center justify-center text-ink-secondary" title={status}>
             <Monitor size={20} aria-hidden="true" />
             <span className={cn("absolute right-2 bottom-2 size-2 rounded-full ring-2 ring-panel", connected ? "bg-success" : "bg-warning")} />
           </div>
-          <div className="my-1 h-px w-7 shrink-0 bg-hairline" />
+          <div className="my-1 h-px w-7 shrink-0 bg-edge" />
           <ViewerTool id="keyboard" label={t("desktopViewer.keyboard")} icon={Keyboard} disabled={!connected} active={panel === "keyboard"} expanded={panel === "keyboard"} onClick={() => togglePanel("keyboard")} />
           <ViewerTool id="clipboard" label={t("desktopViewer.clipboard")} icon={Clipboard} disabled={!connected} active={panel === "clipboard"} expanded={panel === "clipboard"} onClick={() => togglePanel("clipboard")} />
           {document.fullscreenEnabled && <ViewerTool id="fullscreen" label={t(fullscreen ? "desktopViewer.exitFullscreen" : "desktopViewer.fullscreen")} icon={fullscreen ? Minimize : Maximize} onClick={() => { void toggleFullscreen(); }} />}
-          <div className="my-1 h-px w-7 shrink-0 bg-hairline" />
+          <div className="my-1 h-px w-7 shrink-0 bg-edge" />
           <ViewerTool id="retry" label={t("desktopViewer.reconnect")} icon={RefreshCw} onClick={() => { setClipboard(""); setAttempt(value => value + 1); }} />
           <ViewerTool id="hide-controls" label={t("desktopViewer.hideControls")} icon={ChevronLeft} onClick={() => { setExpanded(false); setPanel(null); focusSoon("show-controls"); }} />
         </div>
       </aside>
-      {handleMotion.shown && <div {...handleMotion.exitProps} className={cn("absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-r-2xl border border-l-0 border-hairline bg-panel p-1 shadow-xl", handleMotion.className)}>
+      {handleMotion.shown && <div {...handleMotion.exitProps} className={cn("absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-r-2xl border border-l-0 border-edge bg-panel p-1 shadow-xl", handleMotion.className)}>
         <ViewerTool id="show-controls" label={t("desktopViewer.showControls")} icon={ChevronRight} onClick={() => { setExpanded(true); focusSoon("hide-controls"); }} />
       </div>}
 
-      <main className={cn("relative flex min-w-0 flex-1 items-center justify-center overflow-hidden bg-inset", !fullscreen && "my-2 mr-2 rounded-2xl border border-hairline", !fullscreen && !expanded && "ml-2")}>
+      <main className={cn("relative flex min-w-0 flex-1 items-center justify-center overflow-hidden bg-inset", !fullscreen && "my-2 mr-2 rounded-2xl border border-edge", !fullscreen && !expanded && "ml-2")}>
         <div id="screen" ref={screen} role="application" aria-label={t("desktopViewer.title")} className={cn("overflow-hidden", fullscreen ? "h-full w-full" : "h-[95%] w-[95%]")} />
         <div className={connected ? "sr-only" : "pointer-events-none absolute inset-x-3 top-3 flex justify-center"}>
-          <span id="status" role="status" className="max-w-full rounded-full border border-hairline bg-panel/95 px-3 py-1.5 text-center text-xs text-ink-secondary shadow-sm">{status}</span>
+          <span id="status" role="status" className="max-w-full rounded-full border border-edge bg-panel/95 px-3 py-1.5 text-center text-xs text-ink-secondary shadow-sm">{status}</span>
         </div>
-        {controlError && <p role="alert" className="absolute inset-x-3 bottom-3 rounded-xl border border-hairline bg-panel p-3 text-ink">{controlError}</p>}
+        {controlError && <p role="alert" className="absolute inset-x-3 bottom-3 rounded-xl border border-edge bg-panel p-3 text-ink">{controlError}</p>}
       </main>
 
       <a id="viewer-notice" href="/novnc-NOTICE.txt" target="_blank" rel="license noopener noreferrer" title={t("desktopViewer.notice")} aria-label={t("desktopViewer.notice")} className="absolute bottom-2 right-2 z-10 flex min-h-6 w-11 items-center justify-center rounded-lg bg-app/80 text-[10px] text-ink-secondary hover:text-ink hover:underline" style={{ marginRight: "env(safe-area-inset-right)", marginBottom: "env(safe-area-inset-bottom)" }}>noVNC</a>
 
       {panelMotion.shown && <section {...panelMotion.exitProps} aria-label={t(keyboardPanel ? "desktopViewer.keyboard" : "desktopViewer.clipboard")} onKeyDown={event => {
         if (event.key === "Escape") { event.stopPropagation(); closePanel(); }
-      }} className={cn("absolute left-[72px] top-1/2 z-20 max-h-[calc(100dvh-24px)] w-[min(320px,calc(100%-84px))] -translate-y-1/2 overflow-y-auto rounded-2xl border border-hairline bg-panel p-4 shadow-2xl", panelMotion.className)} style={{ marginLeft: "env(safe-area-inset-left)" }}>
+      }} className={cn("popover-surface absolute left-[72px] top-1/2 z-20 max-h-[calc(100dvh-24px)] w-[min(320px,calc(100%-84px))] -translate-y-1/2 overflow-y-auto rounded-2xl border border-edge bg-menu p-4 shadow-2xl", panelMotion.className)} style={{ marginLeft: "env(safe-area-inset-left)" }}>
         <div className="mb-3 flex items-center justify-between gap-2">
           <h1 className="font-medium">{t(keyboardPanel ? "desktopViewer.keyboard" : "desktopViewer.clipboard")}</h1>
           <button type="button" title={t("desktopViewer.closePanel")} aria-label={t("desktopViewer.closePanel")} onClick={closePanel} className="ui-icon-button shrink-0">
@@ -153,7 +153,7 @@ export function DesktopViewer() {
           setText("");
         }}>
           <label className="mb-2 block text-xs leading-relaxed text-ink-secondary" htmlFor={keyboardPanel ? "text" : "clipboard-text"}>{t(keyboardPanel ? "desktopViewer.text" : "desktopViewer.clipboardHint")}</label>
-          <textarea id={keyboardPanel ? "text" : "clipboard-text"} className="w-full resize-y rounded-xl border border-hairline bg-inset p-3 text-base text-ink outline-none focus:border-focus" rows={4} maxLength={keyboardPanel ? 4096 : 65536} autoComplete="off" autoCapitalize="off" spellCheck={false} value={keyboardPanel ? text : clipboard} disabled={!keyboardPanel && !connected} onChange={event => {
+          <textarea id={keyboardPanel ? "text" : "clipboard-text"} className="w-full resize-y rounded-xl border border-edge bg-inset p-3 text-base text-ink outline-none focus:border-focus" rows={4} maxLength={keyboardPanel ? 4096 : 65536} autoComplete="off" autoCapitalize="off" spellCheck={false} value={keyboardPanel ? text : clipboard} disabled={!keyboardPanel && !connected} onChange={event => {
             const value = event.target.value;
             if (keyboardPanel) setText(value);
             else {
@@ -165,7 +165,7 @@ export function DesktopViewer() {
             <Send size={16} aria-hidden="true" />{t("desktopViewer.send")}
           </button>}
         </form>
-        {keyboardPanel && <div className="mt-4 grid grid-cols-2 gap-2 border-t border-hairline pt-4">
+        {keyboardPanel && <div className="mt-4 grid grid-cols-2 gap-2 border-t border-edge pt-4">
           <button className={action} disabled={!connected} onClick={() => rfb.current?.sendKey(0xff09, "Tab")}>{t("desktopViewer.keyTab")}</button>
           <button className={action} disabled={!connected} onClick={() => rfb.current?.sendKey(0xff1b, "Escape")}>{t("desktopViewer.keyEscape")}</button>
           <button id="ctrl-alt-del" className={cn(action, "col-span-2")} disabled={!connected} onClick={() => rfb.current?.sendCtrlAltDel()}>{t("desktopViewer.keyCtrlAltDel")}</button>

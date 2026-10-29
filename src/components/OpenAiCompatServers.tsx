@@ -64,7 +64,7 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
       <p className="mb-2 text-[12px] leading-4 text-ink-secondary">{t("apiInstances.subtitle")}</p>
       {servers.length === 0 && <p className="text-[12px] leading-4 text-ink-secondary">{t("apiInstances.empty")}</p>}
       {servers.map((server) => (
-        <div key={server.instanceId} className="mb-1.5 flex items-center justify-between gap-2 rounded-lg border border-hairline/60 bg-inset px-3 py-1.5">
+        <div key={server.instanceId} className="mb-1.5 flex items-center justify-between gap-2 rounded-lg border border-hairline bg-inset px-3 py-1.5">
           <div className="min-w-0 flex-1">
             <div className="truncate text-[12px] text-ink">{server.displayName}</div>
             {server.url && <div className="truncate font-mono text-[11px] text-ink-secondary">{server.url}</div>}
@@ -102,7 +102,7 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
             disabled={busy !== null}
             aria-label={t("apiInstances.remove", { name: server.displayName })}
             title={t("apiInstances.remove", { name: server.displayName })}
-            className={`${ICON_BUTTON} hover:bg-danger/10 hover:text-danger`}
+            className={`${ICON_BUTTON} hover:bg-danger/10 hover:text-danger-text`}
           >
             <Trash2 size={13} aria-hidden="true" />
           </button>
@@ -128,7 +128,7 @@ function AddedServers({ servers }: { servers: Array<InstanceInfo & { url?: strin
           {busy === "add" ? t("apiInstances.adding") : t("apiInstances.add")}
         </button>
       </div>
-      {error && <div className="mt-1 text-[12px] text-danger">{error}</div>}
+      {error && <div className="mt-1 text-[12px] text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -180,7 +180,7 @@ export function LmStudioServer({ heading = true }: { heading?: boolean } = {}) {
   };
 
   return (
-    <div className={cn(heading && "rounded-lg border border-hairline/40 bg-inset px-3 py-2")}>
+    <div className={cn(heading && "rounded-lg border border-hairline bg-inset px-3 py-2")}>
       {heading && <div className="text-[13px] text-ink">{t("lmStudio.title")}</div>}
       <p className={cn("text-[12px] leading-4 text-ink-secondary", heading && "mt-1")}>{t("lmStudio.desc")}</p>
       <div className="mt-2 flex flex-col gap-1.5">
@@ -219,7 +219,7 @@ export function LmStudioServer({ heading = true }: { heading?: boolean } = {}) {
         </button>
         {present && <p className="text-[12px] text-ink-secondary">{t("lmStudio.added")}</p>}
       </div>
-      {error && <div className="mt-1 text-[12px] text-danger">{error}</div>}
+      {error && <div className="mt-1 text-[12px] text-danger-text">{error}</div>}
     </div>
   );
 }

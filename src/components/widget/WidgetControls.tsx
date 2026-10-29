@@ -122,7 +122,7 @@ export function WidgetButton({ actionRef, label, look, iconStart, iconEnd, block
 
 
 export const WIDGET_FIELD =
-  "block h-9 w-full min-w-0 rounded-lg border border-hairline/40 bg-inset px-3 text-[14px] leading-5 text-ink placeholder:text-ink-tertiary disabled:cursor-not-allowed disabled:opacity-60 user-invalid:border-danger aria-[invalid=true]:border-danger";
+  "block h-9 w-full min-w-0 rounded-lg border border-hairline bg-inset px-3 text-[14px] leading-5 text-ink placeholder:text-ink-tertiary disabled:cursor-not-allowed disabled:opacity-60 user-invalid:border-danger aria-[invalid=true]:border-danger";
 export const WIDGET_BARE =
   "h-9 min-w-0 max-w-full cursor-pointer rounded-lg border border-transparent bg-transparent text-[14px] font-medium leading-5 text-ink enabled:hover:bg-ink/[0.07] disabled:cursor-not-allowed disabled:opacity-60 aria-[invalid=true]:border-danger";
 export const WIDGET_FIELD_ACTION =

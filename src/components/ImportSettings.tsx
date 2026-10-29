@@ -99,7 +99,7 @@ export function AiAppsImportView({ local, detection, chosen, status, result, onC
   } else {
     body = (
       <>
-        <div className="divide-y divide-hairline/40 overflow-hidden rounded-xl border border-hairline/40">
+        <div className="divide-y divide-hairline overflow-hidden rounded-xl border border-hairline">
           {detection.skills.length > 0 && (
             <ImportRow icon={<BookOpen size={15} />} label={t("onboarding.import.skills")} summary={skillsSummary(detection)}
               hint={t("onboarding.import.skillsHint")} sources={detectionSources(detection.skills)} checked={chosen.skills}
@@ -111,7 +111,7 @@ export function AiAppsImportView({ local, detection, chosen, status, result, onC
               disabled={working} onChange={(tools) => onChoose({ ...chosen, tools })} />
           )}
         </div>
-        {status === "failed" && <p role="alert" className="mt-3 text-[13px] text-danger">{t("onboarding.import.error")}</p>}
+        {status === "failed" && <p role="alert" className="mt-3 text-[13px] text-danger-text">{t("onboarding.import.error")}</p>}
         <button onClick={onBring} disabled={working || !(chosen.skills || chosen.tools)} className={cn(buttonClass, "mt-3")}>
           {working && <Loader2 size={14} className="animate-spin" />}
           {working ? t("onboarding.import.bringing") : t("onboarding.import.bring")}

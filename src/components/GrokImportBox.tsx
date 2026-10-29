@@ -58,7 +58,7 @@ function CursorLine({ cursor, card, onSignIn, onSignOut }: {
         <span className="flex items-center gap-1.5">
           <Check size={13} className="text-success" />
           {t("grokImport.cursorSignedIn")} ·{" "}
-          <button onClick={onSignOut} className="text-accent hover:underline">{t("grokImport.cursorSignOut")}</button>
+          <button onClick={onSignOut} className="text-accent-text hover:underline">{t("grokImport.cursorSignOut")}</button>
         </span>
       ) : cursor.waiting ? (
         <span className="flex items-center gap-1.5"><Loader2 size={13} className="animate-spin" />{t("grokImport.cursorWaiting")}</span>
@@ -98,7 +98,7 @@ export function GrokImportView(props: GrokImportViewProps) {
       </div>
       {!card && <CursorLine cursor={props.cursor} card={null} onSignIn={props.onCursorSignIn} onSignOut={props.onCursorSignOut} />}
       {card && (
-        <article className="mt-4 rounded-xl border border-hairline px-4 py-3">
+        <article className="mt-4 rounded-xl border border-edge px-4 py-3">
           <div className="flex items-center gap-2 text-[14px] font-medium text-ink"><GrokBotMark size={15} />{card.name}</div>
           {card.creator && <div className="text-[12px] text-ink-secondary">{t("grokImport.by", { name: card.creator })}</div>}
           {card.description && <p className="mt-1.5 text-[13px] leading-relaxed text-ink-secondary">{card.description}</p>}
@@ -134,7 +134,7 @@ export function GrokImportView(props: GrokImportViewProps) {
           {t("grokImport.preview")}
         </button>
       </div>
-      {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger">{error}</div>}
+      {error && <div role="alert" className="mt-3 rounded-lg bg-danger/10 px-3 py-2 text-[13px] text-danger-text">{error}</div>}
     </section>
   );
 }

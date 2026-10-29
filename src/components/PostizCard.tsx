@@ -13,7 +13,7 @@ import { cleanKey, looksLikeKey, saveCredential } from "./keys/key-save";
 import { SidebarPopoverMenu } from "./SidebarPopoverMenu";
 
 const pill = "inline-flex h-7 min-w-[64px] shrink-0 items-center justify-center gap-2 rounded-full bg-control/80 px-3 text-[13px] font-medium leading-5 text-ink transition-colors hover:bg-raised-hover disabled:opacity-40";
-const field = "h-8 w-full min-w-0 rounded-lg bg-inset px-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-accent/50";
+const field = "h-8 w-full min-w-0 rounded-lg bg-inset px-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus/50";
 const link = "text-[12px] text-accent-text underline underline-offset-2";
 const SERVER = encodeURIComponent(POSTIZ_SERVER);
 const OWN_SIGN_IN_POLL_MS = 1_500;
@@ -315,7 +315,7 @@ export function PostizCard({ refreshKey = 0, onConnection }: {
             )}
           </div>
         )}
-        {error && <p role="alert" className="mt-1.5 text-[12px] text-danger">{error}</p>}
+        {error && <p role="alert" className="mt-1.5 text-[12px] text-danger-text">{error}</p>}
         {offerConnect && !waiting && status.team && !person && (
           <label data-postiz-only-me className="mt-1.5 flex items-center gap-2 text-[12px] text-ink-secondary">
             <input type="checkbox" checked={onlyMe} onChange={(event) => setOnlyMe(event.target.checked)} /> {t("mcp.team.onlyMe")}

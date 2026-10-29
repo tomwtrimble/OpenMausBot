@@ -221,7 +221,7 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
 
   const diagram = <>
     {error && (
-      <p role="alert" className="px-3 pt-2 text-[12px] text-danger">
+      <p role="alert" className="px-3 pt-2 text-[12px] text-danger-text">
         Diagram could not be rendered: {error}
       </p>
     )}
@@ -242,9 +242,9 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
     );
   }
   return (
-    <div ref={frame} dir="ltr" className="my-2 overflow-hidden rounded-lg border border-hairline/40 bg-inset">
-      <div className="flex items-center justify-between gap-2 border-b border-hairline/30 bg-raised/30 px-3 py-1.5 text-xs">
-        <span title="Mermaid diagram" className="min-w-0 truncate rounded border border-hairline/40 bg-raised px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-ink select-none">
+    <div ref={frame} dir="ltr" className="my-2 overflow-hidden rounded-lg border border-hairline bg-inset">
+      <div className="flex items-center justify-between gap-2 border-b border-hairline bg-raised/30 px-3 py-1.5 text-xs">
+        <span title="Mermaid diagram" className="min-w-0 truncate rounded border border-hairline bg-raised px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-ink select-none">
           Mermaid diagram
         </span>
         <div className="flex shrink-0 items-center gap-1 whitespace-nowrap">
@@ -253,7 +253,7 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
             onClick={() => setShowSource((visible) => !visible)}
             className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] transition-colors ${
               showSource
-                ? "bg-accent/15 text-accent font-medium"
+                ? "bg-accent/15 text-accent-text font-medium"
                 : "text-ink-secondary hover:bg-raised hover:text-ink"
             }`}
             title={showSource ? "Hide diagram source" : "Show diagram source"}
@@ -272,8 +272,8 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
           >
             {copied === "failed" ? (
               <>
-                <X size={12} className="text-danger" aria-hidden="true" />
-                <span className="text-danger font-medium hidden sm:inline">{t("common.copyFailed")}</span>
+                <X size={12} className="text-danger-text" aria-hidden="true" />
+                <span className="text-danger-text font-medium hidden sm:inline">{t("common.copyFailed")}</span>
               </>
             ) : copied === "copied" ? (
               <>
@@ -317,7 +317,7 @@ function LocalFileLink({ filePath, name, children, message }: { filePath: string
         onClick={() => void save.save()}
         disabled={save.state === "saving"}
         title="Save a copy"
-        className="inline-flex items-center gap-1 break-words text-start text-accent underline decoration-accent/40 hover:decoration-accent disabled:cursor-wait"
+        className="inline-flex items-center gap-1 break-words text-start text-accent-text underline decoration-accent/40 hover:decoration-accent disabled:cursor-wait"
       >
         {children}
         {save.state === "saving" ? (
@@ -334,7 +334,7 @@ function LocalFileLink({ filePath, name, children, message }: { filePath: string
         <span
           role={save.state === "failed" ? "alert" : "status"}
           title={save.state === "saved" ? save.savedTo : undefined}
-          className={`text-[12px] ${save.state === "saved" ? "text-success" : save.state === "failed" ? "text-danger" : "text-ink-secondary"}`}
+          className={`text-[12px] ${save.state === "saved" ? "text-success" : save.state === "failed" ? "text-danger-text" : "text-ink-secondary"}`}
         >
           {save.state === "failed" ? saveFailureText(save) : label}
         </span>
@@ -371,7 +371,7 @@ function Spoiler({ children }: { children?: ReactNode }) {
     );
   }
   return (
-    <span className="mx-px inline rounded px-1 py-px text-[13px] leading-relaxed text-ink underline decoration-dotted decoration-hairline underline-offset-2">
+    <span className="mx-px inline rounded px-1 py-px text-[13px] leading-relaxed text-ink underline decoration-dotted decoration-edge underline-offset-2">
       {children}
       <button
         type="button"
@@ -568,7 +568,7 @@ function MarkdownImage(props: ComponentProps<"img"> & ExtraProps) {
   const { message, imageOffsets } = useContext(MessageScopeContext);
   const { src, alt } = props;
   if (!src) {
-    return <span className="text-[12px] text-danger" role="alert">{t("attach.imageUnavailable")}</span>;
+    return <span className="text-[12px] text-danger-text" role="alert">{t("attach.imageUnavailable")}</span>;
   }
   const filePath = localFilePath(src) ?? undefined;
   const sourceOffset = props.node?.position?.start.offset;
@@ -646,11 +646,11 @@ const MARKDOWN_COMPONENTS: Components = {
   },
   th({ children }: { children?: ReactNode }) {
     return (
-      <th className="border-b border-hairline/40 px-2 py-1.5 text-start font-semibold">{children}</th>
+      <th className="border-b border-hairline px-2 py-1.5 text-start font-semibold">{children}</th>
     );
   },
   td({ children }: { children?: ReactNode }) {
-    return <td className="border-b border-hairline/20 px-2 py-1.5 align-top">{children}</td>;
+    return <td className="border-b border-hairline px-2 py-1.5 align-top">{children}</td>;
   },
   p({ node, children }: BlockProps) {
     return <p dir={blockDirection(node)}>{children}</p>;
@@ -681,14 +681,14 @@ const MARKDOWN_COMPONENTS: Components = {
   },
   blockquote({ node, children }: BlockProps) {
     return (
-      <blockquote dir={blockDirection(node)} className="border-s-2 border-hairline ps-3 text-ink-secondary">{children}</blockquote>
+      <blockquote dir={blockDirection(node)} className="border-s-2 border-edge ps-3 text-ink-secondary">{children}</blockquote>
     );
   },
   del({ children }: { children?: ReactNode }) {
     return <Spoiler>{children}</Spoiler>;
   },
   hr() {
-    return <hr className="border-hairline/40" />;
+    return <hr className="border-hairline" />;
   },
 };
 

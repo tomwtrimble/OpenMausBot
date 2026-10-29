@@ -43,7 +43,7 @@ export function MeterBar({ meter, label, compact = false }: { meter: CloudUsageM
   );
 }
 const BAR: Record<MeterBand, string> = { ok: "bg-accent", near: "bg-warning", full: "bg-danger" };
-const AMOUNT: Record<MeterBand, string> = { ok: "text-ink-secondary", near: "text-warning", full: "text-danger" };
+const AMOUNT: Record<MeterBand, string> = { ok: "text-ink-secondary", near: "text-warning-text", full: "text-danger-text" };
 
 export function MeterRow({ meter, compact = false }: { meter: CloudUsageMeter; compact?: boolean }) {
   const label = meterLabel(meter.kind), band = meterBand(meterPercent(meter));
@@ -120,7 +120,7 @@ export function useUpgrade(bridge: CloudPlanBridge | undefined, usage: CloudUsag
     <ConfirmDialog
       open={preview !== null}
       tone="neutral"
-      icon={<Gauge size={18} className="text-accent" />}
+      icon={<Gauge size={18} className="text-accent-text" />}
       title={preview ? t("usageMeter.confirm.title", { plan: cloudPlanLabel(preview.plan) }) : ""}
       body={preview ? upgradeConfirmBody(preview) : ""}
       confirmLabel={preview ? t("usageMeter.confirm.action", { plan: cloudPlanLabel(preview.plan) }) : ""}
@@ -135,7 +135,7 @@ export function useUpgrade(bridge: CloudPlanBridge | undefined, usage: CloudUsag
 
 export function NoteLine({ note }: { note: UpgradeNote | null }) {
   if (!note) return null;
-  return <p role={note.tone === "bad" ? "alert" : "status"} className={cn("text-[12px] leading-relaxed", note.tone === "bad" ? "text-danger" : note.tone === "good" ? "text-success" : "text-ink-secondary")}>{note.text}</p>;
+  return <p role={note.tone === "bad" ? "alert" : "status"} className={cn("text-[12px] leading-relaxed", note.tone === "bad" ? "text-danger-text" : note.tone === "good" ? "text-success" : "text-ink-secondary")}>{note.text}</p>;
 }
 
 export type UpgradeUi = { busy: "preview" | "change" | null; note: UpgradeNote | null; onUpgrade: (tier?: string) => void };
@@ -146,7 +146,7 @@ export function CloudUsageCardView({ usage, meters, band, upgrade, onHide, onSee
   const path = upgradePath(usage), target = nextPlan(usage);
   return (
     <section aria-labelledby="cloud-usage-card-title" data-cloud-usage-card={band}
-      className="mb-2 rounded-xl border border-hairline/50 bg-card p-3 text-ink shadow-sm">
+      className="mb-2 rounded-xl border border-hairline bg-card p-3 text-ink shadow-sm">
       <div className="flex items-start justify-between gap-2">
         <h2 id="cloud-usage-card-title" className="min-w-0 text-[13px] font-semibold leading-5">{t(band === "full" ? "usageMeter.card.full" : "usageMeter.card.near")}</h2>
         <button type="button" onClick={onHide} aria-label={t("usageMeter.card.hide")} title={t("usageMeter.card.hide")} className="ui-icon-button -me-1 -mt-0.5 shrink-0"><X size={14} /></button>
@@ -185,7 +185,7 @@ export function CloudUsageCard() {
 }
 
 function MeterList({ usage }: { usage: CloudUsage }) {
-  return usage.meters.length ? <div className="divide-y divide-hairline/30">{usage.meters.map((meter) => <MeterRow key={meter.kind} meter={meter} />)}</div>
+  return usage.meters.length ? <div className="divide-y divide-hairline">{usage.meters.map((meter) => <MeterRow key={meter.kind} meter={meter} />)}</div>
     : <p className="text-[13px] text-ink-secondary">{t("usageMeter.empty")}</p>;
 }
 

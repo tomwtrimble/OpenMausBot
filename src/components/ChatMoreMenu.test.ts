@@ -140,7 +140,7 @@ describe("ChatMoreMenu, the round ⋯ for the bot panel", () => {
     expect(inspector.active).toBe(true);
     inspector.onSelect();
     expect(fixture.dispatch).toHaveBeenCalledWith({ type: "toggleInspector" });
-    expect(menu.trigger).toContain("text-accent");
+    expect(menu.trigger).toContain("text-accent-text");
   });
 });
 

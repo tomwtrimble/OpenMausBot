@@ -56,7 +56,7 @@ export function CacheKeepWarmSettings() {
         </Select>
       </div>
       {saving && <span role="status" className="sr-only">{t("settings.threads.saving")}</span>}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </Card>
   );
 }

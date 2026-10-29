@@ -50,7 +50,7 @@ export function McpResultBudgetField({ value, onChange }: { value: string; onCha
         onChange={(event) => onChange(event.target.value)}
         inputMode="numeric"
         placeholder="8000"
-        className="mt-1.5 w-full rounded-lg border border-hairline/60 bg-raised px-3 py-2.5 text-[13px] text-ink outline-none focus:border-accent"
+        className="mt-1.5 w-full rounded-lg border border-hairline bg-raised px-3 py-2.5 text-[13px] text-ink outline-none focus:border-accent"
       />
       <span className="mt-1.5 block text-[11px] text-ink-secondary">{t("mcp.resultBudgetHint")}</span>
     </label>

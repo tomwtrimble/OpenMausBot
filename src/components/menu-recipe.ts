@@ -1,8 +1,8 @@
-export const MENU_SHEET = "popover-surface flex flex-col gap-1 rounded-[var(--radius-menu)] border border-hairline/50 bg-menu p-1.5 shadow-lg [&_svg.lucide]:stroke-[1.5]";
+export const MENU_SHEET = "popover-surface flex flex-col gap-1 rounded-[var(--radius-menu)] border border-hairline bg-menu p-1.5 shadow-lg [&_svg.lucide]:stroke-[1.5]";
 
 export const MENU_ITEM = "flex min-h-[30px] w-full shrink-0 items-center gap-2 whitespace-nowrap rounded-md px-2 py-1.5 text-left text-[14px] leading-[18px] focus-visible:bg-menu-hover";
 
-export const MENU_ITEM_SEPARATOR = "mx-1.5 h-px shrink-0 bg-hairline/50";
+export const MENU_ITEM_SEPARATOR = "mx-1.5 h-px shrink-0 bg-hairline";
 
 export const MENU_HEADING = "px-2 pb-1 pt-2 text-[12px] font-medium leading-4 text-ink-secondary";
 

@@ -14,7 +14,7 @@ export function ManagedTeamsSettings({
   const choices = [...new Set([...teams, ...allowed])].filter(team => team !== ownTeam).sort();
   const changed = JSON.stringify([...selected].sort()) !== JSON.stringify([...allowed].sort());
   return (
-    <details className="mt-3 border-t border-hairline/40 pt-3">
+    <details className="mt-3 border-t border-hairline pt-3">
       <summary className="cursor-pointer text-[13px] font-medium text-ink">{t("botAccess.teams.title")}</summary>
       <p className="mt-2 text-[13px] leading-relaxed text-ink-secondary">
         {t("botAccess.teams.description", { name })}

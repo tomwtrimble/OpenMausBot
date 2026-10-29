@@ -33,7 +33,7 @@ function storeCollapsed(collapsed: boolean) {
   try { globalThis.localStorage?.setItem(COLLAPSED_KEY, collapsed ? "1" : "0"); } catch {}
 }
 
-const CARD = "fixed bottom-4 left-4 z-40 max-h-[calc(100dvh-32px)] w-[300px] max-w-[calc(100vw-32px)] origin-bottom-left overflow-y-auto rounded-2xl border border-hairline/50 bg-menu text-ink shadow-[0_18px_48px_-16px_rgba(0,0,0,0.55),0_4px_12px_-6px_rgba(0,0,0,0.3)]";
+const CARD = "popover-surface fixed bottom-4 left-4 z-40 max-h-[calc(100dvh-32px)] w-[300px] max-w-[calc(100vw-32px)] origin-bottom-left overflow-y-auto rounded-2xl border border-hairline bg-menu text-ink shadow-[0_18px_48px_-16px_color-mix(in_srgb,var(--color-shadow)_55%,transparent),0_4px_12px_-6px_color-mix(in_srgb,var(--color-shadow)_30%,transparent)]";
 const PRIMARY = "ui-button ui-button-primary shrink-0 gap-1.5 text-[13px] transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:transition-none";
 
 function nextRunLabel(at: number | null, now = Date.now()): string | null {
@@ -85,7 +85,7 @@ function CloudReady({ routine, onDone }: { routine?: Routine; onDone: () => void
             {next ? <> {t("cloudSetup.ready.runs", { when: next })}</> : null}
           </p>
         : <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("cloudSetup.ready.body")}</p>}
-      {run === "failed" && <p role="alert" className="mt-1.5 text-[12px] text-danger">{t("cloudSetup.ready.runFailed")}</p>}
+      {run === "failed" && <p role="alert" className="mt-1.5 text-[12px] text-danger-text">{t("cloudSetup.ready.runFailed")}</p>}
     </div>
     {routine
       ? <div className="relative mt-4 flex w-full flex-col gap-2">
@@ -199,7 +199,7 @@ export function CloudSetup({ viewer, welcomeShown = false }: { viewer: WelcomeVi
     return <div key={id} data-cloud-setup-step={id} data-status="todo" className="animate-rise mt-4">
       <h3 className="text-[14px] font-semibold leading-snug text-ink [text-wrap:balance]">{titleOf(id)}</h3>
       {here
-        ? <p className="mt-1.5 flex items-center gap-1.5 text-[12px] font-medium text-accent"><span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />{t("cloudSetup.onScreen")}</p>
+        ? <p className="mt-1.5 flex items-center gap-1.5 text-[12px] font-medium text-accent-text"><span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />{t("cloudSetup.onScreen")}</p>
         : body}
       {act && <div className="mt-3.5 flex">{act}</div>}
     </div>;
@@ -231,7 +231,7 @@ export function CloudSetup({ viewer, welcomeShown = false }: { viewer: WelcomeVi
     </div>
     {!collapsed && <div id="cloud-setup-body">
       {current ? focus(current) : <p role="status" className="animate-rise mt-4 text-[13px] leading-relaxed text-ink-secondary">{t("cloudSetup.working")}</p>}
-      {others.length > 0 && <ol className="stagger mt-4 flex flex-col border-t border-hairline/60 pt-2.5">{others.map(row)}</ol>}
+      {others.length > 0 && <ol className="stagger mt-4 flex flex-col border-t border-hairline pt-2.5">{others.map(row)}</ol>}
       <button type="button" className="mt-1.5 py-1 text-[12px] text-ink-secondary transition-colors hover:text-ink" onClick={hide}>{t("cloudSetup.hide")}</button>
     </div>}
   </aside>;

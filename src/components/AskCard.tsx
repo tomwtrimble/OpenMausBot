@@ -211,7 +211,7 @@ export function AskReply({ label, placeholder, color, onSend, sending = false, v
 
 /** Why an answer did not go, under the card, until the next try. */
 export function AskError({ children }: { children: ReactNode }) {
-  return <p role="alert" className="mt-2 text-[13px] leading-[18px] text-danger">{children}</p>;
+  return <p role="alert" className="mt-2 text-[13px] leading-[18px] text-danger-text">{children}</p>;
 }
 
 export type AskSettledTone = "done" | "closed" | "stopped" | "expired";
@@ -300,7 +300,7 @@ export const ASK_SMALL_PILL = ASK_CONTROL;
 export const ASK_QUIET_BUTTON = `${ASK_SMALL_PILL} -my-1 text-ink-tertiary hover:bg-ink/[0.07] hover:text-ink-secondary`;
 
 export const ASK_FIELD =
-  "h-7 rounded-full border border-hairline/60 bg-inset px-3 text-[13px] leading-5 text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-60 pointer-coarse:h-9";
+  "h-7 rounded-full border border-hairline bg-inset px-3 text-[13px] leading-5 text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-60 pointer-coarse:h-9";
 
 export function returnFocusToComposer(): void {
   if (typeof requestAnimationFrame !== "function") return;

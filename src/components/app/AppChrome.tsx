@@ -102,7 +102,7 @@ export function AppStrip({ text, action, bordered, tone = "warning" }: {
 }) {
   return (
     <div role="status" data-app-strip className={cn("flex items-center gap-2 border-t border-ink/[0.12] py-2.5 text-[13px] leading-[18px] text-ink-secondary", bordered ? "mx-4" : "mt-2")}>
-      <CircleAlert aria-hidden="true" size={14} className={cn("shrink-0", tone === "warning" ? "text-warning" : "text-ink-tertiary")} />
+      <CircleAlert aria-hidden="true" size={14} className={cn("shrink-0", tone === "warning" ? "text-warning-text" : "text-ink-tertiary")} />
       <span dir="auto" className="min-w-0 flex-1 break-words">{text}</span>
       {action && <button type="button" onClick={action.onClick} className={ASK_QUIET_BUTTON}>{action.label}</button>}
     </div>

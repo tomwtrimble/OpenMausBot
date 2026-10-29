@@ -83,7 +83,7 @@ export function Badge({ children }: { children: ReactNode }) {
 /** On the staging Admin (OMB_CLOUD_STAGING=1) the sheet and Settings say so, so nobody takes it for the real one. */
 export function StagingMark({ className }: { className?: string }) {
   return <span data-cloud-staging title={t("cloudBuy.stagingHint")}
-    className={cn("inline-flex items-center rounded-full border border-warning/50 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-warning", className)}>
+    className={cn("inline-flex items-center rounded-full border border-warning/50 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-warning-text", className)}>
     {t("cloudBuy.staging")}<span className="sr-only">: {t("cloudBuy.stagingHint")}</span>
   </span>;
 }

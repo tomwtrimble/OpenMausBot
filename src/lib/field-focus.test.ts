@@ -60,7 +60,7 @@ describe("text field focus", () => {
     const faint: string[] = [];
     for (const file of sources(src)) {
       readFileSync(file, "utf8").split("\n").forEach((line, index) => {
-        for (const [utility] of line.matchAll(/focus(?:-within)?:border-hairline(?:\/\d+)?(?![\w-])/g)) {
+        for (const [utility] of line.matchAll(/focus(?:-within)?:border-edge(?:\/\d+)?(?![\w-])/g)) {
           faint.push(`${relative(src, file)}:${index + 1} ${utility}`);
         }
       });

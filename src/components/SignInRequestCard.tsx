@@ -103,7 +103,7 @@ export function SignInRequestCard({
         ariaLabel={t("signIn.title")}
         icon={outcome === "cancelled" ? <X size={13} className="text-ink-tertiary" /> : card.resumed || stopped ? undefined : error ? <LogIn size={13} /> : <Loader2 size={13} className="animate-spin" />}
         action={retry}
-        detail={error && <p role="alert" className="ms-[19px] mt-1 text-[12px] text-danger">{error}</p>}
+        detail={error && <p role="alert" className="ms-[19px] mt-1 text-[12px] text-danger-text">{error}</p>}
       >
         <span className="text-ink-secondary">{card.savedLogin
           ? t("signIn.settled.saved", { site: card.savedLogin })
@@ -150,7 +150,7 @@ export function SignInRequestCard({
     >
       <div dir="ltr" className="break-all text-[20px] font-semibold leading-7 text-ink" data-testid="sign-in-site">{card.site}</div>
       {card.reason && (
-        <blockquote className="mt-1.5 border-s-2 border-hairline ps-2.5 text-[13px] leading-snug text-ink-secondary">
+        <blockquote className="mt-1.5 border-s-2 border-edge ps-2.5 text-[13px] leading-snug text-ink-secondary">
           <bdi dir="auto">“{card.reason}”</bdi> <span className="text-ink-tertiary">— {botName}</span>
         </blockquote>
       )}
@@ -180,7 +180,7 @@ export function SignInRequestCard({
           <LockKeyhole size={11} aria-hidden="true" /> {t("signIn.private")}
         </p>
       )}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </AskCard>
   );
 }
@@ -207,7 +207,7 @@ export function SignInBanner({
   };
   return (
     <div className="mt-3 rounded-xl border border-warning/25 bg-warning/10 p-4 text-start" data-testid="sign-in-banner">
-      <div className="text-[13px] leading-relaxed text-warning">
+      <div className="text-[13px] leading-relaxed text-warning-text">
         <b>{askerName}</b> {t("signIn.banner", { site: help.site })}
       </div>
       {help.place === "local" && (

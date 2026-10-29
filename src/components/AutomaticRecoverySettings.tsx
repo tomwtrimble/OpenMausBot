@@ -73,7 +73,7 @@ export function AutomaticRecoverySettings() {
       <button type="button" disabled={!draft || saving || (value.enabled && !ready)} onClick={() => void save()}
         className="mt-3 cursor-pointer rounded-lg bg-accent px-3 py-2 text-[13px] font-medium text-white disabled:opacity-50">{saving ? t("settings.threads.saving") : t("common.save")}</button>
       {saving && <span role="status" className="sr-only">{t("settings.threads.saving")}</span>}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </Card>
   );
 }

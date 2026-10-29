@@ -340,7 +340,7 @@ export function FolderPage({ bot }: PageContext) {
         <Card>
           {canPick ? (
             <div className={rowCls}>
-              <div className="min-w-0 flex-1 truncate rounded-lg border border-hairline/40 bg-inset px-3 py-2 font-mono text-[13px] text-ink" title={bot.cwd}>
+              <div className="min-w-0 flex-1 truncate rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink" title={bot.cwd}>
                 {bot.cwd ? shortPath(bot.cwd, home) : <span className="text-ink-secondary">{t("botAccess.folder.private")}</span>}
               </div>
               <button type="button" data-panel-action="pick-folder" disabled={saving} onClick={() => void pick()} className={buttonCls}>
@@ -363,7 +363,7 @@ export function FolderPage({ bot }: PageContext) {
                 placeholder={t("botAccess.folder.placeholder")}
                 aria-label={t("botAccess.folder.title")}
                 onChange={(event) => setDraft(event.target.value)}
-                className="h-8 min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-2.5 font-mono text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent-border"
+                className="h-8 min-w-0 flex-1 rounded-lg border border-edge bg-inset px-2.5 font-mono text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent-border"
               />
               <button type="submit" disabled={saving || draft === null} className={buttonCls}>{t("botAccess.folder.save")}</button>
             </form>

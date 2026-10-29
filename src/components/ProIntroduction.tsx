@@ -36,7 +36,7 @@ export function ProSettingsCard() {
   if (offering) {
     const trial = offerTrialDays(offer) !== null, moneyBack = moneyBackLine(offer);
     const cheapest = offer ? Math.min(...offer.plans.map(entry => entry.amount)) : null;
-    return <section aria-label={t("pro.name")} data-cloud-offer={trial ? "trial" : offer ? "plans" : "none"} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-hairline/50 p-3">
+    return <section aria-label={t("pro.name")} data-cloud-offer={trial ? "trial" : offer ? "plans" : "none"} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-hairline p-3">
       <div className="flex items-center gap-3">
         <Crown className="text-ink-secondary" size={18} aria-hidden="true" />
         <div><h3 className="text-[14px] font-semibold text-ink">{t("pro.name")}</h3>
@@ -58,7 +58,7 @@ export function ProSettingsCard() {
   }
   const line = cloudPlanLine(view);
   if (!line && view.kind !== "reauth") return null;
-  return <section aria-label={t("settings.section.cloudAccount")} data-cloud-plan={view.kind} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-hairline/50 p-3">
+  return <section aria-label={t("settings.section.cloudAccount")} data-cloud-plan={view.kind} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-hairline p-3">
     <div className="flex items-center gap-3">
       <Cloud className="text-ink-secondary" size={18} aria-hidden="true" />
       <div><h3 className="text-[14px] font-semibold text-ink">{t("settings.section.cloudAccount")}</h3>

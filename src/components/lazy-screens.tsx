@@ -50,13 +50,13 @@ function ScreenUnavailable() {
     <div
       role="alert"
       data-screen-unavailable
-      className="fixed bottom-4 left-1/2 z-[100] flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-3 rounded-xl border border-danger/30 bg-card px-3.5 py-2.5 text-[13px] text-danger shadow-xl"
+      className="popover-surface fixed bottom-4 left-1/2 z-[100] flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-3 rounded-xl border border-danger/30 bg-menu px-3.5 py-2.5 text-[13px] text-danger-text shadow-xl"
     >
       <span>{t("screenLoad.failed")}</span>
       <button
         type="button"
         onClick={() => window.location.reload()}
-        className="shrink-0 rounded-md px-1.5 py-0.5 font-medium text-accent hover:bg-raised"
+        className="shrink-0 rounded-md px-1.5 py-0.5 font-medium text-accent-text hover:bg-raised"
       >
         {t("screenLoad.reload")}
       </button>

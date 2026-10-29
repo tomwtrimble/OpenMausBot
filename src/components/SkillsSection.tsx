@@ -203,7 +203,7 @@ export function SkillsSection() {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
+    "w-full rounded-lg border border-hairline bg-inset px-3 py-2 text-[14px] text-ink placeholder:text-ink-secondary focus:outline-none";
 
   return (
     <div className="flex flex-col gap-4">
@@ -256,7 +256,7 @@ export function SkillsSection() {
               {skills.length === 0 ? t("skills.library.empty") : t("skills.library.noMatches")}
             </div>
           ) : (
-            <div className="divide-y divide-hairline/40 overflow-hidden rounded-lg border border-hairline/40">
+            <div className="divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
               {visible.map((skill) => (
                 <div key={skill.name} className="px-3 py-2.5">
                   <div className="flex items-center gap-2">
@@ -285,7 +285,7 @@ export function SkillsSection() {
                     />
                   </div>
                   {skill.warnings.length > 0 && (
-                    <div className="mt-1 text-[11px] text-warning">{skill.warnings.join(" · ")}</div>
+                    <div className="mt-1 text-[11px] text-warning-text">{skill.warnings.join(" · ")}</div>
                   )}
                   <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-secondary">
                     {skill.assignedBots.length === 0 ? (
@@ -300,7 +300,7 @@ export function SkillsSection() {
                             title={t("skills.library.removeAssignment", { bot: bot.name })}
                             disabled={Boolean(working || importing)}
                             onClick={() => void unassign(skill, bot.id)}
-                            className="flex size-4 items-center justify-center rounded-full text-ink-secondary hover:bg-danger/10 hover:text-danger disabled:opacity-40"
+                            className="flex size-4 items-center justify-center rounded-full text-ink-secondary hover:bg-danger/10 hover:text-danger-text disabled:opacity-40"
                           >
                             <X size={11} />
                           </button>
@@ -337,7 +337,7 @@ export function SkillsSection() {
               ))}
             </div>
           )}
-          {error && <div role="alert" className="mt-2 text-[12px] text-danger">{error}</div>}
+          {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
         </div>
       </Card>
 
@@ -405,7 +405,7 @@ function SkillSourceDialog({ viewing, error, working, onClose, onEnable }: {
               </button>
             </div>
             {viewing.review && <LibrarySkillMeta skill={viewing.skill} />}
-            {viewing.skill.warnings.length > 0 && <div className="mt-2 text-[12px] text-warning">{viewing.skill.warnings.join(" · ")}</div>}
+            {viewing.skill.warnings.length > 0 && <div className="mt-2 text-[12px] text-warning-text">{viewing.skill.warnings.join(" · ")}</div>}
             <pre
               tabIndex={0}
               aria-label={`${t("skills.library.view", { skill: viewing.skill.name })}`}
@@ -413,7 +413,7 @@ function SkillSourceDialog({ viewing, error, working, onClose, onEnable }: {
             >
               {viewing.text}
             </pre>
-            {error && <div role="alert" className="mt-2 text-[12px] text-danger">{error}</div>}
+            {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
             {viewing.review && <button type="button" disabled={working} onClick={onEnable} className="mt-4 self-end rounded-lg bg-accent px-4 py-2 text-[13px] font-semibold text-white disabled:opacity-40">Enable reviewed skill</button>}
           </div>
         </div>

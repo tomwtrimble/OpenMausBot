@@ -26,7 +26,7 @@ export function PackageProvenance({ bot }: { bot: Bot }) {
   return (
     <div className="rounded-lg bg-inset px-3 py-2 text-[12px] text-ink-secondary">
       <div className="truncate">{provenance.line}</div>
-      {provenance.withdrawn && <div className="mt-0.5 text-warning">{provenance.withdrawn}</div>}
+      {provenance.withdrawn && <div className="mt-0.5 text-warning-text">{provenance.withdrawn}</div>}
     </div>
   );
 }

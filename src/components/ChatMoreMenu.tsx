@@ -120,7 +120,7 @@ export function useChatMoreItems(profile: Bot, phoneHeader = false): { items: Si
       label: t("chat.usage.menu"),
       icon: <Gauge size={16} />,
       separatorBefore: true,
-      trailing: <span title={usage.detail} data-testid="usage-chip" className={cn("tabular-nums text-[12px]", usage.tone === "danger" ? "text-danger" : usage.tone === "warning" ? "text-warning" : "text-ink-secondary")}>{usage.short}</span>,
+      trailing: <span title={usage.detail} data-testid="usage-chip" className={cn("tabular-nums text-[12px]", usage.tone === "danger" ? "text-danger-text" : usage.tone === "warning" ? "text-warning-text" : "text-ink-secondary")}>{usage.short}</span>,
       onSelect: () => advanced ? openBotSettings(dispatch, "usage") : dispatch({ type: "toggleAppSettings", open: true, section: "usage" }),
     } satisfies SidebarMenuItem] : []),
     ...(remoteClient ? [] : [{
@@ -158,8 +158,8 @@ function RoundChatMoreMenu({ bot, phoneHeader }: { bot: Bot; phoneHeader: boolea
           className={cn(
             "flex size-8 items-center justify-center rounded-full",
             advanced ? "bg-raised/50 transition-colors hover:bg-raised" : cn(ELEVATED_CONTROL, ELEVATED_HOVER, open && ELEVATED_OPEN),
-            "max-md:size-9 max-md:border max-md:border-hairline max-md:bg-card",
-            open || on ? "text-accent" : "text-ink",
+            "max-md:size-9 max-md:border max-md:border-edge max-md:bg-card",
+            open || on ? "text-accent-text" : "text-ink",
           )}
         >
           <MoreHorizontal size={16} />
@@ -218,7 +218,7 @@ export function ChatHeaderMenu({ bot }: { bot: Bot }): JSX.Element {
           data-testid="chat-more"
           className={cn(
             "flex size-8 items-center justify-center rounded-full transition-colors hover:bg-ink/[0.06]",
-            open || on ? "text-accent" : "text-ink-secondary hover:text-ink",
+            open || on ? "text-accent-text" : "text-ink-secondary hover:text-ink",
           )}
           title={t("chat.more")}
         >

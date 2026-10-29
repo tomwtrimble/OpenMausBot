@@ -46,6 +46,6 @@ export function CloudTrialNoticeCard({ view, failed = false, onAction, onClose }
         <NotNowButton onClick={onClose} />
       </> : <button type="button" className={PRIMARY_BUTTON} onClick={onClose}>{t("cloudTrial.ok")}</button>}
     </div>
-    {failed && <p role="alert" className="mt-2 text-[12px] text-danger">{t("notice.openFailed")}</p>}
+    {failed && <p role="alert" className="mt-2 text-[12px] text-danger-text">{t("notice.openFailed")}</p>}
   </NoticeCard>;
 }

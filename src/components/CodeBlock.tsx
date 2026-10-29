@@ -168,7 +168,7 @@ export interface CodeBlockProps {
   initialWrap?: boolean;
 }
 
-const PLATE_BUTTON = "inline-flex size-7 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60";
+const PLATE_BUTTON = "inline-flex size-7 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-ink/[0.06] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60";
 
 /** Simple mode's hover plate on a code block or diagram: Copy, and a ⋯ menu for the rest. It shows on hover, on
  * keyboard focus and always on touch screens, and stays while its menu is open. */
@@ -183,7 +183,7 @@ export function CodePlate({ copied, onCopy, copyLabel, items }: {
       <button type="button" onClick={onCopy} className={PLATE_BUTTON}
         title={copied === "copied" ? t("code.copiedTitle") : copied === "failed" ? t("common.copyFailed") : copyLabel}
         aria-label={copied === "copied" ? t("code.copiedTitle") : copied === "failed" ? t("common.copyFailed") : copyLabel}>
-        {copied === "failed" ? <X size={14} className="text-danger" aria-hidden="true" />
+        {copied === "failed" ? <X size={14} className="text-danger-text" aria-hidden="true" />
           : copied === "copied" ? <Check size={14} className="text-success" aria-hidden="true" />
             : <Copy size={14} aria-hidden="true" />}
       </button>
@@ -259,10 +259,10 @@ export function CodeBlock({ code, lang, initialWrap = false }: CodeBlockProps) {
   }
 
   return (
-    <div dir="ltr" className="chat-code-block my-2 overflow-hidden rounded-lg border border-hairline/40 bg-inset">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline/30 bg-raised/30 px-3 py-1.5 text-xs">
+    <div dir="ltr" className="chat-code-block my-2 overflow-hidden rounded-lg border border-hairline bg-inset">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline bg-raised/30 px-3 py-1.5 text-xs">
         <div className="flex min-w-0 flex-1 items-center gap-2">
-          <span title={displayLanguage} className="min-w-0 truncate rounded border border-hairline/40 bg-raised px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-ink select-none">
+          <span title={displayLanguage} className="min-w-0 truncate rounded border border-hairline bg-raised px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-ink select-none">
             {displayLanguage}
           </span>
           {lineCount > 0 && (
@@ -277,7 +277,7 @@ export function CodeBlock({ code, lang, initialWrap = false }: CodeBlockProps) {
             onClick={() => setWrapLines((w) => !w)}
             className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] transition-colors ${
               wrapLines
-                ? "bg-accent/15 text-accent font-medium"
+                ? "bg-accent/15 text-accent-text font-medium"
                 : "text-ink-secondary hover:bg-raised hover:text-ink"
             }`}
             title={wrapLines ? t("code.unwrapLong") : t("code.wrapLong")}
@@ -304,11 +304,11 @@ export function CodeBlock({ code, lang, initialWrap = false }: CodeBlockProps) {
             title={copied === "copied" ? t("code.copiedTitle") : copied === "failed" ? t("common.copyFailed") : t("code.copyTitle")}
             aria-label={copied === "copied" ? t("code.copiedAria") : copied === "failed" ? t("common.copyFailed") : t("code.copyAria")}
           >
-            {copied === "failed" ? <X size={12} className="text-danger" aria-hidden="true" />
+            {copied === "failed" ? <X size={12} className="text-danger-text" aria-hidden="true" />
               : copied === "copied" ? <Check size={12} className="text-success" aria-hidden="true" />
                 : <Copy size={12} aria-hidden="true" />}
             <span aria-hidden="true" className="hidden max-sm:inline touch:inline">{t("code.copy")}</span>
-            <span role="status" className={`max-sm:sr-only touch:sr-only ${copied === "failed" ? "text-danger font-medium" : copied === "copied" ? "text-success font-medium" : ""}`}>
+            <span role="status" className={`max-sm:sr-only touch:sr-only ${copied === "failed" ? "text-danger-text font-medium" : copied === "copied" ? "text-success font-medium" : ""}`}>
               {copied === "failed" ? t("common.copyFailed") : copied === "copied" ? t("code.copied") : t("code.copy")}
             </span>
           </button>

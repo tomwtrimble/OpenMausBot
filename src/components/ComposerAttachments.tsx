@@ -111,7 +111,7 @@ export function ComposerAttachments({
       )}
 
       {notice && (
-        <div className="mb-2 flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-[12px] text-warning">
+        <div className="mb-2 flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-[12px] text-warning-text">
           <span className="min-w-0 flex-1">{notice}</span>
           <button
             onClick={() => onNotice(null)}
@@ -169,7 +169,7 @@ export function ComposerAttachments({
                   }}
                   disabled={!attachmentImageUrl(a.path) && !a.previewUrl}
                   aria-busy={a.uploading || undefined}
-                  className="relative flex h-[76px] w-full items-center justify-center overflow-hidden rounded-lg bg-inset focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 disabled:cursor-default"
+                  className="relative flex h-[76px] w-full items-center justify-center overflow-hidden rounded-lg bg-inset focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/50 disabled:cursor-default"
                   aria-label={`Preview ${a.name}`}
                 >
                   <img
@@ -224,14 +224,14 @@ function Chip({
     <div
       title={title}
       className={cn(
-        "group relative w-[172px] rounded-xl border border-hairline/40 bg-raised px-2.5 py-2",
-        "transition-colors hover:border-hairline",
+        "group relative w-[172px] rounded-xl border border-hairline bg-raised px-2.5 py-2",
+        "transition-colors hover:border-edge",
       )}
     >
       {children}
       <div className="mt-1 flex items-center gap-1">
         <Icon size={11} className="text-ink-tertiary" />
-        <span className="rounded border border-hairline/60 px-1 py-px text-[10px] font-medium tracking-wide text-ink-secondary">
+        <span className="rounded border border-hairline px-1 py-px text-[10px] font-medium tracking-wide text-ink-secondary">
           {label}
         </span>
       </div>
@@ -239,7 +239,7 @@ function Chip({
       <button
         onClick={onRemove}
         aria-label={`Remove ${label === "PASTED" ? "pasted text" : "file"}`}
-        className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full border border-hairline/60 bg-panel text-ink-secondary opacity-0 transition-opacity hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-100"
+        className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full border border-hairline bg-panel text-ink-secondary opacity-0 transition-opacity hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 touch:opacity-100"
       >
         <X size={11} />
       </button>

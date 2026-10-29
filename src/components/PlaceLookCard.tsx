@@ -32,7 +32,7 @@ export function PlaceLookCard() {
     <SettingsRows>
       {look && <div data-place-look={look.change ?? "locked"}>
         <SettingRow title={t("placeLook.sidebarColor")} subtitle={computer ? t("placeLook.sidebarColorSub") : t("placeLook.sub", { name: look.name })}
-          message={outcome === "failed" ? <p role="alert" className="text-danger">{t("placeLook.failed")}</p> : note && <p className="text-ink-secondary">{note}</p>}>
+          message={outcome === "failed" ? <p role="alert" className="text-danger-text">{t("placeLook.failed")}</p> : note && <p className="text-ink-secondary">{note}</p>}>
           <SwatchRadios value={pending ?? look.swatch} onChange={choose} label={computer ? t("placeLook.sidebarColor") : t("placeLook.aria", { name: look.name })}
             disabled={locked} offset="menu" none />
         </SettingRow>

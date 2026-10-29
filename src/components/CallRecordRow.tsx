@@ -33,7 +33,7 @@ export function CallRecordRow({ message, transcript, botName, threadId, busy, ha
         aria-label={t("chat.callRecord.label", { title, duration })}
         title={new Date(call.endedAt).toLocaleString()}
         onClick={() => setOpen(true)}
-        className="mx-auto flex w-fit max-w-[min(32rem,90%)] cursor-pointer flex-col items-center gap-1 rounded-2xl border border-hairline/40 bg-panel px-4 py-2 text-[13px] text-ink-secondary transition-colors hover:border-hairline hover:bg-raised"
+        className="mx-auto flex w-fit max-w-[min(32rem,90%)] cursor-pointer flex-col items-center gap-1 rounded-2xl border border-hairline bg-panel px-4 py-2 text-[13px] text-ink-secondary transition-colors hover:border-edge hover:bg-raised"
       >
         <button
           type="button"
@@ -41,7 +41,7 @@ export function CallRecordRow({ message, transcript, botName, threadId, busy, ha
           aria-label={t("chat.callRecord.open", { title })}
           className="flex max-w-full items-center gap-2 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
-          <AudioLines size={14} aria-hidden="true" className="shrink-0 text-accent" />
+          <AudioLines size={14} aria-hidden="true" className="shrink-0 text-accent-text" />
           <span className="min-w-0 truncate font-medium text-ink">{title}</span>
           <span className="shrink-0 tabular-nums">{`· ${duration}`}</span>
           <ChevronRight size={13} aria-hidden="true" className="-mr-1 shrink-0 text-ink-tertiary" />

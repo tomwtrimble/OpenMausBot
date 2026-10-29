@@ -54,7 +54,7 @@ export function ToolSelectionCard({ bot, engineKind }: { bot: Bot; engineKind?: 
   return <div className="rounded-xl bg-card p-4">
     <div className="text-[15px] font-medium text-ink">{t("botAccess.tools.title")}</div>
     <p className="mt-0.5 text-[13px] text-ink-secondary">{t("botAccess.tools.description")}</p>
-    <p role={saved.ok ? "status" : "alert"} className={`mt-2 text-[12px] ${saved.ok ? "text-ink-secondary" : "text-danger"}`}>
+    <p role={saved.ok ? "status" : "alert"} className={`mt-2 text-[12px] ${saved.ok ? "text-ink-secondary" : "text-danger-text"}`}>
       {!saved.ok ? t("botAccess.tools.corrupt") : scope?.allow?.length === 0 ? t("botAccess.tools.none")
         : scope === undefined ? t("botAccess.tools.all") : t("botAccess.tools.customSaved")}
     </p>
@@ -83,11 +83,11 @@ export function ToolSelectionCard({ bot, engineKind }: { bot: Bot; engineKind?: 
       <p className="text-[12px] text-ink-secondary">{t("botAccess.tools.syntax")}</p>
       {engineKind === "grokAgent" && <p className="text-[12px] text-ink-secondary">{t("botAccess.tools.grok")}</p>}
     </fieldset>}
-    {unavailable && <p role="alert" className="mt-2 text-[12px] text-danger">
+    {unavailable && <p role="alert" className="mt-2 text-[12px] text-danger-text">
       {t(support === "mcp" ? "botAccess.tools.nativeUnsupported" : "botAccess.tools.unsupported")}
     </p>}
-    {!parsed.ok && <p role="alert" className="mt-2 text-[12px] text-danger">{parsed.error}</p>}
-    {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+    {!parsed.ok && <p role="alert" className="mt-2 text-[12px] text-danger-text">{parsed.error}</p>}
+    {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     {bot.busy && <p className="mt-2 text-[12px] text-ink-secondary">{t("botAccess.tools.busy")}</p>}
     <div className="mt-3 flex flex-wrap items-center gap-3">
       <button type="button" disabled={saving || !!bot.busy || !draft || !parsed.ok} onClick={() => void save()}

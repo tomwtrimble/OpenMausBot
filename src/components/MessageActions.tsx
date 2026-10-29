@@ -246,7 +246,7 @@ export function CopyButton({ text, className }: { text: string; className?: stri
         className,
       )}
     >
-      {state === "copied" ? <Check {...ACTION_ICON} className="text-success" /> : state === "failed" ? <X {...ACTION_ICON} className="text-danger" /> : <Copy {...ACTION_ICON} />}
+      {state === "copied" ? <Check {...ACTION_ICON} className="text-success" /> : state === "failed" ? <X {...ACTION_ICON} className="text-danger-text" /> : <Copy {...ACTION_ICON} />}
     </button>
   );
 }

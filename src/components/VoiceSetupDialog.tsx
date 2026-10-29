@@ -165,7 +165,7 @@ export function VoiceSetupDialog({
           )}
         </div>
 
-        <footer className="flex items-center border-t border-hairline/30 px-6 py-3.5 sm:px-7">
+        <footer className="flex items-center border-t border-hairline px-6 py-3.5 sm:px-7">
           <button
             type="button"
             data-voice-setup-all-settings

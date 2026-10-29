@@ -146,7 +146,7 @@ describe("Simple mode's bot menu", () => {
     flushSync(() => more().click());
     const deleteAll = [...flyout()!.querySelectorAll("button")].at(-1)!;
     expect(deleteAll.textContent).toBe("Delete all conversations…");
-    expect(deleteAll.className).toContain("text-danger");
+    expect(deleteAll.className).toContain("text-danger-text");
     flushSync(() => deleteAll.click());
     expect(document.body.textContent).toContain("Delete all conversations (3)?");
     state = { ...state, bots: [{ ...structuredClone(bot), tasks: [bot.tasks![0]!] }] };

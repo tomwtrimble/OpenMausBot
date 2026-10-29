@@ -17,10 +17,10 @@ import { t } from "@/lib/i18n";
 const LIMIT = 300;
 
 const TONE_CLASS: Record<ChipTone, string> = {
-  ok: "bg-accent/12 text-accent",
-  danger: "bg-danger/15 text-danger",
-  accent: "bg-accent/12 text-accent",
-  warn: "bg-warning/15 text-warning",
+  ok: "bg-accent/12 text-accent-text",
+  danger: "bg-danger/15 text-danger-text",
+  accent: "bg-accent/12 text-accent-text",
+  warn: "bg-warning/15 text-warning-text",
 };
 
 export function ActivityPanel({ bot }: { bot: Bot }) {
@@ -99,7 +99,7 @@ export function ActivityPanel({ bot }: { bot: Bot }) {
   };
 
   return (
-    <aside aria-label={t("activity.panel.aria", { name: bot.name })} className="animate-panel-in flex h-full w-[400px] max-w-full shrink-0 flex-col border-l border-hairline/40 bg-panel max-md:absolute max-md:inset-y-0 max-md:right-0 max-md:z-30">
+    <aside aria-label={t("activity.panel.aria", { name: bot.name })} className="animate-panel-in flex h-full w-[400px] max-w-full shrink-0 flex-col border-l border-hairline bg-panel max-md:absolute max-md:inset-y-0 max-md:right-0 max-md:z-30">
       <div {...dragProps} className={cn("flex items-center justify-between px-4 py-3", padClass)}>
         <span className="flex items-center gap-2 text-[15px] font-semibold text-ink">
           <ListChecks size={16} className="text-ink-secondary" /> {t("activity.panel.title")}
@@ -124,12 +124,12 @@ export function ActivityPanel({ bot }: { bot: Bot }) {
         </span>
       </div>
 
-      <p className="border-b border-hairline/40 px-4 pb-3 text-[12px] text-ink-secondary">
+      <p className="border-b border-hairline px-4 pb-3 text-[12px] text-ink-secondary">
         {t("activity.panel.subtitle", { name: bot.name })}
       </p>
 
       <div ref={list} className="min-h-0 flex-1 overflow-y-auto">
-        {error && <div className="px-4 py-3 text-[13px] text-danger">{t("activity.panel.error", { message: error })}</div>}
+        {error && <div className="px-4 py-3 text-[13px] text-danger-text">{t("activity.panel.error", { message: error })}</div>}
         {rows && rows.length === 0 && !error && (
           <div className="px-4 py-6 text-[13px] text-ink-secondary">
             {t("activity.panel.empty", { name: bot.name })}
@@ -159,7 +159,7 @@ function ActivityLine({ row, current, focused, onJump }: { row: ActivityRow; cur
       onClick={onJump}
       aria-current={focused || undefined}
       data-activity-focused={focused ? "" : undefined}
-      className={cn("flex w-full items-start gap-3 border-b border-hairline/20 px-4 py-2 text-left hover:bg-raised/60", focused && "bg-raised/60")}
+      className={cn("flex w-full items-start gap-3 border-b border-hairline px-4 py-2 text-left hover:bg-raised/60", focused && "bg-raised/60")}
       title={current ? row.tool : t("activity.panel.openOtherTask", { tool: row.tool })}
     >
       <span className="mt-[2px] shrink-0 tabular-nums text-[11px] text-ink-secondary">{formatActivityTime(row.at)}</span>

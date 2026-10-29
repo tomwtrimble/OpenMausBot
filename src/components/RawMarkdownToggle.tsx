@@ -21,7 +21,7 @@ export function RawToggleAction({ active, onToggle, className }: RawToggleAction
       className={cn(
         "rounded-md p-1.5 transition-opacity focus-visible:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100 touch:opacity-100",
         active
-          ? "bg-raised text-accent opacity-100"
+          ? "bg-raised text-accent-text opacity-100"
           : "text-ink-secondary opacity-0 hover:bg-raised hover:text-ink",
         className,
       )}
@@ -44,7 +44,7 @@ export function RawMarkdownView({ text, className }: RawMarkdownViewProps) {
       data-testid="raw-markdown-view"
       tabIndex={0}
       className={cn(
-        "max-h-[36rem] overflow-auto whitespace-pre-wrap break-words rounded-lg border border-hairline/30 bg-inset/50 p-3 font-mono text-[13px] leading-relaxed text-ink select-text",
+        "max-h-[36rem] overflow-auto whitespace-pre-wrap break-words rounded-lg border border-hairline bg-inset/50 p-3 font-mono text-[13px] leading-relaxed text-ink select-text",
         className,
       )}
     >

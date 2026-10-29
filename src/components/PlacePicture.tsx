@@ -29,7 +29,7 @@ export function PlacePicture({ banner, canChange, subtitle }: { banner: BannerSu
       return prepared.ok ? uploadBanner(prepared.blob) : prepared;
     });
   };
-  const message = problem ? <p role="alert" className="text-danger">{t(problem)}</p>
+  const message = problem ? <p role="alert" className="text-danger-text">{t(problem)}</p>
     : canChange ? null : <p className="text-ink-secondary">{t("placeLook.imageAdmins")}</p>;
   return <div data-place-picture={src ? "set" : "none"}>
     <SettingRow title={t("placeLook.sidebarPicture")} subtitle={subtitle} message={message}>

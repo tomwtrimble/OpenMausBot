@@ -60,7 +60,7 @@ export function FilesView() {
   const { dragProps } = useCaptionChrome();
   const bridge = cloudFilesBridge();
   return <main className="flex min-w-0 flex-1 flex-col overflow-hidden bg-app text-ink">
-    <header {...dragProps} className="flex shrink-0 items-center gap-2.5 border-b border-hairline/40 px-6 py-4 max-md:pl-12">
+    <header {...dragProps} className="flex shrink-0 items-center gap-2.5 border-b border-hairline px-6 py-4 max-md:pl-12">
       <FolderOpen size={18} className="text-ink-secondary" />
       <h1 className="text-[17px] font-semibold">{t("files.title")}</h1>
     </header>
@@ -114,14 +114,14 @@ function FilesPage({ bridge }: { bridge: CloudFilesBridge }) {
       <p className="text-[13px] text-ink">{t("files.signedOut")}</p>
       <button type="button" className="ui-button" onClick={() => dispatch(SETTINGS)}>{t("files.openSettings")}</button>
     </div>}
-    {failed && <p role="alert" className="text-[13px] text-danger">{failed}</p>}
+    {failed && <p role="alert" className="text-[13px] text-danger-text">{failed}</p>}
     <section aria-labelledby="files-shared" className="flex flex-col gap-3">
       <div>
         <h2 id="files-shared" className="text-[15px] font-medium text-ink">{t("files.shared.title")}</h2>
         <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("files.shared.help")}</p>
       </div>
       {state.shared.length > 0
-        ? <ul className="flex flex-col divide-y divide-hairline/40 rounded-xl bg-card">
+        ? <ul className="flex flex-col divide-y divide-hairline rounded-xl bg-card">
           {state.shared.map((folder) => <FolderRow key={folder.id} folder={folder} bridge={bridge} busy={busy} run={run} onStop={() => setAsk({ kind: "stop", folder })} />)}
         </ul>
         : <p className="text-[13px] text-ink-secondary">{t("files.empty")}</p>}
@@ -140,7 +140,7 @@ function FilesPage({ bridge }: { bridge: CloudFilesBridge }) {
           <Switch checked={state.outputs.enabled} disabled={busy} aria-labelledby="files-outputs-switch"
             onClick={() => void run(() => bridge.setOutputs(!state.outputs.enabled))} />
         </div>
-        {state.outputs.problem && <p className="text-[12px] text-danger">{state.outputs.problem}</p>}
+        {state.outputs.problem && <p className="text-[12px] text-danger-text">{state.outputs.problem}</p>}
         {state.outputs.enabled && <button type="button" className="ui-button" onClick={() => void run(() => bridge.open({ outputs: true }))}>{t("files.outputs.open")}</button>}
       </div>
     </section>
@@ -189,7 +189,7 @@ function FolderRow({ folder, bridge, busy, run, onStop }: { folder: SharedFolder
     <Folder size={18} className="mt-0.5 shrink-0 text-ink-secondary" />
     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
       <span className="truncate text-[14px] text-ink" title={folder.pcPath}>{folder.name}</span>
-      <span className={cn("text-[12px]", folder.status === "problem" || folder.status === "missing" ? "text-danger" : "text-ink-secondary")}>{folderStatus(folder)}</span>
+      <span className={cn("text-[12px]", folder.status === "problem" || folder.status === "missing" ? "text-danger-text" : "text-ink-secondary")}>{folderStatus(folder)}</span>
       {actions && <div className="mt-1.5 flex flex-wrap gap-2">{actions}</div>}
     </div>
     <FolderMenu name={folder.name} busy={busy} onOpen={() => void run(() => bridge.open({ folderId: folder.id }))} onStop={onStop} />
@@ -208,7 +208,7 @@ function FolderMenu({ name, busy, onOpen, onStop }: { name: string; busy: boolea
     return () => { window.removeEventListener("keydown", onKey, true); window.removeEventListener("pointerdown", onDown); };
   }, [open]);
   const item = (label: string, action: () => void, danger = false) => <button type="button" role="menuitem" disabled={busy}
-    className={cn("ui-menu-row w-full text-left", danger ? "text-danger" : "text-ink")} onClick={() => { setOpen(false); action(); }}>{label}</button>;
+    className={cn("ui-menu-row w-full text-left", danger ? "text-danger-text" : "text-ink")} onClick={() => { setOpen(false); action(); }}>{label}</button>;
   return <div ref={ref} className="relative shrink-0">
     <button type="button" aria-haspopup="menu" aria-expanded={open} aria-label={t("files.more", { name })}
       className="ui-icon-button hover:bg-control hover:text-ink" onClick={() => setOpen((value) => !value)}><MoreHorizontal size={16} /></button>
@@ -227,7 +227,7 @@ function Storage({ disk, busy, onMore }: { disk: CloudFilesDisk; busy: boolean; 
       <div className={cn("h-full rounded-full", disk.warn ? "bg-warning" : "bg-accent")} style={{ width: `${percent}%` }} />
     </div>
     {disk.warn && <div className="flex flex-wrap items-center gap-2">
-      <span className="text-[12px] text-warning">{t("files.almostFull")}</span>
+      <span className="text-[12px] text-warning-text">{t("files.almostFull")}</span>
       <button type="button" disabled={busy} className="ui-button ui-button-sm" onClick={onMore}>{t("files.moreSpace")}</button>
     </div>}
   </div>;
@@ -242,7 +242,7 @@ function FilesDialog({ label, children, actions, onClose }: { label: string; chi
     return () => window.removeEventListener("keydown", onKey);
   }, []);
   return createPortal(<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-6" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-    <div role="dialog" aria-modal="true" aria-labelledby="files-dialog-label" className="w-full max-w-[440px] rounded-2xl border border-hairline/50 bg-panel p-5 shadow-2xl">
+    <div role="dialog" aria-modal="true" aria-labelledby="files-dialog-label" className="w-full max-w-[440px] rounded-2xl border border-hairline bg-panel p-5 shadow-2xl">
       <h2 id="files-dialog-label" className="text-[15px] font-semibold text-ink">{label}</h2>
       {children}
       <div className="mt-5 flex justify-end gap-2">{actions}</div>

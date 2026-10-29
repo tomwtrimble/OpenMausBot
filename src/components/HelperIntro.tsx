@@ -52,7 +52,7 @@ function AdvancedHelperIntro({ botId, threadId, message, answered }: IntroProps)
               type="button"
               data-helper-ask={key}
               onClick={() => ask(key)}
-              className="rounded-full border border-hairline/60 bg-app px-3 py-1.5 text-[13px] text-ink hover:bg-raised-hover"
+              className="rounded-full border border-hairline bg-app px-3 py-1.5 text-[13px] text-ink hover:bg-raised-hover"
             >
               {t(key)}
             </button>

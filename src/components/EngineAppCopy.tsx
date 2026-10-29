@@ -34,7 +34,7 @@ export function AppCopySetup({ instance, className, unframed }: { instance: Inst
   const { dispatch } = useStore();
   const remote = window.ogb?.remoteClient?.active === true;
   return (
-    <div data-engine-setup-app-copy className={cn(!unframed && "rounded-xl border border-hairline/40 bg-control/30 p-3", className)}>
+    <div data-engine-setup-app-copy className={cn(!unframed && "rounded-xl border border-hairline bg-control/30 p-3", className)}>
       <div className="flex items-start gap-2.5">
         <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-inset text-ink-secondary">
           <Check size={14} />

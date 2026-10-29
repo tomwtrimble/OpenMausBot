@@ -59,7 +59,7 @@ export function MiniMonth({ anchor, onSelect }: MiniMonthProps) {
           <button
             type="button"
             onClick={() => setVisibleMonth((month) => moveMonth(month, -1))}
-            className="flex size-7 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-raised hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+            className="flex size-7 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-raised hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60"
             aria-label="Previous month"
           >
             <ChevronLeft size={15} aria-hidden="true" />
@@ -67,7 +67,7 @@ export function MiniMonth({ anchor, onSelect }: MiniMonthProps) {
           <button
             type="button"
             onClick={() => setVisibleMonth((month) => moveMonth(month, 1))}
-            className="flex size-7 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-raised hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+            className="flex size-7 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-raised hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60"
             aria-label="Next month"
           >
             <ChevronRight size={15} aria-hidden="true" />
@@ -106,14 +106,14 @@ export function MiniMonth({ anchor, onSelect }: MiniMonthProps) {
               aria-label={label}
               aria-current={isToday ? "date" : undefined}
               aria-pressed={isSelected}
-              className="group flex h-7 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+              className="group flex h-7 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/60"
             >
               <span
                 className={`flex size-6 items-center justify-center rounded-full text-[11px] transition-colors ${
                   isSelected
                     ? "bg-accent font-semibold text-white shadow-sm"
                     : isToday
-                      ? "font-semibold text-accent group-hover:bg-accent/12"
+                      ? "font-semibold text-accent-text group-hover:bg-accent/12"
                       : isOutsideMonth
                         ? "text-ink-tertiary group-hover:bg-raised group-hover:text-ink"
                         : "text-ink group-hover:bg-raised"

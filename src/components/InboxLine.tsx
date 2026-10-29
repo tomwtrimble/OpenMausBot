@@ -54,7 +54,7 @@ export function InboxCaption({ message }: { message: Message }) {
       {origin && (
         <button type="button" onClick={() => openThread(dispatch, { botId: origin.botId, threadId: origin.threadId }, state, showThreads)}
           aria-label={t("inbox.openOrigin", { title: origin.title })} title={t("inbox.openOrigin", { title: origin.title })}
-          className="min-w-0 truncate rounded px-1 hover:bg-inset hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
+          className="min-w-0 truncate rounded px-1 hover:bg-inset hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus">
           · {t("inbox.in", { title: origin.title })}
         </button>
       )}
@@ -67,7 +67,7 @@ export function InboxAnswers({ message }: { message: Message }) {
   const answers = message.inbox?.answers?.filter((answer) => answer.by === "assistant") ?? [];
   if (!answers.length) return null;
   return (
-    <div data-inbox-answer className="-mt-1 flex max-w-[min(38rem,100%)] flex-col gap-0.5 rounded-xl border border-hairline/40 bg-panel px-3 py-1.5 text-[13px] text-ink-secondary">
+    <div data-inbox-answer className="-mt-1 flex max-w-[min(38rem,100%)] flex-col gap-0.5 rounded-xl border border-hairline bg-panel px-3 py-1.5 text-[13px] text-ink-secondary">
       <span className="text-[11px] font-medium text-ink-tertiary" title={t("inbox.assistantHint")}>{t("inbox.assistantAnswered")}</span>
       {answers.map((answer) => <p key={answer.at} className="whitespace-pre-wrap break-words">{answer.text}</p>)}
       <span className="text-[11px] text-ink-tertiary">{t("inbox.assistantHint")}</span>

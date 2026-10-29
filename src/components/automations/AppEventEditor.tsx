@@ -12,7 +12,7 @@ import { useStore, type Bot } from "@/state/store";
 import { Select } from "../Select";
 import { suggestedName } from "../WebhookTrigger";
 
-const FIELD = "w-full rounded-xl border border-hairline/60 bg-panel px-3.5 py-2.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/70";
+const FIELD = "w-full rounded-xl border border-hairline bg-panel px-3.5 py-2.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/70";
 const LABEL = "mb-1.5 block text-[12px] font-medium text-ink-secondary";
 
 export function AppEventEditor({ trigger, bots, initialBotId, onClose, onSaved }: { trigger?: AppTrigger; bots: Bot[]; initialBotId?: string; onClose: () => void; onSaved?: (trigger: AppTrigger) => void }) {
@@ -87,8 +87,8 @@ export function AppEventEditor({ trigger, bots, initialBotId, onClose, onSaved }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-5 backdrop-blur-sm" onMouseDown={(click) => click.target === click.currentTarget && onClose()}>
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} className="flex max-h-[90vh] w-full max-w-[560px] flex-col overflow-hidden rounded-2xl border border-hairline/60 bg-panel shadow-2xl">
-        <div className="flex items-start justify-between border-b border-hairline/40 px-5 py-4">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} className="flex max-h-[90vh] w-full max-w-[560px] flex-col overflow-hidden rounded-2xl border border-hairline bg-panel shadow-2xl">
+        <div className="flex items-start justify-between border-b border-hairline px-5 py-4">
           <div className="text-[17px] font-semibold text-ink">{title}</div>
           <button type="button" onClick={onClose} aria-label={t("automations.newBox.cancel")} className="rounded-lg p-2 text-ink-secondary hover:bg-raised hover:text-ink"><X size={18} /></button>
         </div>
@@ -97,7 +97,7 @@ export function AppEventEditor({ trigger, bots, initialBotId, onClose, onSaved }
             <div>
               <div className="mb-2 text-[13px] font-medium text-ink">{t("automations.editor.app.who")}</div>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">{bots.map((bot) => (
-                <button key={bot.id} type="button" onClick={() => setBotId(bot.id)} className={cn("flex min-w-0 items-center gap-2 rounded-xl border px-3 py-2 text-left", botId === bot.id ? "border-accent/70 bg-accent/10" : "border-hairline/50 bg-inset hover:bg-raised/60")}>
+                <button key={bot.id} type="button" onClick={() => setBotId(bot.id)} className={cn("flex min-w-0 items-center gap-2 rounded-xl border px-3 py-2 text-left", botId === bot.id ? "border-accent/70 bg-accent/10" : "border-hairline bg-inset hover:bg-raised/60")}>
                   <BotAvatar bot={bot} state={botId === bot.id ? "happy" : "idle"} size={32} animated={false} /><span className="min-w-0 flex-1 truncate text-[13px] font-medium text-ink">{bot.name}</span>
                 </button>
               ))}</div>
@@ -105,7 +105,7 @@ export function AppEventEditor({ trigger, bots, initialBotId, onClose, onSaved }
           )}
           {!trigger && !catalog && !error && <p className="flex items-center gap-2 text-[13px] text-ink-secondary"><Loader2 size={14} className="animate-spin" />{t("automations.editor.appEvent.loading")}</p>}
           {!trigger && catalog && (catalog.unavailable || !catalog.apps.some((candidate) => candidate.events.length)) && (
-            <div className="rounded-xl border border-hairline/45 bg-inset/50 p-3.5 text-[13px] text-ink-secondary">
+            <div className="rounded-xl border border-hairline bg-inset/50 p-3.5 text-[13px] text-ink-secondary">
               <p>{catalog.unavailable ?? t("automations.editor.appEvent.noApps")}</p>
               {!catalog.unavailable && <button type="button" onClick={() => dispatch({ type: "togglePlugins", open: true, surface: "apps" })} className="mt-2.5 rounded-lg bg-accent px-3 py-1.5 text-[13px] font-medium text-accent-ink hover:brightness-110">{t("automations.editor.appEvent.connect")}</button>}
             </div>
@@ -158,14 +158,14 @@ export function AppEventEditor({ trigger, bots, initialBotId, onClose, onSaved }
             </label>
           )}
           {(trigger || appEntry) && (
-            <details className="rounded-xl border border-hairline/45 bg-inset/45 px-4 py-3">
+            <details className="rounded-xl border border-hairline bg-inset/45 px-4 py-3">
               <summary className="cursor-pointer text-[13px] font-medium text-ink">{t("automations.more")}</summary>
               <label className="mt-4 block"><span className={LABEL}>{t("automations.editor.app.name")}</span><input value={name} onChange={(input) => setName(input.target.value)} placeholder={suggestedName(prompt, bots.find((bot) => bot.id === botId))} className={FIELD} /></label>
             </details>
           )}
-          {error && <div role="alert" className="rounded-xl border border-danger/30 bg-danger/10 px-3.5 py-3 text-[12px] text-danger">{error}</div>}
+          {error && <div role="alert" className="rounded-xl border border-danger/30 bg-danger/10 px-3.5 py-3 text-[12px] text-danger-text">{error}</div>}
         </div>
-        <div className="flex justify-end gap-2 border-t border-hairline/40 px-5 py-4">
+        <div className="flex justify-end gap-2 border-t border-hairline px-5 py-4">
           <button type="button" onClick={onClose} className="rounded-xl px-4 py-2 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink">{t("automations.newBox.cancel")}</button>
           <button type="button" disabled={saving || !botId || (!trigger && !chosen) || required.some((field) => !config[field.name]?.trim())} onClick={() => void save()} className="flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-[13px] font-medium text-accent-ink hover:brightness-110 disabled:opacity-40">{saving && <Loader2 size={14} className="animate-spin" />}{trigger ? t("automations.editor.app.save") : t("automations.editor.app.create")}</button>
         </div>

@@ -15,14 +15,14 @@ import type { GroupGoalRunCardData } from "../../shared/group-goal-run";
 const DETAIL_LIMIT = 280;
 
 const COPY = {
-  working: { label: "Working", tone: "text-accent", border: "border-accent/30" },
+  working: { label: "Working", tone: "text-accent-text", border: "border-accent/30" },
   completed: { label: "Completed", tone: "text-success", border: "border-success/30" },
-  "needs-input": { label: "Needs your input", tone: "text-warning", border: "border-warning/35" },
-  blocked: { label: "Blocked", tone: "text-warning", border: "border-warning/35" },
-  "limit-reached": { label: "Turn limit reached", tone: "text-warning", border: "border-warning/35" },
-  paused: { label: "Paused", tone: "text-warning", border: "border-warning/35" },
-  stopped: { label: "Stopped", tone: "text-ink-secondary", border: "border-hairline/45" },
-  failed: { label: "Failed", tone: "text-danger", border: "border-danger/35" },
+  "needs-input": { label: "Needs your input", tone: "text-warning-text", border: "border-warning/35" },
+  blocked: { label: "Blocked", tone: "text-warning-text", border: "border-warning/35" },
+  "limit-reached": { label: "Turn limit reached", tone: "text-warning-text", border: "border-warning/35" },
+  paused: { label: "Paused", tone: "text-warning-text", border: "border-warning/35" },
+  stopped: { label: "Stopped", tone: "text-ink-secondary", border: "border-hairline" },
+  failed: { label: "Failed", tone: "text-danger-text", border: "border-danger/35" },
 } satisfies Record<
   GroupGoalRunCardData["status"],
   { label: string; tone: string; border: string }
@@ -37,19 +37,19 @@ function StatusIcon({ status }: { status: GroupGoalRunCardData["status"] }) {
   const className = "size-4 shrink-0";
   switch (status) {
     case "working":
-      return <Loader2 aria-hidden="true" className={cn(className, "animate-spin text-accent")} />;
+      return <Loader2 aria-hidden="true" className={cn(className, "animate-spin text-accent-text")} />;
     case "completed":
       return <CheckCircle2 aria-hidden="true" className={cn(className, "text-success")} />;
     case "needs-input":
-      return <Hand aria-hidden="true" className={cn(className, "text-warning")} />;
+      return <Hand aria-hidden="true" className={cn(className, "text-warning-text")} />;
     case "blocked":
     case "limit-reached":
     case "paused":
-      return <CircleAlert aria-hidden="true" className={cn(className, "text-warning")} />;
+      return <CircleAlert aria-hidden="true" className={cn(className, "text-warning-text")} />;
     case "stopped":
       return <Square aria-hidden="true" className={cn(className, "text-ink-secondary")} />;
     case "failed":
-      return <XCircle aria-hidden="true" className={cn(className, "text-danger")} />;
+      return <XCircle aria-hidden="true" className={cn(className, "text-danger-text")} />;
   }
 }
 
@@ -97,7 +97,7 @@ export function GoalRunCard({ message, solo = false, onStop }: { message: Messag
           <button
             type="button"
             onClick={onStop}
-            className="shrink-0 rounded-lg border border-hairline/50 px-2.5 py-1 text-[12px] font-medium text-ink-secondary hover:bg-raised hover:text-ink"
+            className="shrink-0 rounded-lg border border-hairline px-2.5 py-1 text-[12px] font-medium text-ink-secondary hover:bg-raised hover:text-ink"
           >
             {t("chat.stop")}
           </button>

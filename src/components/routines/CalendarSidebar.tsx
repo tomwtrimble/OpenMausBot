@@ -32,11 +32,11 @@ export function CalendarSidebar({ bots, anchor, onSelectDate }: CalendarSidebarP
   return (
     <aside
       aria-label={t("routines.sidebar.label")}
-      className="flex h-full w-[320px] shrink-0 flex-col overflow-hidden border-r border-hairline/40 bg-panel"
+      className="flex h-full w-[320px] shrink-0 flex-col overflow-hidden border-r border-hairline bg-panel"
     >
       <MiniMonth anchor={anchor} onSelect={onSelectDate} />
 
-      <div className="mx-4 border-t border-hairline/40" />
+      <div className="mx-4 border-t border-hairline" />
 
       <section aria-labelledby="calendar-bots-heading" className="flex min-h-0 flex-1 flex-col px-3 pb-3 pt-3">
         <div className="mb-2 flex items-center justify-between px-1">
@@ -61,7 +61,7 @@ export function CalendarSidebar({ bots, anchor, onSelectDate }: CalendarSidebarP
             onChange={(event) => setQuery(event.target.value)}
             type="search"
             placeholder={t("routines.sidebar.searchBots")}
-            className="h-8 w-full rounded-lg border border-hairline/45 bg-control/55 pl-8 pr-2.5 text-[12px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/60 focus:bg-control"
+            className="h-8 w-full rounded-lg border border-hairline bg-control/55 pl-8 pr-2.5 text-[12px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent/60 focus:bg-control"
           />
         </label>
 
@@ -88,7 +88,7 @@ export function CalendarSidebar({ bots, anchor, onSelectDate }: CalendarSidebarP
                   {bot.title || "BotAgent"}
                 </div>
               </div>
-              <span className="shrink-0 rounded-full border border-hairline/50 px-1.5 py-0.5 text-[9px] text-ink-tertiary opacity-0 transition-opacity group-hover:opacity-100">
+              <span className="shrink-0 rounded-full border border-hairline px-1.5 py-0.5 text-[9px] text-ink-tertiary opacity-0 transition-opacity group-hover:opacity-100">
                 {t("routines.sidebar.drag")}
               </span>
             </div>

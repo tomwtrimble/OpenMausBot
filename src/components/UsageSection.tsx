@@ -110,7 +110,7 @@ function WhereItWent({ range, version, onBudget }: { range: { from: string; to: 
   const byOther = useUsageGroups(range, other, version);
   useEffect(() => { onBudget(byBot?.budget ?? null); }, [byBot, onBudget]);
   return (
-    <section className="rounded-2xl border border-hairline/50 bg-card p-5" aria-label={t("usage.page.where")}>
+    <section className="rounded-2xl border border-hairline bg-card p-5" aria-label={t("usage.page.where")}>
       <h3 className="text-[15px] font-medium text-ink">{t("usage.page.where")}</h3>
       <div className="mt-4 grid gap-6 md:grid-cols-2">
         <div>
@@ -127,7 +127,7 @@ function WhereItWent({ range, version, onBudget }: { range: { from: string; to: 
                 aria-selected={other === option}
                 onClick={() => setOther(option)}
                 className={cn("rounded-md px-2 py-0.5 text-[11px] font-medium uppercase tracking-[0.06em]",
-                  other === option ? "bg-accent/12 text-accent" : "text-ink-secondary hover:bg-raised/60 hover:text-ink")}
+                  other === option ? "bg-accent/12 text-accent-text" : "text-ink-secondary hover:bg-raised/60 hover:text-ink")}
               >{t(GROUP_LABEL_KEYS[option])}</button>
             ))}
           </div>
@@ -162,7 +162,7 @@ export function RunRow({ root, onOpen }: { root: TraceRootSummary; onOpen: () =>
         </span>
         <span className="flex items-center gap-3 text-[13px] tabular-nums text-ink-secondary">
           {root.running && <LiveBadge />}
-          {root.errors > 0 && <span className="rounded-md bg-danger/12 px-1.5 py-0.5 text-[12px] font-medium text-danger">{t("trace.groupErrors", { count: String(root.errors) })}</span>}
+          {root.errors > 0 && <span className="rounded-md bg-danger/12 px-1.5 py-0.5 text-[12px] font-medium text-danger-text">{t("trace.groupErrors", { count: String(root.errors) })}</span>}
           {root.timed ? <span className="hidden min-w-[3.5rem] text-right sm:inline">{formatDuration(root.durationMs)}</span>
             : <span className="hidden rounded bg-raised px-1.5 text-[11px] sm:inline">{t("trace.notTimed")}</span>}
           <span className="min-w-[3.5rem] text-right text-ink">{formatCost(root.costUsd)}</span>
@@ -217,12 +217,12 @@ export function UsageSection() {
           <Select size="sm" value={period} onChange={(event) => { setPeriod(event.target.value as UsagePeriod); setOpen(null); }} aria-label={t("usage.history.period")}>
             {USAGE_PERIODS.map((option) => <option key={option} value={option}>{t(PERIOD_LABEL_KEYS[option])}</option>)}
           </Select>
-          <a href={usageExportHref(range)} download className="flex items-center gap-1.5 rounded-lg border border-hairline/40 px-2.5 py-1 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink">
+          <a href={usageExportHref(range)} download className="flex items-center gap-1.5 rounded-lg border border-hairline px-2.5 py-1 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink">
             <Download size={13} />{t("usage.history.export")}
           </a>
         </div>
       </div>
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       {open ? (
         <TraceView id={open.id} at={open.at} actions={(
           <button type="button" onClick={() => setOpen(null)} className="flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-[13px] text-ink-secondary hover:bg-raised hover:text-ink">
@@ -231,12 +231,12 @@ export function UsageSection() {
         )} />
       ) : (
         <>
-          <section className="overflow-hidden rounded-2xl border border-hairline/50 bg-card" data-testid="usage-totals">
+          <section className="overflow-hidden rounded-2xl border border-hairline bg-card" data-testid="usage-totals">
             {list ? <StatStrip items={totalsStats(list.totals, t("trace.stat.time"))} />
               : <div className="flex items-center gap-2 p-5 text-[13px] text-ink-secondary"><Loader2 size={14} className="animate-spin" />{t("common.checking")}</div>}
           </section>
           <WhereItWent range={range} version={version} onBudget={setBudget} />
-          <section className="rounded-2xl border border-hairline/50 bg-card p-2" aria-label={t("usage.page.runs")}>
+          <section className="rounded-2xl border border-hairline bg-card p-2" aria-label={t("usage.page.runs")}>
             <div className="px-3 pb-1 pt-3">
               <h3 className="text-[15px] font-medium text-ink">{t("usage.page.runs")}</h3>
               <p className="mt-0.5 text-[13px] text-ink-secondary">{t("usage.page.runsHint")}</p>
@@ -246,7 +246,7 @@ export function UsageSection() {
               {list?.roots.map((root) => <RunRow key={root.id} root={root} onOpen={() => setOpen({ id: root.id, at: root.startedAt })} />)}
             </ul>
             {list?.next !== undefined && (
-              <button type="button" onClick={more} className="m-2 rounded-lg px-3 py-1.5 text-[13px] text-accent hover:bg-raised/50">{t("usage.page.more")}</button>
+              <button type="button" onClick={more} className="m-2 rounded-lg px-3 py-1.5 text-[13px] text-accent-text hover:bg-raised/50">{t("usage.page.more")}</button>
             )}
             {untimed && <p className="px-3 pb-3 pt-1 text-[12px] text-ink-tertiary">{t("usage.page.untimedNote")}</p>}
           </section>

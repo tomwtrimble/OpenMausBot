@@ -47,7 +47,7 @@ export function HelperKeySuggestion({ threadId, message }: { threadId?: string; 
           </button>
         </div>
       )}
-      {error && <p role="alert" className="mt-1 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-1 text-[12px] text-danger-text">{error}</p>}
     </div>
   );
 }

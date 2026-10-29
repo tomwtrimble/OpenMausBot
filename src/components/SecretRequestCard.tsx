@@ -173,15 +173,15 @@ export function SecretRequestCard({
         icon={secret.resumed || stopped
           ? undefined
           : declined
-            ? <X size={13} className="text-danger" />
+            ? <X size={13} className="text-danger-text" />
             : error
               ? <KeyRound size={13} />
               : <Loader2 size={13} className="animate-spin" />}
         action={retry}
-        detail={error && <p role="alert" className="ms-[19px] mt-1 text-[12px] text-danger">{error}</p>}
+        detail={error && <p role="alert" className="ms-[19px] mt-1 text-[12px] text-danger-text">{error}</p>}
       >
         <span className="text-ink-secondary" title={description}>{provided ? `${secret.label} saved securely` : secret.label}</span>
-        <span className={declined ? "text-danger" : undefined}> · {footerLabel}</span>
+        <span className={declined ? "text-danger-text" : undefined}> · {footerLabel}</span>
       </AskSettledLine>
     );
   }
@@ -237,7 +237,7 @@ export function SecretRequestCard({
           </div>
         </form>
       )}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </AskCard>
   );
 }

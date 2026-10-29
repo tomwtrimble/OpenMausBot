@@ -106,10 +106,10 @@ export function EffortRow({
             }
             onClick={() => dispatch({ type: "setModel", botId: bot.id, threadId, ...(updateBotDefault ? { updateBotDefault: true } : {}), selection: { ...selection, effort: level } })}
             className={cn(
-              "rounded-full border px-2.5 py-1 text-[12px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
+              "rounded-full border px-2.5 py-1 text-[12px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/70",
               selection.effort === level
                 ? "border-accent/60 bg-control text-ink"
-                : "border-hairline/40 text-ink-secondary hover:bg-control/60 hover:text-ink",
+                : "border-hairline text-ink-secondary hover:bg-control/60 hover:text-ink",
             )}
           >
             {level === undefined ? t("model.effort.default") : effortLabel(level)}
@@ -200,8 +200,8 @@ export function ModelVariantRow({ bot, threadId, updateBotDefault, className, la
               title={t("model.variant.use", { variant: variantLabel(option, instance.driverKind) })}
               onClick={() => choose(option.id)}
               className={cn(
-                "rounded-full border px-2.5 py-1 text-[12px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 disabled:opacity-50",
-                selection.variant === option.id ? "border-accent/60 bg-control text-ink" : "border-hairline/40 text-ink-secondary hover:bg-control/60 hover:text-ink",
+                "rounded-full border px-2.5 py-1 text-[12px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/70 disabled:opacity-50",
+                selection.variant === option.id ? "border-accent/60 bg-control text-ink" : "border-hairline text-ink-secondary hover:bg-control/60 hover:text-ink",
               )}
             >
               {variantLabel(option, instance.driverKind)}
@@ -836,7 +836,7 @@ export function ModelPicker({
                     <span
                       className={cn(
                         "flex h-5 shrink-0 items-center rounded-full px-2 text-[11px] font-medium leading-4",
-                        blocked ? "bg-warning/10 text-warning" : "bg-success/10 text-success",
+                        blocked ? "bg-warning/10 text-warning-text" : "bg-success/10 text-success",
                       )}
                     >
                       {pane === "custom" && !blocked && railInstance.access !== "api" ? t("model.localModels") : engineStatus(railInstance)}

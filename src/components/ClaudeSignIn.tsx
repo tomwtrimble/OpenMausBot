@@ -126,12 +126,12 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
   }
 
   if (auth?.phase === "waiting" && !link) {
-    return <p role="alert" data-claude-sign-in className="mt-3 text-[12px] text-danger">{t("engineSetup.claude.invalidChallenge")}</p>;
+    return <p role="alert" data-claude-sign-in className="mt-3 text-[12px] text-danger-text">{t("engineSetup.claude.invalidChallenge")}</p>;
   }
 
   if (auth?.phase === "waiting" && link) {
     return (
-      <form data-claude-sign-in className="mt-3 space-y-3 rounded-xl border border-hairline/50 bg-app p-3" onSubmit={(event) => { event.preventDefault(); void finish(); }}>
+      <form data-claude-sign-in className="mt-3 space-y-3 rounded-xl border border-hairline bg-app p-3" onSubmit={(event) => { event.preventDefault(); void finish(); }}>
         <div className="space-y-1.5">
           <p className="text-[12px] font-medium text-ink">{t("accounts.claude.step1")}</p>
           <a href={link} target="_blank" rel="noopener noreferrer" onClick={(event) => {
@@ -151,7 +151,7 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
               spellCheck={false}
               autoFocus
               placeholder={t("accounts.claude.codePlaceholder")}
-              className="min-w-0 flex-1 rounded-lg border border-hairline/40 bg-inset px-3 py-2 font-mono text-[13px] text-ink outline-none focus:border-accent-border"
+              className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink outline-none focus:border-accent-border"
             />
             <button type="submit" disabled={busy !== null || code.trim().length < 8} className="flex shrink-0 items-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-[13px] font-semibold text-white hover:brightness-110 disabled:opacity-50">
               {busy === "finish" && <Loader2 size={13} className="animate-spin" />}
@@ -159,7 +159,7 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
             </button>
           </div>
         </div>
-        {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+        {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
         <div className="flex items-center justify-between gap-3">
           <p className="text-[11px] leading-relaxed text-ink-secondary">{t("accounts.claude.security")}</p>
           <button type="button" disabled={busy !== null} onClick={() => void cancel()} className="shrink-0 rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control hover:text-ink disabled:opacity-50">
@@ -189,7 +189,7 @@ export function ClaudeSignIn({ instanceId, autoStart = false, onDone }: {
           <button type="button" onClick={() => onDone(false)} className="rounded-lg px-2.5 py-2 text-[12px] text-ink-secondary hover:bg-control hover:text-ink">{t("common.cancel")}</button>
         )}
       </div>
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
     </div>
   );
 }

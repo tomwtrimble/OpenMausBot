@@ -13,17 +13,17 @@ import { Select } from "./Select";
 const KIND_LOOK: Record<NotifyKind, { Icon: LucideIcon; className: string; status: LocaleKey }> = {
   done: { Icon: CheckCircle2, className: "text-success", status: "notifications.status.done" },
   "delegation-settled": { Icon: CheckCircle2, className: "text-success", status: "notifications.status.done" },
-  approval: { Icon: HandHelping, className: "text-warning", status: "notifications.status.approval" },
-  question: { Icon: CircleHelp, className: "text-warning", status: "notifications.status.question" },
-  "sign-in": { Icon: LogIn, className: "text-warning", status: "notifications.status.signIn" },
-  mention: { Icon: AtSign, className: "text-accent", status: "notifications.status.mention" },
-  incident: { Icon: AlertTriangle, className: "text-danger", status: "notifications.status.incident" },
-  "turn-failed": { Icon: AlertTriangle, className: "text-danger", status: "notifications.status.failed" },
-  "routine-failed": { Icon: AlertTriangle, className: "text-danger", status: "notifications.status.failed" },
-  "routine-deferred": { Icon: RotateCcw, className: "text-accent", status: "notifications.status.deferred" },
-  spend: { Icon: Wallet, className: "text-accent", status: "notifications.status.spend" },
-  brief: { Icon: Newspaper, className: "text-accent", status: "notifications.status.brief" },
-  notice: { Icon: Info, className: "text-accent", status: "notifications.status.notice" },
+  approval: { Icon: HandHelping, className: "text-warning-text", status: "notifications.status.approval" },
+  question: { Icon: CircleHelp, className: "text-warning-text", status: "notifications.status.question" },
+  "sign-in": { Icon: LogIn, className: "text-warning-text", status: "notifications.status.signIn" },
+  mention: { Icon: AtSign, className: "text-accent-text", status: "notifications.status.mention" },
+  incident: { Icon: AlertTriangle, className: "text-danger-text", status: "notifications.status.incident" },
+  "turn-failed": { Icon: AlertTriangle, className: "text-danger-text", status: "notifications.status.failed" },
+  "routine-failed": { Icon: AlertTriangle, className: "text-danger-text", status: "notifications.status.failed" },
+  "routine-deferred": { Icon: RotateCcw, className: "text-accent-text", status: "notifications.status.deferred" },
+  spend: { Icon: Wallet, className: "text-accent-text", status: "notifications.status.spend" },
+  brief: { Icon: Newspaper, className: "text-accent-text", status: "notifications.status.brief" },
+  notice: { Icon: Info, className: "text-accent-text", status: "notifications.status.notice" },
 };
 
 interface TitledThread { threadId: string; title: string }
@@ -67,7 +67,7 @@ export function NotificationRail() {
   const unread = state.notifications.reduce((count, n) => count + (n.read ? 0 : 1), 0);
   if (state.notificationsOpen) return null;
   return (
-    <aside aria-label={t("notifications.title")} className="absolute right-0 top-1/2 z-20 -translate-y-1/2 rounded-l-lg border border-r-0 border-hairline/40 bg-panel p-1 shadow-sm">
+    <aside aria-label={t("notifications.title")} className="absolute right-0 top-1/2 z-20 -translate-y-1/2 rounded-l-lg border border-r-0 border-hairline bg-panel p-1 shadow-sm">
       <button
         type="button"
         onClick={() => dispatch({ type: "toggleNotifications" })}
@@ -133,14 +133,14 @@ export function NotificationsPanel() {
   return (
     <aside
       aria-label={t("notifications.title")}
-      className="animate-panel-in flex h-full w-[300px] max-w-full shrink-0 flex-col border-l border-hairline/40 bg-panel max-md:absolute max-md:inset-y-0 max-md:right-0 max-md:z-30"
+      className="animate-panel-in flex h-full w-[300px] max-w-full shrink-0 flex-col border-l border-hairline bg-panel max-md:absolute max-md:inset-y-0 max-md:right-0 max-md:z-30"
     >
-      <div className="flex items-center gap-1.5 border-b border-hairline/40 px-3.5 py-2.5">
+      <div className="flex items-center gap-1.5 border-b border-hairline px-3.5 py-2.5">
         <span className="flex-1 text-[13px] font-medium text-ink">
           {t("notifications.title")}
-          {unreadCount > 0 && <span className="ml-1.5 text-[12px] font-normal text-accent">· {t("notifications.unread", { count: unreadCount })}</span>}
+          {unreadCount > 0 && <span className="ml-1.5 text-[12px] font-normal text-accent-text">· {t("notifications.unread", { count: unreadCount })}</span>}
         </span>
-        <button type="button" onClick={markAllRead} className="shrink-0 whitespace-nowrap text-[12px] text-accent hover:underline">
+        <button type="button" onClick={markAllRead} className="shrink-0 whitespace-nowrap text-[12px] text-accent-text hover:underline">
           {t("notifications.markAllRead")}
         </button>
         <button
@@ -151,7 +151,7 @@ export function NotificationsPanel() {
           title={state.notificationsPinned ? t("notifications.unpin") : t("notifications.pin")}
           className={cn(
             "flex size-[26px] shrink-0 items-center justify-center rounded-md text-ink-secondary hover:bg-raised hover:text-ink",
-            state.notificationsPinned && "text-accent",
+            state.notificationsPinned && "text-accent-text",
           )}
         >
           <Pin size={14} />
@@ -166,7 +166,7 @@ export function NotificationsPanel() {
           <X size={14} />
         </button>
       </div>
-      <div className="border-b border-hairline/40 px-3.5 py-2">
+      <div className="border-b border-hairline px-3.5 py-2">
         <Select size="sm" className="w-full"
           aria-label={t("notifications.filter")}
           value={activeFilter}
@@ -186,7 +186,7 @@ export function NotificationsPanel() {
           <NotificationRow key={entry.id} entry={entry} now={now} bot={notificationBotForAvatar(entry, state.bots)} threadName={notificationThreadName(entry, state)} onOpen={() => openRow(entry)} />
         ))}
       </div>
-      <div className="border-t border-hairline/40 px-3.5 py-2 text-center text-[12px] text-ink-tertiary">
+      <div className="border-t border-hairline px-3.5 py-2 text-center text-[12px] text-ink-tertiary">
         {t("notifications.retention")}
       </div>
     </aside>
@@ -201,7 +201,7 @@ function NotificationRow({ entry, now, bot, threadName, onOpen }: { entry: Notif
       onClick={onOpen}
       title={entry.title}
       className={cn(
-        "flex w-full gap-2.5 border-b border-hairline/20 px-3.5 py-2.5 text-left hover:bg-raised/60",
+        "flex w-full gap-2.5 border-b border-hairline px-3.5 py-2.5 text-left hover:bg-raised/60",
         !entry.read && "bg-accent/5",
       )}
     >

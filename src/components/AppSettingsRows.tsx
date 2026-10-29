@@ -107,7 +107,7 @@ export function NewBotEffortRow() {
     <SettingRow
       title={t("settings.newBotEffort.title")}
       subtitle={t("settings.newBotEffort.subtitle")}
-      message={error ? <p role="alert" className="text-danger">{error}</p> : null}
+      message={error ? <p role="alert" className="text-danger-text">{error}</p> : null}
     >
       <Select size="sm" className="w-full max-w-[240px]"
         value={current}
@@ -156,7 +156,7 @@ function ReplayAppTourButton() {
       >
         {t("settings.welcome.appTour")}
       </button>
-      {failed && <p role="alert" className="mt-2 text-[13px] text-danger">{t("onboarding.tour.error")}</p>}
+      {failed && <p role="alert" className="mt-2 text-[13px] text-danger-text">{t("onboarding.tour.error")}</p>}
     </div>
   );
 }
@@ -349,7 +349,7 @@ export function ToolCallsRow() {
     <SettingRow
       title={t("settings.toolCalls.title")}
       subtitle={<>{t("settings.toolCalls.subtitle")} {t("settings.toolCalls.detail")}</>}
-      message={error ? <p role="alert" className="text-danger">{error}</p> : null}
+      message={error ? <p role="alert" className="text-danger-text">{error}</p> : null}
     >
       <Switch
         checked={enabled}
@@ -402,7 +402,7 @@ export function ExperimentalFeaturesRow() {
           className="disabled:cursor-wait disabled:opacity-50"
         />
       </div>
-      {error ? <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p> : null}
+      {error ? <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p> : null}
       <LearnedSkillsSettings />
       <NewBrowserSettings />
     </Card>

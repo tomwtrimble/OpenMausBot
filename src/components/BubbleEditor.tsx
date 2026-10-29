@@ -37,7 +37,7 @@ export function BubbleEditor({
       data-chat-bubble={simple ? "simple" : ""}
       className={cn(
         "w-full",
-        simple ? cn(SIMPLE_BUBBLE_MAX, SIMPLE_USER_BUBBLE, "py-2") : "max-w-[min(var(--chat-bubble-max),var(--chat-bubble-pct))] rounded-2xl border border-hairline/40 bg-bubble-user px-4 py-3",
+        simple ? cn(SIMPLE_BUBBLE_MAX, SIMPLE_USER_BUBBLE, "py-2") : "max-w-[min(var(--chat-bubble-max),var(--chat-bubble-pct))] rounded-2xl border border-hairline bg-bubble-user px-4 py-3",
         bubbleStyle && "user-bubble-colored",
       )}
       style={bubbleStyle}

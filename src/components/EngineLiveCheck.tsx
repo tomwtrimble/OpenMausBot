@@ -42,7 +42,7 @@ export function EngineCheckLine({ name, check, onRetry }: { name: string; check:
   </p>;
   return <div role="alert" data-engine-check="failed" className="mt-3 rounded-xl bg-warning/10 px-3.5 py-3 text-[13px] leading-relaxed text-ink">
     <p className="flex items-start gap-2">
-      <CircleAlert size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-warning" />
+      <CircleAlert size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-warning-text" />
       <span><span className="font-medium">{t("engineCheck.failed", { name })}</span> {check.error}</span>
     </p>
     <button type="button" onClick={onRetry} className="mt-2 flex items-center gap-1.5 rounded-md px-2 py-1 text-[13px] font-medium text-ink transition-colors hover:bg-raised">

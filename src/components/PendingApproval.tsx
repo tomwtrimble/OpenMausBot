@@ -205,12 +205,12 @@ export const PendingApprovalPanel = memo(function PendingApprovalPanel({
       {summary && <p dir="auto" className="mt-1.5 break-words text-[15px] font-medium leading-[22px] text-ink">{summary}</p>}
       {inline && <AskDetail text={inline} mono label={t("approval.aria.reviewDetails")} />}
       {heldNote && (outbound ? (
-        <p className="mt-2 flex items-center gap-1.5 text-[13px] leading-[18px] text-warning">
+        <p className="mt-2 flex items-center gap-1.5 text-[13px] leading-[18px] text-warning-text">
           <Send size={13} aria-hidden="true" className="shrink-0" />
           <span title={heldNote}>{t("approval.compact.maySend")}</span>
         </p>
       ) : (
-        <p className="mt-2 flex items-start gap-1.5 text-[13px] leading-[18px] text-warning">
+        <p className="mt-2 flex items-start gap-1.5 text-[13px] leading-[18px] text-warning-text">
           <TriangleAlert size={13} aria-hidden="true" className="mt-0.5 shrink-0" />
           <span>{heldNote}</span>
         </p>

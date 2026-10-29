@@ -77,7 +77,7 @@ export function WorkingFolder({ bot }: { bot: Bot }) {
       <ProposalStatus bot={bot} kind="chief" />
       {canPick ? (
         <div className="mt-3 flex items-center gap-2">
-          <div className="min-w-0 flex-1 truncate rounded-lg border border-hairline/40 bg-inset px-3 py-2 font-mono text-[13px] text-ink" title={bot.cwd}>
+          <div className="min-w-0 flex-1 truncate rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[13px] text-ink" title={bot.cwd}>
             {bot.cwd ? shortPath(bot.cwd, home) : <span className="text-ink-secondary">{t("botAccess.folder.private")}</span>}
           </div>
           <button onClick={() => void pick()} disabled={saving} className="flex shrink-0 items-center gap-1.5 rounded-lg bg-control px-3 py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50">
@@ -108,7 +108,7 @@ export function WorkingFolder({ bot }: { bot: Bot }) {
           </button>
         </form>
       )}
-      {error && <div className="mt-2 text-[12px] text-danger">{error}</div>}
+      {error && <div className="mt-2 text-[12px] text-danger-text">{error}</div>}
       {pinnedElsewhere && (
         <div className="mt-2 text-[12px] text-ink-secondary">
           {t("botAccess.folder.pinned", { path: pinned ? shortPath(pinned, home) : t("botAccess.folder.home") })}
@@ -152,7 +152,7 @@ export function McpServersCard({ bot, patch }: { bot: Bot; patch: (patch: { mcpS
         </div>
       </div>
       {error && (
-        <div role="alert" className="mt-3 text-[12px] text-danger">
+        <div role="alert" className="mt-3 text-[12px] text-danger-text">
           {t("botAccess.mcpRefreshError")} <button type="button" onClick={() => void refresh()} className="underline">{t("connectors.action.retry")}</button>
         </div>
       )}
@@ -161,7 +161,7 @@ export function McpServersCard({ bot, patch }: { bot: Bot; patch: (patch: { mcpS
       ) : servers.length === 0 ? (
         <div className="mt-3 rounded-lg bg-inset px-3 py-2 text-[12px] text-ink-secondary">{t("botAccess.mcpEmpty")}</div>
       ) : (
-        <div className="mt-3 divide-y divide-hairline/40 overflow-hidden rounded-lg border border-hairline/40">
+        <div className="mt-3 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
           {servers.map((server) => (
             <div key={server.name} className="flex items-center justify-between gap-3 px-3 py-2">
               <div className="min-w-0 flex-1">
@@ -308,7 +308,7 @@ function ConnectorToolsGrants({
     <div className="mt-3">
       <div className="text-[12px] font-medium text-ink">{t("botAccess.grants.header")}</div>
       <div className="mt-0.5 text-[12px] text-ink-secondary">{t("botAccess.grants.hint")}</div>
-      <div className="mt-2 divide-y divide-hairline/40 overflow-hidden rounded-lg border border-hairline/40">
+      <div className="mt-2 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
         {slugs.map((slug) => {
           const access = connectorServiceAccess(record, slug);
           const open = openSlug === slug;
@@ -353,7 +353,7 @@ function ConnectorToolsGrants({
                 </span>
               </button>
               {open && (
-                <div className="border-t border-hairline/40 bg-inset/40 px-3 py-3">
+                <div className="border-t border-hairline bg-inset/40 px-3 py-3">
                   {!access.editable ? (
                     <div className="text-[12px] leading-relaxed text-ink-secondary">
                       {t("botAccess.grants.uneditable")}
@@ -504,7 +504,7 @@ function ResearchCard({ bot, patch }: { bot: Bot; patch: (patch: { xResearch: bo
 
 function RecordStepsRow({ on, browserOn, myChrome, onChange }: { on: boolean; browserOn: boolean; myChrome: boolean; onChange: (on: boolean) => void }) {
   return (
-    <div className="mt-3 flex items-center justify-between gap-4 border-t border-hairline/40 pt-3">
+    <div className="mt-3 flex items-center justify-between gap-4 border-t border-hairline pt-3">
       <div>
         <div className="text-[14px] font-medium text-ink">{t("botAccess.recordSteps.title")}</div>
         <div className="mt-0.5 text-[13px] text-ink-secondary">
@@ -585,7 +585,7 @@ export function VpsAliasField({ bot }: { bot: Bot }) {
           {t("botAccess.cloud.serverSave")}
         </button>
       </form>
-      {error && <div className="mt-2 text-[12px] text-danger">{error}</div>}
+      {error && <div className="mt-2 text-[12px] text-danger-text">{error}</div>}
       {notice && <div role="status" className="mt-2 break-words text-[12px] text-ink-secondary">{notice}</div>}
     </div>
   );
@@ -803,7 +803,7 @@ export function AccessSection({
         {webhooks.length === 0 ? (
           <div className="mt-3 rounded-lg bg-inset px-3 py-2 text-[12px] text-ink-secondary">{t("botAccess.webhooks.empty")}</div>
         ) : (
-          <div className="mt-3 divide-y divide-hairline/40 overflow-hidden rounded-lg border border-hairline/40">
+          <div className="mt-3 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
             {webhooks.map((webhook) => (
               <div key={webhook.id} className="flex items-center justify-between gap-3 px-3 py-2">
                 <span className="min-w-0 flex-1 truncate text-[13px] text-ink">{webhook.name}</span>
@@ -831,7 +831,7 @@ export function AccessSection({
         {alwaysAllow.length === 0 ? (
           <div className="mt-3 rounded-lg bg-inset px-3 py-2 text-[12px] text-ink-secondary">{t("botAccess.always.empty")}</div>
         ) : (
-          <div className="mt-3 divide-y divide-hairline/40 overflow-hidden rounded-lg border border-hairline/40">
+          <div className="mt-3 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
             {alwaysAllow.map((entry) => (
               <div key={entry} className="flex items-center justify-between gap-3 px-3 py-2">
                 <span className="min-w-0 flex-1 truncate font-mono text-[13px] text-ink">{entry}</span>
@@ -839,7 +839,7 @@ export function AccessSection({
                   type="button"
                   aria-label={t("botAccess.always.remove", { entry })}
                   onClick={() => patch({ alwaysAllow: alwaysAllow.filter((key) => key !== entry) })}
-                  className="shrink-0 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-danger/10 hover:text-danger"
+                  className="shrink-0 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-danger/10 hover:text-danger-text"
                 >
                   {t("botAccess.always.removeButton")}
                 </button>
@@ -875,7 +875,7 @@ function ConnectorScopesControl({ connectedSlugs, labels = {}, scopes, onChange 
       </div>
       <Switch checked={limited} aria-label={t("botAccess.scopes.limitLabel")} onClick={() => onChange(limited ? null : { apps: {} })} />
     </div>
-    {limited && <div className="mt-2 flex flex-col divide-y divide-hairline/20 rounded-lg bg-inset">
+    {limited && <div className="mt-2 flex flex-col divide-y divide-hairline rounded-lg bg-inset">
       {!slugs.length && <div className="px-3 py-2 text-[12px] text-ink-secondary">{t("botAccess.scopes.empty")}</div>}
       {slugs.map((slug) => <div key={slug} className="flex flex-wrap items-center justify-between gap-3 px-3 py-1.5">
         <span className="min-w-0 text-[13px] text-ink">{labels[slug] ?? slug}{!connectedSlugs.includes(slug) && <span className="ml-2 text-[11px] text-ink-secondary">{t("botAccess.scopes.notConnected")}</span>}</span>

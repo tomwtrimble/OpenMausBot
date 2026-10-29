@@ -83,7 +83,7 @@ describe("trace helpers", () => {
     for (const text of ["Launch the new pricing page by Friday", "Duration", "51s", "$0.42", "85.2k", "AI steps", "Tool uses", "Live",
       "Chief", "Writer", "AI step", "Search the web", "Rate limited", "Used the browser · 3 steps",
       "6.9s · $0.12", "23s · $0.09", "Slowest", "Most expensive", "0s", "20s", "40s", "1m"]) expect(html).toContain(text);
-    expect(html).toMatch(/text-danger[^>]*>Search the web/);
+    expect(html).toMatch(/text-danger-text[^>]*>Search the web/);
     expect(html).toContain("trace-bar-error");
     expect(html.match(/role="treeitem"/g)).toHaveLength(7);
   });

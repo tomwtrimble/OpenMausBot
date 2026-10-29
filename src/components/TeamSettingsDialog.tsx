@@ -33,10 +33,10 @@ export function TeamSettingsRows({ rows }: { rows: ReadonlyArray<TeamPlanRow | T
   return (
     <ul className="flex flex-col gap-1" data-testid="team-settings-rows">
       {rows.map((row) => {
-        const [label, tone] = row.status === "apply" ? [t("teamSettings.row.willChange"), "text-accent"]
+        const [label, tone] = row.status === "apply" ? [t("teamSettings.row.willChange"), "text-accent-text"]
           : row.status === "applied" ? [t("teamSettings.row.applied"), "text-success"]
             : row.status === "unchanged" ? [t("teamSettings.row.unchanged"), "text-ink-secondary"]
-              : [t("teamSettings.row.skipped", { reason: row.reason }), "text-warning"];
+              : [t("teamSettings.row.skipped", { reason: row.reason }), "text-warning-text"];
         return (
           <li key={row.bot.id} className="flex items-start justify-between gap-3 rounded-lg bg-inset px-3 py-1.5 text-[13px]">
             <span className="min-w-0 truncate text-ink">{row.bot.name}</span>
@@ -105,7 +105,7 @@ export function TeamSettingsDialog({ team, onClose }: { team: string; onClose: (
       if (event.target === event.currentTarget) close();
     }}>
       <div ref={dialog} role="dialog" aria-modal="true" aria-labelledby="team-settings-title" data-testid="team-settings-dialog"
-        className="max-h-[90vh] w-full max-w-[460px] overflow-y-auto rounded-2xl border border-hairline/50 bg-panel p-5 text-ink shadow-2xl"
+        className="max-h-[90vh] w-full max-w-[460px] overflow-y-auto rounded-2xl border border-hairline bg-panel p-5 text-ink shadow-2xl"
         onKeyDown={(event) => { if (event.key === "Escape" && !consent) { event.stopPropagation(); close(); } }}>
         <div className="mb-2 flex items-center justify-between gap-3">
           <h2 id="team-settings-title" className="text-[17px] font-semibold">{t("teamSettings.title", { name: team || t("teamSettings.general") })}</h2>

@@ -81,7 +81,7 @@ export function LoginsSettings() {
         {logins === null && !error && <p className="text-[12px] text-ink-secondary">{t("settings.logins.loading")}</p>}
         {logins?.length === 0 && !adding && <p className="text-[12px] leading-relaxed text-ink-secondary">{t("settings.logins.empty")}</p>}
         {!!logins?.length && (
-          <ul className="divide-y divide-hairline/30" data-logins-list>
+          <ul className="divide-y divide-hairline" data-logins-list>
             {logins.map((login) => (
               <li key={login.id} className="flex flex-col gap-2 py-2.5" data-login-row={login.site}>
                 <div className="flex min-w-0 items-start gap-2">
@@ -161,7 +161,7 @@ export function LoginsSettings() {
           </button>
         )}
         <p className="text-[12px] leading-relaxed text-ink-tertiary">{t("settings.logins.limits")}</p>
-        {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+        {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
         <OnePasswordConnection status={onePassword} disabled={logins === null} bots={bots} botNames={botNames}
           onChange={async (next) => { setOnePassword(next); await load(); }} />
       </div>
@@ -218,7 +218,7 @@ function VaultAccess({ vault, bots, botNames, disabled, onChange }: {
       {editing && (
         <div className="flex flex-col gap-2 rounded-lg bg-inset/60 p-3">
           <LoginBotPicker value={value} onChange={setValue} bots={bots} disabled={busy} />
-          {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+          {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
           <div className="flex flex-wrap justify-end gap-2">
             <button type="button" className="ui-button ui-button-md" disabled={busy} onClick={() => setEditing(false)}>{t("logins.cancel")}</button>
             <button type="button" className="ui-button ui-button-md ui-button-primary" disabled={busy} onClick={() => void save()}>{t("settings.logins.saveChange")}</button>
@@ -252,16 +252,16 @@ function OnePasswordConnection({ status, disabled, bots, botNames, onChange }: {
     if (token.trim()) void run("connect", () => connectOnePassword(token.trim()));
   };
   return (
-    <section className="mt-1 flex flex-col gap-2 border-t border-hairline/30 pt-3" aria-label={t("settings.logins.onePassword.title")} data-onepassword>
+    <section className="mt-1 flex flex-col gap-2 border-t border-hairline pt-3" aria-label={t("settings.logins.onePassword.title")} data-onepassword>
       <div className="text-[13px] font-medium text-ink">{t("settings.logins.onePassword.title")}</div>
       {status.connected ? (
         <>
           <p className="text-[13px] leading-snug text-ink-secondary">
             {t("settings.logins.onePassword.connected", { vaults: (status.vaults ?? []).map((vault) => vault.title).join(", ") || "—", count: String(status.items ?? 0) })}
           </p>
-          {status.error && <p role="alert" className="text-[12px] text-danger">{status.error}</p>}
+          {status.error && <p role="alert" className="text-[12px] text-danger-text">{status.error}</p>}
           {!!status.vaults?.length && (
-            <ul className="divide-y divide-hairline/30" aria-label={t("settings.logins.onePassword.vaults")}>
+            <ul className="divide-y divide-hairline" aria-label={t("settings.logins.onePassword.vaults")}>
               {status.vaults.map((vault) => <VaultAccess key={vault.id} vault={vault} bots={bots} botNames={botNames} disabled={disabled} onChange={onChange} />)}
             </ul>
           )}
@@ -281,7 +281,7 @@ function OnePasswordConnection({ status, disabled, bots, botNames, onChange }: {
             <input name="onePasswordToken" type="password" autoComplete="off" spellCheck={false} maxLength={8192} value={token}
               onChange={(event) => setToken(event.target.value)} disabled={disabled || busy !== null}
               aria-label={t("settings.logins.onePassword.token")} placeholder={t("settings.logins.onePassword.token")}
-              className="min-w-0 flex-1 rounded-lg border border-hairline/60 bg-inset px-3 py-1.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-60" />
+              className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-3 py-1.5 text-[13px] text-ink outline-none placeholder:text-ink-tertiary focus:border-accent disabled:opacity-60" />
             <button type="submit" className="ui-button ui-button-md ui-button-primary" disabled={disabled || busy !== null || !token.trim()}>
               {busy === "connect" && <Loader2 size={13} className="animate-spin" />}{t("settings.logins.onePassword.connect")}
             </button>
@@ -291,7 +291,7 @@ function OnePasswordConnection({ status, disabled, bots, botNames, onChange }: {
       <p className="flex items-start gap-1 text-[12px] leading-snug text-ink-tertiary">
         <LockKeyhole size={11} aria-hidden="true" className="mt-[3px] shrink-0" /> {t("settings.logins.onePassword.note")}
       </p>
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
     </section>
   );
 }

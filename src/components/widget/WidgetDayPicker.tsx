@@ -85,7 +85,7 @@ export function WidgetDayPicker({ node, labelledBy, end = false }: { node: Widge
       <span
         aria-live="polite"
         data-days-caption
-        className={cn("text-[12px] leading-4", picked.size ? "text-ink-secondary" : required && invalid ? "text-danger" : "text-ink-tertiary")}
+        className={cn("text-[12px] leading-4", picked.size ? "text-ink-secondary" : required && invalid ? "text-danger-text" : "text-ink-tertiary")}
       >
         {widgetDaysCaption(field.text)}
       </span>

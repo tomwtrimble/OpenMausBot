@@ -65,7 +65,7 @@ export function OrgSkillsCard({ bot, onAdded }: { bot: Bot; onAdded: () => void 
         <div className="text-[15px] font-medium text-ink">{t("orgLibrary.tab", { name: organization })}</div>
       </div>
       <div className="mt-1 text-[12px] leading-relaxed text-ink-secondary">{t("orgLibrary.skillsHint")}</div>
-      <div className="mt-3 divide-y divide-hairline/40 overflow-hidden rounded-lg border border-hairline/40">
+      <div className="mt-3 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
         {skills.map((skill) => (
           <div key={`${skill.installId}:${skill.name}`} className="flex items-center gap-2 px-3 py-2.5">
             <div className="min-w-0 flex-1">
@@ -93,7 +93,7 @@ export function OrgSkillsCard({ bot, onAdded }: { bot: Bot; onAdded: () => void 
           </div>
         ))}
       </div>
-      {error && <div role="alert" className="mt-2 text-[12px] text-danger">{error}</div>}
+      {error && <div role="alert" className="mt-2 text-[12px] text-danger-text">{error}</div>}
     </div>
   );
 }

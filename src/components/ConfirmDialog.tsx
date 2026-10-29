@@ -111,11 +111,11 @@ export function ConfirmDialogCard({
       aria-describedby="confirm-dialog-body"
       className={cn(
         "w-full max-w-[420px] rounded-2xl border bg-panel p-5 shadow-2xl",
-        danger ? "border-danger/30" : "border-hairline/50",
+        danger ? "border-danger/30" : "border-hairline",
       )}
     >
       <div className="flex items-start gap-3">
-        <span className={cn("mt-0.5 shrink-0", danger ? "text-danger" : "text-warning")}>
+        <span className={cn("mt-0.5 shrink-0", danger ? "text-danger-text" : "text-warning-text")}>
           {icon ?? <AlertTriangle size={18} />}
         </span>
         <div className="min-w-0">

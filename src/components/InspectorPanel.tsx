@@ -143,7 +143,7 @@ export function InspectorPanel({ bot }: { bot: Bot }) {
   const total = lens === "raw" ? (page?.total.native ?? 0) : (page?.total.runtime ?? 0);
 
   return (
-    <aside aria-label="Inspector" className="animate-panel-in absolute inset-0 z-40 flex h-full min-w-0 flex-col border-l border-hairline/40 bg-panel md:static md:z-auto md:w-[min(460px,45vw)] md:shrink-0">
+    <aside aria-label="Inspector" className="animate-panel-in absolute inset-0 z-40 flex h-full min-w-0 flex-col border-l border-hairline bg-panel md:static md:z-auto md:w-[min(460px,45vw)] md:shrink-0">
       <div {...dragProps} className={cn("flex items-center justify-between px-4 py-3", padClass)}>
         <span className="flex items-center gap-2 text-[15px] font-semibold text-ink">
           <Bug size={16} className="text-ink-secondary" /> Inspector
@@ -158,7 +158,7 @@ export function InspectorPanel({ bot }: { bot: Bot }) {
         </button>
       </div>
 
-      <div className="flex items-center gap-2 border-b border-hairline/40 px-4 pb-3">
+      <div className="flex items-center gap-2 border-b border-hairline px-4 pb-3">
         <div role="tablist" aria-label={t("inspector.views")} className="flex rounded-lg bg-inset p-0.5" onKeyDown={(event) => {
           const tabs = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
           const current = tabs.indexOf(document.activeElement as HTMLButtonElement);
@@ -197,9 +197,9 @@ export function InspectorPanel({ bot }: { bot: Bot }) {
         </button>}
       </div>
 
-      <div role="tabpanel" id={`inspector-panel-${lens}`} aria-labelledby={`inspector-tab-${lens}`} tabIndex={0} className="flex min-h-0 flex-1 flex-col outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60">
+      <div role="tabpanel" id={`inspector-panel-${lens}`} aria-labelledby={`inspector-tab-${lens}`} tabIndex={0} className="flex min-h-0 flex-1 flex-col outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus/60">
       {lens === "run" ? <RunLog key={threadId} events={activity} /> : <div ref={listRef} onScroll={onScroll} className="min-h-0 flex-1 overflow-y-auto font-mono text-[12px]">
-        {error && <div className="px-4 py-3 text-danger">couldn't load: {error}</div>}
+        {error && <div className="px-4 py-3 text-danger-text">couldn't load: {error}</div>}
         {page && rows.length === 0 && !error && (
           <div className="px-4 py-6 text-ink-secondary">
             {lens === "raw" ? "No native protocol messages recorded for this thread yet." : "No runtime events for this thread yet."}
@@ -218,7 +218,7 @@ function Row({ row, open, onToggle }: { row: InspectorRow; open: boolean; onTogg
   return (
     <div
       className={cn(
-        "border-b border-hairline/20",
+        "border-b border-hairline",
         row.tone === "boundary" && "bg-raised/40",
         row.tone === "error" && "bg-danger/10",
       )}
@@ -229,16 +229,16 @@ function Row({ row, open, onToggle }: { row: InspectorRow; open: boolean; onTogg
         <span
           className={cn(
             "shrink-0 rounded px-1 text-[11px]",
-            row.kind === "native" ? "bg-accent/15 text-accent" : row.tone === "error" ? "bg-danger/20 text-danger" : "bg-inset text-ink-secondary",
+            row.kind === "native" ? "bg-accent/15 text-accent-text" : row.tone === "error" ? "bg-danger/20 text-danger-text" : "bg-inset text-ink-secondary",
           )}
         >
           {row.tag}
           {row.count > 1 ? ` ×${row.count}` : ""}
         </span>
-        <span className={cn("min-w-0 flex-1 truncate", row.tone === "error" ? "text-danger" : "text-ink")}>{row.summary}</span>
+        <span className={cn("min-w-0 flex-1 truncate", row.tone === "error" ? "text-danger-text" : "text-ink")}>{row.summary}</span>
       </button>
       {open && (
-        <pre className="max-h-[50vh] overflow-auto whitespace-pre-wrap break-all border-t border-hairline/20 bg-app px-3 py-2 text-[11px] leading-relaxed text-ink">
+        <pre className="max-h-[50vh] overflow-auto whitespace-pre-wrap break-all border-t border-hairline bg-app px-3 py-2 text-[11px] leading-relaxed text-ink">
           {JSON.stringify(row.data, null, 2)}
         </pre>
       )}

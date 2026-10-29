@@ -7,7 +7,7 @@ export const JUSTIFY: Record<string, string> = {
 };
 export const BACKGROUND: Record<string, string> = { surface: "bg-composer", secondary: "bg-inset", tertiary: "bg-ink/[0.07]", elevated: "bg-card" };
 export const INK: Record<string, string> = {
-  primary: "text-ink", secondary: "text-ink-secondary", tertiary: "text-ink-tertiary", success: "text-success", warning: "text-warning", danger: "text-danger",
+  primary: "text-ink", secondary: "text-ink-secondary", tertiary: "text-ink-tertiary", success: "text-success", warning: "text-warning-text", danger: "text-danger-text",
 };
 export const WEIGHT: Record<string, string> = { normal: "font-normal", medium: "font-medium", semibold: "font-semibold", bold: "font-bold" };
 export const TEXT_ALIGN: Record<string, string> = { start: "text-start", center: "text-center", end: "text-end" };
@@ -37,7 +37,7 @@ export const BADGE_DOT: Record<string, string> = {
   secondary: "bg-ink-tertiary", success: "bg-success", danger: "bg-danger", warning: "bg-warning", info: "bg-accent", discovery: "bg-[color:var(--identity-purple,var(--color-accent))]",
 };
 export const BADGE_SOLID: Record<string, string> = {
-  secondary: "bg-ink text-app", success: "bg-success", danger: "bg-danger text-danger-ink", warning: "bg-warning text-app",
+  secondary: "bg-ink text-app", success: "bg-success", danger: "bg-danger text-danger-ink", warning: "bg-warning text-warning-ink",
   info: "bg-accent text-accent-ink", discovery: "bg-[color:var(--identity-purple,var(--color-accent))] text-app",
 };
 export const BADGE_SIZE: Record<string, string> = {

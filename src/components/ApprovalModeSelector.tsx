@@ -109,7 +109,7 @@ export function ApprovalModeSelector({
         onClick={() => setOpen((value) => !value)}
         className={cn(
           wide
-            ? "flex h-10 w-full items-center justify-between rounded-lg border border-hairline/40 bg-inset px-3.5 text-[13px] text-ink hover:bg-raised"
+            ? "flex h-10 w-full items-center justify-between rounded-lg border border-hairline bg-inset px-3.5 text-[13px] text-ink hover:bg-raised"
             : "flex size-8 shrink-0 items-center justify-center rounded-full text-ink-secondary hover:bg-control hover:text-ink",
         )}
       >

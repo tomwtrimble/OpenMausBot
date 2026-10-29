@@ -183,7 +183,7 @@ describe("bot-first sidebar", () => {
     const waiting = renderToStaticMarkup(createElement(BotListItem, rowProps("comfortable", { ...quiet, activity: "waiting-on-you" })));
     expect(waiting).toContain('data-testid="waiting-dot" title="Waiting for you…" class="size-2 shrink-0 rounded-full bg-warning"');
     expect(waiting).not.toContain(">!<");
-    expect(waiting).not.toContain("font-semibold text-warning");
+    expect(waiting).not.toContain("font-semibold text-warning-text");
     expect(waiting).not.toContain('role="status"');
     const working = renderToStaticMarkup(createElement(BotListItem, rowProps("comfortable", { ...quiet, busy: true })));
     expect(working).toContain('data-testid="working-dot" title="Working" class="absolute bottom-0.5 right-0.5 size-2 rounded-full ring-2 ring-[var(--row)] bg-success"');
@@ -229,11 +229,11 @@ describe("bot-first sidebar", () => {
     const group: Group = { id: "room", threadId: "room-thread", name: "Launch", memberIds: [bot.id], messages: [], defaultResponder: { kind: "mentions" }, bulletin: "", unread: false, createdAt: 1 };
     const simple = renderToStaticMarkup(createElement(BotListItem, rowProps("comfortable", { ...bot, tasks: [], projects: [] }))) + renderToStaticMarkup(createElement(GroupListItem, { group, density: "comfortable", onMenu: vi.fn() }));
     expect(simple.match(/focus-visible:outline-2 focus-visible:-outline-offset-2! focus-visible:outline-focus/g)).toHaveLength(2);
-    expect(simple).not.toContain("focus-visible:ring-accent/60");
+    expect(simple).not.toContain("focus-visible:ring-focus/60");
     fixture.advanced = true;
     const advanced = renderToStaticMarkup(createElement(BotListItem, rowProps("comfortable", { ...bot, tasks: [], projects: [] })));
     expect(advanced).toContain("focus-visible:outline-2 focus-visible:-outline-offset-2! focus-visible:outline-focus");
-    expect(advanced).not.toContain("focus-visible:ring-accent/60");
+    expect(advanced).not.toContain("focus-visible:ring-focus/60");
   });
 
   it("hides even the selected Simple row's actions until hover or focus, where Advanced keeps them shown", () => {
@@ -321,7 +321,7 @@ describe("bot-first sidebar", () => {
     expect(queuedDot).not.toContain("size-4");
     expect(queuedDot).not.toContain("size-5");
     expect(markup).toContain('class="truncate">Queued</span>');
-    expect(markup).not.toContain("font-semibold text-warning");
+    expect(markup).not.toContain("font-semibold text-warning-text");
     expect(markup).not.toContain("waiting-dot");
   });
 

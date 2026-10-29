@@ -70,7 +70,7 @@ export function SidebarPeople({ compact }: { compact: boolean }) {
                 {!compact && <span className="min-w-0 flex-1 truncate">{person.you ? t("sidebar.people.you", { name: person.name }) : person.name}</span>}
                 {person.you && waiting > 0 && (
                   <span aria-hidden="true" data-inbox-waiting={waiting}
-                    className={cn("rounded-full bg-warning px-1.5 text-[11px] font-semibold tabular-nums text-panel", compact && "absolute -right-0.5 -top-0.5 px-1 text-[10px]")}>{waiting}</span>
+                    className={cn("rounded-full bg-warning px-1.5 text-[11px] font-semibold tabular-nums text-warning-ink", compact && "absolute -right-0.5 -top-0.5 px-1 text-[10px]")}>{waiting}</span>
                 )}
               </button>
             </li>

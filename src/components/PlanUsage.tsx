@@ -229,14 +229,14 @@ export function PlanUsage() {
         </button>
       </div>
       {loading && !report && <p role="status" className="text-[13px] text-ink-secondary">{t("planUsage.loading")}</p>}
-      {error && <p role="alert" className="mb-3 text-[13px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mb-3 text-[13px] text-danger-text">{error}</p>}
       {report && report.providers.length === 0 && (
         <p className="text-[13px] text-ink-secondary">{t("planUsage.empty")}</p>
       )}
       {report && report.providers.length > 0 && (
         <div className="flex flex-col gap-4">
           {report.providers.map((provider) => (
-            <div key={provider.id} className="border-t border-hairline/30 pt-3 first:border-t-0 first:pt-0">
+            <div key={provider.id} className="border-t border-hairline pt-3 first:border-t-0 first:pt-0">
               <div className="mb-2 flex min-w-0 items-baseline gap-2">
                 <span className="truncate text-[14px] font-medium text-ink">{providerLabel(provider)}</span>
                 {provider.plan && <span className="truncate text-[12px] text-ink-secondary">{provider.plan}</span>}
@@ -284,7 +284,7 @@ export function PlanUsage() {
                   )}
                 </div>
               ) : (
-                <p className="text-[13px] text-danger">{providerError(provider)}</p>
+                <p className="text-[13px] text-danger-text">{providerError(provider)}</p>
               )}
             </div>
           ))}

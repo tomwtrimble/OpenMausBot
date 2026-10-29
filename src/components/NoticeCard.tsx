@@ -11,7 +11,7 @@ export function NoticeCard({ titleId, icon: Icon, title, onDismiss, dismissLabel
 }) {
   return <aside aria-labelledby={titleId} data-notice={notice} onKeyDown={event => {
     if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); onDismiss(); }
-  }} className="fixed bottom-4 left-4 z-40 max-h-[calc(100dvh-32px)] w-[300px] max-w-[calc(100vw-32px)] overflow-y-auto rounded-xl border border-hairline/40 bg-panel p-3.5 text-ink shadow-2xl shadow-black/20">
+  }} className="popover-surface fixed bottom-4 left-4 z-40 max-h-[calc(100dvh-32px)] w-[300px] max-w-[calc(100vw-32px)] overflow-y-auto rounded-xl border border-hairline bg-menu p-3.5 text-ink shadow-2xl shadow-shadow/20">
     <div className="flex items-start justify-between gap-3">
       <div className="flex items-start gap-2.5">
         <Icon size={16} className="mt-0.5 shrink-0 text-ink-secondary" aria-hidden="true" />
@@ -35,7 +35,7 @@ export function LinkButton({ url, label, onOpened }: { url: string; label: strin
     }}>
       {label}<ArrowUpRight size={14} aria-hidden="true" />
     </button>
-    {failed && <p role="alert" className="mt-2 text-[12px] text-danger">{t("notice.openFailed")}</p>}
+    {failed && <p role="alert" className="mt-2 text-[12px] text-danger-text">{t("notice.openFailed")}</p>}
   </div>;
 }
 
@@ -48,5 +48,5 @@ export function NoticeToast({ text, onDone }: { text: string; onDone: () => void
     const timer = setTimeout(onDone, 5_000);
     return () => clearTimeout(timer);
   }, [text]);
-  return <p role="status" data-notice-toast className="fixed bottom-4 left-4 z-[60] w-[300px] max-w-[calc(100vw-32px)] rounded-xl border border-hairline/40 bg-panel px-3.5 py-2.5 text-[13px] text-ink shadow-2xl shadow-black/20">{text}</p>;
+  return <p role="status" data-notice-toast className="popover-surface fixed bottom-4 left-4 z-[60] w-[300px] max-w-[calc(100vw-32px)] rounded-xl border border-hairline bg-menu px-3.5 py-2.5 text-[13px] text-ink shadow-2xl shadow-shadow/20">{text}</p>;
 }

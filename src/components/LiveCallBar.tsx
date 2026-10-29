@@ -122,7 +122,7 @@ export function LiveCallBar({ bot }: { bot: Bot }) {
       ? { label: t("call.live.openInBrowser"), Icon: ExternalLink }
       : view.action === "retry" ? { label: t("call.live.tryAgain"), Icon: RotateCcw } : null;
     return (
-      <div role="status" className={cn(frame, "gap-2 border-hairline/60")}>
+      <div role="status" className={cn(frame, "gap-2 border-hairline")}>
         <span className="min-w-0 flex-1 truncate" title={view.text}>{view.text}</span>
         {view.micSettings && <OpenSystemSettings pane="mic" />}
         {action && (
@@ -179,7 +179,7 @@ export function LiveCallBar({ bot }: { bot: Bot }) {
       >
         <bdi dir="ltr">{spoken}</bdi>
       </span>
-      {view.hint && <span role="status" className="order-last w-full min-w-0 truncate text-[12px] text-warning" title={view.hint}>{view.hint}</span>}
+      {view.hint && <span role="status" className="order-last w-full min-w-0 truncate text-[12px] text-warning-text" title={view.hint}>{view.hint}</span>}
       <span className="ml-auto flex shrink-0 items-center gap-1">
         <button
           ref={gearRef}

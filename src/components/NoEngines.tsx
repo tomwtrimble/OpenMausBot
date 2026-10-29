@@ -27,7 +27,7 @@ export function NoEngines() {
     return (
       <main className="relative flex h-full min-w-0 flex-1 items-center justify-center bg-app px-6">
         <WindowDragStrip />
-        <div className="max-w-[520px] rounded-2xl border border-hairline/40 bg-card p-6 text-center">
+        <div className="max-w-[520px] rounded-2xl border border-hairline bg-card p-6 text-center">
           <h1 className="text-[20px] font-semibold text-ink">The host needs an agent engine</h1>
           <p className="mt-2 text-[14px] leading-relaxed text-ink-secondary">
             Configure Claude, ACP, or another supported engine in OpenMausBot on the host computer, then return here.
@@ -61,7 +61,7 @@ export function NoEngines() {
           {(() => {
             const { subscription, api, custom } = splitEngineRail(engines);
             const card = (instance: (typeof engines)[number]) => (
-              <div key={instance.instanceId} className="rounded-xl border border-hairline/40 bg-card p-3.5">
+              <div key={instance.instanceId} className="rounded-xl border border-hairline bg-card p-3.5">
                 <div className="flex items-center gap-2 text-[14px] font-medium text-ink">
                   <InstanceProviderMark instance={instance} size={16} />
                   {instance.displayName}
@@ -82,7 +82,7 @@ export function NoEngines() {
                     type="button"
                     data-no-engines-api-keys
                     onClick={() => dispatch(openKeySettings())}
-                    className="flex items-center gap-3 rounded-xl border border-hairline/40 bg-card p-3.5 text-left hover:bg-control/40"
+                    className="flex items-center gap-3 rounded-xl border border-hairline bg-card p-3.5 text-left hover:bg-control/40"
                   >
                     <KeyRound size={16} className="shrink-0 text-ink-secondary" />
                     <span className="min-w-0 flex-1">

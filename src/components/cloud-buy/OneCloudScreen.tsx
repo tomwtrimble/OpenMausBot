@@ -18,8 +18,8 @@ export function OneCloudScreen({ name, color, busy, interest, openFailed, onInte
     </div>
     <div aria-live="polite" className="text-[13px] leading-[18px] empty:-mt-5">
       {interest === "sent" && <p className="text-ink-secondary">{t("cloudBuy.one.thanks")}</p>}
-      {interest === "failed" && <p role="alert" className="text-danger">{t("cloudBuy.one.failed")}</p>}
-      {openFailed && <p role="alert" className="text-danger">{t("cloudBuy.openFailed", { name })}</p>}
+      {interest === "failed" && <p role="alert" className="text-danger-text">{t("cloudBuy.one.failed")}</p>}
+      {openFailed && <p role="alert" className="text-danger-text">{t("cloudBuy.openFailed", { name })}</p>}
     </div>
   </div>;
 }

@@ -12,12 +12,12 @@ const DETAIL_LIMIT = 280;
 
 const COPY = {
   queued: { label: "Queued", tone: "text-ink-secondary" },
-  running: { label: "Running", tone: "text-accent" },
-  waiting: { label: "Waiting", tone: "text-warning" },
+  running: { label: "Running", tone: "text-accent-text" },
+  waiting: { label: "Waiting", tone: "text-warning-text" },
   completed: { label: "Completed", tone: "text-ink-secondary" },
-  failed: { label: "Failed", tone: "text-danger" },
+  failed: { label: "Failed", tone: "text-danger-text" },
   cancelled: { label: "Cancelled", tone: "text-ink-secondary" },
-  missed: { label: "Missed", tone: "text-danger" },
+  missed: { label: "Missed", tone: "text-danger-text" },
 } satisfies Record<
   RoutineRunCardData["status"],
   { label: string; tone: string }
@@ -25,10 +25,10 @@ const COPY = {
 
 const GOAL_COPY = {
   completed: COPY.completed,
-  "needs-input": { label: "Needs your input", tone: "text-warning" },
-  blocked: { label: "Blocked", tone: "text-danger" },
-  "limit-reached": { label: "Turn limit reached", tone: "text-warning" },
-  paused: { label: "Paused", tone: "text-warning" },
+  "needs-input": { label: "Needs your input", tone: "text-warning-text" },
+  blocked: { label: "Blocked", tone: "text-danger-text" },
+  "limit-reached": { label: "Turn limit reached", tone: "text-warning-text" },
+  paused: { label: "Paused", tone: "text-warning-text" },
   stopped: { label: "Stopped", tone: "text-ink-secondary" },
   failed: COPY.failed,
 } satisfies Record<
@@ -70,7 +70,7 @@ export function RoutineRunCard({
   const copy = run.goalStatus
     ? GOAL_COPY[run.goalStatus]
     : run.status === "queued" && run.deferredAt != null
-      ? { label: "Deferred: target busy", tone: "text-warning" }
+      ? { label: "Deferred: target busy", tone: "text-warning-text" }
       : COPY[run.status];
   const detail = compactDetail(
     run.status === "failed" || run.status === "missed"
@@ -82,7 +82,7 @@ export function RoutineRunCard({
   return (
     <section
       aria-label={`${run.routineName} routine run: ${copy.label}`}
-      className="w-full max-w-[680px] rounded-xl border border-hairline/45 bg-card px-4 py-3"
+      className="w-full max-w-[680px] rounded-xl border border-hairline bg-card px-4 py-3"
     >
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
@@ -108,9 +108,9 @@ export function RoutineRunCard({
             onClick={onOpen}
             aria-label={`${actionLabel} for ${run.routineName}`}
             className={cn(
-              "flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-[12px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent",
+              "flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-[12px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus",
               run.goalStatus === "needs-input"
-                ? "bg-warning/15 text-warning hover:bg-warning/25"
+                ? "bg-warning/15 text-warning-text hover:bg-warning/25"
                 : "text-ink-secondary hover:bg-inset hover:text-ink",
             )}
           >
@@ -147,7 +147,7 @@ export function AutomationCaption({ message, line, botId }: { message: Message; 
   const canOpen = state.bots.some((bot) => bot.threadId === line.executionThreadId || hasRoutineExecutionTask(bot.tasks, line.executionThreadId));
   const asking = line.needsYou === true && (message.card ? liveCardKind(message.card) !== null : line.copyOf !== undefined ||
     !state.bots.find((bot) => bot.id === botId)?.messages.some((later) => later.role === "user" && later.at > message.at));
-  const tone = line.failed ? "text-danger" : asking ? "text-warning" : "text-accent";
+  const tone = line.failed ? "text-danger-text" : asking ? "text-warning-text" : "text-accent-text";
   return (
     <div data-automation-caption={line.runId} className="-mb-2 flex min-w-0 items-center gap-1.5 pl-0.5 text-[11px] text-ink-tertiary">
       <Zap aria-hidden="true" size={12} className={cn("shrink-0", tone)} />
@@ -159,7 +159,7 @@ export function AutomationCaption({ message, line, botId }: { message: Message; 
           type="button"
           onClick={() => openNotificationTarget(dispatch, { botId, threadId: line.executionThreadId }, state, showThreads)}
           aria-label={t("chat.automation.openRunFor", { name: line.name })}
-          className="shrink-0 rounded px-1 hover:bg-inset hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+          className="shrink-0 rounded px-1 hover:bg-inset hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus"
         >
           {t("chat.automation.openRun")}
         </button>

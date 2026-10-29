@@ -58,7 +58,7 @@ export function AntigravityFreeSpace({ instance, initial = { kind: "idle" } }: {
 
   const busy = phase.kind === "scanning" || phase.kind === "deleting";
   return (
-    <section className="mt-3 rounded-xl border border-hairline/40 px-3 py-2.5" aria-label={t("engines.freeSpace.title")}>
+    <section className="mt-3 rounded-xl border border-hairline px-3 py-2.5" aria-label={t("engines.freeSpace.title")}>
       <div className="flex flex-wrap items-center gap-2">
         <HardDrive size={13} aria-hidden="true" className="shrink-0 text-ink-secondary" />
         <span className="text-[12px] font-medium text-ink">{t("engines.freeSpace.title")}</span>
@@ -68,7 +68,7 @@ export function AntigravityFreeSpace({ instance, initial = { kind: "idle" } }: {
             type="button"
             onClick={() => void scan()}
             disabled={busy}
-            className="flex shrink-0 items-center gap-1 rounded-lg border border-hairline/40 px-3 py-1 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:opacity-50"
+            className="flex shrink-0 items-center gap-1 rounded-lg border border-hairline px-3 py-1 text-[12px] text-ink-secondary hover:bg-raised/50 hover:text-ink disabled:opacity-50"
           >
             {busy && <Loader2 size={12} className="animate-spin" />}
             {t("engines.freeSpace.action")}
@@ -108,7 +108,7 @@ export function AntigravityFreeSpace({ instance, initial = { kind: "idle" } }: {
           {phase.remaining > 0 && t("engines.freeSpace.someLeft")}
         </p>
       )}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
     </section>
   );
 }

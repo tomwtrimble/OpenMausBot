@@ -19,7 +19,7 @@ import { forgetHighLevelStatus, rememberHighLevelStatus } from "@/lib/highlevel-
 import { SidebarPopoverMenu } from "./SidebarPopoverMenu";
 
 const pill = "inline-flex h-7 min-w-[64px] shrink-0 items-center justify-center gap-2 rounded-full bg-control/80 px-3 text-[13px] font-medium leading-5 text-ink transition-colors hover:bg-raised-hover disabled:opacity-40";
-const field = "h-8 w-full min-w-0 rounded-lg bg-inset px-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-accent/50";
+const field = "h-8 w-full min-w-0 rounded-lg bg-inset px-2.5 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none focus:ring-1 focus:ring-focus/50";
 
 export function HighLevelIcon() {
   return (
@@ -259,7 +259,7 @@ export function HighLevelCard({ refreshKey = 0, onConnection }: {
             )}
           </p>
         )}
-        {error && <p role="alert" className="mt-1.5 text-[12px] text-danger">{error}</p>}
+        {error && <p role="alert" className="mt-1.5 text-[12px] text-danger-text">{error}</p>}
         {!connecting && status !== null && !connected && !needsSignIn && (
           tokenMode ? (
             <form

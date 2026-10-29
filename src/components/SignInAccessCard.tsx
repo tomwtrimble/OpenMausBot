@@ -28,7 +28,7 @@ export function withoutEntry(lists: SignInLists, entry: string): SignInLists {
   return { admins: lists.admins.filter((item) => item !== entry), members: lists.members.filter((item) => item !== entry) };
 }
 
-const input = "w-full rounded-md border border-hairline/40 bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent-border";
+const input = "w-full rounded-md border border-hairline bg-inset px-3 py-2 text-[14px] text-ink outline-none focus:border-accent-border";
 const button = "ui-button ui-button-primary";
 const quiet = "ui-button ui-button-sm";
 
@@ -125,7 +125,7 @@ export function SignInAccessCard() {
       {rows.length === 0 ? (
         <p className="mt-3 text-[13px] text-ink-secondary">{t("remote.signInAccess.empty")}</p>
       ) : (
-        <ul className="mt-3 divide-y divide-hairline/40">
+        <ul className="mt-3 divide-y divide-hairline">
           {rows.map(({ entry, role: entryRole }) => (
             <li key={entry} className="flex flex-wrap items-center justify-between gap-2 py-2 text-[13px]">
               <span className="text-ink">
@@ -140,7 +140,7 @@ export function SignInAccessCard() {
         </ul>
       )}
       <p className="mt-3 text-[12px] leading-relaxed text-ink-secondary">{t("remote.signInAccess.note")}</p>
-      {error ? <p className="mt-2 text-[13px] text-danger">{error}</p> : null}
+      {error ? <p className="mt-2 text-[13px] text-danger-text">{error}</p> : null}
     </Card>
   );
 }

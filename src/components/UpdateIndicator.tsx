@@ -51,7 +51,7 @@ export function UpdateIndicator({ className }: { className?: string }) {
         title={label}
         onClick={() => setOpen(true)}
         className={cn(
-          "relative flex size-7 shrink-0 items-center justify-center rounded-full bg-white text-neutral-900 shadow-sm ring-1 ring-black/10 transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+          "relative flex size-7 shrink-0 items-center justify-center rounded-full bg-white text-neutral-900 shadow-sm ring-1 ring-black/10 transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
         )}
       >
         <ArrowDown size={16} strokeWidth={2.25} aria-hidden className={cn(!ready && "animate-pulse")} />
@@ -169,7 +169,7 @@ export function UpdateCard({
         aria-labelledby="update-card-title"
         aria-describedby="update-card-note"
         data-update-card
-        className="animate-pop-in relative w-full max-w-[420px] rounded-2xl border border-hairline/50 bg-panel p-6 shadow-2xl shadow-black/50"
+        className="animate-pop-in relative w-full max-w-[420px] rounded-2xl border border-hairline bg-panel p-6 shadow-2xl shadow-shadow/50"
       >
         <button
           type="button"
@@ -209,7 +209,7 @@ export function UpdateCard({
         <button
           type="button"
           onClick={() => void openExternalLink(RELEASES_URL)}
-          className={cn(highlights.length > 0 ? "mt-3" : "mt-5", "block text-[13px] font-medium leading-5 text-accent hover:underline")}
+          className={cn(highlights.length > 0 ? "mt-3" : "mt-5", "block text-[13px] font-medium leading-5 text-accent-text hover:underline")}
         >
           {t("update.card.allNotes")}
         </button>

@@ -631,7 +631,7 @@ export function SidebarProfileMenu({ iconOnly = false, rail = false, circle = fa
             className={cn(
               "relative flex items-center justify-center rounded-xl transition-colors",
               rail ? "size-10" : "size-[46px]",
-              circle && "size-10 rounded-full border border-hairline bg-card",
+              circle && "size-10 rounded-full border border-edge bg-card",
               open ? "bg-raised" : "hover:bg-raised/50",
             )}
           >
@@ -662,7 +662,7 @@ export function SidebarProfileMenu({ iconOnly = false, rail = false, circle = fa
                 aria-label={update.label}
                 className={cn(
                   "flex size-6 shrink-0 items-center justify-center rounded-full",
-                  update.phase === "error" ? "bg-danger/15 text-danger" : "bg-accent/15 text-accent",
+                  update.phase === "error" ? "bg-danger/15 text-danger-text" : "bg-accent/15 text-accent-text",
                 )}
               >
                 <UpdateIcon phase={update.phase} pending={update.pending} size={14} />

@@ -57,7 +57,7 @@ export function LinkPreviewCard({ href, github }: { href: string; github?: Githu
     : host;
   const description = github ? `${github.owner}/${github.repo}` : url ? pathOf(url) : "";
   return (
-    <div className="w-[min(20rem,calc(100vw-1rem))] rounded-2xl bg-composer p-4 text-ink shadow-lg ring-1 ring-hairline/40">
+    <div className="popover-surface w-[min(20rem,calc(100vw-1rem))] rounded-2xl bg-menu p-4 text-ink shadow-lg ring-1 ring-hairline">
       <div className="flex items-baseline gap-2">
         {Icon && <Icon size={15} aria-hidden="true" className="shrink-0 self-center text-ink-secondary" />}
         <div dir="auto" className="min-w-0 line-clamp-2 break-words text-[15px] font-semibold leading-snug">{title}</div>

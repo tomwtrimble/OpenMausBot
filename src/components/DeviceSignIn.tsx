@@ -86,11 +86,11 @@ export function DeviceSignInProgress({ auth, browserPkce = false, provider = "co
   }
 
   if (!link || (!browserPkce && !isDeviceSignInCode(provider, auth.userCode))) {
-    return <p role="alert" className="text-[12px] text-danger">{t(browserPkce ? "engineSetup.chatgpt.invalidChallenge" : copy.invalidChallenge)}</p>;
+    return <p role="alert" className="text-[12px] text-danger-text">{t(browserPkce ? "engineSetup.chatgpt.invalidChallenge" : copy.invalidChallenge)}</p>;
   }
 
   return (
-    <div className="space-y-2 rounded-lg border border-hairline/50 bg-app p-3">
+    <div className="space-y-2 rounded-lg border border-hairline bg-app p-3">
       {!browserPkce && <><p className="text-[12px] text-ink-secondary">{t(copy.enterCode)}</p>
       <div className="flex items-center justify-between gap-2 rounded-lg bg-inset px-3 py-2">
         <code className="select-all font-mono text-lg font-semibold tracking-widest text-ink">{auth.userCode}</code>
@@ -101,7 +101,7 @@ export function DeviceSignInProgress({ auth, browserPkce = false, provider = "co
           onClick={copyCode}
           className="rounded-md p-2 text-ink-secondary hover:bg-control hover:text-ink"
         >
-          {codeCopy === "copied" ? <Check size={15} className="text-success" /> : codeCopy === "failed" ? <X size={15} className="text-danger" /> : <Copy size={15} />}
+          {codeCopy === "copied" ? <Check size={15} className="text-success" /> : codeCopy === "failed" ? <X size={15} className="text-danger-text" /> : <Copy size={15} />}
         </button>
       </div></>}
       <a href={link} target="_blank" rel="noopener noreferrer" onClick={(event) => {
@@ -232,7 +232,7 @@ export function DeviceSignIn({ instanceId, browserPkce = false, provider = "code
           {startLabel}
         </button>
       )}
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       {!browserPkce && provider === "codex" && <p className="text-[11px] leading-relaxed text-ink-secondary">{t("engineSetup.device.enableHint")}</p>}
     </div>
   );

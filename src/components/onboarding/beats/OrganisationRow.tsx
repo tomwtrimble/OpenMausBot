@@ -152,7 +152,7 @@ export function OrganisationRow({
 
   return (
     <div
-      className="animate-rise mt-4 flex items-center gap-3 rounded-xl border border-hairline/40 bg-card px-3.5 py-3"
+      className="animate-rise mt-4 flex items-center gap-3 rounded-xl border border-hairline bg-card px-3.5 py-3"
       style={staggerIndex(1)}
     >
       <Building2 size={18} className="shrink-0 text-ink-secondary" aria-hidden="true" />
@@ -161,7 +161,7 @@ export function OrganisationRow({
         {connection.message && (
           <p role="status" className="text-[12px] text-ink-secondary">{connection.message}</p>
         )}
-        {failed && <p role="alert" className="text-[12px] text-danger">{t("organization.actionFailed")}</p>}
+        {failed && <p role="alert" className="text-[12px] text-danger-text">{t("organization.actionFailed")}</p>}
       </div>
       {action}
     </div>

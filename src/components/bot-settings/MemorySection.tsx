@@ -399,7 +399,7 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
           {savedDraft !== null && (
             <div className="mt-3">
               <div className="mb-1 text-[12px] text-ink-secondary">{t("memory.unsavedDraft")}</div>
-              <pre className="max-h-[160px] overflow-auto whitespace-pre-wrap rounded-lg border border-hairline/40 bg-inset p-3 font-mono text-[12px] leading-relaxed text-ink">
+              <pre className="max-h-[160px] overflow-auto whitespace-pre-wrap rounded-lg border border-hairline bg-inset p-3 font-mono text-[12px] leading-relaxed text-ink">
                 {savedDraft}
               </pre>
               <button type="button" className={cn(quietButtonCls, "mt-1")} onClick={() => setSavedDraft(null)}>
@@ -461,7 +461,7 @@ export function MemorySection({ bot, active = true, onToggle }: { bot: Bot; acti
       </div>
 
       {notice && <div className="text-[13px] text-ink-secondary">{notice}</div>}
-      {error && <div className="text-[13px] text-danger">{error}</div>}
+      {error && <div className="text-[13px] text-danger-text">{error}</div>}
     </div>
   );
 }
@@ -497,14 +497,14 @@ export function MemoryUpkeepCard({
         <Switch checked={enabled} aria-label={t("memory.upkeep.title")} onClick={onToggle} />
       </div>
       {enabled && rooms && (
-        <div className="mt-3 flex items-start justify-between gap-3 border-t border-hairline/40 pt-3">
+        <div className="mt-3 flex items-start justify-between gap-3 border-t border-hairline pt-3">
           <div className="min-w-0">
             <div className="text-[13px] font-medium text-ink">{t("memory.learnFromRooms.title")}</div>
             <p className="mt-0.5 text-[13px] leading-relaxed text-ink-secondary">{t("memory.learnFromRooms.subtitle")}</p>
             {status && !status.modelSteps && (
               <p className="mt-1 text-[13px] leading-relaxed text-ink-secondary">{t("memory.learnFromRooms.noModelSteps")}</p>
             )}
-            {rooms.error && <p role="alert" className="mt-1 text-[13px] text-danger">{rooms.error}</p>}
+            {rooms.error && <p role="alert" className="mt-1 text-[13px] text-danger-text">{rooms.error}</p>}
           </div>
           <Switch
             checked={rooms.enabled}
@@ -540,13 +540,13 @@ export function MemoryGauge({ index }: { index: MemoryCapacity }) {
     <div className={cn("rounded-xl p-4", status.level === "over" ? "border border-danger/30 bg-danger/10" : "bg-card")}>
       <div className="flex items-center justify-between gap-3 text-[13px]">
         <span className="font-medium text-ink">{t("memory.capacity.title")}</span>
-        <span className={cn("text-[12px]", status.level === "over" ? "text-danger" : "text-ink-secondary")}>
+        <span className={cn("text-[12px]", status.level === "over" ? "text-danger-text" : "text-ink-secondary")}>
           {index.lines} / {index.maxLines} lines · {formatBytes(index.bytes)} / {formatBytes(index.maxBytes)}
         </span>
       </div>
       <GaugeBar label={t("memory.capacity.lines")} share={status.lineShare} fill={fill} />
       <GaugeBar label={t("memory.capacity.size")} share={status.byteShare} fill={fill} />
-      <p className={cn("mt-2 text-[13px] leading-relaxed", status.level === "over" ? "text-danger" : "text-ink-secondary")}>
+      <p className={cn("mt-2 text-[13px] leading-relaxed", status.level === "over" ? "text-danger-text" : "text-ink-secondary")}>
           {status.warning ?? t("memory.capacity.sentence", { lines: index.lines, maxLines: index.maxLines, bytes: formatBytes(index.bytes), maxBytes: formatBytes(index.maxBytes), maxLoaded: index.maxLines })}
       </p>
       {status.warning && <p className="mt-1 text-[12px] text-ink-secondary">{t("memory.capacity.sentence", { lines: index.lines, maxLines: index.maxLines, bytes: formatBytes(index.bytes), maxBytes: formatBytes(index.maxBytes), maxLoaded: index.maxLines })}</p>}
@@ -624,12 +624,12 @@ export function MemoryFileRows({
       {files.length === 0 ? (
         <div className="mt-2 text-[13px] text-ink-secondary">{t("memory.noneYet")}</div>
       ) : (
-        <div className="mt-2 overflow-hidden rounded-lg border border-hairline/40">
+        <div className="mt-2 overflow-hidden rounded-lg border border-hairline">
           {files.map((file) => (
             <div
               key={file.path}
               className={cn(
-                "flex items-center gap-2 border-b border-hairline/40 px-3 py-2 last:border-b-0",
+                "flex items-center gap-2 border-b border-hairline px-3 py-2 last:border-b-0",
                 selected === file.path ? "bg-control/60" : "hover:bg-control/40",
               )}
             >
@@ -645,7 +645,7 @@ export function MemoryFileRows({
                 onClick={() => onDelete(file)}
                 aria-label={t("memory.deleteFile", { name: file.name })}
                 title={t("memory.delete")}
-                className="shrink-0 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-danger"
+                className="shrink-0 rounded-md p-1 text-ink-secondary hover:bg-control hover:text-danger-text"
               >
                 <Trash2 size={14} />
               </button>

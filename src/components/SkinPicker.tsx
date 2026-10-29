@@ -16,14 +16,14 @@ function Miniature({ skin }: { skin: SkinId }) {
       data-skin={skin}
       data-skin-preview=""
       aria-hidden="true"
-      className="flex h-[78px] w-full overflow-hidden rounded-lg bg-app ring-1 ring-hairline/60"
+      className="flex h-[78px] w-full overflow-hidden rounded-lg bg-app ring-1 ring-hairline"
     >
       <div className="flex w-[11px] shrink-0 flex-col items-center gap-[3px] bg-panel pt-[5px]">
         <span className="size-[5px] rounded-full bg-accent" />
         <span className="size-[5px] rounded-full bg-ink-secondary/40" />
         <span className="size-[5px] rounded-full bg-ink-secondary/40" />
       </div>
-      <div className="flex w-[30px] shrink-0 flex-col gap-[3px] border-r border-hairline bg-panel p-[4px]">
+      <div className="flex w-[30px] shrink-0 flex-col gap-[3px] border-r border-edge bg-panel p-[4px]">
         <span className="flex h-[9px] w-full items-center gap-[2px] rounded-sm bg-raised px-[2px]">
           <span className="size-[4px] shrink-0 rounded-full bg-accent" />
           <span className="h-[2px] flex-1 rounded-full bg-ink/50" />
@@ -40,7 +40,7 @@ function Miniature({ skin }: { skin: SkinId }) {
           <span className="h-[2px] w-[60%] rounded-full bg-ink-secondary/40" />
         </div>
         <div className="mt-auto flex items-center gap-[4px]">
-          <span className="h-[11px] flex-1 rounded-full bg-inset ring-1 ring-hairline" />
+          <span className="h-[11px] flex-1 rounded-full bg-inset ring-1 ring-edge" />
           <span className="flex size-[11px] items-center justify-center rounded-full bg-accent">
             <span
               className="h-[1.5px] w-[5px] rounded-full"
@@ -99,7 +99,7 @@ export function SkinPicker() {
                 "cursor-pointer flex flex-col gap-2 rounded-xl border p-2 text-left transition-colors",
                 selected
                   ? "border-accent-border bg-control"
-                  : "border-hairline/60 hover:border-hairline hover:bg-control/50",
+                  : "border-hairline hover:border-edge hover:bg-control/50",
               )}
             >
               <Miniature skin={skin.id} />

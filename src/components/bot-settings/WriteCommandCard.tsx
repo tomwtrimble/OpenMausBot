@@ -113,7 +113,7 @@ export function WriteCommandCard({ bot, taken, onSaved }: { bot: Bot; taken: rea
             {saving ? t("skills.write.saving") : t("skills.write.save")}
           </button>
         </div>
-        {error && <div role="alert" className="text-[12px] text-danger">{error}</div>}
+        {error && <div role="alert" className="text-[12px] text-danger-text">{error}</div>}
       </form>
     </div>
   );

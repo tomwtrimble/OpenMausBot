@@ -39,7 +39,7 @@ export function TalkShortcutRow() {
           {state.keys.map((key) => <option key={key.id} value={key.id}>{key.label}</option>)}
         </Select>
       )}
-      {problem && <div role="alert" className={state.enabled ? "mt-2 text-danger" : "text-danger"}>{problem}</div>}
+      {problem && <div role="alert" className={state.enabled ? "mt-2 text-danger-text" : "text-danger-text"}>{problem}</div>}
     </>
   );
   return (

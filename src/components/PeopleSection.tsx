@@ -102,7 +102,7 @@ export function PeopleTable({ people, busy, onRole, onRemove, onLink, readOnly =
   const columns = "grid grid-cols-[1fr_auto_auto_auto_auto] items-center gap-x-4";
   return (
     <div className="flex flex-col">
-      <div className={cn(columns, "border-b border-hairline/40 pb-2 text-[12px] font-medium uppercase tracking-wide text-ink-secondary")}>
+      <div className={cn(columns, "border-b border-hairline pb-2 text-[12px] font-medium uppercase tracking-wide text-ink-secondary")}>
         <span>{t("people.colPerson")}</span>
         <span>{t("people.colRole")}</span>
         <span className="text-right">{t("people.colLastSeen")}</span>
@@ -110,12 +110,12 @@ export function PeopleTable({ people, busy, onRole, onRemove, onLink, readOnly =
         <span />
       </div>
       {people.map((person) => (
-        <div key={person.entry} className={cn(columns, "border-b border-hairline/20 py-2 text-[13px]")}>
+        <div key={person.entry} className={cn(columns, "border-b border-hairline py-2 text-[13px]")}>
           <span className="min-w-0">
             <span className="block truncate text-ink">{person.isDomain ? t("people.everyoneAt", { domain: person.entry.slice(1) }) : person.entry}</span>
             {person.devices > 0 && <span className="block text-[12px] text-ink-secondary">{t("people.devices", { count: String(person.devices) })}</span>}
           </span>
-          <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-medium", person.role === "admin" ? "bg-accent/15 text-accent" : "bg-control text-ink-secondary")}>
+          <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-medium", person.role === "admin" ? "bg-accent/15 text-accent-text" : "bg-control text-ink-secondary")}>
             {person.role === "admin" ? t("people.roleAdmin") : t("people.roleMember")}
           </span>
           <span className="text-right tabular-nums text-ink-secondary">{person.isDomain ? "—" : lastSeenLabel(person.lastSeenAt)}</span>
@@ -127,7 +127,7 @@ export function PeopleTable({ people, busy, onRole, onRemove, onLink, readOnly =
             <button type="button" disabled={busy} onClick={() => onRole(person, person.role === "admin" ? "member" : "admin")} className="text-ink-secondary hover:text-ink disabled:opacity-50">
               {person.role === "admin" ? t("people.makeMember") : t("people.makeAdmin")}
             </button>
-            <button type="button" disabled={busy} onClick={() => onRemove(person)} className="text-danger hover:underline disabled:opacity-50">{t("people.remove")}</button>
+            <button type="button" disabled={busy} onClick={() => onRemove(person)} className="text-danger-text hover:underline disabled:opacity-50">{t("people.remove")}</button>
           </span>}
         </div>
       ))}
@@ -138,12 +138,12 @@ export function PeopleTable({ people, busy, onRole, onRemove, onLink, readOnly =
 export function CopyLink({ link }: { link: string }) {
   const { state, copy } = useCopyFeedback(link);
   return (
-    <div className="mt-3 rounded-lg border border-hairline/40 bg-inset p-3 text-[13px]">
+    <div className="mt-3 rounded-lg border border-hairline bg-inset p-3 text-[13px]">
       <div className="mb-1 text-ink-secondary">{t("people.link")}</div>
       <div className="flex items-center gap-2">
         <code className="min-w-0 flex-1 select-all break-all text-ink">{link}</code>
         <button type="button" onClick={copy} className="flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-[12px] text-ink-secondary hover:bg-control hover:text-ink">
-          {state === "copied" ? <Check size={13} className="text-success" /> : state === "failed" ? <X size={13} className="text-danger" /> : <Copy size={13} />}
+          {state === "copied" ? <Check size={13} className="text-success" /> : state === "failed" ? <X size={13} className="text-danger-text" /> : <Copy size={13} />}
           {t(state === "copied" ? "people.copied" : state === "failed" ? "common.copyFailed" : "people.copy")}
         </button>
       </div>
@@ -268,7 +268,7 @@ export function PeopleSection({ simple = false, startOpen = false }: { simple?: 
           placeholder={t("remote.signInAccess.placeholder")}
           aria-label={t("people.inviteEmail")}
           disabled={busy}
-          className="min-w-[16rem] flex-1 rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50"
+          className="min-w-[16rem] flex-1 rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] text-ink placeholder:text-ink-secondary focus:outline-none disabled:opacity-50"
         />
         <Select value={role} onChange={(e) => setRole(e.target.value as Role)} aria-label={t("people.colRole")} disabled={busy}>
           <option value="member">{t("people.roleMember")}</option>
@@ -281,7 +281,7 @@ export function PeopleSection({ simple = false, startOpen = false }: { simple?: 
       </form>
       <p className="mt-2 text-[12px] leading-relaxed text-ink-secondary">{t("people.inviteHint")}</p>
       {link && <CopyLink link={link} />}
-      {error && <p role="alert" className="mt-2 text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-[12px] text-danger-text">{error}</p>}
       <div className="mt-4">
         <PeopleTable
           people={people}

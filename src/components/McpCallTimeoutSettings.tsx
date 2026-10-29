@@ -55,7 +55,7 @@ export function McpCallTimeoutSettings() {
       </label>
       <div
         className={`flex max-w-[220px] items-center rounded-lg border bg-inset ${
-          error ? "border-danger/60" : "border-hairline/40 focus-within:border-focus"
+          error ? "border-danger/60" : "border-hairline focus-within:border-focus"
         }`}
       >
         <input
@@ -86,7 +86,7 @@ export function McpCallTimeoutSettings() {
         {t("settings.mcpCalls.help")}
       </p>
       {error ? (
-        <p id="mcp-call-timeout-error" role="alert" className="text-[12px] text-danger">
+        <p id="mcp-call-timeout-error" role="alert" className="text-[12px] text-danger-text">
           {error}
         </p>
       ) : null}

@@ -110,12 +110,12 @@ function AccountMenu({ group, instance, onRename }: { group: AccountGroup; insta
     <div ref={menuRef} className="relative flex items-center gap-1">
       {canRemove && <button type="button" disabled={busy || usedBy > 0} onClick={() => setConfirm("remove")}
         title={usedBy > 0 ? t("accounts.inUse", { count: String(usedBy) }) : undefined}
-        className="rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-danger hover:bg-danger/10 disabled:cursor-not-allowed disabled:opacity-50">
+        className="rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-danger-text hover:bg-danger/10 disabled:cursor-not-allowed disabled:opacity-50">
         {t("accounts.remove")}
       </button>}
       <button type="button" onClick={() => setOpen((value) => !value)} disabled={busy} aria-haspopup="menu" aria-expanded={open}
         aria-label={t("accounts.menu", { name: instance.displayName })}
-        className="flex size-8 items-center justify-center rounded-lg text-ink-secondary outline-none hover:bg-control hover:text-ink focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50">
+        className="flex size-8 items-center justify-center rounded-lg text-ink-secondary outline-none hover:bg-control hover:text-ink focus-visible:ring-2 focus-visible:ring-focus disabled:opacity-50">
         {busy ? <Loader2 size={14} className="animate-spin" /> : <MoreHorizontal size={16} />}
       </button>
       {open && (
@@ -125,7 +125,7 @@ function AccountMenu({ group, instance, onRename }: { group: AccountGroup; insta
           {canRemove && usedBy > 0 && <p className="px-3 pb-1 pt-0.5 text-[11px] leading-snug text-ink-secondary">{t("accounts.inUse", { count: String(usedBy) })}</p>}
         </div>
       )}
-      {error && <p role="alert" className="absolute right-0 top-full z-30 mt-1 w-[260px] rounded-lg bg-card p-2 text-[12px] text-danger shadow-lg">{error}</p>}
+      {error && <p role="alert" className="popover-surface absolute right-0 top-full z-30 mt-1 w-[260px] rounded-lg bg-menu p-2 text-[12px] text-danger-text shadow-lg">{error}</p>}
       <ConfirmDialog
         open={confirm === "signOut"}
         title={t("accounts.signOutTitle", { name: instance.displayName })}
@@ -173,13 +173,13 @@ function RenameForm({ instance, onDone }: { instance: InstanceInfo; onDone: () =
         <input value={name} onChange={(event) => setName(event.target.value)} maxLength={80} autoFocus disabled={saving}
           aria-label={t("accounts.nameLabel")}
           onKeyDown={(event) => { if (event.key === "Escape") { event.stopPropagation(); onDone(); } }}
-          className="min-w-0 flex-1 rounded-lg border border-hairline/40 bg-inset px-2.5 py-1.5 text-[13px] text-ink outline-none focus:border-accent-border disabled:opacity-50" />
+          className="min-w-0 flex-1 rounded-lg border border-hairline bg-inset px-2.5 py-1.5 text-[13px] text-ink outline-none focus:border-accent-border disabled:opacity-50" />
         <button type="submit" disabled={saving || !name.trim()} className="rounded-lg bg-raised px-3 py-1.5 text-[12px] font-medium text-ink hover:bg-raised-hover disabled:opacity-50">
           {saving ? <Loader2 size={13} className="animate-spin" /> : t("common.save")}
         </button>
         <button type="button" onClick={onDone} disabled={saving} className="rounded-lg px-2.5 py-1.5 text-[12px] text-ink-secondary hover:bg-control">{t("common.cancel")}</button>
       </div>
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
     </form>
   );
 }
@@ -283,28 +283,28 @@ export function AddAccount({ label, endpoint, extra, folder: offerFolder = false
 
   if (!open) {
     return (
-      <button type="button" onClick={() => setOpen(true)} className="flex min-h-8 w-fit items-center gap-1.5 rounded-lg px-2 py-1.5 text-[13px] font-medium text-ink-secondary outline-none hover:bg-control hover:text-ink focus-visible:ring-2 focus-visible:ring-accent">
+      <button type="button" onClick={() => setOpen(true)} className="flex min-h-8 w-fit items-center gap-1.5 rounded-lg px-2 py-1.5 text-[13px] font-medium text-ink-secondary outline-none hover:bg-control hover:text-ink focus-visible:ring-2 focus-visible:ring-focus">
         <Plus size={14} />{label}
       </button>
     );
   }
   return (
-    <form data-add-account={endpoint} className="space-y-2.5 rounded-xl border border-hairline/50 bg-app p-3" onSubmit={(event) => { event.preventDefault(); void add(); }}>
+    <form data-add-account={endpoint} className="space-y-2.5 rounded-xl border border-hairline bg-app p-3" onSubmit={(event) => { event.preventDefault(); void add(); }}>
       <label className="flex flex-col gap-1 text-[12px] font-medium text-ink">
         {t("accounts.nameLabel")}
         <input value={name} onChange={(event) => setName(event.target.value)} placeholder={t("accounts.namePlaceholder")} maxLength={80} autoFocus required disabled={saving}
-          className="rounded-lg border border-hairline/40 bg-inset px-3 py-2 text-[13px] font-normal text-ink outline-none focus:border-accent-border disabled:opacity-50" />
+          className="rounded-lg border border-hairline bg-inset px-3 py-2 text-[13px] font-normal text-ink outline-none focus:border-accent-border disabled:opacity-50" />
       </label>
       {offerFolder && (
         <details className="text-[12px] text-ink-secondary">
           <summary className="cursor-pointer select-none hover:text-ink">{t("accounts.folderToggle")}</summary>
           <input value={folder} onChange={(event) => setFolder(event.target.value)} placeholder="~/.claude-work" maxLength={4096} spellCheck={false} disabled={saving}
             aria-label={t("accounts.folderToggle")}
-            className="mt-2 w-full rounded-lg border border-hairline/40 bg-inset px-3 py-2 font-mono text-[12px] text-ink outline-none focus:border-accent-border disabled:opacity-50" />
+            className="mt-2 w-full rounded-lg border border-hairline bg-inset px-3 py-2 font-mono text-[12px] text-ink outline-none focus:border-accent-border disabled:opacity-50" />
           <p className="mt-1 leading-relaxed">{t("accounts.folderHint")}</p>
         </details>
       )}
-      {error && <p role="alert" className="text-[12px] text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[12px] text-danger-text">{error}</p>}
       <div className="flex justify-end gap-2">
         <button type="button" onClick={() => { setOpen(false); setError(null); }} disabled={saving} className="rounded-lg px-3 py-1.5 text-[12px] text-ink-secondary hover:bg-control disabled:opacity-50">{t("common.cancel")}</button>
         <button type="submit" disabled={saving || !name.trim()} className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-[12px] font-semibold text-white hover:brightness-110 disabled:opacity-50">
@@ -328,7 +328,7 @@ export function AccountsCard({ group, accounts, advanced, bare = false }: { grou
       </p>}
       {!installed ? <EngineSetup instance={primary} unframed /> : (
         <div className="space-y-2">
-          <ul data-accounts={group} className="divide-y divide-hairline/40 rounded-xl border border-hairline/50 bg-panel/40">
+          <ul data-accounts={group} className="divide-y divide-hairline rounded-xl border border-hairline bg-panel/40">
             {accounts.map((instance) => (
               <AccountRow key={instance.instanceId} group={group} instance={instance}
                 signingIn={signingIn === instance.instanceId}
